@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <GridPane prefHeight="400.0" prefWidth="800.0" style="-fx-background-color: #7DFEFE;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="ALWAYS" minWidth="80.0" />
+          <ColumnConstraints hgrow="ALWAYS" minWidth="80.0" />
+            <ColumnConstraints hgrow="ALWAYS" minWidth="80.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="ALWAYS" minWidth="80.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="ALWAYS" minWidth="80.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="ALWAYS" minWidth="80.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="ALWAYS" minWidth="80.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="ALWAYS" minWidth="80.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+        </rowConstraints>
+         <children>
+            <Label alignment="CENTER" text="Spel Opzetten" textFill="#c815e8" GridPane.columnIndex="3" GridPane.columnSpan="3">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Label>
+            <Label text="Wilt u een Timer gebruiken?" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <CheckBox mnemonicParsing="false" prefHeight="17.0" prefWidth="70.0" text="Ja" GridPane.columnIndex="5" GridPane.columnSpan="3" GridPane.rowIndex="1" />
+            <CheckBox mnemonicParsing="false" prefHeight="17.0" prefWidth="70.0" text="Nee" GridPane.columnIndex="6" GridPane.rowIndex="1" />
+            <Label text="Wilt u meerkeuze vragen?" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="2">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <CheckBox mnemonicParsing="false" prefHeight="17.0" prefWidth="70.0" text="Nee" GridPane.columnIndex="6" GridPane.rowIndex="2" />
+            <CheckBox mnemonicParsing="false" prefHeight="17.0" prefWidth="70.0" text="Ja" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+            <Label text="Wat is uw moeilijkheidsgraad" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="3">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <CheckBox mnemonicParsing="false" prefHeight="17.0" prefWidth="86.0" text="Makkelijk" GridPane.columnIndex="5" GridPane.rowIndex="3" />
+            <CheckBox mnemonicParsing="false" prefHeight="17.0" prefWidth="86.0" text="Normaal" GridPane.columnIndex="6" GridPane.rowIndex="3" />
+            <CheckBox mnemonicParsing="false" prefHeight="17.0" prefWidth="86.0" text="Moeilijk" GridPane.columnIndex="7" GridPane.rowIndex="3" />
+            <Button alignment="CENTER" mnemonicParsing="false" prefHeight="48.0" prefWidth="153.0" style="-fx-background-radius: 80px;" text="Terug naar hoofdmenu" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
+            <Button mnemonicParsing="false" prefHeight="53.0" prefWidth="152.0" style="-fx-background-radius: 80px;" text="Start Spel" GridPane.columnIndex="5" GridPane.columnSpan="3" GridPane.rowIndex="5" />
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>
