@@ -13,13 +13,13 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author ns
+ * @author Nick
  */
 public class Trivia extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/views/Hoofdmenu.fxml"));
         
         Scene scene = new Scene(root);
         
