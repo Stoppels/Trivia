@@ -6,8 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
- 
-<AnchorPane minHeight="600.0" minWidth="800.0" style="-fx-background-color: #7DFEFE;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane minHeight="600.0" minWidth="800.0" style="-fx-background-color: #7DFEFE;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="trivia.SplashscreenController">
    <children>
       <GridPane layoutX="283.0" layoutY="233.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -22,7 +21,7 @@
           <RowConstraints minHeight="10.0" vgrow="ALWAYS" />
         </rowConstraints>
          <children>
-            <Button alignment="CENTER" contentDisplay="CENTER" minHeight="80.0" minWidth="240.0" mnemonicParsing="false" style="-fx-background-radius: 80px;" text="Hoofdmenu" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <Button alignment="CENTER" contentDisplay="CENTER" minHeight="80.0" minWidth="240.0" mnemonicParsing="false" onAction="#hoofdmenuKnop" style="-fx-background-radius: 80px;" text="Hoofdmenu" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <font>
                   <Font size="24.0" />
                </font>

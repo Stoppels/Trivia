@@ -44,7 +44,7 @@
                   <Insets />
                </opaqueInsets>
             </Button>
-            <Button alignment="CENTER" contentDisplay="CENTER" minHeight="60.0" minWidth="240.0" mnemonicParsing="false" style="-fx-background-radius: 80px;" text="Spel opzetten" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+            <Button alignment="CENTER" contentDisplay="CENTER" minHeight="60.0" minWidth="240.0" mnemonicParsing="false" onAction="#spelOpzettenKnop" style="-fx-background-radius: 80px;" text="Spel opzetten" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
@@ -60,7 +60,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="afsluiten" alignment="CENTER" contentDisplay="CENTER" minHeight="60.0" minWidth="240.0" mnemonicParsing="false" onAction="#exit" style="-fx-background-radius: 80px;" text="Afsluiten" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+            <Button alignment="CENTER" contentDisplay="CENTER" minHeight="60.0" minWidth="240.0" mnemonicParsing="false" onAction="#exit" style="-fx-background-radius: 80px;" text="Afsluiten" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
