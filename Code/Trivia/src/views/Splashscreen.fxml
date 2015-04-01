@@ -29,7 +29,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button alignment="CENTER" contentDisplay="CENTER" minHeight="80.0" minWidth="240.0" mnemonicParsing="false" style="-fx-background-radius: 80px;" text="Adminmenu" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+            <Button alignment="CENTER" contentDisplay="CENTER" minHeight="80.0" minWidth="240.0" mnemonicParsing="false" onAction="#AdminHoofdmenuKnop" style="-fx-background-radius: 80px;" text="Adminmenu" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <font>
                   <Font size="24.0" />
                </font>

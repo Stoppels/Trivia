@@ -8,6 +8,7 @@ package trivia;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -20,7 +21,7 @@ import javafx.stage.Stage;
  *
  * @author Rehman
  */
-public class SplashscreenController implements Initializable {
+public class AdminHoofdmenuController implements Initializable {
 
     /**
      * Initializes the controller class.
@@ -28,9 +29,9 @@ public class SplashscreenController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }
+    }    
 
-    @FXML
+     @FXML
     private void hoofdmenuKnop() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/Hoofdmenu.fxml"));
         Parent root = (Parent) fxmlLoader.load();
@@ -39,14 +40,5 @@ public class SplashscreenController implements Initializable {
         stage.show();
 
     }
-    @FXML
-     private void AdminHoofdmenuKnop() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/AdminHoofdmenu.fxml"));
-        Parent root = (Parent) fxmlLoader.load();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.show();
-
-    }
-
+    
 }

@@ -5,7 +5,6 @@
  */
 package trivia;
 
-import java.awt.Button;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
