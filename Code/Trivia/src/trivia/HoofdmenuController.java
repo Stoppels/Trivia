@@ -46,7 +46,8 @@ public class HoofdmenuController implements Initializable {
         stage.setScene(new Scene(root));
         stage.show();
     }
- @FXML
+
+    @FXML
     private void startSpelKnop() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/Vraag.fxml"));
         Parent root = (Parent) fxmlLoader.load();
@@ -54,4 +55,13 @@ public class HoofdmenuController implements Initializable {
         stage.setScene(new Scene(root));
         stage.show();
     }
+ @FXML
+    private void helpKnop() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/Help.fxml"));
+        Parent root = (Parent) fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+    
 }

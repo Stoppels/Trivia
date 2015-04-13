@@ -9,7 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" minHeight="600.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="trivia.Trivia">
+<AnchorPane id="AnchorPane" minHeight="600.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="trivia.VraagController">
     <children>
       <GridPane layoutY="-8.0" style="-fx-background-color: #7DFEFE;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <columnConstraints>
@@ -119,7 +119,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button minHeight="66.0" minWidth="200.0" mnemonicParsing="false" opacity="0.8" style="-fx-background-radius: 80px;" text="Stop quiz" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+            <Button minHeight="66.0" minWidth="200.0" mnemonicParsing="false" onAction="#stopQuizKnop" opacity="0.8" style="-fx-background-radius: 80px;" text="Stop quiz" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>

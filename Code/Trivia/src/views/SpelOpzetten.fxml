@@ -5,7 +5,6 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
- 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="trivia.SpelOpzettenController">
    <children>
       <GridPane prefHeight="400.0" prefWidth="800.0" style="-fx-background-color: #7DFEFE;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -55,7 +54,7 @@
             <CheckBox mnemonicParsing="false" prefHeight="17.0" prefWidth="86.0" text="Makkelijk" GridPane.columnIndex="5" GridPane.rowIndex="3" />
             <CheckBox mnemonicParsing="false" prefHeight="17.0" prefWidth="86.0" text="Normaal" GridPane.columnIndex="6" GridPane.rowIndex="3" />
             <CheckBox mnemonicParsing="false" prefHeight="17.0" prefWidth="86.0" text="Moeilijk" GridPane.columnIndex="7" GridPane.rowIndex="3" />
-            <Button alignment="CENTER" mnemonicParsing="false" prefHeight="48.0" prefWidth="153.0" style="-fx-background-radius: 80px;" text="Terug naar hoofdmenu" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#terugHoofdmenuKnop" prefHeight="48.0" prefWidth="153.0" style="-fx-background-radius: 80px;" text="Terug naar hoofdmenu" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
             <Button mnemonicParsing="false" prefHeight="53.0" prefWidth="152.0" style="-fx-background-radius: 80px;" text="Start Spel" GridPane.columnIndex="5" GridPane.columnSpan="3" GridPane.rowIndex="5" />
          </children>
       </GridPane>
