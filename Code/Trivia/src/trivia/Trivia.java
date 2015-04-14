@@ -23,10 +23,12 @@
  */
 package trivia;
 
+import com.sun.javafx.stage.StageHelper;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -39,6 +41,8 @@ import javafx.stage.Stage;
  */
 public class Trivia extends Application {
 
+    public static Stage prevStage;
+
     @Override
     public void start(Stage stage) {
         try {
@@ -47,9 +51,15 @@ public class Trivia extends Application {
 
             stage.setScene(scene);
             stage.show();
+            setPrevStage(stage);
         } catch (IOException ex) {
             Logger.getLogger(Trivia.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @FXML
+    public static void setPrevStage(Stage stage) {
+        Trivia.prevStage = stage;
     }
 
     /**

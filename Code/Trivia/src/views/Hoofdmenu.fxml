@@ -33,7 +33,7 @@
                   <Font name="System Bold" size="48.0" />
                </font>
             </Label>
-            <Button alignment="CENTER" contentDisplay="CENTER" minHeight="60.0" minWidth="240.0" mnemonicParsing="false" onAction="#startSpelKnop" style="-fx-background-radius: 80px;" text="Nu spelen" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+            <Button alignment="CENTER" contentDisplay="CENTER" minHeight="60.0" minWidth="240.0" mnemonicParsing="false" onAction="#startSpel" style="-fx-background-radius: 80px;" text="Nu spelen" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
@@ -44,7 +44,7 @@
                   <Insets />
                </opaqueInsets>
             </Button>
-            <Button alignment="CENTER" contentDisplay="CENTER" minHeight="60.0" minWidth="240.0" mnemonicParsing="false" onAction="#spelOpzettenKnop" style="-fx-background-radius: 80px;" text="Spel opzetten" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+            <Button alignment="CENTER" contentDisplay="CENTER" minHeight="60.0" minWidth="240.0" mnemonicParsing="false" onAction="#zetSpelOp" style="-fx-background-radius: 80px;" text="Spel opzetten" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>

@@ -44,6 +44,7 @@ import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import static trivia.Trivia.*;
 
 /**
  * FXML Controller class
@@ -54,11 +55,6 @@ public class SplashscreenController implements Initializable {
 
     @FXML
     private Label timerLabel;
-//    
-//    private static final Integer STARTTIME = 15;
-//    private final int duration = STARTTIME;
-//
-//    private final IntegerProperty timeSeconds = new SimpleIntegerProperty(duration);
     private static final Integer STARTTIME = 5;
     private Timeline timeline;
     private final IntegerProperty timeSeconds = new SimpleIntegerProperty(STARTTIME);
@@ -74,11 +70,13 @@ public class SplashscreenController implements Initializable {
         autoPlay();
     }
 
+    @FXML
     public void autoPlay() {
         // Bind the timerLabel text property to the timeSeconds property
         timerLabel.textProperty().bind(timeSeconds.asString());
         timerLabel.setTextFill(Color.RED);
 
+        // Countdown from STARTTIME to zero
         if (timeline != null) {
             timeline.stop();
         }
@@ -88,8 +86,9 @@ public class SplashscreenController implements Initializable {
                 new KeyFrame(Duration.seconds(STARTTIME + 1),
                         new KeyValue(timeSeconds, 0)));
         timeline.playFromStart();
-        timeline.setOnFinished(new EventHandler<ActionEvent>() {
 
+        // When completed counting down, execute method openHoofdmenu().
+        timeline.setOnFinished(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent t) {
                 openHoofdmenu();
@@ -106,11 +105,11 @@ public class SplashscreenController implements Initializable {
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.show();
-            
+            prevStage.close();
+            setPrevStage(stage);
         } catch (IOException ex) {
             Logger.getLogger(SplashscreenController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
     @FXML
@@ -121,6 +120,8 @@ public class SplashscreenController implements Initializable {
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.show();
+            prevStage.close();
+            setPrevStage(stage);
         } catch (IOException ex) {
             Logger.getLogger(SplashscreenController.class.getName()).log(Level.SEVERE, null, ex);
         }

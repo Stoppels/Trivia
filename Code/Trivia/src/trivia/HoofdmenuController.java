@@ -35,6 +35,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import static trivia.Trivia.*;
 
 /**
  * FXML Controller class
@@ -75,31 +76,36 @@ public class HoofdmenuController implements Initializable {
     }
 
     @FXML
-    private void spelOpzettenKnop() {
+    private void zetSpelOp() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/SpelOpzetten.fxml"));
             Parent root = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.show();
+            prevStage.close();
+            setPrevStage(stage);
         } catch (IOException ex) {
             Logger.getLogger(HoofdmenuController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @FXML
-    private void startSpelKnop() {
+    private void startSpel() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/Vraag.fxml"));
             Parent root = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.show();
+            prevStage.close();
+            setPrevStage(stage);
         } catch (IOException ex) {
             Logger.getLogger(HoofdmenuController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
+    //
     @FXML
     private void helpKnop() {
         if (!uitlegA.isVisible()) {

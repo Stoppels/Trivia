@@ -35,6 +35,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import static trivia.Trivia.*;
 
 /**
  * FXML Controller class
@@ -65,6 +66,8 @@ public class VraagController implements Initializable {
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.show();
+            prevStage.close();
+            setPrevStage(stage);
         } catch (IOException ex) {
             Logger.getLogger(VraagController.class.getName()).log(Level.SEVERE, null, ex);
         }

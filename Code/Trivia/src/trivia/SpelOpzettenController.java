@@ -34,6 +34,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import static trivia.Trivia.*;
 
 /**
  * FXML Controller class
@@ -61,10 +62,26 @@ public class SpelOpzettenController implements Initializable {
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.show();
+            prevStage.close();
+            setPrevStage(stage);
         } catch (IOException ex) {
             Logger.getLogger(SpelOpzettenController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+    }
+    
+    @FXML
+    private void startSpel() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/Vraag.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+            prevStage.close();
+            setPrevStage(stage);
+        } catch (IOException ex) {
+            Logger.getLogger(HoofdmenuController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

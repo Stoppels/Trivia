@@ -34,6 +34,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import static trivia.Trivia.*;
 
 /**
  * FXML Controller class
@@ -61,6 +62,8 @@ public class AdminHoofdmenuController implements Initializable {
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.show();
+            prevStage.close();
+            setPrevStage(stage);
         } catch (IOException ex) {
             Logger.getLogger(AdminHoofdmenuController.class.getName()).log(Level.SEVERE, null, ex);
         }
