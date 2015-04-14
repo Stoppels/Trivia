@@ -135,7 +135,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button minHeight="60.0" minWidth="200.0" mnemonicParsing="false" onAction="#stopQuizKnop" opacity="0.8" style="-fx-background-radius: 80px;" text="Stop quiz" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+            <Button minHeight="60.0" minWidth="200.0" mnemonicParsing="false" onAction="#stopQuiz" opacity="0.8" style="-fx-background-radius: 80px;" text="Stop quiz" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
                <font>
                   <Font size="24.0" />
                </font>

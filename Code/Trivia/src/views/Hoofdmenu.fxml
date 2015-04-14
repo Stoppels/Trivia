@@ -14,7 +14,7 @@
       <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <columnConstraints>
             <ColumnConstraints hgrow="ALWAYS" minWidth="-Infinity" prefWidth="200.0" />
-            <ColumnConstraints hgrow="ALWAYS" minWidth="200.0" />
+            <ColumnConstraints hgrow="ALWAYS" minWidth="200.0" prefWidth="200.0" />
             <ColumnConstraints hgrow="ALWAYS" minWidth="-Infinity" prefWidth="200.0" />
          </columnConstraints>
          <rowConstraints>
@@ -68,22 +68,22 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Label fx:id="uitlegA" alignment="BASELINE_LEFT" contentDisplay="CENTER" text="Spel afsluiten" textAlignment="CENTER" textFill="#4700ee" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="3">
+            <Label fx:id="uitlegD" alignment="BASELINE_LEFT" contentDisplay="CENTER" text="Start het spel" textAlignment="CENTER" textFill="#4700ee" GridPane.columnIndex="2" GridPane.rowIndex="3">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <Label fx:id="uitlegC" alignment="BASELINE_LEFT" contentDisplay="CENTER" text="Verberg deze uitleg" textAlignment="CENTER" textFill="#4700ee" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="5">
+            <Label fx:id="uitlegC" alignment="BASELINE_LEFT" contentDisplay="CENTER" text="Verberg deze uitleg" textAlignment="CENTER" textFill="#4700ee" GridPane.columnIndex="2" GridPane.rowIndex="5">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <Label fx:id="uitlegB" alignment="BASELINE_LEFT" contentDisplay="CENTER" text="Wijzig spelinstellingen" textAlignment="CENTER" textFill="#4700ee" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="4">
+            <Label fx:id="uitlegB" alignment="BASELINE_LEFT" contentDisplay="CENTER" text="Wijzig spelinstellingen" textAlignment="CENTER" textFill="#4700ee" GridPane.columnIndex="2" GridPane.rowIndex="4">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <Label fx:id="uitlegD" alignment="BASELINE_LEFT" contentDisplay="CENTER" text="Start het spel" textAlignment="CENTER" textFill="#4700ee" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="6">
+            <Label fx:id="uitlegA" alignment="BASELINE_LEFT" contentDisplay="CENTER" text="Spel afsluiten" textAlignment="CENTER" textFill="#4700ee" GridPane.columnIndex="2" GridPane.rowIndex="6">
                <font>
                   <Font size="24.0" />
                </font>

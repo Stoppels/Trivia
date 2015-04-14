@@ -36,7 +36,7 @@
                         <Font size="24.0" />
                      </font>
                      <graphic>
-                        <Label fx:id="timerLabel" text="?">
+                        <Label fx:id="timerLabel">
                            <font>
                               <Font size="24.0" />
                            </font>

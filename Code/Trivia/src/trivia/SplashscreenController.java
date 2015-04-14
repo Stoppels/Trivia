@@ -74,15 +74,6 @@ public class SplashscreenController implements Initializable {
         autoPlay();
     }
 
-//        final Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(STARTTIME), new EventHandler<ActionEvent>() {
-//            @Override
-//            public void handle(ActionEvent actionEvent) {
-//                timerLabel.setText(String.valueOf(duration));
-//                openHoofdmenu();
-//            }
-//        }));
-//        timeline.play();
-    
     public void autoPlay() {
         // Bind the timerLabel text property to the timeSeconds property
         timerLabel.textProperty().bind(timeSeconds.asString());
@@ -115,6 +106,7 @@ public class SplashscreenController implements Initializable {
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.show();
+            
         } catch (IOException ex) {
             Logger.getLogger(SplashscreenController.class.getName()).log(Level.SEVERE, null, ex);
         }
