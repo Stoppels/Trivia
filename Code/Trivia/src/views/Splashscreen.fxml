@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
@@ -23,6 +24,32 @@
           <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
         </rowConstraints>
          <children>
+            <Label alignment="CENTER" text="Welkom" textFill="#4700ee" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="48.0" />
+               </font>
+            </Label>
+            <AnchorPane maxWidth="-Infinity" prefWidth="395.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+               <children>
+                  <Label contentDisplay="RIGHT" text="Hoofdmenu opent over" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <graphic>
+                        <Label fx:id="timerLabel" text="?">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </graphic>
+                  </Label>
+                  <Label alignment="CENTER_RIGHT" text="seconde(n)" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
             <Button alignment="CENTER" contentDisplay="CENTER" minHeight="80.0" minWidth="240.0" mnemonicParsing="false" onAction="#openHoofdmenu" style="-fx-background-radius: 80px;" text="Hoofdmenu" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="24.0" />
@@ -39,11 +66,6 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Label alignment="CENTER" text="Welkom" textFill="#4700ee" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="48.0" />
-               </font>
-            </Label>
          </children>
       </GridPane>
    </children>

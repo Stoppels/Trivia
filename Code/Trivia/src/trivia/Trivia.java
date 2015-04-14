@@ -21,15 +21,15 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package trivia;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 /**
@@ -38,16 +38,18 @@ import javafx.stage.Stage;
  * @version 1.0
  */
 public class Trivia extends Application {
-    @FXML
-    private Label label;
 
     @Override
-    public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/views/Splashscreen.fxml"));
-        Scene scene = new Scene(root);
+    public void start(Stage stage) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/views/Splashscreen.fxml"));
+            Scene scene = new Scene(root);
 
-        stage.setScene(scene);
-        stage.show();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Trivia.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

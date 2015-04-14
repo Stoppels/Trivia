@@ -21,12 +21,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package trivia;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -41,7 +42,7 @@ import javafx.stage.Stage;
  * @author Rehman
  */
 public class HoofdmenuController implements Initializable {
-    
+
     @FXML
     private Label uitlegA;
 
@@ -56,6 +57,7 @@ public class HoofdmenuController implements Initializable {
 
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
@@ -69,28 +71,37 @@ public class HoofdmenuController implements Initializable {
      */
     @FXML
     private void exit() {
-        System.exit(1);
+        System.exit(0);
     }
 
     @FXML
-    private void spelOpzettenKnop() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/SpelOpzetten.fxml"));
-        Parent root = (Parent) fxmlLoader.load();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.show();
+    private void spelOpzettenKnop() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/SpelOpzetten.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(HoofdmenuController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
-    private void startSpelKnop() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/Vraag.fxml"));
-        Parent root = (Parent) fxmlLoader.load();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.show();
+    private void startSpelKnop() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/Vraag.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(HoofdmenuController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
- @FXML
-    private void helpKnop() throws IOException {
+
+    @FXML
+    private void helpKnop() {
         if (!uitlegA.isVisible()) {
             uitlegA.setVisible(true);
             uitlegB.setVisible(true);
@@ -103,5 +114,5 @@ public class HoofdmenuController implements Initializable {
             uitlegD.setVisible(false);
         }
     }
-    
+
 }

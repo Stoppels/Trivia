@@ -21,19 +21,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package trivia;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -44,39 +52,86 @@ import javafx.util.Duration;
  */
 public class SplashscreenController implements Initializable {
 
+    @FXML
+    private Label timerLabel;
+//    
+//    private static final Integer STARTTIME = 15;
+//    private final int duration = STARTTIME;
+//
+//    private final IntegerProperty timeSeconds = new SimpleIntegerProperty(duration);
+    private static final Integer STARTTIME = 5;
+    private Timeline timeline;
+    private final IntegerProperty timeSeconds = new SimpleIntegerProperty(STARTTIME);
+
     /**
      * Initializes the controller class.
      *
      * @param url
      * @param rb
-     * @throws java.io.IOException
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Timeline timeline;
-//        timeline = new Timeline(new KeyFrame(Duration.millis(2500), ae -> openHoofdmenu());
+        autoPlay();
+    }
 
+//        final Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(STARTTIME), new EventHandler<ActionEvent>() {
+//            @Override
+//            public void handle(ActionEvent actionEvent) {
+//                timerLabel.setText(String.valueOf(duration));
+//                openHoofdmenu();
+//            }
+//        }));
 //        timeline.play();
+    
+    public void autoPlay() {
+        // Bind the timerLabel text property to the timeSeconds property
+        timerLabel.textProperty().bind(timeSeconds.asString());
+        timerLabel.setTextFill(Color.RED);
+
+        if (timeline != null) {
+            timeline.stop();
+        }
+        timeSeconds.set(STARTTIME);
+        timeline = new Timeline();
+        timeline.getKeyFrames().add(
+                new KeyFrame(Duration.seconds(STARTTIME + 1),
+                        new KeyValue(timeSeconds, 0)));
+        timeline.playFromStart();
+        timeline.setOnFinished(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent t) {
+                openHoofdmenu();
+            }
+        });
+        timeline.setCycleCount(1);
+    }
+
+    @FXML
+    private void openHoofdmenu() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/Hoofdmenu.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(SplashscreenController.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
     @FXML
-    private void openHoofdmenu() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/Hoofdmenu.fxml"));
-        Parent root = (Parent) fxmlLoader.load();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.show();
-
-    }
-
-    @FXML
-    private void openAdminmenu() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/AdminHoofdmenu.fxml"));
-        Parent root = (Parent) fxmlLoader.load();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.show();
+    private void openAdminmenu() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/AdminHoofdmenu.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(SplashscreenController.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 

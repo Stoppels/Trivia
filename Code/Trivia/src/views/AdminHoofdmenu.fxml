@@ -52,7 +52,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button alignment="CENTER" contentDisplay="CENTER" minHeight="60.0" minWidth="240.0" mnemonicParsing="false" onAction="#hoofdmenuKnop" style="-fx-background-radius: 80px;" text="Hoofdmenu" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+            <Button alignment="CENTER" contentDisplay="CENTER" minHeight="60.0" minWidth="240.0" mnemonicParsing="false" onAction="#openHoofdmenu" style="-fx-background-radius: 80px;" text="Hoofdmenu" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
                <font>
                   <Font size="24.0" />
                </font>
