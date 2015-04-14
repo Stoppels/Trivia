@@ -15,29 +15,31 @@
             <ColumnConstraints hgrow="ALWAYS" minWidth="30.0" />
         </columnConstraints>
         <rowConstraints>
+            <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="ALWAYS" />
+            <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="80.0" vgrow="ALWAYS" />
             <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
-          <RowConstraints minHeight="10.0" vgrow="ALWAYS" />
-          <RowConstraints minHeight="10.0" vgrow="ALWAYS" />
-          <RowConstraints minHeight="10.0" vgrow="ALWAYS" />
+          <RowConstraints minHeight="80.0" vgrow="ALWAYS" />
+          <RowConstraints minHeight="80.0" vgrow="ALWAYS" />
+          <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
         </rowConstraints>
          <children>
-            <Button alignment="CENTER" contentDisplay="CENTER" minHeight="80.0" minWidth="240.0" mnemonicParsing="false" onAction="#hoofdmenuKnop" style="-fx-background-radius: 80px;" text="Hoofdmenu" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <Button alignment="CENTER" contentDisplay="CENTER" minHeight="80.0" minWidth="240.0" mnemonicParsing="false" onAction="#openHoofdmenu" style="-fx-background-radius: 80px;" text="Hoofdmenu" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                <font>
-                  <Font size="24.0" />
+                  <Font name="System Bold" size="24.0" />
                </font>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button alignment="CENTER" contentDisplay="CENTER" minHeight="80.0" minWidth="240.0" mnemonicParsing="false" onAction="#AdminHoofdmenuKnop" style="-fx-background-radius: 80px;" text="Adminmenu" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+            <Button alignment="CENTER" contentDisplay="CENTER" minHeight="80.0" minWidth="240.0" mnemonicParsing="false" onAction="#openAdminmenu" style="-fx-background-radius: 80px;" text="Adminmenu" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                <font>
-                  <Font size="24.0" />
+                  <Font name="System Bold" size="24.0" />
                </font>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Label alignment="CENTER" text="Splashscreen" textFill="#4700ee" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <Label alignment="CENTER" text="Welkom" textFill="#4700ee" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="48.0" />
                </font>
