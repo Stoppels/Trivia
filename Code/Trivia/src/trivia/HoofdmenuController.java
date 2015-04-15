@@ -27,7 +27,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,12 +35,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import static trivia.Trivia.*;
 
 /**
@@ -127,16 +122,16 @@ public class HoofdmenuController implements Initializable {
      */
     @FXML
     private void sluitAf() {
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle("Afsluiten");
-        alert.setHeaderText("Weet u zeker dat u wilt afsluiten?");
-        alert.setContentText("Hiermee wordt het programma afgesloten.");
-        alert.initStyle(StageStyle.UNDECORATED);
-
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
-            System.exit(0);
-        }
+//        Alert alert = new Alert(AlertType.CONFIRMATION);
+//        alert.setTitle("Afsluiten");
+//        alert.setHeaderText("Weet u zeker dat u wilt afsluiten?");
+//        alert.setContentText("Hiermee wordt het programma afgesloten.");
+//        alert.initStyle(StageStyle.UNDECORATED);
+//
+//        Optional<ButtonType> result = alert.showAndWait();
+//        if (result.equals(ButtonType.OK)) {
+        System.exit(0);
+//        }
     }
 
 }

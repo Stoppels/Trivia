@@ -25,7 +25,6 @@ package trivia;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,11 +33,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ProgressBar;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import static trivia.SpelOpzettenController.makkelijkHolder;
 import static trivia.Trivia.*;
 
@@ -83,27 +79,27 @@ public class VraagController implements Initializable {
 
     @FXML
     private void stopQuiz() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Stop quiz");
-        alert.setHeaderText("Weet u zeker dat u de quiz wilt stoppen?");
-        alert.setContentText("De antwoorden worden niet opgeslagen.\nDit brengt u terug naar het hoofdmenu.");
-        alert.initStyle(StageStyle.UNDECORATED);
-
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
-            try {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/Hoofdmenu.fxml"));
-                Parent root = (Parent) fxmlLoader.load();
-                Stage stage = new Stage();
-                stage.setScene(new Scene(root));
-                stage.setFullScreen(true);
-                stage.setFullScreenExitHint("");
-                stage.show();
-                prevStage.close();
-                setPrevStage(stage);
-            } catch (IOException ex) {
-                Logger.getLogger(VraagController.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        try {
+            //        alert.setTitle("Stop quiz");
+//        alert.setHeaderText("Weet u zeker dat u de quiz wilt stoppen?");
+//        alert.setContentText("De antwoorden worden niet opgeslagen.\nDit brengt u terug naar het hoofdmenu.");
+//        alert.initStyle(StageStyle.UNDECORATED);
+//        alert.initOwner(Trivia.currStage);
+//
+//        Optional<ButtonType> result = alert.showAndWait();
+//        if (result.get() == ButtonType.OK) {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/Hoofdmenu.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setFullScreen(true);
+            stage.setFullScreenExitHint("");
+            stage.show();
+            prevStage.close();
+            setPrevStage(stage);
+//        }
+        } catch (IOException ex) {
+            Logger.getLogger(VraagController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

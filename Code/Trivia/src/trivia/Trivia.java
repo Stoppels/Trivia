@@ -40,7 +40,7 @@ import javafx.stage.Stage;
  */
 public class Trivia extends Application {
 
-    public static Stage prevStage;
+    public static Stage currStage, prevStage;
 
     // TODO: FIX Alert popup remaining under while Stage.isFullScreen().
     @Override
@@ -52,6 +52,7 @@ public class Trivia extends Application {
             stage.setScene(scene);
             stage.setFullScreen(true);
             stage.setFullScreenExitHint("");
+            currStage = stage;
             stage.show();
             setPrevStage(stage);
         } catch (IOException ex) {
