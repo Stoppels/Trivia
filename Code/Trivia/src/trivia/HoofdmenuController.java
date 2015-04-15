@@ -107,14 +107,13 @@ public class HoofdmenuController implements Initializable {
     private void toggleHelp() {
         List<Label> helpItems = Arrays.asList(uitlegA, uitlegB, uitlegC, uitlegD);
 
-        // Functional Operation for: for (Label a : helpItems) {
-        helpItems.stream().forEach((a) -> {
+        for (Label a : helpItems) {
             if (!a.isVisible()) {
                 a.setVisible(true);
             } else {
                 a.setVisible(false);
             }
-        });
+        }
     }
 
     /**
