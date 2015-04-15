@@ -23,7 +23,6 @@
  */
 package trivia;
 
-import com.sun.javafx.stage.StageHelper;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;

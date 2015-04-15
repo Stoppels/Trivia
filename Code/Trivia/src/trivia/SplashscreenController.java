@@ -99,6 +99,7 @@ public class SplashscreenController implements Initializable {
 
     @FXML
     private void openHoofdmenu() {
+        timeline.stop();
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/Hoofdmenu.fxml"));
             Parent root = (Parent) fxmlLoader.load();
@@ -114,6 +115,7 @@ public class SplashscreenController implements Initializable {
 
     @FXML
     private void openAdminmenu() {
+        timeline.stop();
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/AdminHoofdmenu.fxml"));
             Parent root = (Parent) fxmlLoader.load();
