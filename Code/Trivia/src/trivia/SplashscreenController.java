@@ -34,7 +34,6 @@ import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -55,7 +54,7 @@ public class SplashscreenController implements Initializable {
 
     @FXML
     private Label timerLabel;
-    private static final Integer STARTTIME = 5;
+    private static final Integer STARTTIME = 7;
     private Timeline timeline;
     private final IntegerProperty timeSeconds = new SimpleIntegerProperty(STARTTIME);
 
@@ -88,13 +87,9 @@ public class SplashscreenController implements Initializable {
         timeline.playFromStart();
 
         // When completed counting down, execute method openHoofdmenu().
-        timeline.setOnFinished(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent t) {
-                openHoofdmenu();
-            }
+        timeline.setOnFinished((ActionEvent a) -> {
+            openHoofdmenu();
         });
-        timeline.setCycleCount(1);
     }
 
     @FXML
@@ -105,6 +100,8 @@ public class SplashscreenController implements Initializable {
             Parent root = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
+            stage.setFullScreen(true);
+            stage.setFullScreenExitHint("");
             stage.show();
             prevStage.close();
             setPrevStage(stage);
@@ -121,6 +118,8 @@ public class SplashscreenController implements Initializable {
             Parent root = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
+            stage.setFullScreen(true);
+            stage.setFullScreenExitHint("");
             stage.show();
             prevStage.close();
             setPrevStage(stage);

@@ -45,7 +45,7 @@
                   <Insets />
                </GridPane.margin>
             </Label>
-            <RadioButton fx:id="moeilijkheidNormaal" mnemonicParsing="false" selected="true" text="Normaal" GridPane.columnIndex="4" GridPane.rowIndex="3">
+            <RadioButton fx:id="moeilijkheidNormaal" focusTraversable="false" mnemonicParsing="false" selected="true" text="Normaal" GridPane.columnIndex="4" GridPane.rowIndex="3">
                <font>
                   <Font size="24.0" />
                </font>
@@ -53,7 +53,7 @@
                   <ToggleGroup fx:id="moeilijkheid" />
                </toggleGroup>
             </RadioButton>
-            <RadioButton fx:id="moeilijkheidMoeilijk" mnemonicParsing="false" style="-fx-background-color: #7DFEFE;" text="Moeilijk" toggleGroup="$moeilijkheid" GridPane.columnIndex="5" GridPane.rowIndex="3">
+            <RadioButton fx:id="moeilijkheidMoeilijk" focusTraversable="false" mnemonicParsing="false" style="-fx-background-color: #7DFEFE;" text="Moeilijk" toggleGroup="$moeilijkheid" GridPane.columnIndex="5" GridPane.rowIndex="3">
                <font>
                   <Font size="24.0" />
                </font>
@@ -66,7 +66,7 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <RadioButton fx:id="waarvalsvragenToggle" mnemonicParsing="false" selected="true" style="-fx-background-color: #7DFEFE;" text="Ja" GridPane.columnIndex="4" GridPane.rowIndex="4">
+            <RadioButton fx:id="waarvalsvragenToggleAan" focusTraversable="false" mnemonicParsing="false" selected="true" style="-fx-background-color: #7DFEFE;" text="Ja" GridPane.columnIndex="4" GridPane.rowIndex="4">
                <font>
                   <Font size="24.0" />
                </font>
@@ -74,7 +74,7 @@
                   <ToggleGroup fx:id="waarvals" />
                </toggleGroup>
             </RadioButton>
-            <RadioButton mnemonicParsing="false" text="Nee" toggleGroup="$waarvals" GridPane.columnIndex="5" GridPane.rowIndex="4">
+            <RadioButton focusTraversable="false" mnemonicParsing="false" text="Nee" toggleGroup="$waarvals" GridPane.columnIndex="5" GridPane.rowIndex="4">
                <font>
                   <Font size="24.0" />
                </font>
@@ -90,7 +90,7 @@
                   <Insets />
                </GridPane.margin>
             </Label>
-            <RadioButton fx:id="meerkeuzevragenToggle" mnemonicParsing="false" selected="true" text="Ja" GridPane.columnIndex="4" GridPane.rowIndex="5">
+            <RadioButton fx:id="meerkeuzevragenToggleAan" focusTraversable="false" mnemonicParsing="false" selected="true" text="Ja" GridPane.columnIndex="4" GridPane.rowIndex="5">
                <font>
                   <Font size="24.0" />
                </font>
@@ -98,7 +98,7 @@
                   <ToggleGroup fx:id="meerkeuze" />
                </toggleGroup>
             </RadioButton>
-            <RadioButton mnemonicParsing="false" text="Nee" toggleGroup="$meerkeuze" GridPane.columnIndex="5" GridPane.rowIndex="5">
+            <RadioButton focusTraversable="false" mnemonicParsing="false" text="Nee" toggleGroup="$meerkeuze" GridPane.columnIndex="5" GridPane.rowIndex="5">
                <font>
                   <Font size="24.0" />
                </font>
@@ -114,7 +114,7 @@
                   <Insets />
                </GridPane.margin>
             </Label>
-            <RadioButton fx:id="timerToggle" mnemonicParsing="false" selected="true" text="Ja" GridPane.columnIndex="4" GridPane.rowIndex="6">
+            <RadioButton fx:id="timerToggleAan" focusTraversable="false" mnemonicParsing="false" selected="true" text="Ja" GridPane.columnIndex="4" GridPane.rowIndex="6">
                <font>
                   <Font size="24.0" />
                </font>
@@ -122,7 +122,7 @@
                   <ToggleGroup fx:id="timer" />
                </toggleGroup>
             </RadioButton>
-            <RadioButton mnemonicParsing="false" text="Nee" toggleGroup="$timer" GridPane.columnIndex="5" GridPane.rowIndex="6">
+            <RadioButton focusTraversable="false" mnemonicParsing="false" text="Nee" toggleGroup="$timer" GridPane.columnIndex="5" GridPane.rowIndex="6">
                <font>
                   <Font size="24.0" />
                </font>
@@ -130,11 +130,11 @@
                   <Insets left="14.0" />
                </GridPane.margin>
             </RadioButton>
-            <Button alignment="CENTER" minHeight="60.0" minWidth="240.0" mnemonicParsing="false" onAction="#openHoofdmenu" style="-fx-background-radius: 80px;" text="Hoofdmenu" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+            <Button alignment="CENTER" focusTraversable="false" minHeight="60.0" minWidth="240.0" mnemonicParsing="false" onAction="#openHoofdmenu" style="-fx-background-radius: 80px;" text="Hoofdmenu" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="8" GridPane.valignment="CENTER">
                <font>
                   <Font size="24.0" />
                </font></Button>
-            <Button minHeight="60.0" minWidth="240.0" mnemonicParsing="false" onAction="#startSpel" style="-fx-background-radius: 80px;" text="Start Spel" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+            <Button focusTraversable="false" minHeight="60.0" minWidth="240.0" mnemonicParsing="false" onAction="#startSpel" style="-fx-background-radius: 80px;" text="Start Spel" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="8" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font></Button>

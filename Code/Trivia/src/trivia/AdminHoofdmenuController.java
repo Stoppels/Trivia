@@ -61,6 +61,8 @@ public class AdminHoofdmenuController implements Initializable {
             Parent root = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
+            stage.setFullScreen(true);
+            stage.setFullScreenExitHint("");
             stage.show();
             prevStage.close();
             setPrevStage(stage);

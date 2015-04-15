@@ -25,9 +25,9 @@ package trivia;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,11 +36,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-import org.controlsfx.control.action.Action;
-import org.controlsfx.dialog.Dialog;
-import org.controlsfx.dialog.Dialogs;
+import javafx.stage.StageStyle;
 import static trivia.Trivia.*;
 
 /**
@@ -80,6 +81,8 @@ public class HoofdmenuController implements Initializable {
             Parent root = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
+            stage.setFullScreen(true);
+            stage.setFullScreenExitHint("");
             stage.show();
             prevStage.close();
             setPrevStage(stage);
@@ -95,6 +98,8 @@ public class HoofdmenuController implements Initializable {
             Parent root = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
+            stage.setFullScreen(true);
+            stage.setFullScreenExitHint("");
             stage.show();
             prevStage.close();
             setPrevStage(stage);
@@ -107,13 +112,14 @@ public class HoofdmenuController implements Initializable {
     private void toggleHelp() {
         List<Label> helpItems = Arrays.asList(uitlegA, uitlegB, uitlegC, uitlegD);
 
-        for (Label a : helpItems) {
+        // Functional Operation for: for (Label a : helpItems) {
+        helpItems.stream().forEach((a) -> {
             if (!a.isVisible()) {
                 a.setVisible(true);
             } else {
                 a.setVisible(false);
             }
-        }
+        });
     }
 
     /**
@@ -121,13 +127,14 @@ public class HoofdmenuController implements Initializable {
      */
     @FXML
     private void sluitAf() {
-        Action response = Dialogs.create().owner(prevStage)
-                .title("Afsluiten")
-                .message("Weet u zeker dat u wilt afsluiten?")
-                .actions(Dialog.ACTION_OK, Dialog.ACTION_CANCEL)
-                .showWarning();
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Afsluiten");
+        alert.setHeaderText("Weet u zeker dat u wilt afsluiten?");
+        alert.setContentText("Hiermee wordt het programma afgesloten.");
+        alert.initStyle(StageStyle.UNDECORATED);
 
-        if (response == Dialog.ACTION_OK) {
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
             System.exit(0);
         }
     }
