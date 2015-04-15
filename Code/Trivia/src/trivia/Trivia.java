@@ -40,9 +40,9 @@ import javafx.stage.Stage;
  */
 public class Trivia extends Application {
 
-    public static Stage currStage, prevStage;
+    public static Stage prevStage;
 
-    // TODO: FIX Alert popup remaining under while Stage.isFullScreen().
+    // TODO: FIX Alert popup remaining under while Stage.isMaximized().
     @Override
     public void start(Stage stage) {
         try {
@@ -50,9 +50,8 @@ public class Trivia extends Application {
             Scene scene = new Scene(root);
 
             stage.setScene(scene);
-            stage.setFullScreen(true);
+            stage.setMaximized(true);
             stage.setFullScreenExitHint("");
-            currStage = stage;
             stage.show();
             setPrevStage(stage);
         } catch (IOException ex) {

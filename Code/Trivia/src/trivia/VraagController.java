@@ -84,7 +84,6 @@ public class VraagController implements Initializable {
 //        alert.setHeaderText("Weet u zeker dat u de quiz wilt stoppen?");
 //        alert.setContentText("De antwoorden worden niet opgeslagen.\nDit brengt u terug naar het hoofdmenu.");
 //        alert.initStyle(StageStyle.UNDECORATED);
-//        alert.initOwner(Trivia.currStage);
 //
 //        Optional<ButtonType> result = alert.showAndWait();
 //        if (result.get() == ButtonType.OK) {
@@ -92,7 +91,7 @@ public class VraagController implements Initializable {
             Parent root = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
-            stage.setFullScreen(true);
+            stage.setMaximized(true);
             stage.setFullScreenExitHint("");
             stage.show();
             prevStage.close();
