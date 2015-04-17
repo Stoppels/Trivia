@@ -46,91 +46,84 @@ import static trivia.Trivia.*;
  */
 public class HoofdmenuController implements Initializable {
 
-    @FXML
-    private Label uitlegA;
+	@FXML
+	private Label uitlegA;
 
-    @FXML
-    private Label uitlegB;
+	@FXML
+	private Label uitlegB;
 
-    @FXML
-    private Label uitlegC;
+	@FXML
+	private Label uitlegC;
 
-    @FXML
-    private Label uitlegD;
+	@FXML
+	private Label uitlegD;
 
-    /**
-     * Initializes the controller class.
-     *
-     * @param url
-     * @param rb
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }
+	/**
+	 * Initializes the controller class.
+	 *
+	 * @param url
+	 * @param rb
+	 */
+	@Override
+	public void initialize(URL url, ResourceBundle rb) {
+		// TODO
+	}
 
-    @FXML
-    private void zetSpelOp() {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/SpelOpzetten.fxml"));
-            Parent root = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setMaximized(true);
-            stage.setFullScreenExitHint("");
-            stage.show();
-            prevStage.close();
-            setPrevStage(stage);
-        } catch (IOException ex) {
-            Logger.getLogger(HoofdmenuController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+	@FXML
+	private void startSpel() {
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/Vraag.fxml"));
+			Parent root = (Parent) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setScene(new Scene(root));
+			stage.show();
+			prevStage.close();
+			setPrevStage(stage);
+		} catch (IOException ex) {
+			Logger.getLogger(HoofdmenuController.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
 
-    @FXML
-    private void startSpel() {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/Vraag.fxml"));
-            Parent root = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setMaximized(true);
-            stage.setFullScreenExitHint("");
-            stage.show();
-            prevStage.close();
-            setPrevStage(stage);
-        } catch (IOException ex) {
-            Logger.getLogger(HoofdmenuController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+	@FXML
+	private void zetSpelOp() {
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/SpelOpzetten.fxml"));
+			Parent root = (Parent) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setScene(new Scene(root));
+			stage.show();
+			prevStage.close();
+			setPrevStage(stage);
+		} catch (IOException ex) {
+			Logger.getLogger(HoofdmenuController.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
 
-    @FXML
-    private void toggleHelp() {
-        List<Label> helpItems = Arrays.asList(uitlegA, uitlegB, uitlegC, uitlegD);
+	@FXML
+	private void toggleHelp() {
+		List<Label> helpItems = Arrays.asList(uitlegA, uitlegB, uitlegC, uitlegD);
 
-        for (Label a : helpItems) {
-            if (!a.isVisible()) {
-                a.setVisible(true);
-            } else {
-                a.setVisible(false);
-            }
-        }
-    }
+		for (Label a : helpItems) {
+			boolean visibility = (a.isVisible() != true);
+			a.setVisible(visibility);
+		}
+	}
 
-    /**
-     * Triggers a confirmation dialog for quitting the app.
-     */
-    @FXML
-    private void sluitAf() {
-//        Alert alert = new Alert(AlertType.CONFIRMATION);
-//        alert.setTitle("Afsluiten");
-//        alert.setHeaderText("Weet u zeker dat u wilt afsluiten?");
-//        alert.setContentText("Hiermee wordt het programma afgesloten.");
-//        alert.initStyle(StageStyle.UNDECORATED);
+	/**
+	 * Triggers a confirmation dialog for quitting the app.
+	 */
+	@FXML
+	private void sluitAf() {
+//		Alert alert = new Alert(AlertType.CONFIRMATION);
+//		alert.setTitle("Afsluiten");
+//		alert.setHeaderText("Weet u zeker dat u wilt afsluiten?");
+//		alert.setContentText("Hiermee wordt het programma afgesloten.");
+//		alert.initStyle(StageStyle.UNDECORATED);
 //
-//        Optional<ButtonType> result = alert.showAndWait();
-//        if (result.equals(ButtonType.OK)) {
-        System.exit(0);
-//        }
-    }
+//		Optional<ButtonType> result = alert.showAndWait();
+//		if (result.get() == ButtonType.OK) {
+		System.exit(0);
+//		}
+	}
 
 }

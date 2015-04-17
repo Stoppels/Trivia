@@ -44,86 +44,82 @@ import static trivia.Trivia.*;
  */
 public class SpelOpzettenController implements Initializable {
 
-    @FXML
-    Toggle moeilijkheidNormaal;
+	@FXML
+	Toggle moeilijkheidNormaal;
 
-    @FXML
-    Toggle moeilijkheidMoeilijk;
+	@FXML
+	Toggle moeilijkheidMoeilijk;
 
-    @FXML
-    Toggle waarvalsvragenToggleAan;
+	@FXML
+	Toggle waarvalsvragenToggleAan;
 
-    @FXML
-    Toggle meerkeuzevragenToggleAan;
+	@FXML
+	Toggle meerkeuzevragenToggleAan;
 
-    @FXML
-    Toggle timerToggleAan;
+	@FXML
+	Toggle timerToggleAan;
 
-    static boolean makkelijkHolder;
-    static boolean waarvalsHolder;
-    static boolean meerkeuzeHolder;
-    static boolean timerHolder;
+	static boolean makkelijkHolder;
+	static boolean waarvalsHolder;
+	static boolean meerkeuzeHolder;
+	static boolean timerHolder;
 
-    /**
-     * Initializes the controller class.
-     *
-     * @param url
-     * @param rb
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }
+	/**
+	 * Initializes the controller class.
+	 *
+	 * @param url
+	 * @param rb
+	 */
+	@Override
+	public void initialize(URL url, ResourceBundle rb) {
+		// TODO
+	}
 
-    @FXML
-    private void openHoofdmenu() {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/Hoofdmenu.fxml"));
-            Parent root = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setMaximized(true);
-            stage.setFullScreenExitHint("");
-            stage.show();
-            prevStage.close();
-            setPrevStage(stage);
-        } catch (IOException ex) {
-            Logger.getLogger(SpelOpzettenController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+	@FXML
+	private void openHoofdmenu() {
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/Hoofdmenu.fxml"));
+			Parent root = (Parent) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setScene(new Scene(root));
+			stage.show();
+			prevStage.close();
+			setPrevStage(stage);
+		} catch (IOException ex) {
+			Logger.getLogger(SpelOpzettenController.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
 
-    @FXML
-    private void startSpel() {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/Vraag.fxml"));
-            Parent root = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setMaximized(true);
-            stage.setFullScreenExitHint("");
-            stage.show();
-            prevStage.close();
-            setPrevStage(stage);
-        } catch (IOException ex) {
-            Logger.getLogger(HoofdmenuController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+	@FXML
+	private void startSpel() {
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/Vraag.fxml"));
+			Parent root = (Parent) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setScene(new Scene(root));
+			stage.show();
+			prevStage.close();
+			setPrevStage(stage);
+		} catch (IOException ex) {
+			Logger.getLogger(HoofdmenuController.class.getName()).log(Level.SEVERE, null, ex);
+		}
 
-        if (moeilijkheidNormaal.isSelected()) {
-            System.out.println("normaal");
-            makkelijkHolder = true;
-        } else if (moeilijkheidMoeilijk.isSelected()) {
-            System.out.println("moeilijk");
-            makkelijkHolder = false;
-        }
+		if (moeilijkheidNormaal.isSelected()) {
+			System.out.println("normaal");
+			makkelijkHolder = true;
+		} else if (moeilijkheidMoeilijk.isSelected()) {
+			System.out.println("moeilijk");
+			makkelijkHolder = false;
+		}
 
-        if (waarvalsvragenToggleAan.isSelected()) {
-            System.out.println("waar");
-        }
-        if (meerkeuzevragenToggleAan.isSelected()) {
-            System.out.println("meerkeuze");
-        }
-        if (timerToggleAan.isSelected()) {
-            System.out.println("timer");
-        }
-    }
+		if (waarvalsvragenToggleAan.isSelected()) {
+			System.out.println("waar");
+		}
+		if (meerkeuzevragenToggleAan.isSelected()) {
+			System.out.println("meerkeuze");
+		}
+		if (timerToggleAan.isSelected()) {
+			System.out.println("timer");
+		}
+	}
 }

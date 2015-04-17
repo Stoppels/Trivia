@@ -23,7 +23,7 @@
             <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
             <RowConstraints minHeight="80.0" vgrow="ALWAYS" />
             <RowConstraints minHeight="80.0" vgrow="ALWAYS" />
-            <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
+            <RowConstraints minHeight="80.0" vgrow="ALWAYS" />
             <RowConstraints minHeight="80.0" vgrow="ALWAYS" />
             <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
          </rowConstraints>

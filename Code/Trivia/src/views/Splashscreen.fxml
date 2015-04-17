@@ -19,8 +19,8 @@
             <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="ALWAYS" />
             <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="80.0" vgrow="ALWAYS" />
             <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
-          <RowConstraints minHeight="80.0" vgrow="ALWAYS" />
-          <RowConstraints minHeight="80.0" vgrow="ALWAYS" />
+          <RowConstraints minHeight="100.0" vgrow="ALWAYS" />
+          <RowConstraints minHeight="100.0" vgrow="ALWAYS" />
           <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
         </rowConstraints>
          <children>
@@ -43,7 +43,7 @@
                         </Label>
                      </graphic>
                   </Label>
-                  <Label alignment="CENTER_RIGHT" text="seconde(n)" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <Label alignment="CENTER_RIGHT" minHeight="0.0" text="seconde(n)" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <font>
                         <Font size="24.0" />
                      </font>

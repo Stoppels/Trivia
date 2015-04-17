@@ -52,81 +52,77 @@ import static trivia.Trivia.*;
  */
 public class SplashscreenController implements Initializable {
 
-    @FXML
-    private Label timerLabel;
-    private static final Integer STARTTIME = 7;
-    private Timeline timeline;
-    private final IntegerProperty timeSeconds = new SimpleIntegerProperty(STARTTIME);
+	@FXML
+	private Label timerLabel;
+	private static final Integer STARTTIME = 7;
+	private Timeline timeline;
+	private final IntegerProperty timeSeconds = new SimpleIntegerProperty(STARTTIME);
 
-    /**
-     * Initializes the controller class.
-     *
-     * @param url
-     * @param rb
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        autoPlay();
-    }
+	/**
+	 * Initializes the controller class.
+	 *
+	 * @param url
+	 * @param rb
+	 */
+	@Override
+	public void initialize(URL url, ResourceBundle rb) {
+		autoPlay();
+	}
 
-    @FXML
-    public void autoPlay() {
-        // Bind the timerLabel text property to the timeSeconds property
-        timerLabel.textProperty().bind(timeSeconds.asString());
-        timerLabel.setTextFill(Color.RED);
+	@FXML
+	public void autoPlay() {
+		// Bind the timerLabel text property to the timeSeconds property
+		timerLabel.textProperty().bind(timeSeconds.asString());
+		timerLabel.setTextFill(Color.RED);
 
-        // Countdown from STARTTIME to zero
-        if (timeline != null) {
-            timeline.stop();
-        }
-        timeSeconds.set(STARTTIME);
-        timeline = new Timeline();
-        timeline.getKeyFrames().add(
-                new KeyFrame(Duration.seconds(STARTTIME + 1),
-                        new KeyValue(timeSeconds, 0)));
-        timeline.playFromStart();
+		// Countdown from STARTTIME to zero
+		if (timeline != null) {
+			timeline.stop();
+		}
+		timeSeconds.set(STARTTIME);
+		timeline = new Timeline();
+		timeline.getKeyFrames().add(
+				new KeyFrame(Duration.seconds(STARTTIME + 1),
+						new KeyValue(timeSeconds, 0)));
+		timeline.playFromStart();
 
-        // When completed counting down, execute method openHoofdmenu().
-        timeline.setOnFinished((ActionEvent a) -> {
-            openHoofdmenu();
-        });
-    }
+		// When completed counting down, execute method openHoofdmenu().
+		timeline.setOnFinished((ActionEvent a) -> {
+			openHoofdmenu();
+		});
+	}
 
-    @FXML
-    private void openHoofdmenu() {
-        timeline.stop();
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/Hoofdmenu.fxml"));
-            Parent root = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setMaximized(true);
-            stage.setFullScreenExitHint("");
-            stage.show();
-            prevStage.close();
-            setPrevStage(stage);
-        } catch (IOException ex) {
-            Logger.getLogger(SplashscreenController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+	@FXML
+	private void openHoofdmenu() {
+		timeline.stop();
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/Hoofdmenu.fxml"));
+			Parent root = (Parent) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setScene(new Scene(root));
+			stage.show();
+			prevStage.close();
+			setPrevStage(stage);
+		} catch (IOException ex) {
+			Logger.getLogger(SplashscreenController.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
 
-    @FXML
-    private void openAdminmenu() {
-        timeline.stop();
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/AdminHoofdmenu.fxml"));
-            Parent root = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setMaximized(true);
-            stage.setFullScreenExitHint("");
-            stage.show();
-            prevStage.close();
-            setPrevStage(stage);
-        } catch (IOException ex) {
-            Logger.getLogger(SplashscreenController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+	@FXML
+	private void openAdminmenu() {
+		timeline.stop();
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/AdminHoofdmenu.fxml"));
+			Parent root = (Parent) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setScene(new Scene(root));
+			stage.show();
+			prevStage.close();
+			setPrevStage(stage);
+		} catch (IOException ex) {
+			Logger.getLogger(SplashscreenController.class.getName()).log(Level.SEVERE, null, ex);
+		}
 
-    }
+	}
 
 }

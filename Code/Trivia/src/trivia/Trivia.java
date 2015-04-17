@@ -40,35 +40,35 @@ import javafx.stage.Stage;
  */
 public class Trivia extends Application {
 
-    public static Stage prevStage;
+	public static Stage prevStage;
 
-    // TODO: FIX Alert popup remaining under while Stage.isMaximized().
-    @Override
-    public void start(Stage stage) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/views/Splashscreen.fxml"));
-            Scene scene = new Scene(root);
+	// TODO: FIX Alert popup remaining under while Stage.isFullScreen()
+	@Override
+	public void start(Stage stage) {
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("/views/Splashscreen.fxml"));
+			Scene scene = new Scene(root);
 
-            stage.setScene(scene);
-            stage.setMaximized(true);
-            stage.setFullScreenExitHint("");
-            stage.show();
-            setPrevStage(stage);
-        } catch (IOException ex) {
-            Logger.getLogger(Trivia.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+			stage.setScene(scene);
+			stage.setFullScreen(true);
+			stage.setFullScreenExitHint("");
+			stage.show();
+			setPrevStage(stage);
+		} catch (IOException ex) {
+			Logger.getLogger(Trivia.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
 
-    @FXML
-    public static void setPrevStage(Stage stage) {
-        Trivia.prevStage = stage;
-    }
+	@FXML
+	public static void setPrevStage(Stage stage) {
+		Trivia.prevStage = stage;
+	}
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        launch(args);
-    }
+	/**
+	 * @param args the command line arguments
+	 */
+	public static void main(String[] args) {
+		launch(args);
+	}
 
 }
