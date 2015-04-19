@@ -23,25 +23,17 @@
  */
 package trivia;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import static trivia.Trivia.*;
 
 /**
  * FXML Controller class
  *
  * @author Rehman
  */
-public class AdminHoofdmenuController implements Initializable {
+public class AdminHoofdmenuController extends Trivia implements Initializable {
 
     /**
      * Initializes the controller class.
@@ -56,19 +48,7 @@ public class AdminHoofdmenuController implements Initializable {
 
     @FXML
     private void openHoofdmenu() {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/Hoofdmenu.fxml"));
-            Parent root = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setMaximized(true);
-            stage.setFullScreenExitHint("");
-            stage.show();
-            prevStage.close();
-            setPrevStage(stage);
-        } catch (IOException ex) {
-            Logger.getLogger(AdminHoofdmenuController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        laadView("Hoofdmenu");
 
     }
 

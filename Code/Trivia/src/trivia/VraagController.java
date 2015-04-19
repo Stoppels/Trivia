@@ -43,43 +43,43 @@ import static trivia.Trivia.*;
  *
  * @author Yassinee
  */
-public class VraagController implements Initializable {
+public class VraagController extends Trivia implements Initializable {
 
-	@FXML
-	ProgressBar progressBar;
+    @FXML
+    ProgressBar progressBar;
 
-	/**
-	 * Initializes the controller class.
-	 *
-	 * @param url
-	 * @param rb
-	 */
-	@Override
-	public void initialize(URL url, ResourceBundle rb) {
-		// TODO
-	}
+    /**
+     * Initializes the controller class.
+     *
+     * @param url
+     * @param rb
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        // TODO
+    }
 
-	/**
-	 * I don't work yet, please fix me //////////////////////////////////
-	 */
-	@FXML
-	public void checkVraagSettings() {
-		if (SpelOpzettenController.makkelijkHolder) {
-			System.out.println("yo");
-		}
-		if (makkelijkHolder) {
-			System.out.println("yo2");
-		}
-	}
+    /**
+     * I don't work yet, please fix me //////////////////////////////////
+     */
+    @FXML
+    public void checkVraagSettings() {
+        if (SpelOpzettenController.makkelijkHolder) {
+            System.out.println("yo");
+        }
+        if (makkelijkHolder) {
+            System.out.println("yo2");
+        }
+    }
 
-	@FXML
-	private void progressChecker() {
-		//progressBar;
-	}
+    @FXML
+    private void progressChecker() {
+        //progressBar;
+    }
 
-	@FXML
-	private void stopQuiz() {
-		try {
+    @FXML
+    private void stopQuiz() {
+        try {
 //		  Alert alert = new Alert(AlertType.CONFIRMATION);
 //        alert.setTitle("Stop quiz");
 //        alert.setHeaderText("Weet u zeker dat u de quiz wilt stoppen?");
@@ -88,17 +88,17 @@ public class VraagController implements Initializable {
 //
 //        Optional<ButtonType> result = alert.showAndWait();
 //        if (result.get() == ButtonType.OK) {
-			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/Hoofdmenu.fxml"));
-			Parent root = (Parent) fxmlLoader.load();
-			Stage stage = new Stage();
-			stage.setScene(new Scene(root));
-			stage.show();
-			prevStage.close();
-			setPrevStage(stage);
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/Hoofdmenu.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+            prevStage.close();
+            setPrevStage(stage);
 //        }
-		} catch (IOException ex) {
-			Logger.getLogger(VraagController.class.getName()).log(Level.SEVERE, null, ex);
-		}
-	}
+        } catch (IOException ex) {
+            Logger.getLogger(VraagController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
 }
