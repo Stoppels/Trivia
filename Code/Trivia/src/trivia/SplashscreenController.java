@@ -87,7 +87,7 @@ public class SplashscreenController extends Trivia implements Initializable {
     @FXML
     private void openHoofdmenu() {
         timeline.stop();
-        laadView("Hoofddmenu");
+        laadView("Hoofdmenu");
     }
 
     @FXML
