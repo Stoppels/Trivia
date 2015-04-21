@@ -19,19 +19,14 @@ Een kleiner deel van onze documentatie is echter te vinden op externe bronnen. D
 
 ### Interne documentatie
 
-Voor 
+Voor de overige documentatie kunt u simpelweg de repository bezoeken, zo nodig met webclient Gitweb.
 
-* Op te leveren documenten in PDF formaat beschikbaar stellen in de afgesproken map.
-* Films niet op gitlab plaatsen maar op youtube en vanuit een docje ernaar linken.
-- Als een docent zegt "mail het me", mail dan een link naar het gitlab document.
-- Versiebeheer: verwijder of vervang oudere versies. Laat de docent niet zoeken in 10 verschillende bestandsnamen.
-- dropbox/onedrive/wuala/googledrive naast gitlab mag maar gitlab is verplicht.
-- Tekstfiles kun je in gitlab wijzigen en committen. Handig voor kleine aanpassingen. Voor de rest git gebruiken.
-- [Volg de WIKI https://gitlab.dmci.hva.nl/info/git4bit/wikis/home](https://gitlab.dmci.hva.nl/info/git4bit/wikis/home)
-
-[Blog]: https://tsc9.blogs.dmci.hva.nl
-[Idee]: https://www.youtube.com/watch?v=MAjAdTStzQI
-[Trello]: https://trello.com/pad09
+- [Code](Code) Top level directory
+  - _In de folder Code bevindt zich de daadwerkelijke applicatie die wij ontwikkeld hebben._
+- [Documents](Documents) Top level directory
+  - _Overige op te leveren documenten én verwijzingen vindt u hier terug als PDF formaat._
+- [UML](UML) Top level directory
+  - _De op te leveren UML- en ontwerpproducten zijn in deze folder terug te vinden._
 
 ### ITopia begeleiders
 
@@ -57,6 +52,10 @@ Ons team is opgebouwd uit zes ijverige studenten die per :pizza: erg veel regels
 | Y. Abdellaoui   | Yassine.el.Abdellaoui@hva.nl |
 | S. van den Berg | Stephan.van.den.Berg3@hva.nl |
 
+### License
+
+This program is distributed under the terms of the MIT license reproduced in the top section of every file.
+
 ***
 
 ```java
@@ -65,4 +64,6 @@ Ons team is opgebouwd uit zes ijverige studenten die per :pizza: erg veel regels
 		}
 ```
 
-
+[Blog]: https://tsc9.blogs.dmci.hva.nl
+[Idee]: https://www.youtube.com/watch?v=MAjAdTStzQI
+[Trello]: https://trello.com/pad09
