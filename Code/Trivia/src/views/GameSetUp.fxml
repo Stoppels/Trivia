@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane minHeight="600.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="trivia.GameSetUpController">
+    <children>
+        <GridPane style="-fx-background-color: #7DFEFE;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="ALWAYS" minWidth="30.0" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="80.0" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="30.0" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="30.0" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="80.0" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="80.0" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="30.0" />
+                <ColumnConstraints />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="ALWAYS" />
+                <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="80.0" vgrow="ALWAYS" />
+                <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
+            </rowConstraints>
+            <children>
+                <Label alignment="CENTER" text="Spel Opzetten" textAlignment="CENTER" textFill="#4700ee" GridPane.columnSpan="8" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                    <font>
+                        <Font name="System Bold" size="48.0" />
+                    </font>
+                </Label>
+                <Label text="Kies een moeilijkheidsgraad" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="3">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                    <GridPane.margin>
+                        <Insets />
+                    </GridPane.margin>
+                </Label>
+                <RadioButton fx:id="moeilijkheidNormaal" focusTraversable="false" mnemonicParsing="false" selected="true" text="Normaal" GridPane.columnIndex="4" GridPane.rowIndex="3">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                    <toggleGroup>
+                        <ToggleGroup fx:id="moeilijkheid" />
+                    </toggleGroup>
+                </RadioButton>
+                <RadioButton fx:id="moeilijkheidMoeilijk" focusTraversable="false" mnemonicParsing="false" style="-fx-background-color: #7DFEFE;" text="Moeilijk" toggleGroup="$moeilijkheid" GridPane.columnIndex="5" GridPane.rowIndex="3">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                    <GridPane.margin>
+                        <Insets left="14.0" />
+                    </GridPane.margin>
+                </RadioButton>
+                <Label text="Wilt u waar/vals-vragen?" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="4">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                </Label>
+                <RadioButton fx:id="waarvalsvragenToggleAan" focusTraversable="false" mnemonicParsing="false" selected="true" style="-fx-background-color: #7DFEFE;" text="Ja" GridPane.columnIndex="4" GridPane.rowIndex="4">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                    <toggleGroup>
+                        <ToggleGroup fx:id="waarvals" />
+                    </toggleGroup>
+                </RadioButton>
+                <RadioButton focusTraversable="false" mnemonicParsing="false" text="Nee" toggleGroup="$waarvals" GridPane.columnIndex="5" GridPane.rowIndex="4">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                    <GridPane.margin>
+                        <Insets left="14.0" />
+                    </GridPane.margin>
+                </RadioButton>
+                <Label text="Wilt u meerkeuzevragen?" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="5">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                    <GridPane.margin>
+                        <Insets />
+                    </GridPane.margin>
+                </Label>
+                <RadioButton fx:id="meerkeuzevragenToggleAan" focusTraversable="false" mnemonicParsing="false" selected="true" text="Ja" GridPane.columnIndex="4" GridPane.rowIndex="5">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                    <toggleGroup>
+                        <ToggleGroup fx:id="meerkeuze" />
+                    </toggleGroup>
+                </RadioButton>
+                <RadioButton focusTraversable="false" mnemonicParsing="false" text="Nee" toggleGroup="$meerkeuze" GridPane.columnIndex="5" GridPane.rowIndex="5">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                    <GridPane.margin>
+                        <Insets left="14.0" />
+                    </GridPane.margin>
+                </RadioButton>
+                <Label text="Wilt u een timer gebruiken?" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="6">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                    <GridPane.margin>
+                        <Insets />
+                    </GridPane.margin>
+                </Label>
+                <RadioButton fx:id="timerToggleAan" focusTraversable="false" mnemonicParsing="false" selected="true" text="Ja" GridPane.columnIndex="4" GridPane.rowIndex="6">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                    <toggleGroup>
+                        <ToggleGroup fx:id="timer" />
+                    </toggleGroup>
+                </RadioButton>
+                <RadioButton focusTraversable="false" mnemonicParsing="false" text="Nee" toggleGroup="$timer" GridPane.columnIndex="5" GridPane.rowIndex="6">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                    <GridPane.margin>
+                        <Insets left="14.0" />
+                    </GridPane.margin>
+                </RadioButton>
+                <Button alignment="CENTER" focusTraversable="false" minHeight="60.0" minWidth="240.0" mnemonicParsing="false" onAction="#openMain" style="-fx-background-radius: 80px;" text="Hoofdmenu" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                </Button>
+                <Button focusTraversable="false" minHeight="60.0" minWidth="240.0" mnemonicParsing="false" onAction="#startGame" style="-fx-background-radius: 80px;" text="Start Spel" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+                    <font>
+                        <Font name="System Bold" size="24.0" />
+                    </font>
+                </Button>
+            </children>
+        </GridPane>
+    </children>
+</AnchorPane>

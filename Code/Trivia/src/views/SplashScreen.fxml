@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane minHeight="600.0" minWidth="800.0" style="-fx-background-color: #7DFEFE;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="trivia.SplashScreenController">
+    <children>
+        <GridPane layoutX="283.0" layoutY="233.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="ALWAYS" minWidth="30.0" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="30.0" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="30.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="ALWAYS" />
+                <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="80.0" vgrow="ALWAYS" />
+                <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
+                <RowConstraints minHeight="100.0" vgrow="ALWAYS" />
+                <RowConstraints minHeight="100.0" vgrow="ALWAYS" />
+                <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
+            </rowConstraints>
+            <children>
+                <Label alignment="CENTER" text="Welkom" textFill="#4700ee" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                    <font>
+                        <Font name="System Bold" size="48.0" />
+                    </font>
+                </Label>
+                <AnchorPane maxWidth="-Infinity" prefWidth="395.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                    <children>
+                        <Label contentDisplay="RIGHT" text="Hoofdmenu opent over" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                            <font>
+                                <Font size="24.0" />
+                            </font>
+                            <graphic>
+                                <Label fx:id="timerLabel">
+                                    <font>
+                                        <Font size="24.0" />
+                                    </font>
+                                </Label>
+                            </graphic>
+                        </Label>
+                        <Label alignment="CENTER_RIGHT" minHeight="0.0" text="seconde(n)" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <font>
+                                <Font size="24.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </AnchorPane>
+                <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" minHeight="80.0" minWidth="240.0" mnemonicParsing="false" onAction="#openMain" style="-fx-background-radius: 80px;" text="Hoofdmenu" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                    <font>
+                        <Font name="System Bold" size="24.0" />
+                    </font>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </Button>
+                <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" minHeight="80.0" minWidth="240.0" mnemonicParsing="false" onAction="#openAdmin" style="-fx-background-radius: 80px;" text="Adminmenu" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                    <font>
+                        <Font name="System Bold" size="24.0" />
+                    </font>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </Button>
+            </children>
+        </GridPane>
+    </children>
+</AnchorPane>

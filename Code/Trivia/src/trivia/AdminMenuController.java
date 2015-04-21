@@ -31,25 +31,37 @@ import javafx.fxml.Initializable;
 /**
  * FXML Controller class
  *
- * @author Rehman
+ * @author AMS09
+ * @version 1.0
  */
-public class AdminHoofdmenuController extends Trivia implements Initializable {
+public class AdminMenuController extends Trivia implements Initializable {
 
-    /**
-     * Initializes the controller class.
-     *
-     * @param url
-     * @param rb
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }
+	/**
+	 * Initializes the controller class.
+	 *
+	 * @param url
+	 * @param rb
+	 */
+	@Override
+	public void initialize(URL url, ResourceBundle rb) {
+		// TODO
+	}
 
-    @FXML
-    private void openHoofdmenu() {
-        laadView("Hoofdmenu");
+	@FXML
+	private void openMain() {
+		loadView("MainMenu");
 
-    }
+	}
+
+	@FXML
+	private void manageQuestions() {
+		//loadView("ManageQuestions");
+	}
+
+	@FXML
+	private void openSettings() {
+		//loadView("AdminSettings");
+
+	}
 
 }
