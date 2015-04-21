@@ -40,61 +40,62 @@ import javafx.util.Duration;
 /**
  * FXML Controller class
  *
- * @author Rehman
+ * @author AMS09
+ * @version 1.0
  */
-public class SplashscreenController extends Trivia implements Initializable {
+public class SplashScreenController extends Trivia implements Initializable {
 
-    @FXML
-    private Label timerLabel;
-    private static final Integer STARTTIME = 7;
-    private Timeline timeline;
-    private final IntegerProperty timeSeconds = new SimpleIntegerProperty(STARTTIME);
+	@FXML
+	private Label timerLabel;
+	private static final Integer STARTTIME = 7;
+	private Timeline timeline;
+	private final IntegerProperty timeSeconds = new SimpleIntegerProperty(STARTTIME);
 
-    /**
-     * Initializes the controller class.
-     *
-     * @param url
-     * @param rb
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        autoPlay();
-    }
+	/**
+	 * Initializes the controller class.
+	 *
+	 * @param url
+	 * @param rb
+	 */
+	@Override
+	public void initialize(URL url, ResourceBundle rb) {
+		autoPlay();
+	}
 
-    @FXML
-    public void autoPlay() {
-        // Bind the timerLabel text property to the timeSeconds property
-        timerLabel.textProperty().bind(timeSeconds.asString());
-        timerLabel.setTextFill(Color.RED);
+	@FXML
+	public void autoPlay() {
+		// Bind the timerLabel text property to the timeSeconds property
+		timerLabel.textProperty().bind(timeSeconds.asString());
+		timerLabel.setTextFill(Color.RED);
 
-        // Countdown from STARTTIME to zero
-        if (timeline != null) {
-            timeline.stop();
-        }
-        timeSeconds.set(STARTTIME);
-        timeline = new Timeline();
-        timeline.getKeyFrames().add(
-                new KeyFrame(Duration.seconds(STARTTIME + 1),
-                        new KeyValue(timeSeconds, 0)));
-        timeline.playFromStart();
+		// Countdown from STARTTIME to zero
+		if (timeline != null) {
+			timeline.stop();
+		}
+		timeSeconds.set(STARTTIME);
+		timeline = new Timeline();
+		timeline.getKeyFrames().add(
+				new KeyFrame(Duration.seconds(STARTTIME + 1),
+						new KeyValue(timeSeconds, 0)));
+		timeline.playFromStart();
 
-        // When completed counting down, execute method openHoofdmenu().
-        timeline.setOnFinished((ActionEvent a) -> {
-            openHoofdmenu();
-        });
-    }
+		// When completed counting down, execute method openHoofdmenu().
+		timeline.setOnFinished((ActionEvent a) -> {
+			openMain();
+		});
+	}
 
-    @FXML
-    private void openHoofdmenu() {
-        timeline.stop();
-        laadView("Hoofdmenu");
-    }
+	@FXML
+	private void openMain() {
+		timeline.stop();
+		loadView("MainMenu");
+	}
 
-    @FXML
-    private void openAdminmenu() {
-        timeline.stop();
-        laadView("AdminHoofdmenu");
+	@FXML
+	private void openAdmin() {
+		timeline.stop();
+		loadView("AdminMenu");
 
-    }
+	}
 
 }
