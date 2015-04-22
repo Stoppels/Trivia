@@ -75,7 +75,6 @@ public class QuestionController extends Trivia implements Initializable {
     @FXML
     Button ButtonA;
 
-    
     /**
      * Initializes the controller class.
      *
@@ -85,6 +84,7 @@ public class QuestionController extends Trivia implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         setVraag();
+        setAwnserA();
         // TODO
 
         // if current answer > 10, scoreCheck()
@@ -155,13 +155,14 @@ public class QuestionController extends Trivia implements Initializable {
             loadView("MainMenu");
         }
     }
-
+        
+    //Random integer genereren voor random vraag
+    Random rand = new Random();
+    int VraagID = rand.nextInt(4);
+    
+        
     private void setVraag() {
-
-        //Random integer genereren voor random vraag
-        Random rand = new Random();
-        int VraagID = rand.nextInt(4);
-
+             
         // object om connectie aan te roepen
         Dbmanager dbm = new Dbmanager();
         QueryManager qm = new QueryManager(dbm);
@@ -184,12 +185,8 @@ public class QuestionController extends Trivia implements Initializable {
         }
     }
 
-    private void setAwnser() {
-
-        //Random integer genereren voor random vraag
-        Random rand = new Random();
-        int VraagID = rand.nextInt(4);
-
+    private void setAwnserA() {
+    
         // object om connectie aan te roepen
         Dbmanager dbm = new Dbmanager();
         QueryManager qm = new QueryManager(dbm);
@@ -197,14 +194,14 @@ public class QuestionController extends Trivia implements Initializable {
         //open database connection
         dbm.openConnection();
 
-        String sql = "SELECT Vraag FROM vraag WHERE VraagID =" + VraagID + ";";
+        String sql = "SELECT AntwoordFout FROM antwoordfout INNER JOIN vraag ON antwoordfout.VraagID = vraag.VraagID WHERE AntwoordFoutID =" + 1 + " AND vraag.VraagID = " + VraagID +   ";";
 
         System.out.println(sql);
 
         try {
             ResultSet result = dbm.doQuery(sql);
             result.next();
-            vraag.setText(result.getString("Vraag"));
+            LabelA.setText(result.getString("AntwoordFout"));
 
         } catch (SQLException e) {
 
