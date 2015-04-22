@@ -26,6 +26,11 @@ package connectivity;
 
 import java.sql.*;
 
+/**
+ *
+ * @author Team Silent Coders
+ * @version 1.0
+ */
 public class DbManager {
 
 	public static final String JDBC_EXCEPTION = "JDBC Exception: ";
@@ -43,9 +48,8 @@ public class DbManager {
 			String url = "jdbc:mysql://localhost/Trivia";
 			String user = "root", pass = "root";
 			System.out.println("Connected");
-			/**
-			 * Open connection
-			 */
+
+			// Open connection
 			connection = DriverManager.getConnection(url, user, pass);
 		} catch (ClassNotFoundException e) {
 			System.err.println(JDBC_EXCEPTION + e);
@@ -61,7 +65,7 @@ public class DbManager {
 		try {
 			connection.close();
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
+			System.err.println(e.getLocalizedMessage());
 		}
 	}
 
@@ -83,6 +87,7 @@ public class DbManager {
 	 * Executes a query with result.
 	 *
 	 * @param query, the SQL query
+	 * @return
 	 */
 	public ResultSet doQuery(String query) {
 		ResultSet result = null;
@@ -99,6 +104,7 @@ public class DbManager {
 	 * Executes a query with result.
 	 *
 	 * @param query, the SQL query
+	 * @return generated keys
 	 */
 	public ResultSet insertQuery(String query) {
 		ResultSet result = null;

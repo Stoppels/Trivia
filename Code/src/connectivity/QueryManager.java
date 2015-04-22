@@ -26,9 +26,12 @@ package connectivity;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
+/**
+ *
+ * @author Team Silent Coders
+ * @version 1.0
+ */
 public class QueryManager {
 
 	private final DbManager dbmanager;
@@ -37,6 +40,9 @@ public class QueryManager {
 		this.dbmanager = dbmanager;
 	}
 
+	/**
+	 *
+	 */
 	public void insertBaggage() {
 
 		String sql = "INSERT INTO Trivia.Vraag VALUES(2, 'Hoe heette het vorige project?') ";
@@ -51,12 +57,15 @@ public class QueryManager {
 
 		} catch (SQLException e) {
 
-			System.out.println("FOUT" + e.getMessage());
+			System.out.println("FOUT" + e.getLocalizedMessage());
 		}
 
 	}
 
-	public void setVraag() throws SQLException {
+	/**
+	 *
+	 */
+	public void setVraag() {
 
 		try {
 			String sql = "SELECT Vraag FROM vraag WHERE VraagID = 1;";
@@ -68,7 +77,7 @@ public class QueryManager {
 
 		} catch (SQLException e) {
 
-			System.out.println("FOUT" + e.getMessage());
+			System.out.println("FOUT" + e.getLocalizedMessage());
 		}
 
 	}

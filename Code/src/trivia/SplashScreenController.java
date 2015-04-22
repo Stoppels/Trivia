@@ -41,7 +41,7 @@ import javafx.util.Duration;
 /**
  * FXML Controller class
  *
- * @author AMS09
+ * @author Team Silent Coders
  * @version 1.0
  */
 public class SplashScreenController extends Trivia implements Initializable {

@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2015 Team Silent Coders.
+ * Copyright 2015 Team Silent Coders AKA AMS09.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -31,7 +31,7 @@ import javafx.fxml.Initializable;
 /**
  * FXML Controller class
  *
- * @author AMS09
+ * @author Team Silent Coders
  * @version 1.0
  */
 public class AdminMenuController extends Trivia implements Initializable {

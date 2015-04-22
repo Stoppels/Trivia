@@ -42,7 +42,7 @@ import javafx.stage.StageStyle;
 /**
  * FXML Controller class
  *
- * @author AMS09
+ * @author Team Silent Coders
  * @version 1.0
  */
 public class MainMenuController extends Trivia implements Initializable {

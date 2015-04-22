@@ -26,16 +26,12 @@ package trivia;
 
 import connectivity.DbManager;
 import connectivity.QueryManager;
-import java.io.IOException;
-import static java.lang.Math.random;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 import java.util.Random;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -50,7 +46,7 @@ import static trivia.GameSetUpController.makkelijkHolder;
 /**
  * FXML Controller class
  *
- * @author AMS09
+ * @author Team Silent Coders
  * @version 1.0
  */
 public class QuestionController extends Trivia implements Initializable {
@@ -88,7 +84,7 @@ public class QuestionController extends Trivia implements Initializable {
 		setAwnserA();
         // TODO
 
-        // if current answer > 10, scoreCheck()
+		// if current answer > 10, scoreCheck()
 		// if int current question > 1 AND previousQuestion is disabled, enable previousQuestion
 		// else if int current question < 2, disable previousQuestion
 	}
@@ -104,7 +100,7 @@ public class QuestionController extends Trivia implements Initializable {
 		if (makkelijkHolder) {
 			System.out.println("yo2");
 		}
-        //enable timer? timerCountdown()
+		//enable timer? timerCountdown()
 		//other settings?
 	}
 
@@ -133,7 +129,7 @@ public class QuestionController extends Trivia implements Initializable {
 
 	@FXML
 	private void timerCountdown() {
-        //countdown
+		//countdown
 		//remember remaining time per question?
 		//show warning if no time remaining but user went back to question?
 	}

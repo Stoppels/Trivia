@@ -33,7 +33,7 @@ import javafx.scene.control.Toggle;
 /**
  * FXML Controller class
  *
- * @author AMS09
+ * @author Team Silent Coders
  * @version 1.0
  */
 public class GameSetUpController extends Trivia implements Initializable {

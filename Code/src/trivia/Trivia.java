@@ -35,8 +35,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
+ * Application main class
  *
- * @author AMS09
+ * @author Team Silent Coders
  * @version 1.0
  */
 public class Trivia extends Application {
