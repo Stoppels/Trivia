@@ -26,7 +26,7 @@ Voor de overige documentatie kunt u simpelweg de repository bezoeken, zo nodig m
 - [Documents](Documents) Top level directory
   - _Overige op te leveren documenten én verwijzingen vindt u hier terug als PDF formaat._
 - [UML](UML) Top level directory
-  - _De op te leveren UML- en ontwerpproducten zijn in deze folder terug te vinden._
+  - _De op te leveren UML- en ntwerpproducten zijn in deze folder terug te vinden._
 
 ### ITopia begeleiders
 
@@ -41,7 +41,7 @@ Verder onderhouden we communicatie met deelprojectleider Claar van der Does.
 
 ### Teamleden
 
-Ons team is opgebouwd uit zes ijverige studenten die per :pizza: erg veel regels code kunnen schrijven.
+Ons team is opgebouwd uit zes ijverige studenten die per :pizza: BBQ mix erg veel regels code kunnen schrijven.
 
 | Student         | E-mail |
 | --------        | -------- |
