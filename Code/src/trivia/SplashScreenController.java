@@ -2,6 +2,7 @@
  * The MIT License
  *
  * Copyright 2015 Team Silent Coders.
+ * Application developed for Amsterdam University of Applied Sciences and Amsta.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal

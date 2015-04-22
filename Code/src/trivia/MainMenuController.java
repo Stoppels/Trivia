@@ -2,6 +2,7 @@
  * The MIT License
  *
  * Copyright 2015 Team Silent Coders.
+ * Application developed for Amsterdam University of Applied Sciences and Amsta.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,7 +24,7 @@
  */
 package trivia;
 
-import connectivity.Dbmanager;
+import connectivity.DbManager;
 import connectivity.QueryManager;
 import java.net.URL;
 import java.util.Arrays;
@@ -46,69 +47,68 @@ import javafx.stage.StageStyle;
  */
 public class MainMenuController extends Trivia implements Initializable {
 
-    @FXML
-    private Label uitlegA;
+	@FXML
+	private Label uitlegA;
 
-    @FXML
-    private Label uitlegB;
+	@FXML
+	private Label uitlegB;
 
-    @FXML
-    private Label uitlegC;
+	@FXML
+	private Label uitlegC;
 
-    @FXML
-    private Label uitlegD;
-   
-    /**
-     * Initializes the controller class.
-     *
-     * @param url
-     * @param rb
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }
+	@FXML
+	private Label uitlegD;
 
-    @FXML
-    private void startGame() {
-        Dbmanager dbm = new Dbmanager();
-        QueryManager qm = new QueryManager(dbm);
-        dbm.openConnection();
-     
+	/**
+	 * Initializes the controller class.
+	 *
+	 * @param url
+	 * @param rb
+	 */
+	@Override
+	public void initialize(URL url, ResourceBundle rb) {
+		// TODO
+	}
 
-        loadView("Question");
-    }
+	@FXML
+	private void startGame() {
+		DbManager dbm = new DbManager();
+		QueryManager qm = new QueryManager(dbm);
+		dbm.openConnection();
 
-    @FXML
-    private void setUpGame() {
-        loadView("GameSetUp");
-    }
+		loadView("Question");
+	}
 
-    @FXML
-    private void toggleHelp() {
-        List<Label> helpItems = Arrays.asList(uitlegA, uitlegB, uitlegC, uitlegD);
+	@FXML
+	private void setUpGame() {
+		loadView("GameSetUp");
+	}
 
-        for (Label a : helpItems) {
-            boolean visibility = (a.isVisible() != true);
-            a.setVisible(visibility);
-        }
-    }
+	@FXML
+	private void toggleHelp() {
+		List<Label> helpItems = Arrays.asList(uitlegA, uitlegB, uitlegC, uitlegD);
 
-    /**
-     * Triggers a confirmation dialog for quitting the app.
-     */
-    @FXML
-    private void exit() {
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle("Afsluiten");
-        alert.setHeaderText("Weet u zeker dat u wilt afsluiten?");
-        alert.setContentText("Hiermee wordt het programma afgesloten.");
-        alert.initStyle(StageStyle.UNDECORATED);
+		for (Label a : helpItems) {
+			boolean visibility = (a.isVisible() != true);
+			a.setVisible(visibility);
+		}
+	}
 
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
-            System.exit(0);
-        }
-    }
+	/**
+	 * Triggers a confirmation dialog for quitting the app.
+	 */
+	@FXML
+	private void exit() {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Afsluiten");
+		alert.setHeaderText("Weet u zeker dat u wilt afsluiten?");
+		alert.setContentText("Hiermee wordt het programma afgesloten.");
+		alert.initStyle(StageStyle.UNDECORATED);
+
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK) {
+			System.exit(0);
+		}
+	}
 
 }
