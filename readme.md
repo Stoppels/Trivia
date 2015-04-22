@@ -60,7 +60,7 @@ This program is distributed under the terms of the MIT license reproduced in the
 
 ```java
 		for (SilentCoder x : teamSilentCoders) {
-			a.setMark(perfectA);
+			x.setMark(perfectA);
 		}
 ```
 
