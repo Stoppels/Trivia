@@ -23,6 +23,8 @@
  */
 package trivia;
 
+import connectivity.Dbmanager;
+import connectivity.QueryManager;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
@@ -44,64 +46,69 @@ import javafx.stage.StageStyle;
  */
 public class MainMenuController extends Trivia implements Initializable {
 
-	@FXML
-	private Label uitlegA;
+    @FXML
+    private Label uitlegA;
 
-	@FXML
-	private Label uitlegB;
+    @FXML
+    private Label uitlegB;
 
-	@FXML
-	private Label uitlegC;
+    @FXML
+    private Label uitlegC;
 
-	@FXML
-	private Label uitlegD;
+    @FXML
+    private Label uitlegD;
+   
+    /**
+     * Initializes the controller class.
+     *
+     * @param url
+     * @param rb
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        // TODO
+    }
 
-	/**
-	 * Initializes the controller class.
-	 *
-	 * @param url
-	 * @param rb
-	 */
-	@Override
-	public void initialize(URL url, ResourceBundle rb) {
-		// TODO
-	}
+    @FXML
+    private void startGame() {
+        Dbmanager dbm = new Dbmanager();
+        QueryManager qm = new QueryManager(dbm);
+        dbm.openConnection();
+     
 
-	@FXML
-	private void startGame() {
-		loadView("Question");
-	}
+        loadView("Question");
+    }
 
-	@FXML
-	private void setUpGame() {
-		loadView("GameSetUp");
-	}
+    @FXML
+    private void setUpGame() {
+        loadView("GameSetUp");
+    }
 
-	@FXML
-	private void toggleHelp() {
-		List<Label> helpItems = Arrays.asList(uitlegA, uitlegB, uitlegC, uitlegD);
+    @FXML
+    private void toggleHelp() {
+        List<Label> helpItems = Arrays.asList(uitlegA, uitlegB, uitlegC, uitlegD);
 
-		for (Label a : helpItems) {
-			boolean visibility = (a.isVisible() != true);
-			a.setVisible(visibility);
-		}
-	}
+        for (Label a : helpItems) {
+            boolean visibility = (a.isVisible() != true);
+            a.setVisible(visibility);
+        }
+    }
 
-	/**
-	 * Triggers a confirmation dialog for quitting the app.
-	 */
-	@FXML
-	private void exit() {
-		Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setTitle("Afsluiten");
-		alert.setHeaderText("Weet u zeker dat u wilt afsluiten?");
-		alert.setContentText("Hiermee wordt het programma afgesloten.");
-		alert.initStyle(StageStyle.UNDECORATED);
+    /**
+     * Triggers a confirmation dialog for quitting the app.
+     */
+    @FXML
+    private void exit() {
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Afsluiten");
+        alert.setHeaderText("Weet u zeker dat u wilt afsluiten?");
+        alert.setContentText("Hiermee wordt het programma afgesloten.");
+        alert.initStyle(StageStyle.UNDECORATED);
 
-		Optional<ButtonType> result = alert.showAndWait();
-		if (result.get() == ButtonType.OK) {
-			System.exit(0);
-		}
-	}
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            System.exit(0);
+        }
+    }
 
 }

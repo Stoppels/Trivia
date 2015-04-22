@@ -23,9 +23,15 @@
  */
 package trivia;
 
+import connectivity.Dbmanager;
+import connectivity.QueryManager;
 import java.io.IOException;
+import static java.lang.Math.random;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Optional;
+import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -48,94 +54,161 @@ import static trivia.GameSetUpController.makkelijkHolder;
  */
 public class QuestionController extends Trivia implements Initializable {
 
-	@FXML
-	Button previousQuestion;
+    @FXML
+    Button previousQuestion;
 
-	@FXML
-	Button nextQuestion;
+    @FXML
+    Button nextQuestion;
 
-	@FXML
-	Label timer;
+    @FXML
+    Label timer;
 
-	@FXML
-	ProgressBar progressBar;
+    @FXML
+    ProgressBar progressBar;
 
-	/**
-	 * Initializes the controller class.
-	 *
-	 * @param url
-	 * @param rb
-	 */
-	@Override
-	public void initialize(URL url, ResourceBundle rb) {
-		// TODO
+    @FXML
+    Label vraag;
 
-		// if current answer > 10, scoreCheck()
-		// if int current question > 1 AND previousQuestion is disabled, enable previousQuestion
-		// else if int current question < 2, disable previousQuestion
-	}
+    @FXML
+    Label LabelA;
 
-	/**
-	 * I don't work yet, please fix me //////////////////////////////////
-	 */
-	@FXML
-	public void checkVraagSettings() {
-		if (GameSetUpController.makkelijkHolder) {
-			System.out.println("yo");
-		}
-		if (makkelijkHolder) {
-			System.out.println("yo2");
-		}
-		//enable timer? timerCountdown()
-		//other settings?
-	}
+    @FXML
+    Button ButtonA;
 
-	@FXML
-	private void previousQuestion() {
-		saveAnswer();
-		//goto current -1
-	}
+    
+    /**
+     * Initializes the controller class.
+     *
+     * @param url
+     * @param rb
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        setVraag();
+        // TODO
 
-	@FXML
-	private void nextQuestion() {
-		saveAnswer();
-		//goto current + 1
-	}
+        // if current answer > 10, scoreCheck()
+        // if int current question > 1 AND previousQuestion is disabled, enable previousQuestion
+        // else if int current question < 2, disable previousQuestion
+    }
 
-	@FXML
-	private void saveAnswer() {
-		//remember chosen answer;
-	}
+    /**
+     * I don't work yet, please fix me //////////////////////////////////
+     */
+    @FXML
+    public void checkVraagSettings() {
+        if (GameSetUpController.makkelijkHolder) {
+            System.out.println("yo");
+        }
+        if (makkelijkHolder) {
+            System.out.println("yo2");
+        }
+        //enable timer? timerCountdown()
+        //other settings?
+    }
 
-	@FXML
-	private void progressChecker() {
-		//progressBar;
-	}
+    @FXML
+    private void previousQuestion() {
 
-	@FXML
-	private void timerCountdown() {
-		//countdown
-		//remember remaining time per question?
-		//show warning if no time remaining but user went back to question?
-	}
+        saveAnswer();
+        //goto current -1
+    }
 
-	@FXML
-	private void scoreCheck() {
-		//analyze savedanswers
-	}
+    @FXML
+    private void nextQuestion() {
+        saveAnswer();
+        //goto current + 1
+    }
 
-	@FXML
-	private void stopQuiz() {
-		Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setTitle("Stop quiz");
-		alert.setHeaderText("Weet u zeker dat u de quiz wilt stoppen?");
-		alert.setContentText("De antwoorden worden niet opgeslagen.\nDit brengt u terug naar het hoofdmenu.");
-		alert.initStyle(StageStyle.UNDECORATED);
+    @FXML
+    private void saveAnswer() {
+        //remember chosen answer;
+    }
 
-		Optional<ButtonType> result = alert.showAndWait();
-		if (result.get() == ButtonType.OK) {
-			loadView("MainMenu");
-		}
-	}
+    @FXML
+    private void progressChecker() {
+        //progressBar;
+    }
 
+    @FXML
+    private void timerCountdown() {
+        //countdown
+        //remember remaining time per question?
+        //show warning if no time remaining but user went back to question?
+    }
+
+    @FXML
+    private void scoreCheck() {
+        //analyze savedanswers
+    }
+
+    @FXML
+    private void stopQuiz() {
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Stop quiz");
+        alert.setHeaderText("Weet u zeker dat u de quiz wilt stoppen?");
+        alert.setContentText("De antwoorden worden niet opgeslagen.\nDit brengt u terug naar het hoofdmenu.");
+        alert.initStyle(StageStyle.UNDECORATED);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            loadView("MainMenu");
+        }
+    }
+
+    private void setVraag() {
+
+        //Random integer genereren voor random vraag
+        Random rand = new Random();
+        int VraagID = rand.nextInt(4);
+
+        // object om connectie aan te roepen
+        Dbmanager dbm = new Dbmanager();
+        QueryManager qm = new QueryManager(dbm);
+
+        //open database connection
+        dbm.openConnection();
+
+        String sql = "SELECT Vraag FROM vraag WHERE VraagID =" + VraagID + ";";
+
+        System.out.println(sql);
+
+        try {
+            ResultSet result = dbm.doQuery(sql);
+            result.next();
+            vraag.setText(result.getString("Vraag"));
+
+        } catch (SQLException e) {
+
+            System.out.println("FOUT" + e.getMessage());
+        }
+    }
+
+    private void setAwnser() {
+
+        //Random integer genereren voor random vraag
+        Random rand = new Random();
+        int VraagID = rand.nextInt(4);
+
+        // object om connectie aan te roepen
+        Dbmanager dbm = new Dbmanager();
+        QueryManager qm = new QueryManager(dbm);
+
+        //open database connection
+        dbm.openConnection();
+
+        String sql = "SELECT Vraag FROM vraag WHERE VraagID =" + VraagID + ";";
+
+        System.out.println(sql);
+
+        try {
+            ResultSet result = dbm.doQuery(sql);
+            result.next();
+            vraag.setText(result.getString("Vraag"));
+
+        } catch (SQLException e) {
+
+            System.out.println("FOUT" + e.getMessage());
+        }
+    }
 }
