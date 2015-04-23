@@ -46,7 +46,7 @@ public class DbManager {
 			Class.forName("com.mysql.jdbc.Driver");
 
 			String url = "jdbc:mysql://localhost:3306/trivia";
-			String user = "root", pass = "";
+			String user = "root", pass = "root";
 			System.out.println("Connected");
 
 			// Open connection
