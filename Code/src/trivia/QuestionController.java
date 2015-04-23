@@ -94,7 +94,7 @@ public class QuestionController extends Trivia implements Initializable {
 
 	// Generate random integer in order to fetch random question from database
 	Random rand = new Random();
-	int VraagID = rand.nextInt(4);
+	int VraagID = rand.nextInt(4) + 1;
 
 	/**
 	 * Initializes the controller class.
@@ -104,8 +104,12 @@ public class QuestionController extends Trivia implements Initializable {
 	 */
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-//		setVraag();
-//		setAnswerA();
+		setQuestion();
+		setWrongAnswer(1, labelA);
+                setWrongAnswer(2, labelB);
+                setWrongAnswer(3, labelC);
+                setRightAnswer(labelD);
+                
 		mainMenu.setOnAction(this::stopQuiz);
 
 		// TODO
@@ -189,22 +193,40 @@ public class QuestionController extends Trivia implements Initializable {
 		}
 	}
 
-	private void setAnswerA() {
+	private void setWrongAnswer(int antwoordfoutID, Label labelNumber) {
 		// Object to call connection
 		DbManager dbm = new DbManager();
 		QueryManager qm = new QueryManager(dbm);
 
 		// Open database connection
 		dbm.openConnection();
-		String sql = "SELECT AntwoordFout FROM antwoordfout INNER JOIN vraag ON"
+		String sqlAnswer = "SELECT AntwoordFout FROM antwoordfout INNER JOIN vraag ON"
 				+ " antwoordfout.VraagID = vraag.VraagID WHERE AntwoordFoutID ="
-				+ 1 + " AND vraag.VraagID = " + VraagID + ";";
-		System.out.println(sql);
+				+ antwoordfoutID + " AND vraag.VraagID = " + VraagID + ";";
+		System.out.println(sqlAnswer);
 
 		try {
-			ResultSet result = dbm.doQuery(sql);
+			ResultSet result = dbm.doQuery(sqlAnswer);
 			result.next();
-			labelA.setText(result.getString("AntwoordFout"));
+			labelNumber.setText(result.getString("AntwoordFout"));
+		} catch (SQLException e) {
+			System.err.println("FOUT" + e.getLocalizedMessage());
+		}
+	}
+        private void setRightAnswer(Label labelNumber) {
+		// Object to call connection
+		DbManager dbm = new DbManager();
+		QueryManager qm = new QueryManager(dbm);
+
+		// Open database connection
+		dbm.openConnection();
+		String sqlAnswer = "SELECT AntwoordGoed FROM antwoordgoed WHERE VraagID = " + VraagID + ";";
+		System.out.println(sqlAnswer);
+
+		try {
+			ResultSet result = dbm.doQuery(sqlAnswer);
+			result.next();
+			labelNumber.setText(result.getString("AntwoordGoed"));
 		} catch (SQLException e) {
 			System.err.println("FOUT" + e.getLocalizedMessage());
 		}
