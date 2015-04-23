@@ -47,117 +47,122 @@ import javafx.stage.StageStyle;
  */
 public class Trivia extends Application {
 
-	Stage startStage;
+    Stage startStage;
 
-	@Override
-	public void start(Stage stage) {
-		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/views/SplashScreen.fxml"));
-			Scene scene = new Scene(root);
-			stage.setScene(scene);
-			//stage.setFullScreen(true);
-			stage.setFullScreenExitHint("");
-			stage.show();
-			startStage = stage;
-		} catch (IOException e) {
-			System.err.println("Error: " + e.getLocalizedMessage());
-		}
-	}
+    @Override
+    public void start(Stage stage) {
+        try {
 
-	/**
-	 * Allows for quick creation of a boolean AlertDialog.
-	 *
-	 * @param type
-	 * @param title
-	 * @param header
-	 * @param content
-	 * @param style
-	 * @return boolean value
-	 */
-	public static boolean alertDialog(AlertType type, String title,
-			String header, String content, StageStyle style) {
-		Alert alert = new Alert(type);
-		alert.setTitle(title);
-		alert.setHeaderText(header);
-		alert.setContentText(content);
-		alert.initStyle(style);
+            Parent root = FXMLLoader.load(getClass().getResource("/views/SplashScreen.fxml"));
+            Scene scene = new Scene(root);
+          
+            root.setId("pane");
+            scene.getStylesheets().addAll(this.getClass().getResource("syle.css").toExternalForm());
+            stage.setScene(scene);
+            stage.setFullScreenExitHint(""); 
+            stage.setFullScreen(true);
+            stage.show();
 
-		// Does user choose button OK or not?
-		Optional<ButtonType> result = alert.showAndWait();
-		return result.get() == ButtonType.OK;
-	}
+            startStage = stage;
+        } catch (IOException e) {
+            System.err.println("Error: " + e.getLocalizedMessage());
+        }
+    }
 
-	public void handleButtonAction(ActionEvent event) {
-		loadView("", event);
-	}
+    /**
+     * Allows for quick creation of a boolean AlertDialog.
+     *
+     * @param type
+     * @param title
+     * @param header
+     * @param content
+     * @param style
+     * @return boolean value
+     */
+    public static boolean alertDialog(AlertType type, String title,
+            String header, String content, StageStyle style) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.initStyle(style);
 
-	/**
-	 * Handles switching between views.
-	 *
-	 * @param viewName
-	 * @param event
-	 */
-	public void loadView(String viewName, ActionEvent event) {
-		boolean error = false, onSplash = false;
+        // Does user choose button OK or not?
+        Optional<ButtonType> result = alert.showAndWait();
+        return result.get() == ButtonType.OK;
+    }
 
-		// Only perform this check if a view is not already given by param viewName
-		if (viewName.equals("")) {
-			// Fetch the FX:ID of the button and find out which button it was!
-			viewName = ((Control) event.getSource()).getId();
-		} else {
-			onSplash = true;
-		}
+    public void handleButtonAction(ActionEvent event) {
+        loadView("", event);
+    }
 
-		// Depending on the target view, do something!
-		switch (viewName) {
-			case "mainMenu":
-				viewName = "MainMenu";
-				System.out.println("Opening MainMenu");
-				break;
-			case "adminMenu":
-				viewName = "AdminMenu";
-				System.out.println("Opening AdminMenu");
-				break;
-			case "startGame":
-				viewName = "Question";
+    /**
+     * Handles switching between views.
+     *
+     * @param viewName
+     * @param event
+     */
+    public void loadView(String viewName, ActionEvent event) {
+        boolean error = false, onSplash = false;
+
+        // Only perform this check if a view is not already given by param viewName
+        if (viewName.equals("")) {
+            // Fetch the FX:ID of the button and find out which button it was!
+            viewName = ((Control) event.getSource()).getId();
+        } else {
+            onSplash = true;
+        }
+
+        // Depending on the target view, do something!
+        switch (viewName) {
+            case "mainMenu":
+                viewName = "MainMenu";
+                System.out.println("Opening MainMenu");
+                break;
+            case "adminMenu":
+                viewName = "AdminMenu";
+                System.out.println("Opening AdminMenu");
+                break;
+            case "startGame":
+                viewName = "Question";
 //				DbManager dbm = new DbManager();
 //				QueryManager qm = new QueryManager(dbm);
 //				dbm.openConnection();
 
-				System.out.println("c");
-				break;
-			case "gameSetUp":
-				viewName = "GameSetUp";
-				System.out.println("d");
-				break;
-			default:
-				System.err.println("View " + viewName + " not found.");
-				error = true;
-		}
+                System.out.println("c");
+                break;
+            case "gameSetUp":
+                viewName = "GameSetUp";
+                System.out.println("d");
+                break;
+            default:
+                System.err.println("View " + viewName + " not found.");
+                error = true;
+        }
 
-		// Was a view chosen? If true continue, else do nothing.
-		if (!error) {
-			try {
-				Parent root = FXMLLoader.load(getClass().getResource("/views/"
-						+ viewName + ".fxml"));
-				Scene scene = new Scene(root);
+        // Was a view chosen? If true continue, else do nothing.
+        if (!error) {
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("/views/"
+                        + viewName + ".fxml"));
+                Scene scene = new Scene(root);
 
-				// If we are on SplashScreen, then use startStage
-				Stage stage = !onSplash ? ((Stage) ((Node) event.getSource()).
-						getScene().getWindow()) : (Stage) startStage.getScene().getWindow();
-				stage.setScene(scene);
-				stage.show();
-			} catch (IOException e) {
-				System.err.println(e.getLocalizedMessage());
-			}
-		}
-	}
+                // If we are on SplashScreen, then use startStage
+                Stage stage = !onSplash ? ((Stage) ((Node) event.getSource()).
+                        getScene().getWindow()) : (Stage) startStage.getScene().getWindow();
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException e) {
+                System.err.println(e.getLocalizedMessage());
+            }
+        }
+    }
 
-	/**
-	 * @param args the command line arguments
-	 */
-	public static void main(String[] args) {
-		launch(args);
-	}
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        launch(args);
+    }
 
 }

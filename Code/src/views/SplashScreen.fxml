@@ -7,7 +7,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane minHeight="600.0" minWidth="800.0" style="-fx-background-color: #7DFEFE;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="trivia.SplashScreenController">
+<AnchorPane minHeight="600.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="trivia.SplashScreenController">
     <children>
         <GridPane layoutX="283.0" layoutY="233.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columnConstraints>
@@ -24,14 +24,9 @@
                 <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
             </rowConstraints>
             <children>
-                <Label alignment="CENTER" text="Welkom" textFill="#4700ee" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                    <font>
-                        <Font name="System Bold" size="48.0" />
-                    </font>
-                </Label>
                 <AnchorPane maxWidth="-Infinity" prefWidth="395.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                     <children>
-                        <Label contentDisplay="RIGHT" text="Hoofdmenu opent over" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                        <Label contentDisplay="RIGHT" layoutY="32.0" text="Hoofdmenu opent over" AnchorPane.bottomAnchor="-32.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="32.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                             <font>
                                 <Font size="24.0" />
                             </font>
@@ -43,7 +38,7 @@
                                 </Label>
                             </graphic>
                         </Label>
-                        <Label alignment="CENTER_RIGHT" minHeight="0.0" text="seconde(n)" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <Label alignment="CENTER_RIGHT" layoutX="278.0" layoutY="32.0" minHeight="0.0" text="seconde(n)" AnchorPane.bottomAnchor="-32.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="32.0">
                             <font>
                                 <Font size="24.0" />
                             </font>

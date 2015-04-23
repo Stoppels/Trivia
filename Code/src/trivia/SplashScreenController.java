@@ -67,8 +67,11 @@ public class SplashScreenController extends Trivia implements Initializable {
 	 * @param url
 	 * @param rb
 	 */
+        
+        
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
+            
 		autoPlay();
 		mainMenu.setOnAction(this::handleButtonAction);
 		adminMenu.setOnAction(this::handleButtonAction);
