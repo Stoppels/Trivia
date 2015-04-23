@@ -41,9 +41,43 @@ CREATE TABLE IF NOT EXISTS `antwoordfout` (
 --
 
 INSERT INTO `antwoordfout` (`AntwoordFoutID`, `AntwoordFout`, `VraagID`) VALUES
-(0, 'Nederland', 2),
-(1, 'Spanje', 2),
-(2, 'Brazilië', 2);
+(1, '1918', 1),
+(2, '1940', 1),
+(3, '1814', 1),
+(1, 'Nederland', 2),
+(2, 'Spanje', 2),
+(3, 'Brazilië', 2),
+(1, 'Cola', 3),
+(2, 'Calcium', 3),
+(3, 'Europa', 3),
+(1, 'Calcium', 4),
+(2, 'Ijzer', 4),
+(3, 'Zuurstof', 4),
+(1, 'Batman', 5),
+(2, 'Willem van Oranje', 5),
+(3, 'Geen van deze antwoorden', 5),
+(1, '1900', 6),
+(2, '1868', 6),
+(3, '1970', 6),
+(1, 'Mark Rutte', 7),
+(2, 'Willem ALexander', 7),
+(3, 'Jan Peter Balkenende', 7),
+(1, 'Olifant', 8),
+(2, 'Centaur', 8),
+(3, 'Sfinx', 8),
+(1, '1939', 9),
+(2, '1967', 9),
+(3, '1819', 9),
+(1, 'Spinnen', 10),
+(2, 'Oude mensen', 10),
+(3, 'Kinderen', 10),
+(1, 'George Walker Bush', 11),
+(2, 'Barack Obama', 11),
+(3, 'John Fitzgerald Kennedy', 11),
+(1, 'Carlos Manuel Piedra', 12),
+(2, 'Fulgencio Batista', 12),
+(3, 'Osvaldo Dorticós Torrado', 12);
+
 
 -- --------------------------------------------------------
 
@@ -72,7 +106,7 @@ INSERT INTO `antwoordgoed` (`AntwoordGoedID`, `AntwoordGoed`, `VraagID`) VALUES
 (8, 'Minotaurus', 8),
 (9, '1909', 9),
 (10, 'Vreemden, vreemdelingen', 10),
-(11, '(Harry) Truman', 11),
+(11, 'Harry Truman', 11),
 (12, 'Fidel Castro', 12);
 
 
@@ -92,20 +126,18 @@ CREATE TABLE IF NOT EXISTS `vraag` (
 --
 
 INSERT INTO `vraag` (`VraagID`, `Vraag`) VALUES
-(0, 'Wanneer begon de Eerste Wereldoorlog?'),
-(1, 'Welk land won het WK voetbal 2014?'),
-(2, 'Hoe heette het vorige project?'),
-(3, 'Hoe heet dit project?'),
-(4, 'Wat is de moderne naam van het vroegere “Caledonia”?'),
-(5, 'Voor welk scheikundig element staat het symbool Cu?'),
-(6, 'Wie staat er met zijn makkers in brons vereeuwigd buiten het kasteel van Nottingham in Engeland?'),
-(7, 'In welk jaar kreeg Moeder Theresa de Nobelprijs voor de Vrede?'),
-(8, 'Wie was de langst zittende premier van Nederland?'),
-(9, 'Wat is de naam van het legendarische monster dat half mens, half stier was en door Theseus werd gedood?'),
-(10, 'In welk jaar was de eerste Elfstedentocht?'),
-(11, 'Waar is iemand die lijdt aan xenofobie bang voor?'),
-(12, 'Welke Amerikaanse president besloot tot het inzetten van de atoombom tegen Japan?'),
-(13, 'Wie bevrijdde Cuba in 1959 van de corrupte dictator Batista?');
+(1, 'Wanneer begon de Eerste Wereldoorlog?'),
+(2, 'Welk land won het WK voetbal 2014?'),
+(3, 'Wat is de moderne naam van het vroegere “Caledonia”?'),
+(4, 'Voor welk scheikundig element staat het symbool Cu?'),
+(5, 'Wie staat er met zijn makkers in brons vereeuwigd buiten het kasteel van Nottingham in Engeland?'),
+(6, 'In welk jaar kreeg Moeder Theresa de Nobelprijs voor de Vrede?'),
+(7, 'Wie was de langst zittende premier van Nederland?'),
+(8, 'Wat is de naam van het legendarische monster dat half mens, half stier was en door Theseus werd gedood?'),
+(9, 'In welk jaar was de eerste Elfstedentocht?'),
+(10, 'Waar is iemand die lijdt aan xenofobie bang voor?'),
+(11, 'Welke Amerikaanse president besloot tot het inzetten van de atoombom tegen Japan?'),
+(12, 'Wie bevrijdde Cuba in 1959 van de corrupte dictator Batista?');
 
 --
 -- Indexen voor geëxporteerde tabellen
