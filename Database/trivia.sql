@@ -19,6 +19,10 @@ SET time_zone = "+00:00";
 --
 -- Database: `trivia`
 --
+-- DROP SCHEMA `trivia`;
+
+CREATE SCHEMA IF NOT EXISTS `trivia`;
+USE `trivia`;
 
 -- --------------------------------------------------------
 
@@ -27,9 +31,9 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `antwoordfout` (
-  `AntwoordFoutID` int(5) NOT NULL,
+  `AntwoordFoutID` int(9) NOT NULL,
   `AntwoordFout` varchar(255) DEFAULT NULL,
-  `VraagID` int(5) NOT NULL
+  `VraagID` int(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -37,9 +41,9 @@ CREATE TABLE IF NOT EXISTS `antwoordfout` (
 --
 
 INSERT INTO `antwoordfout` (`AntwoordFoutID`, `AntwoordFout`, `VraagID`) VALUES
-(0, 'Nederland', 1),
-(1, 'Spanje', 1),
-(2, 'Brazilië', 1);
+(0, 'Nederland', 2),
+(1, 'Spanje', 2),
+(2, 'Brazilië', 2);
 
 -- --------------------------------------------------------
 
@@ -48,9 +52,9 @@ INSERT INTO `antwoordfout` (`AntwoordFoutID`, `AntwoordFout`, `VraagID`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `antwoordgoed` (
-  `AntwoordGoedID` int(5) NOT NULL,
+  `AntwoordGoedID` int(9) NOT NULL,
   `AntwoordGoed` varchar(255) DEFAULT NULL,
-  `VraagID` int(5) NOT NULL
+  `VraagID` int(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -58,7 +62,19 @@ CREATE TABLE IF NOT EXISTS `antwoordgoed` (
 --
 
 INSERT INTO `antwoordgoed` (`AntwoordGoedID`, `AntwoordGoed`, `VraagID`) VALUES
-(1, 'Duitsland', 1);
+(1, '1914', 1),
+(2, 'Duitsland', 2),
+(3, 'Schotland', 3),
+(4, 'Koper', 4),
+(5, 'Robin Hood', 5),
+(6, '1979', 6),
+(7, 'Ruud Lubbers', 7),
+(8, 'Minotaurus', 8),
+(9, '1909', 9),
+(10, 'Vreemden, vreemdelingen', 10),
+(11, '(Harry) Truman', 11),
+(12, 'Fidel Castro', 12);
+
 
 -- --------------------------------------------------------
 
@@ -67,7 +83,7 @@ INSERT INTO `antwoordgoed` (`AntwoordGoedID`, `AntwoordGoed`, `VraagID`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `vraag` (
-  `VraagID` int(5) NOT NULL,
+  `VraagID` int(9) NOT NULL,
   `Vraag` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -79,7 +95,17 @@ INSERT INTO `vraag` (`VraagID`, `Vraag`) VALUES
 (0, 'Wanneer begon de Eerste Wereldoorlog?'),
 (1, 'Welk land won het WK voetbal 2014?'),
 (2, 'Hoe heette het vorige project?'),
-(3, 'Hoe heet dit project?');
+(3, 'Hoe heet dit project?'),
+(4, 'Wat is de moderne naam van het vroegere “Caledonia”?'),
+(5, 'Voor welk scheikundig element staat het symbool Cu?'),
+(6, 'Wie staat er met zijn makkers in brons vereeuwigd buiten het kasteel van Nottingham in Engeland?'),
+(7, 'In welk jaar kreeg Moeder Theresa de Nobelprijs voor de Vrede?'),
+(8, 'Wie was de langst zittende premier van Nederland?'),
+(9, 'Wat is de naam van het legendarische monster dat half mens, half stier was en door Theseus werd gedood?'),
+(10, 'In welk jaar was de eerste Elfstedentocht?'),
+(11, 'Waar is iemand die lijdt aan xenofobie bang voor?'),
+(12, 'Welke Amerikaanse president besloot tot het inzetten van de atoombom tegen Japan?'),
+(13, 'Wie bevrijdde Cuba in 1959 van de corrupte dictator Batista?');
 
 --
 -- Indexen voor geëxporteerde tabellen
