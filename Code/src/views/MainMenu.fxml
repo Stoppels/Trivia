@@ -35,7 +35,7 @@
                         <Font name="System Bold" size="48.0" />
                     </font>
                 </Label>
-                <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" minHeight="60.0" minWidth="240.0" mnemonicParsing="false" onAction="#startGame" style="-fx-background-radius: 80px;" text="Nu spelen" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                <Button fx:id="startGame" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" minHeight="60.0" minWidth="240.0" mnemonicParsing="false" style="-fx-background-radius: 80px;" text="Nu spelen" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                     <font>
                         <Font name="System Bold" size="24.0" />
                     </font>
@@ -46,7 +46,7 @@
                         <Insets />
                     </opaqueInsets>
                 </Button>
-                <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" minHeight="60.0" minWidth="240.0" mnemonicParsing="false" onAction="#setUpGame" style="-fx-background-radius: 80px;" text="Spel opzetten" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                <Button fx:id="gameSetUp" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" minHeight="60.0" minWidth="240.0" mnemonicParsing="false" style="-fx-background-radius: 80px;" text="Spel opzetten" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                     <font>
                         <Font name="System Bold" size="24.0" />
                     </font>

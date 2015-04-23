@@ -1,7 +1,8 @@
 /*
  * The MIT License
  *
- * Copyright 2015 Team Silent Coders AKA AMS09.
+ * Copyright 2015 Team Silent Coders.
+ * Application developed for Amsterdam University of Applied Sciences and Amsta.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,8 +26,11 @@ package trivia;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.Control;
 
 /**
  * FXML Controller class
@@ -36,6 +40,15 @@ import javafx.fxml.Initializable;
  */
 public class AdminMenuController extends Trivia implements Initializable {
 
+	@FXML
+	Button mainMenu;
+
+	@FXML
+	Button manageQuestions;
+
+	@FXML
+	Button openSettings;
+
 	/**
 	 * Initializes the controller class.
 	 *
@@ -44,13 +57,16 @@ public class AdminMenuController extends Trivia implements Initializable {
 	 */
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		// TODO
+		mainMenu.setOnAction(this::handleButtonAction);
+		manageQuestions.setOnAction(this::handleButtonAction);
+		openSettings.setOnAction(this::handleButtonAction);
 	}
 
-	@FXML
-	private void openMain() {
-		loadView("MainMenu");
-
+	@Override
+	public void handleButtonAction(ActionEvent event) {
+		System.out.println("AdminMenuController check: "
+				+ ((Control) event.getSource()).getId());
+		super.handleButtonAction(event);
 	}
 
 	@FXML
@@ -62,6 +78,7 @@ public class AdminMenuController extends Trivia implements Initializable {
 	private void openSettings() {
 		//loadView("AdminSettings");
 
+		// Extra setting: Volgende vraag na antwoord selecteren
 	}
 
 }

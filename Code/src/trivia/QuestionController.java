@@ -29,15 +29,14 @@ import connectivity.QueryManager;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Optional;
 import java.util.Random;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
+import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.stage.StageStyle;
@@ -58,19 +57,44 @@ public class QuestionController extends Trivia implements Initializable {
 	Button nextQuestion;
 
 	@FXML
-	Label timer;
+	Button mainMenu;
+
+	@FXML
+	Button buttonA;
+
+	@FXML
+	Button buttonB;
+
+	@FXML
+	Button buttonC;
+
+	@FXML
+	Button buttonD;
 
 	@FXML
 	ProgressBar progressBar;
 
 	@FXML
-	Label vraag;
+	Label timer;
 
 	@FXML
-	Label LabelA;
+	Label question;
 
 	@FXML
-	Button ButtonA;
+	Label labelA;
+
+	@FXML
+	Label labelB;
+
+	@FXML
+	Label labelC;
+
+	@FXML
+	Label labelD;
+
+	// Generate random integer in order to fetch random question from database
+	Random rand = new Random();
+	int VraagID = rand.nextInt(4);
 
 	/**
 	 * Initializes the controller class.
@@ -80,10 +104,11 @@ public class QuestionController extends Trivia implements Initializable {
 	 */
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		setVraag();
-		setAwnserA();
-        // TODO
+//		setVraag();
+//		setAnswerA();
+		mainMenu.setOnAction(this::stopQuiz);
 
+		// TODO
 		// if current answer > 10, scoreCheck()
 		// if int current question > 1 AND previousQuestion is disabled, enable previousQuestion
 		// else if int current question < 2, disable previousQuestion
@@ -104,9 +129,15 @@ public class QuestionController extends Trivia implements Initializable {
 		//other settings?
 	}
 
+	@Override
+	public void handleButtonAction(ActionEvent event) {
+		System.out.println("QuestionController check: "
+				+ ((Control) event.getSource()).getId());
+		super.handleButtonAction(event);
+	}
+
 	@FXML
 	private void previousQuestion() {
-
 		saveAnswer();
 		//goto current -1
 	}
@@ -115,11 +146,6 @@ public class QuestionController extends Trivia implements Initializable {
 	private void nextQuestion() {
 		saveAnswer();
 		//goto current + 1
-	}
-
-	@FXML
-	private void saveAnswer() {
-		//remember chosen answer;
 	}
 
 	@FXML
@@ -135,73 +161,61 @@ public class QuestionController extends Trivia implements Initializable {
 	}
 
 	@FXML
+	private void saveAnswer() {
+		//remember chosen answer;
+	}
+
+	@FXML
 	private void scoreCheck() {
 		//analyze savedanswers
 	}
 
-	@FXML
-	private void stopQuiz() {
-		Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setTitle("Stop quiz");
-		alert.setHeaderText("Weet u zeker dat u de quiz wilt stoppen?");
-		alert.setContentText("De antwoorden worden niet opgeslagen.\nDit brengt u terug naar het hoofdmenu.");
-		alert.initStyle(StageStyle.UNDECORATED);
-
-		Optional<ButtonType> result = alert.showAndWait();
-		if (result.get() == ButtonType.OK) {
-			loadView("MainMenu");
-		}
-	}
-
-	//Random integer genereren voor random vraag
-	Random rand = new Random();
-	int VraagID = rand.nextInt(4);
-
-	private void setVraag() {
-
-		// object om connectie aan te roepen
+	private void setQuestion() {
+		// Object to call connection
 		DbManager dbm = new DbManager();
 		QueryManager qm = new QueryManager(dbm);
 
-		//open database connection
+		// Open database connection
 		dbm.openConnection();
-
 		String sql = "SELECT Vraag FROM vraag WHERE VraagID =" + VraagID + ";";
-
 		System.out.println(sql);
 
 		try {
 			ResultSet result = dbm.doQuery(sql);
 			result.next();
-			vraag.setText(result.getString("Vraag"));
-
+			question.setText(result.getString("Vraag"));
 		} catch (SQLException e) {
-
-			System.out.println("FOUT" + e.getMessage());
+			System.err.println("Error: " + e.getLocalizedMessage());
 		}
 	}
 
-	private void setAwnserA() {
-
-		// object om connectie aan te roepen
+	private void setAnswerA() {
+		// Object to call connection
 		DbManager dbm = new DbManager();
 		QueryManager qm = new QueryManager(dbm);
 
-		//open database connection
+		// Open database connection
 		dbm.openConnection();
-
-		String sql = "SELECT AntwoordFout FROM antwoordfout INNER JOIN vraag ON antwoordfout.VraagID = vraag.VraagID WHERE AntwoordFoutID =" + 1 + " AND vraag.VraagID = " + VraagID + ";";
-
+		String sql = "SELECT AntwoordFout FROM antwoordfout INNER JOIN vraag ON"
+				+ " antwoordfout.VraagID = vraag.VraagID WHERE AntwoordFoutID ="
+				+ 1 + " AND vraag.VraagID = " + VraagID + ";";
 		System.out.println(sql);
 
 		try {
 			ResultSet result = dbm.doQuery(sql);
 			result.next();
-			LabelA.setText(result.getString("AntwoordFout"));
-
+			labelA.setText(result.getString("AntwoordFout"));
 		} catch (SQLException e) {
+			System.err.println("FOUT" + e.getLocalizedMessage());
+		}
+	}
 
-			System.out.println("FOUT" + e.getMessage());
+	@FXML
+	private void stopQuiz(ActionEvent event) {
+		if (alertDialog(AlertType.CONFIRMATION, "Stop quiz", "Weet u zeker dat u"
+				+ " de quiz wilt stoppen?", "De antwoorden worden niet opgeslagen."
+				+ "\nDit brengt u terug naar het hoofdmenu.", StageStyle.UNDECORATED)) {
+			handleButtonAction(event);
 		}
 	}
 }

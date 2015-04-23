@@ -29,13 +29,13 @@ import connectivity.QueryManager;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonType;
+import javafx.scene.control.Button;
+import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.stage.StageStyle;
 
@@ -46,6 +46,12 @@ import javafx.stage.StageStyle;
  * @version 1.0
  */
 public class MainMenuController extends Trivia implements Initializable {
+
+	@FXML
+	private Button startGame;
+
+	@FXML
+	private Button gameSetUp;
 
 	@FXML
 	private Label uitlegA;
@@ -67,30 +73,32 @@ public class MainMenuController extends Trivia implements Initializable {
 	 */
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		// TODO
+		startGame.setOnAction(this::handleButtonAction);
+		gameSetUp.setOnAction(this::handleButtonAction);
 	}
 
-	@FXML
-	private void startGame() {
-		DbManager dbm = new DbManager();
-		QueryManager qm = new QueryManager(dbm);
-		dbm.openConnection();
-
-		loadView("Question");
+	@Override
+	public void handleButtonAction(ActionEvent event) {
+		System.out.println("MainMenuController check: "
+				+ ((Control) event.getSource()).getId());
+		loadView("", event);
 	}
 
-	@FXML
-	private void setUpGame() {
-		loadView("GameSetUp");
-	}
-
+	// Deprecated method, remove this once you have replaced it
+//	@FXML
+//	private void startGame() {
+//		DbManager dbm = new DbManager();
+//		QueryManager qm = new QueryManager(dbm);
+//		dbm.openConnection();
+//
+//	}
 	@FXML
 	private void toggleHelp() {
 		List<Label> helpItems = Arrays.asList(uitlegA, uitlegB, uitlegC, uitlegD);
 
+		// Is is true that isVisible() is false, then set true & vice versa
 		for (Label a : helpItems) {
-			boolean visibility = (a.isVisible() != true);
-			a.setVisible(visibility);
+			a.setVisible(a.isVisible() != true);
 		}
 	}
 
@@ -99,14 +107,9 @@ public class MainMenuController extends Trivia implements Initializable {
 	 */
 	@FXML
 	private void exit() {
-		Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setTitle("Afsluiten");
-		alert.setHeaderText("Weet u zeker dat u wilt afsluiten?");
-		alert.setContentText("Hiermee wordt het programma afgesloten.");
-		alert.initStyle(StageStyle.UNDECORATED);
-
-		Optional<ButtonType> result = alert.showAndWait();
-		if (result.get() == ButtonType.OK) {
+		if (alertDialog(Alert.AlertType.CONFIRMATION, "Afsluiten",
+				"Weet u zeker dat u wilt afsluiten?",
+				"Hiermee wordt het programma afgesloten.", StageStyle.UNDECORATED)) {
 			System.exit(0);
 		}
 	}

@@ -25,14 +25,19 @@
 package trivia;
 
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Optional;
 import javafx.application.Application;
-import javafx.fxml.FXML;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Control;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * Application main class
@@ -42,45 +47,109 @@ import javafx.stage.Stage;
  */
 public class Trivia extends Application {
 
-	public static Stage prevStage;
+	Stage startStage;
 
 	@Override
 	public void start(Stage stage) {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("/views/SplashScreen.fxml"));
 			Scene scene = new Scene(root);
-
 			stage.setScene(scene);
 			//stage.setFullScreen(true);
 			stage.setFullScreenExitHint("");
 			stage.show();
-			setPrevStage(stage);
-		} catch (IOException ex) {
-			Logger.getLogger(Trivia.class.getName()).log(Level.SEVERE, null, ex);
+			startStage = stage;
+		} catch (IOException e) {
+			System.err.println("Error: " + e.getLocalizedMessage());
 		}
 	}
 
 	/**
-	 * Do we still need this method?
+	 * Allows for quick creation of a boolean AlertDialog.
 	 *
-	 * @param stage
+	 * @param type
+	 * @param title
+	 * @param header
+	 * @param content
+	 * @param style
+	 * @return boolean value
 	 */
-	@FXML
-	public static void setPrevStage(Stage stage) {
-		Trivia.prevStage = stage;
+	public static boolean alertDialog(AlertType type, String title,
+			String header, String content, StageStyle style) {
+		Alert alert = new Alert(type);
+		alert.setTitle(title);
+		alert.setHeaderText(header);
+		alert.setContentText(content);
+		alert.initStyle(style);
+
+		// Does user choose button OK or not?
+		Optional<ButtonType> result = alert.showAndWait();
+		return result.get() == ButtonType.OK;
 	}
 
-	public void loadView(String viewName) {
-		try {
-			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/" + viewName + ".fxml"));
-			Parent root = (Parent) fxmlLoader.load();
-			Stage stage = new Stage();
-			stage.setScene(new Scene(root));
-			stage.show();
-			prevStage.close();
-			setPrevStage(stage);
-		} catch (IOException ex) {
-			Logger.getLogger(SplashScreenController.class.getName()).log(Level.SEVERE, null, ex);
+	public void handleButtonAction(ActionEvent event) {
+		loadView("", event);
+	}
+
+	/**
+	 * Handles switching between views.
+	 *
+	 * @param viewName
+	 * @param event
+	 */
+	public void loadView(String viewName, ActionEvent event) {
+		boolean error = false, onSplash = false;
+
+		// Only perform this check if a view is not already given by param viewName
+		if (viewName.equals("")) {
+			// Fetch the FX:ID of the button and find out which button it was!
+			viewName = ((Control) event.getSource()).getId();
+		} else {
+			onSplash = true;
+		}
+
+		// Depending on the target view, do something!
+		switch (viewName) {
+			case "mainMenu":
+				viewName = "MainMenu";
+				System.out.println("Opening MainMenu");
+				break;
+			case "adminMenu":
+				viewName = "AdminMenu";
+				System.out.println("Opening AdminMenu");
+				break;
+			case "startGame":
+				viewName = "Question";
+//				DbManager dbm = new DbManager();
+//				QueryManager qm = new QueryManager(dbm);
+//				dbm.openConnection();
+
+				System.out.println("c");
+				break;
+			case "gameSetUp":
+				viewName = "GameSetUp";
+				System.out.println("d");
+				break;
+			default:
+				System.err.println("View " + viewName + " not found.");
+				error = true;
+		}
+
+		// Was a view chosen? If true continue, else do nothing.
+		if (!error) {
+			try {
+				Parent root = FXMLLoader.load(getClass().getResource("/views/"
+						+ viewName + ".fxml"));
+				Scene scene = new Scene(root);
+
+				// If we are on SplashScreen, then use startStage
+				Stage stage = !onSplash ? ((Stage) ((Node) event.getSource()).
+						getScene().getWindow()) : (Stage) startStage.getScene().getWindow();
+				stage.setScene(scene);
+				stage.show();
+			} catch (IOException e) {
+				System.err.println(e.getLocalizedMessage());
+			}
 		}
 	}
 

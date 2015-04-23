@@ -52,9 +52,9 @@ public class DbManager {
 			// Open connection
 			connection = DriverManager.getConnection(url, user, pass);
 		} catch (ClassNotFoundException e) {
-			System.err.println(JDBC_EXCEPTION + e);
-		} catch (java.sql.SQLException e) {
-			System.err.println(SQL_EXCEPTION + e);
+			System.err.println(JDBC_EXCEPTION + e.getLocalizedMessage());
+		} catch (SQLException e) {
+			System.err.println(SQL_EXCEPTION + e.getLocalizedMessage());
 		}
 	}
 
@@ -78,8 +78,8 @@ public class DbManager {
 		try {
 			Statement statement = connection.createStatement();
 			statement.executeQuery(query);
-		} catch (java.sql.SQLException e) {
-			System.err.println(SQL_EXCEPTION + e);
+		} catch (SQLException e) {
+			System.err.println(SQL_EXCEPTION + e.getLocalizedMessage());
 		}
 	}
 
@@ -87,15 +87,15 @@ public class DbManager {
 	 * Executes a query with result.
 	 *
 	 * @param query, the SQL query
-	 * @return
+	 * @return query results
 	 */
 	public ResultSet doQuery(String query) {
 		ResultSet result = null;
 		try {
 			Statement statement = connection.createStatement();
 			result = statement.executeQuery(query);
-		} catch (java.sql.SQLException e) {
-			System.err.println(SQL_EXCEPTION + e);
+		} catch (SQLException e) {
+			System.err.println(SQL_EXCEPTION + e.getLocalizedMessage());
 		}
 		return result;
 	}
@@ -112,8 +112,8 @@ public class DbManager {
 			Statement statement = connection.createStatement();
 			statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
 			result = statement.getGeneratedKeys();
-		} catch (java.sql.SQLException e) {
-			System.err.println(SQL_EXCEPTION + e);
+		} catch (SQLException e) {
+			System.err.println(SQL_EXCEPTION + e.getLocalizedMessage());
 		}
 		return result;
 	}

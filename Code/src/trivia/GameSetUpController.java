@@ -26,8 +26,11 @@ package trivia;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.Control;
 import javafx.scene.control.Toggle;
 
 /**
@@ -37,6 +40,12 @@ import javafx.scene.control.Toggle;
  * @version 1.0
  */
 public class GameSetUpController extends Trivia implements Initializable {
+
+	@FXML
+	Button mainMenu;
+
+	@FXML
+	Button startGame;
 
 	@FXML
 	Toggle moeilijkheidNormaal;
@@ -66,17 +75,20 @@ public class GameSetUpController extends Trivia implements Initializable {
 	 */
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		// TODO
+		mainMenu.setOnAction(this::handleButtonAction);
+		startGame.setOnAction(this::handleButtonAction);
 	}
 
-	@FXML
-	private void openMain() {
-		loadView("MainMenu");
+	@Override
+	public void handleButtonAction(ActionEvent event) {
+		System.out.println("GameSetUpController check: "
+				+ ((Control) event.getSource()).getId());
+		loadView("", event);
 	}
 
 	@FXML
 	private void startGame() {
-		loadView("Question");
+//		loadView("Question");
 
 		if (moeilijkheidNormaal.isSelected()) {
 			System.out.println("normaal");
@@ -87,13 +99,19 @@ public class GameSetUpController extends Trivia implements Initializable {
 		}
 
 		if (waarvalsvragenToggleAan.isSelected()) {
-			System.out.println("waar");
+			System.out.println("Waar");
+		} else {
+			System.out.println("Onwaar");
 		}
 		if (meerkeuzevragenToggleAan.isSelected()) {
-			System.out.println("meerkeuze");
+			System.out.println("Meerkeuze");
+		} else {
+			System.out.println("True/false");
 		}
 		if (timerToggleAan.isSelected()) {
-			System.out.println("timer");
+			System.out.println("Wel timer");
+		} else {
+			System.out.println("Geen timer");
 		}
 	}
 }

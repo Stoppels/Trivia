@@ -130,12 +130,12 @@
                         <Insets left="14.0" />
                     </GridPane.margin>
                 </RadioButton>
-                <Button alignment="CENTER" focusTraversable="false" minHeight="60.0" minWidth="240.0" mnemonicParsing="false" onAction="#openMain" style="-fx-background-radius: 80px;" text="Hoofdmenu" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+                <Button fx:id="mainMenu" alignment="CENTER" focusTraversable="false" minHeight="60.0" minWidth="240.0" mnemonicParsing="false" style="-fx-background-radius: 80px;" text="Hoofdmenu" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="8" GridPane.valignment="CENTER">
                     <font>
                         <Font size="24.0" />
                     </font>
                 </Button>
-                <Button focusTraversable="false" minHeight="60.0" minWidth="240.0" mnemonicParsing="false" onAction="#startGame" style="-fx-background-radius: 80px;" text="Start Spel" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+                <Button fx:id="startGame" focusTraversable="false" minHeight="60.0" minWidth="240.0" mnemonicParsing="false" style="-fx-background-radius: 80px;" text="Start Spel" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="8" GridPane.valignment="CENTER">
                     <font>
                         <Font name="System Bold" size="24.0" />
                     </font>

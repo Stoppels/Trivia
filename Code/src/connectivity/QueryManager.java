@@ -43,42 +43,34 @@ public class QueryManager {
 	/**
 	 *
 	 */
-	public void insertBaggage() {
+	public void insert() {
 
-		String sql = "INSERT INTO Trivia.Vraag VALUES(2, 'Hoe heette het vorige project?') ";
+		String sql = "INSERT INTO Trivia.Vraag VALUES("
+				+ "2, 'Hoe heette het vorige project?') ";
 
 		System.out.println(sql);
-		int luggage_id = 0;
+		int id = 0;
 		try {
 			ResultSet result = dbmanager.insertQuery(sql);
 			result.next();
-			luggage_id = result.getInt(1);
-			System.out.println(luggage_id);
-
+			id = result.getInt(1);
+			System.out.println(id);
 		} catch (SQLException e) {
-
-			System.out.println("FOUT" + e.getLocalizedMessage());
+			System.err.println("Query error: " + e.getLocalizedMessage());
 		}
-
 	}
 
 	/**
 	 *
 	 */
 	public void setVraag() {
-
 		try {
 			String sql = "SELECT Vraag FROM vraag WHERE VraagID = 1;";
-
 			System.out.println(sql);
-
 			ResultSet result = dbmanager.doQuery(sql);
 			result.next();
-
 		} catch (SQLException e) {
-
-			System.out.println("FOUT" + e.getLocalizedMessage());
+			System.err.println("Query error: " + e.getLocalizedMessage());
 		}
-
 	}
 }

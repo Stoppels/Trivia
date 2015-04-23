@@ -34,6 +34,8 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
@@ -47,7 +49,14 @@ import javafx.util.Duration;
 public class SplashScreenController extends Trivia implements Initializable {
 
 	@FXML
+	private Button mainMenu;
+
+	@FXML
+	private Button adminMenu;
+
+	@FXML
 	private Label timerLabel;
+
 	private static final Integer STARTTIME = 7;
 	private Timeline timeline;
 	private final IntegerProperty timeSeconds = new SimpleIntegerProperty(STARTTIME);
@@ -61,6 +70,8 @@ public class SplashScreenController extends Trivia implements Initializable {
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		autoPlay();
+		mainMenu.setOnAction(this::handleButtonAction);
+		adminMenu.setOnAction(this::handleButtonAction);
 	}
 
 	@FXML
@@ -81,22 +92,17 @@ public class SplashScreenController extends Trivia implements Initializable {
 		timeline.playFromStart();
 
 		// When completed counting down, execute method openHoofdmenu().
-		timeline.setOnFinished((ActionEvent a) -> {
-			openMain();
+		timeline.setOnFinished((ActionEvent event) -> {
+			// Simulate button action
+			mainMenu.fire();
 		});
 	}
 
-	@FXML
-	private void openMain() {
+	@Override
+	public void handleButtonAction(ActionEvent event) {
 		timeline.stop();
-		loadView("MainMenu");
+		System.out.println("SplashScreenController check: "
+				+ ((Control) event.getSource()).getId());
+		loadView("", event);
 	}
-
-	@FXML
-	private void openAdmin() {
-		timeline.stop();
-		loadView("AdminMenu");
-
-	}
-
 }
