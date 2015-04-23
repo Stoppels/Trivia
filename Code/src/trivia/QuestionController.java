@@ -148,12 +148,24 @@ public class QuestionController extends Trivia implements Initializable {
 
     @FXML
     private void previousQuestion() {
+        
+        qm.setQuestion(question);
+        qm.setWrongAnswer(1, labelA);
+        qm.setWrongAnswer(2, labelB);
+        qm.setWrongAnswer(3, labelC);
+        qm.setRightAnswer(labelD);
         saveAnswer();
         //goto current -1
     }
 
     @FXML
     private void nextQuestion() {
+        qm.setQuestion(question);
+        qm.setWrongAnswer(1, labelA);
+        qm.setWrongAnswer(2, labelB);
+        qm.setWrongAnswer(3, labelC);
+        qm.setRightAnswer(labelD);
+
         saveAnswer();
         //goto current + 1
     }

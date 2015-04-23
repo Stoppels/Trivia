@@ -69,16 +69,17 @@ public class QueryManager {
         }
     }
 
-  /**
-   * 
-   * @param question label question from QuestionController
-   */
+    /**
+     *
+     * @param question label question from QuestionController
+     */
     public void setQuestion(Label question) {
-
+       
         // Open database connection
         dbm.openConnection();
         String sql = "SELECT Vraag FROM vraag WHERE VraagID =" + VraagID + ";";
         System.out.println(sql);
+         VraagID++;
 
         try {
             ResultSet result = dbm.doQuery(sql);
@@ -89,12 +90,12 @@ public class QueryManager {
 
         }
     }
-    
-/**
- * 
- * @param antwoordfoutID 
- * @param labelNumber 
- */
+
+    /**
+     *
+     * @param antwoordfoutID
+     * @param labelNumber
+     */
     public void setWrongAnswer(int antwoordfoutID, Label labelNumber) {
 
         // Open database connection
@@ -112,10 +113,11 @@ public class QueryManager {
             System.err.println("FOUT" + e.getLocalizedMessage());
         }
     }
-/**
- * 
- * @param labelNumber 
- */
+
+    /**
+     *
+     * @param labelNumber
+     */
     public void setRightAnswer(Label labelNumber) {
 
         QueryManager qm = new QueryManager(dbm);
