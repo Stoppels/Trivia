@@ -27,9 +27,6 @@ package trivia;
 import connectivity.DbManager;
 import connectivity.QueryManager;
 import java.net.URL;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Random;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -108,7 +105,7 @@ public class QuestionController extends Trivia implements Initializable {
 
         // sets the question
         dbm.openConnection();
-        qm.setQuestion(question);
+        question.setText(qm.setQuestion());
 
         //sets the wrong answer
         qm.setWrongAnswer(1, labelA);

@@ -36,103 +36,102 @@ import javafx.scene.control.Label;
  */
 public class QueryManager {
 
-    // object databaseManager for databse connection
-    DbManager dbm = new DbManager();
+	// object databaseManager for databse connection
+	DbManager dbm = new DbManager();
 
-    // Generate random integer in order to fetch random question from database
-    Random rand = new Random();
-    int VraagID = rand.nextInt(4);
+	// Generate random integer in order to fetch random question from database
+	Random rand = new Random();
+	int VraagID = rand.nextInt(4);
 
-    private final DbManager dbmanager;
+	private final DbManager dbmanager;
 
-    public QueryManager(DbManager dbmanager) {
-        this.dbmanager = dbmanager;
-    }
+	public QueryManager(DbManager dbmanager) {
+		this.dbmanager = dbmanager;
+	}
 
-    /**
-     *
-     */
-    public void insert() {
+	/**
+	 *
+	 */
+	public void insert() {
 
-        String sql = "INSERT INTO Trivia.Vraag VALUES("
-                + "2, 'Hoe heette het vorige project?') ";
+		String sql = "INSERT INTO Trivia.Vraag VALUES("
+				+ "2, 'Hoe heette het vorige project?') ";
 
-        System.out.println(sql);
-        int id = 0;
-        try {
-            ResultSet result = dbmanager.insertQuery(sql);
-            result.next();
-            id = result.getInt(1);
-            System.out.println(id);
-        } catch (SQLException e) {
-            System.err.println("Query error: " + e.getLocalizedMessage());
-        }
-    }
+		System.out.println(sql);
+		int id = 0;
+		try {
+			ResultSet result = dbmanager.insertQuery(sql);
+			result.next();
+			id = result.getInt(1);
+			System.out.println(id);
+		} catch (SQLException e) {
+			System.err.println("Query error: " + e.getLocalizedMessage());
+		}
+	}
 
-  /**
-   * 
-   * @param question label question from QuestionController
-   */
-    public void setQuestion(Label question) {
+	/**
+	 *
+	 * @return the string of the query
+	 */
+	public String setQuestion() {
+		dbm.openConnection();
+		String sql = "SELECT Vraag FROM vraag WHERE VraagID =" + VraagID + ";";
+		System.out.println(sql);
+		String returnString = null;
+		try {
+			ResultSet result = dbm.doQuery(sql);
+			result.next();
+			returnString = result.getString("Vraag");
+		} catch (SQLException e) {
+			System.err.println("Error: " + e.getLocalizedMessage());
+		}
+		return returnString;
+	}
 
-        // Open database connection
-        dbm.openConnection();
-        String sql = "SELECT Vraag FROM vraag WHERE VraagID =" + VraagID + ";";
-        System.out.println(sql);
+	/**
+	 *
+	 * @param antwoordfoutID
+	 * @param labelNumber
+	 */
+	public void setWrongAnswer(int antwoordfoutID, Label labelNumber) {
 
-        try {
-            ResultSet result = dbm.doQuery(sql);
-            result.next();
-            question.setText(result.getString("Vraag"));
-        } catch (SQLException e) {
-            System.err.println("Error: " + e.getLocalizedMessage());
+		// Open database connection
+		dbm.openConnection();
+		String sqlAnswer = "SELECT AntwoordFout FROM antwoordfout INNER JOIN vraag ON"
+				+ " antwoordfout.VraagID = vraag.VraagID WHERE AntwoordFoutID ="
+				+ antwoordfoutID + " AND vraag.VraagID = " + VraagID + ";";
+		System.out.println(sqlAnswer);
 
-        }
-    }
-    
-/**
- * 
- * @param antwoordfoutID 
- * @param labelNumber 
- */
-    public void setWrongAnswer(int antwoordfoutID, Label labelNumber) {
+		try {
+			ResultSet result = dbm.doQuery(sqlAnswer);
+			result.next();
+			labelNumber.setText(result.getString("AntwoordFout"));
+		} catch (SQLException e) {
+			System.err.println("FOUT" + e.getLocalizedMessage());
+		}
+	}
 
-        // Open database connection
-        dbm.openConnection();
-        String sqlAnswer = "SELECT AntwoordFout FROM antwoordfout INNER JOIN vraag ON"
-                + " antwoordfout.VraagID = vraag.VraagID WHERE AntwoordFoutID ="
-                + antwoordfoutID + " AND vraag.VraagID = " + VraagID + ";";
-        System.out.println(sqlAnswer);
+	/**
+	 *
+	 * @param labelNumber
+	 */
+	public void setRightAnswer(Label labelNumber) {
 
-        try {
-            ResultSet result = dbm.doQuery(sqlAnswer);
-            result.next();
-            labelNumber.setText(result.getString("AntwoordFout"));
-        } catch (SQLException e) {
-            System.err.println("FOUT" + e.getLocalizedMessage());
-        }
-    }
-/**
- * 
- * @param labelNumber 
- */
-    public void setRightAnswer(Label labelNumber) {
+		QueryManager qm = new QueryManager(dbm);
 
-        QueryManager qm = new QueryManager(dbm);
+		// Open database connection
+		dbm.openConnection();
 
-        // Open database connection
-        dbm.openConnection();
+		String sqlAnswer = "SELECT AntwoordGoed FROM antwoordgoed WHERE VraagID = " + VraagID + ";";
+		System.out.println(sqlAnswer);
 
-        String sqlAnswer = "SELECT AntwoordGoed FROM antwoordgoed WHERE VraagID = " + VraagID + ";";
-        System.out.println(sqlAnswer);
-
-        try {
-            ResultSet result = dbm.doQuery(sqlAnswer);
-            result.next();
-            labelNumber.setText(result.getString("AntwoordGoed"));
-        } catch (SQLException e) {
-            System.err.println("FOUT" + e.getLocalizedMessage());
-        }
-    }
+		try {
+			ResultSet result = dbm.doQuery(sqlAnswer);
+			result.next();
+			labelNumber.setText(result.getString("AntwoordGoed"));
+		} catch (SQLException e) {
+			System.err.println("FOUT" + e.getLocalizedMessage());
+		}
+	}
 
 }
