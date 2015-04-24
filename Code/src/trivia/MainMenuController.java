@@ -73,6 +73,7 @@ public class MainMenuController extends Trivia implements Initializable {
 	 */
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
+            
 		startGame.setOnAction(this::handleButtonAction);
 		gameSetUp.setOnAction(this::handleButtonAction);
 	}

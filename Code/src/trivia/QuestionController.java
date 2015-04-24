@@ -28,6 +28,12 @@ import connectivity.DbManager;
 import connectivity.QueryManager;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -36,7 +42,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.paint.Color;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 import static trivia.GameSetUpController.makkelijkHolder;
 
 /**
@@ -51,6 +59,10 @@ public class QuestionController extends Trivia implements Initializable {
     DbManager dbm = new DbManager();
     // Object to call QueryManager class
     QueryManager qm = new QueryManager(dbm);
+
+    private static final Integer STARTTIME = 31;
+    private Timeline timeline;
+    private final IntegerProperty timeSeconds = new SimpleIntegerProperty(STARTTIME);
 
     @FXML
     Button previousQuestion;
@@ -102,6 +114,8 @@ public class QuestionController extends Trivia implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        Progressbar();
+        autoPlay();
 
         // sets the question
         dbm.openConnection();
@@ -127,10 +141,10 @@ public class QuestionController extends Trivia implements Initializable {
     @FXML
     public void checkVraagSettings() {
         if (GameSetUpController.makkelijkHolder) {
-            System.out.println("yo");
+            // System.out.println("yo");
         }
         if (makkelijkHolder) {
-            System.out.println("yo2");
+            // System.out.println("yo2");
         }
         //enable timer? timerCountdown()
         //other settings?
@@ -145,8 +159,8 @@ public class QuestionController extends Trivia implements Initializable {
 
     @FXML
     private void previousQuestion() {
-        
-       question.setText(qm.setQuestion());
+
+        question.setText(qm.setQuestion());
         qm.setWrongAnswer(1, labelA);
         qm.setWrongAnswer(2, labelB);
         qm.setWrongAnswer(3, labelC);
@@ -157,7 +171,7 @@ public class QuestionController extends Trivia implements Initializable {
 
     @FXML
     private void nextQuestion() {
-       question.setText(qm.setQuestion());
+        question.setText(qm.setQuestion());
         qm.setWrongAnswer(1, labelA);
         qm.setWrongAnswer(2, labelB);
         qm.setWrongAnswer(3, labelC);
@@ -190,11 +204,69 @@ public class QuestionController extends Trivia implements Initializable {
     }
 
     @FXML
+    public void autoPlay() {
+        // Bind the timerLabel text property to the timeSeconds property
+        timer.textProperty().bind(timeSeconds.asString());
+        timer.setTextFill(Color.RED);
+
+        // Countdown from STARTTIME to zero
+        if (timeline != null) {
+            timeline.stop();
+        }
+        timeSeconds.set(STARTTIME);
+        timeline = new Timeline();
+        timeline.getKeyFrames().add(
+                new KeyFrame(Duration.seconds(STARTTIME + 1),
+                        new KeyValue(timeSeconds, 0)));
+        timeline.playFromStart();
+
+        // When completed counting down, execute method openHoofdmenu().
+        timeline.setOnFinished((ActionEvent event) -> {
+            // Simulate button action
+            nextQuestion.fire();
+        });
+    }
+
+    public void Button(ActionEvent event) {
+        timeline.stop();
+        System.out.println("QuestionController check check: "
+                + ((Control) event.getSource()).getId());
+        loadView("", event);
+    }
+
+    @FXML
+
     private void stopQuiz(ActionEvent event) {
         if (alertDialog(AlertType.CONFIRMATION, "Stop quiz", "Weet u zeker dat u"
                 + " de quiz wilt stoppen?", "De antwoorden worden niet opgeslagen."
                 + "\nDit brengt u terug naar het hoofdmenu.", StageStyle.UNDECORATED)) {
             handleButtonAction(event);
         }
+    }
+
+    public void Progressbar() {
+        Task<Void> task = new Task<Void>() {
+            @Override
+            public Void call() {
+                for (int i = 1; i < 10; i++) {
+                    try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println(i);
+                    updateProgress(i, 10);
+                }
+                return null;
+            }
+        };
+
+        progressBar.progressProperty().bind(task.progressProperty());
+
+        Thread th = new Thread(task);
+
+        th.setDaemon(true);
+
+        th.start();
     }
 }

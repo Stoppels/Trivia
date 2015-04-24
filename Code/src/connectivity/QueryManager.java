@@ -41,7 +41,7 @@ public class QueryManager {
 
 	// Generate random integer in order to fetch random question from database
 	Random rand = new Random();
-	int VraagID = rand.nextInt(4);
+	int VraagID = rand.nextInt(4) + 1;
 
 	private final DbManager dbmanager;
 
@@ -82,6 +82,7 @@ public class QueryManager {
 			ResultSet result = dbm.doQuery(sql);
 			result.next();
 			returnString = result.getString("Vraag");
+                        VraagID++;
 		} catch (SQLException e) {
 			System.err.println("Error: " + e.getLocalizedMessage());
 		}

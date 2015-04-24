@@ -55,12 +55,13 @@ public class Trivia extends Application {
 
             Parent root = FXMLLoader.load(getClass().getResource("/views/SplashScreen.fxml"));
             Scene scene = new Scene(root);
-          
+
             root.setId("pane");
-            scene.getStylesheets().addAll(this.getClass().getResource("syle.css").toExternalForm());
+            scene.getStylesheets().addAll(this.getClass().getResource("Styles.css").toExternalForm());
+
             stage.setScene(scene);
-            stage.setFullScreenExitHint(""); 
-            stage.setFullScreen(true);
+            stage.setFullScreenExitHint("");
+            //stage.setFullScreen(true);
             stage.show();
 
             startStage = stage;
@@ -146,6 +147,8 @@ public class Trivia extends Application {
                 Parent root = FXMLLoader.load(getClass().getResource("/views/"
                         + viewName + ".fxml"));
                 Scene scene = new Scene(root);
+                root.setId("pane");
+                scene.getStylesheets().addAll(this.getClass().getResource("Styles.css").toExternalForm());
 
                 // If we are on SplashScreen, then use startStage
                 Stage stage = !onSplash ? ((Stage) ((Node) event.getSource()).
