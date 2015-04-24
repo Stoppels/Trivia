@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package trivia;
+package trivia.controllers;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -31,6 +31,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
+import javafx.scene.control.Toggle;
+import trivia.Trivia;
 
 /**
  * FXML Controller class
@@ -38,16 +40,33 @@ import javafx.scene.control.Control;
  * @author Team Silent Coders
  * @version 1.0
  */
-public class AdminMenuController extends Trivia implements Initializable {
+public class GameSetUpController extends Trivia implements Initializable {
 
 	@FXML
 	Button mainMenu;
 
 	@FXML
-	Button manageQuestions;
+	Button startGame;
 
 	@FXML
-	Button openSettings;
+	Toggle moeilijkheidNormaal;
+
+	@FXML
+	Toggle moeilijkheidMoeilijk;
+
+	@FXML
+	Toggle waarvalsvragenToggleAan;
+
+	@FXML
+	Toggle meerkeuzevragenToggleAan;
+
+	@FXML
+	Toggle timerToggleAan;
+
+	static boolean makkelijkHolder;
+	static boolean waarvalsHolder;
+	static boolean meerkeuzeHolder;
+	static boolean timerHolder;
 
 	/**
 	 * Initializes the controller class.
@@ -58,27 +77,42 @@ public class AdminMenuController extends Trivia implements Initializable {
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		mainMenu.setOnAction(this::handleButtonAction);
-		manageQuestions.setOnAction(this::handleButtonAction);
-		openSettings.setOnAction(this::handleButtonAction);
+		startGame.setOnAction(this::handleButtonAction);
 	}
 
 	@Override
 	public void handleButtonAction(ActionEvent event) {
-		System.out.println("AdminMenuController check: "
+		System.out.println("GameSetUpController check: "
 				+ ((Control) event.getSource()).getId());
-		super.handleButtonAction(event);
+		loadView("", event);
 	}
 
 	@FXML
-	private void manageQuestions() {
-		//loadView("ManageQuestions");
+	private void startGame() {
+//		loadView("Question");
+
+		if (moeilijkheidNormaal.isSelected()) {
+			System.out.println("normaal");
+			makkelijkHolder = true;
+		} else if (moeilijkheidMoeilijk.isSelected()) {
+			System.out.println("moeilijk");
+			makkelijkHolder = false;
+		}
+
+		if (waarvalsvragenToggleAan.isSelected()) {
+			System.out.println("Waar");
+		} else {
+			System.out.println("Onwaar");
+		}
+		if (meerkeuzevragenToggleAan.isSelected()) {
+			System.out.println("Meerkeuze");
+		} else {
+			System.out.println("True/false");
+		}
+		if (timerToggleAan.isSelected()) {
+			System.out.println("Wel timer");
+		} else {
+			System.out.println("Geen timer");
+		}
 	}
-
-	@FXML
-	private void openSettings() {
-		//loadView("AdminSettings");
-
-		// Extra setting: Volgende vraag na antwoord selecteren
-	}
-
 }

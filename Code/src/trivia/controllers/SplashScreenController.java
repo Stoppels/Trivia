@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package trivia;
+package trivia.controllers;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -39,6 +39,7 @@ import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
+import trivia.Trivia;
 
 /**
  * FXML Controller class

@@ -53,11 +53,11 @@ public class Trivia extends Application {
     public void start(Stage stage) {
         try {
 
-            Parent root = FXMLLoader.load(getClass().getResource("/views/SplashScreen.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/trivia/views/SplashScreen.fxml"));
             Scene scene = new Scene(root);
 
             root.setId("pane");
-            scene.getStylesheets().addAll(this.getClass().getResource("Styles.css").toExternalForm());
+            scene.getStylesheets().addAll(this.getClass().getResource("/resources/stylesheets/Styles.css").toExternalForm());
 
             stage.setScene(scene);
             stage.setFullScreenExitHint("");
@@ -144,11 +144,11 @@ public class Trivia extends Application {
         // Was a view chosen? If true continue, else do nothing.
         if (!error) {
             try {
-                Parent root = FXMLLoader.load(getClass().getResource("/views/"
+                Parent root = FXMLLoader.load(getClass().getResource("/trivia/views/"
                         + viewName + ".fxml"));
                 Scene scene = new Scene(root);
                 root.setId("pane");
-                scene.getStylesheets().addAll(this.getClass().getResource("Styles.css").toExternalForm());
+                scene.getStylesheets().addAll(this.getClass().getResource("/resources/stylesheets/Styles.css").toExternalForm());
 
                 // If we are on SplashScreen, then use startStage
                 Stage stage = !onSplash ? ((Stage) ((Node) event.getSource()).

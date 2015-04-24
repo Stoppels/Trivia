@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package connectivity;
+package trivia.connectivity;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

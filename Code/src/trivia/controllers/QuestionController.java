@@ -22,10 +22,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package trivia;
+package trivia.controllers;
 
-import connectivity.DbManager;
-import connectivity.QueryManager;
+import trivia.connectivity.DbManager;
+import trivia.connectivity.QueryManager;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
@@ -45,7 +45,8 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.paint.Color;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
-import static trivia.GameSetUpController.makkelijkHolder;
+import trivia.Trivia;
+import static trivia.controllers.GameSetUpController.makkelijkHolder;
 
 /**
  * FXML Controller class

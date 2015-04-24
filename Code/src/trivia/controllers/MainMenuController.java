@@ -22,16 +22,23 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package trivia;
+package trivia.controllers;
 
+import trivia.connectivity.DbManager;
+import trivia.connectivity.QueryManager;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
-import javafx.scene.control.Toggle;
+import javafx.scene.control.Label;
+import javafx.stage.StageStyle;
+import trivia.Trivia;
 
 /**
  * FXML Controller class
@@ -39,33 +46,25 @@ import javafx.scene.control.Toggle;
  * @author Team Silent Coders
  * @version 1.0
  */
-public class GameSetUpController extends Trivia implements Initializable {
+public class MainMenuController extends Trivia implements Initializable {
 
 	@FXML
-	Button mainMenu;
+	private Button startGame;
 
 	@FXML
-	Button startGame;
+	private Button gameSetUp;
 
 	@FXML
-	Toggle moeilijkheidNormaal;
+	private Label uitlegA;
 
 	@FXML
-	Toggle moeilijkheidMoeilijk;
+	private Label uitlegB;
 
 	@FXML
-	Toggle waarvalsvragenToggleAan;
+	private Label uitlegC;
 
 	@FXML
-	Toggle meerkeuzevragenToggleAan;
-
-	@FXML
-	Toggle timerToggleAan;
-
-	static boolean makkelijkHolder;
-	static boolean waarvalsHolder;
-	static boolean meerkeuzeHolder;
-	static boolean timerHolder;
+	private Label uitlegD;
 
 	/**
 	 * Initializes the controller class.
@@ -75,43 +74,46 @@ public class GameSetUpController extends Trivia implements Initializable {
 	 */
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		mainMenu.setOnAction(this::handleButtonAction);
+            
 		startGame.setOnAction(this::handleButtonAction);
+		gameSetUp.setOnAction(this::handleButtonAction);
 	}
 
 	@Override
 	public void handleButtonAction(ActionEvent event) {
-		System.out.println("GameSetUpController check: "
+		System.out.println("MainMenuController check: "
 				+ ((Control) event.getSource()).getId());
 		loadView("", event);
 	}
 
+	// Deprecated method, remove this once you have replaced it
+//	@FXML
+//	private void startGame() {
+//		DbManager dbm = new DbManager();
+//		QueryManager qm = new QueryManager(dbm);
+//		dbm.openConnection();
+//
+//	}
 	@FXML
-	private void startGame() {
-//		loadView("Question");
+	private void toggleHelp() {
+		List<Label> helpItems = Arrays.asList(uitlegA, uitlegB, uitlegC, uitlegD);
 
-		if (moeilijkheidNormaal.isSelected()) {
-			System.out.println("normaal");
-			makkelijkHolder = true;
-		} else if (moeilijkheidMoeilijk.isSelected()) {
-			System.out.println("moeilijk");
-			makkelijkHolder = false;
-		}
-
-		if (waarvalsvragenToggleAan.isSelected()) {
-			System.out.println("Waar");
-		} else {
-			System.out.println("Onwaar");
-		}
-		if (meerkeuzevragenToggleAan.isSelected()) {
-			System.out.println("Meerkeuze");
-		} else {
-			System.out.println("True/false");
-		}
-		if (timerToggleAan.isSelected()) {
-			System.out.println("Wel timer");
-		} else {
-			System.out.println("Geen timer");
+		// Is is true that isVisible() is false, then set true & vice versa
+		for (Label a : helpItems) {
+			a.setVisible(a.isVisible() != true);
 		}
 	}
+
+	/**
+	 * Triggers a confirmation dialog for quitting the app.
+	 */
+	@FXML
+	private void exit() {
+		if (alertDialog(Alert.AlertType.CONFIRMATION, "Afsluiten",
+				"Weet u zeker dat u wilt afsluiten?",
+				"Hiermee wordt het programma afgesloten.", StageStyle.UNDECORATED)) {
+			System.exit(0);
+		}
+	}
+
 }

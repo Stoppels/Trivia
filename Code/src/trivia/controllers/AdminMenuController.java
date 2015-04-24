@@ -22,22 +22,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package trivia;
+package trivia.controllers;
 
-import connectivity.DbManager;
-import connectivity.QueryManager;
 import java.net.URL;
-import java.util.Arrays;
-import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
-import javafx.scene.control.Label;
-import javafx.stage.StageStyle;
+import trivia.Trivia;
 
 /**
  * FXML Controller class
@@ -45,25 +39,16 @@ import javafx.stage.StageStyle;
  * @author Team Silent Coders
  * @version 1.0
  */
-public class MainMenuController extends Trivia implements Initializable {
+public class AdminMenuController extends Trivia implements Initializable {
 
 	@FXML
-	private Button startGame;
+	Button mainMenu;
 
 	@FXML
-	private Button gameSetUp;
+	Button manageQuestions;
 
 	@FXML
-	private Label uitlegA;
-
-	@FXML
-	private Label uitlegB;
-
-	@FXML
-	private Label uitlegC;
-
-	@FXML
-	private Label uitlegD;
+	Button openSettings;
 
 	/**
 	 * Initializes the controller class.
@@ -73,46 +58,28 @@ public class MainMenuController extends Trivia implements Initializable {
 	 */
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-            
-		startGame.setOnAction(this::handleButtonAction);
-		gameSetUp.setOnAction(this::handleButtonAction);
+		mainMenu.setOnAction(this::handleButtonAction);
+		manageQuestions.setOnAction(this::handleButtonAction);
+		openSettings.setOnAction(this::handleButtonAction);
 	}
 
 	@Override
 	public void handleButtonAction(ActionEvent event) {
-		System.out.println("MainMenuController check: "
+		System.out.println("AdminMenuController check: "
 				+ ((Control) event.getSource()).getId());
-		loadView("", event);
+		super.handleButtonAction(event);
 	}
 
-	// Deprecated method, remove this once you have replaced it
-//	@FXML
-//	private void startGame() {
-//		DbManager dbm = new DbManager();
-//		QueryManager qm = new QueryManager(dbm);
-//		dbm.openConnection();
-//
-//	}
 	@FXML
-	private void toggleHelp() {
-		List<Label> helpItems = Arrays.asList(uitlegA, uitlegB, uitlegC, uitlegD);
-
-		// Is is true that isVisible() is false, then set true & vice versa
-		for (Label a : helpItems) {
-			a.setVisible(a.isVisible() != true);
-		}
+	private void manageQuestions() {
+		//loadView("ManageQuestions");
 	}
 
-	/**
-	 * Triggers a confirmation dialog for quitting the app.
-	 */
 	@FXML
-	private void exit() {
-		if (alertDialog(Alert.AlertType.CONFIRMATION, "Afsluiten",
-				"Weet u zeker dat u wilt afsluiten?",
-				"Hiermee wordt het programma afgesloten.", StageStyle.UNDECORATED)) {
-			System.exit(0);
-		}
+	private void openSettings() {
+		//loadView("AdminSettings");
+
+		// Extra setting: Volgende vraag na antwoord selecteren
 	}
 
 }

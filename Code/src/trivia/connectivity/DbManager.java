@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package connectivity;
+package trivia.connectivity;
 
 import java.sql.*;
 
@@ -46,7 +46,7 @@ public class DbManager {
 			Class.forName("com.mysql.jdbc.Driver");
 
 			String url = "jdbc:mysql://localhost:3306/trivia";
-			String user = "root", pass = "root";
+			String user = "root", pass = "";
 			System.out.println("Connected");
 
 			// Open connection
