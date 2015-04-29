@@ -40,7 +40,7 @@
                         <Font name="System Bold" size="24.0" />
                     </font>
                 </Label>
-                <Button fx:id="buttonA" focusTraversable="false" layoutX="36.0" layoutY="154.0" minHeight="60.0" minWidth="100.0" mnemonicParsing="false" style="-fx-background-radius: 80px;" text="A" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                <Button fx:id="buttonA" focusTraversable="false" layoutX="36.0" layoutY="154.0" minHeight="60.0" minWidth="100.0" mnemonicParsing="false" onAction="#buttonA" style="-fx-background-radius: 80px;" text="A" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                     <font>
                         <Font name="System Bold" size="24.0" />
                     </font>
@@ -56,7 +56,7 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Label>
-                <Button fx:id="buttonB" focusTraversable="false" layoutX="36.0" layoutY="227.0" minHeight="60.0" minWidth="100.0" mnemonicParsing="false" style="-fx-background-radius: 80px;" text="B" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                <Button fx:id="buttonB" focusTraversable="false" layoutX="36.0" layoutY="227.0" minHeight="60.0" minWidth="100.0" mnemonicParsing="false" onAction="#buttonB" style="-fx-background-radius: 80px;" text="B" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                     <font>
                         <Font name="System Bold" size="24.0" />
                     </font>
@@ -72,7 +72,7 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Label>
-                <Button fx:id="buttonC" focusTraversable="false" layoutX="36.0" layoutY="300.0" minHeight="60.0" minWidth="100.0" mnemonicParsing="false" style="-fx-background-radius: 80px;" text="C" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                <Button fx:id="buttonC" focusTraversable="false" layoutX="36.0" layoutY="300.0" minHeight="60.0" minWidth="100.0" mnemonicParsing="false" onAction="#buttonC" style="-fx-background-radius: 80px;" text="C" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                     <font>
                         <Font name="System Bold" size="24.0" />
                     </font>
@@ -88,7 +88,7 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Label>
-                <Button fx:id="buttonD" focusTraversable="false" layoutX="36.0" layoutY="373.0" minHeight="60.0" minWidth="100.0" mnemonicParsing="false" style="-fx-background-radius: 80px;" text="D" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+                <Button fx:id="buttonD" focusTraversable="false" layoutX="36.0" layoutY="373.0" minHeight="60.0" minWidth="100.0" mnemonicParsing="false" onAction="#buttonD" style="-fx-background-radius: 80px;" text="D" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
                     <font>
                         <Font name="System Bold" size="24.0" />
                     </font>

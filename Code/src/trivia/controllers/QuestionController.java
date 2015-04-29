@@ -131,9 +131,9 @@ public class QuestionController extends Trivia implements Initializable {
         question.setText(qm.setQuestion(VraagID));
 
         //sets the wrong answer
-        qm.setWrongAnswer(antwoordfoutID1,labelA, VraagID);
-        qm.setWrongAnswer(antwoordfoutID2,labelB, VraagID);
-        qm.setWrongAnswer(antwoordfoutID3,labelC, VraagID);
+        qm.setWrongAnswer(antwoordfoutID1, labelA, VraagID);
+        qm.setWrongAnswer(antwoordfoutID2, labelB, VraagID);
+        qm.setWrongAnswer(antwoordfoutID3, labelC, VraagID);
         qm.setRightAnswer(labelD, VraagID);
 
         mainMenu.setOnAction(this::stopQuiz);
@@ -166,15 +166,41 @@ public class QuestionController extends Trivia implements Initializable {
         super.handleButtonAction(event);
     }
 
+    // knop A Actoin
+    @FXML
+    private void buttonA() {
+     
+    }
+   
+    // knop B Actoin
+    @FXML
+    private void buttonB() {
+     
+    }
+
+    // knop C Actoin
+    @FXML
+    private void buttonC() {
+        
+    }
+
+    // knop D Actoin
+    @FXML
+    private void buttonD() {
+        nextQuestion();
+
+    }
+
     @FXML
     private void previousQuestion() {
 
-         VraagID--;
+        VraagID--;
         question.setText(qm.setQuestion(VraagID));
-        qm.setWrongAnswer(antwoordfoutID1,labelA, VraagID);
-        qm.setWrongAnswer(antwoordfoutID2,labelB, VraagID);
-        qm.setWrongAnswer(antwoordfoutID3,labelC, VraagID);
+        qm.setWrongAnswer(antwoordfoutID1, labelA, VraagID);
+        qm.setWrongAnswer(antwoordfoutID2, labelB, VraagID);
+        qm.setWrongAnswer(antwoordfoutID3, labelC, VraagID);
         qm.setRightAnswer(labelD, VraagID);
+
         saveAnswer();
         //goto current -1
     }
@@ -184,18 +210,13 @@ public class QuestionController extends Trivia implements Initializable {
 
         VraagID++;
         question.setText(qm.setQuestion(VraagID));
-        qm.setWrongAnswer(antwoordfoutID1,labelA, VraagID);
-        qm.setWrongAnswer(antwoordfoutID2,labelB, VraagID);
-        qm.setWrongAnswer(antwoordfoutID3,labelC, VraagID);
+        qm.setWrongAnswer(antwoordfoutID1, labelA, VraagID);
+        qm.setWrongAnswer(antwoordfoutID2, labelB, VraagID);
+        qm.setWrongAnswer(antwoordfoutID3, labelC, VraagID);
         qm.setRightAnswer(labelD, VraagID);
 
         saveAnswer();
         //goto current + 1
-    }
-
-    @FXML
-    private void progressChecker() {
-        //progressBar;
     }
 
     @FXML

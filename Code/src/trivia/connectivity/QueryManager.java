@@ -40,11 +40,13 @@ public class QueryManager {
     DbManager dbm = new DbManager();
 
     // Generate random integer in order to fetch random question from database
+    
     private final DbManager dbmanager;
 
     public QueryManager(DbManager dbmanager) {
         this.dbmanager = dbmanager;
     }
+
 
     /**
      *
@@ -56,7 +58,7 @@ public class QueryManager {
         String sql = "SELECT Vraag FROM vraag WHERE VraagID =" + VraagID + ";";
         System.out.println(sql);
         String returnString = null;
-
+       
         try {
             ResultSet result = dbm.doQuery(sql);
             result.next();
@@ -75,8 +77,10 @@ public class QueryManager {
      * @param labelNumber
      * @param VraagID
      */
-    public void setWrongAnswer(int antwoordfoutID, Label labelNumber, int VraagID) {
+    public void setWrongAnswer(int antwoordfoutID ,Label labelNumber, int VraagID) {
 
+    
+        
         // Open database connection
         dbm.openConnection();
         String sqlAnswer = "SELECT AntwoordFout FROM antwoordfout INNER JOIN vraag ON"
