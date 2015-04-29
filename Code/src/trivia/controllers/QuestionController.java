@@ -27,6 +27,7 @@ package trivia.controllers;
 import trivia.connectivity.DbManager;
 import trivia.connectivity.QueryManager;
 import java.net.URL;
+import java.util.Random;
 import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -64,6 +65,13 @@ public class QuestionController extends Trivia implements Initializable {
     private static final Integer STARTTIME = 31;
     private Timeline timeline;
     private final IntegerProperty timeSeconds = new SimpleIntegerProperty(STARTTIME);
+
+    Random rand = new Random();
+    int VraagID = rand.nextInt(4) + 1;
+
+    int antwoordfoutID1 = 1;
+    int antwoordfoutID2 = 2;
+    int antwoordfoutID3 = 3;
 
     @FXML
     Button previousQuestion;
@@ -116,17 +124,17 @@ public class QuestionController extends Trivia implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Progressbar();
-        timerQuestion();
+        autoPlay();
 
         // sets the question
         dbm.openConnection();
-        question.setText(qm.setQuestion());
+        question.setText(qm.setQuestion(VraagID));
 
         //sets the wrong answer
-        qm.setWrongAnswer(1, labelA);
-        qm.setWrongAnswer(2, labelB);
-        qm.setWrongAnswer(3, labelC);
-        qm.setRightAnswer(labelD);
+        qm.setWrongAnswer(antwoordfoutID1,labelA, VraagID);
+        qm.setWrongAnswer(antwoordfoutID2,labelB, VraagID);
+        qm.setWrongAnswer(antwoordfoutID3,labelC, VraagID);
+        qm.setRightAnswer(labelD, VraagID);
 
         mainMenu.setOnAction(this::stopQuiz);
 
@@ -161,22 +169,24 @@ public class QuestionController extends Trivia implements Initializable {
     @FXML
     private void previousQuestion() {
 
-        question.setText(qm.setQuestion());
-        qm.setWrongAnswer(1, labelA);
-        qm.setWrongAnswer(2, labelB);
-        qm.setWrongAnswer(3, labelC);
-        qm.setRightAnswer(labelD);
+        question.setText(qm.setQuestion(VraagID));
+        qm.setWrongAnswer(antwoordfoutID1,labelA, VraagID);
+        qm.setWrongAnswer(antwoordfoutID2,labelB, VraagID);
+        qm.setWrongAnswer(antwoordfoutID3,labelC, VraagID);
+        qm.setRightAnswer(labelD, VraagID);
         saveAnswer();
         //goto current -1
     }
 
     @FXML
     private void nextQuestion() {
-        question.setText(qm.setQuestion());
-        qm.setWrongAnswer(1, labelA);
-        qm.setWrongAnswer(2, labelB);
-        qm.setWrongAnswer(3, labelC);
-        qm.setRightAnswer(labelD);
+
+        VraagID++;
+        question.setText(qm.setQuestion(VraagID));
+        qm.setWrongAnswer(antwoordfoutID1,labelA, VraagID);
+        qm.setWrongAnswer(antwoordfoutID2,labelB, VraagID);
+        qm.setWrongAnswer(antwoordfoutID3,labelC, VraagID);
+        qm.setRightAnswer(labelD, VraagID);
 
         saveAnswer();
         //goto current + 1
@@ -205,7 +215,7 @@ public class QuestionController extends Trivia implements Initializable {
     }
 
     @FXML
-    public void timerQuestion() {
+    public void autoPlay() {
         // Bind the timerLabel text property to the timeSeconds property
         timer.textProperty().bind(timeSeconds.asString());
         timer.setTextFill(Color.RED);
