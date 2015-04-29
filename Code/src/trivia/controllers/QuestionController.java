@@ -116,7 +116,7 @@ public class QuestionController extends Trivia implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Progressbar();
-        autoPlay();
+        timerQuestion();
 
         // sets the question
         dbm.openConnection();
@@ -205,7 +205,7 @@ public class QuestionController extends Trivia implements Initializable {
     }
 
     @FXML
-    public void autoPlay() {
+    public void timerQuestion() {
         // Bind the timerLabel text property to the timeSeconds property
         timer.textProperty().bind(timeSeconds.asString());
         timer.setTextFill(Color.RED);
