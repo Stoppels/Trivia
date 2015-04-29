@@ -232,7 +232,7 @@ public class QuestionController extends Trivia implements Initializable {
         timeline.stop();
         System.out.println("QuestionController check check: "
                 + ((Control) event.getSource()).getId());
-        loadView("", event);
+        loadView(event);
     }
 
     @FXML
@@ -253,7 +253,7 @@ public class QuestionController extends Trivia implements Initializable {
                     try {
                         Thread.sleep(3000);
                     } catch (InterruptedException e) {
-                        e.printStackTrace();
+                        System.err.println(e.getLocalizedMessage());
                     }
                     System.out.println(i);
                     updateProgress(i, 10);

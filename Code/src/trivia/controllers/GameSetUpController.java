@@ -84,7 +84,7 @@ public class GameSetUpController extends Trivia implements Initializable {
 	public void handleButtonAction(ActionEvent event) {
 		System.out.println("GameSetUpController check: "
 				+ ((Control) event.getSource()).getId());
-		loadView("", event);
+		loadView(event);
 	}
 
 	@FXML
