@@ -169,24 +169,30 @@ public class QuestionController extends Trivia implements Initializable {
     // knop A Actoin
     @FXML
     private void buttonA() {
-     
+
+        //test
+        System.out.println("knop A pressed");
     }
-   
+
     // knop B Actoin
     @FXML
     private void buttonB() {
-     
+        //test
+        System.out.println("knop B pressed");
     }
 
     // knop C Actoin
     @FXML
     private void buttonC() {
-        
+        //test
+        System.out.println("knop C pressed");
     }
 
     // knop D Actoin
     @FXML
     private void buttonD() {
+        //test
+        System.out.println("knop D pressed");
         nextQuestion();
 
     }
