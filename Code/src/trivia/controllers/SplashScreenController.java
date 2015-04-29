@@ -107,6 +107,6 @@ public class SplashScreenController extends Trivia implements Initializable {
 		timeline.stop();
 		System.out.println("SplashScreenController check: "
 				+ ((Control) event.getSource()).getId());
-		loadView("", event);
+		loadView(event);
 	}
 }

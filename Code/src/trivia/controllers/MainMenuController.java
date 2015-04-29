@@ -83,7 +83,7 @@ public class MainMenuController extends Trivia implements Initializable {
 	public void handleButtonAction(ActionEvent event) {
 		System.out.println("MainMenuController check: "
 				+ ((Control) event.getSource()).getId());
-		loadView("", event);
+		loadView(event);
 	}
 
 	// Deprecated method, remove this once you have replaced it
