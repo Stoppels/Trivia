@@ -169,6 +169,7 @@ public class QuestionController extends Trivia implements Initializable {
     @FXML
     private void previousQuestion() {
 
+         VraagID--;
         question.setText(qm.setQuestion(VraagID));
         qm.setWrongAnswer(antwoordfoutID1,labelA, VraagID);
         qm.setWrongAnswer(antwoordfoutID2,labelB, VraagID);
