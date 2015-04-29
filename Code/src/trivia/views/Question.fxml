@@ -9,9 +9,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" minHeight="600.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="trivia.controllers.QuestionController">
+<AnchorPane id="AnchorPane" minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="1633.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="trivia.controllers.QuestionController">
     <children>
-        <GridPane layoutY="-8.0" minHeight="600.0" minWidth="800.0" style="-fx-background-color: #7DFEFE;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <GridPane layoutY="-8.0" minHeight="600.0" minWidth="800.0" style="-fx-background-color: #ADD8E6;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columnConstraints>
                 <ColumnConstraints hgrow="ALWAYS" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="30.0" />
                 <ColumnConstraints hgrow="ALWAYS" maxWidth="200.0" minWidth="80.0" />
@@ -35,7 +35,7 @@
                 <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
             </rowConstraints>
             <children>
-                <Label fx:id="question" focusTraversable="false" text="HOI IK BEN EEN VRAAG EN IK BEN IN FUCKING CAPS LOCK RAGE GETYPT¿" textFill="#4700ee" wrapText="true" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+                <Label fx:id="question" focusTraversable="false" text="HOI IK BEN EEN VRAAG EN IK BEN IN FUCKING CAPS LOCK RAGE GETYPT¿" wrapText="true" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                     <font>
                         <Font name="System Bold" size="24.0" />
                     </font>
@@ -48,7 +48,7 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Button>
-                <Label fx:id="labelA" focusTraversable="false" layoutX="195.0" layoutY="160.0" text="Als kaas groot en sterk is wil ik veel vriendinnetjes en dan kan ik heel veel videogames spelen want blabla" textFill="#4700ee" wrapText="true" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
+                <Label fx:id="labelA" focusTraversable="false" layoutX="195.0" layoutY="160.0" text="Als kaas groot en sterk is wil ik veel vriendinnetjes en dan kan ik heel veel videogames spelen want blabla" wrapText="true" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
                     <font>
                         <Font size="24.0" />
                     </font>
@@ -64,7 +64,7 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Button>
-                <Label fx:id="labelB" focusTraversable="false" layoutX="195.0" layoutY="245.0" text="Nulla vitae felis condimentum facilisi. Lorem risus nonummy leo et pellentesque aliquet felis ut tortor elementum." textFill="#4700ee" wrapText="true" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.vgrow="ALWAYS">
+                <Label fx:id="labelB" focusTraversable="false" layoutX="195.0" layoutY="245.0" text="Nulla vitae felis condimentum facilisi. Lorem risus nonummy leo et pellentesque aliquet felis ut tortor elementum." wrapText="true" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.vgrow="ALWAYS">
                     <font>
                         <Font size="24.0" />
                     </font>
@@ -80,7 +80,7 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Button>
-                <Label fx:id="labelC" focusTraversable="false" layoutX="195.0" layoutY="320.0" text="Magna fames auctor eu vivamus ad sapien habitant potenti pellentesque libero ad dictum nam enim duis urna." textFill="#4700ee" wrapText="true" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" GridPane.vgrow="ALWAYS">
+                <Label fx:id="labelC" focusTraversable="false" layoutX="195.0" layoutY="320.0" text="Magna fames auctor eu vivamus ad sapien habitant potenti pellentesque libero ad dictum nam enim duis urna." wrapText="true" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" GridPane.vgrow="ALWAYS">
                     <font>
                         <Font size="24.0" />
                     </font>
@@ -96,7 +96,7 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Button>
-                <Label fx:id="labelD" focusTraversable="false" layoutX="195.0" layoutY="379.0" text="Nee dat is niet waar" textFill="#4700ee" wrapText="true" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="6" GridPane.vgrow="ALWAYS">
+                <Label fx:id="labelD" focusTraversable="false" layoutX="195.0" layoutY="379.0" text="Nee dat is niet waar" wrapText="true" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="6" GridPane.vgrow="ALWAYS">
                     <font>
                         <Font size="24.0" />
                     </font>
