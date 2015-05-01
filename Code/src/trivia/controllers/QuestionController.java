@@ -62,7 +62,7 @@ public class QuestionController extends Trivia implements Initializable {
     // Object to call QueryManager class
     QueryManager qm = new QueryManager(dbm);
 
-    private static final Integer STARTTIME = 31;
+    private static final Integer STARTTIME = 30;
     private Timeline timeline;
     private final IntegerProperty timeSeconds = new SimpleIntegerProperty(STARTTIME);
 
@@ -215,6 +215,8 @@ public class QuestionController extends Trivia implements Initializable {
     private void nextQuestion() {
 
         VraagID++;
+        autoPlay();
+        Progressbar();
         question.setText(qm.setQuestion(VraagID));
         qm.setWrongAnswer(antwoordfoutID1, labelA, VraagID);
         qm.setWrongAnswer(antwoordfoutID2, labelB, VraagID);
