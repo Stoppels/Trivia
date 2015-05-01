@@ -11,22 +11,22 @@
 
 <AnchorPane id="AnchorPane" minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="1633.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="trivia.controllers.QuestionController">
     <children>
-        <GridPane layoutY="-8.0" minHeight="600.0" minWidth="800.0" style="-fx-background-color: #ADD8E6;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <GridPane layoutX="-7.0" minHeight="600.0" minWidth="800.0" style="-fx-background-color: #ADD8E6;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-7.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="0.0">
             <columnConstraints>
-                <ColumnConstraints hgrow="ALWAYS" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="30.0" />
-                <ColumnConstraints hgrow="ALWAYS" maxWidth="200.0" minWidth="80.0" />
-                <ColumnConstraints hgrow="ALWAYS" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="30.0" />
-                <ColumnConstraints hgrow="ALWAYS" minWidth="80.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="30.0" />
+                <ColumnConstraints hgrow="ALWAYS" maxWidth="70.0" minWidth="-Infinity" prefWidth="70.0" />
+                <ColumnConstraints hgrow="ALWAYS" maxWidth="200.0" minWidth="0.0" prefWidth="106.0" />
+                <ColumnConstraints hgrow="ALWAYS" maxWidth="102.0" minWidth="-Infinity" prefWidth="76.0" />
+                <ColumnConstraints hgrow="ALWAYS" maxWidth="1216.0" minWidth="80.0" prefWidth="1065.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="56.0" minWidth="-Infinity" prefWidth="56.0" />
                 <ColumnConstraints hgrow="ALWAYS" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="30.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="300.0" minWidth="200.0" />
                 <ColumnConstraints hgrow="ALWAYS" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="30.0" />
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="ALWAYS" />
-                <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="80.0" vgrow="ALWAYS" />
-                <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
-                <RowConstraints minHeight="80.0" vgrow="ALWAYS" />
+                <RowConstraints maxHeight="78.0" minHeight="-Infinity" prefHeight="76.0" vgrow="ALWAYS" />
+                <RowConstraints maxHeight="39.0" minHeight="30.0" prefHeight="38.0" vgrow="ALWAYS" />
+                <RowConstraints maxHeight="76.0" minHeight="71.0" prefHeight="76.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="80.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="80.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="80.0" vgrow="ALWAYS" />
@@ -37,7 +37,7 @@
             <children>
                 <Label fx:id="question" focusTraversable="false" text="HOI IK BEN EEN VRAAG EN IK BEN IN FUCKING CAPS LOCK RAGE GETYPT¿" wrapText="true" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                     <font>
-                        <Font name="System Bold" size="24.0" />
+                        <Font name="Bookman Old Style Bold" size="24.0" />
                     </font>
                 </Label>
                 <Button fx:id="buttonA" focusTraversable="false" layoutX="36.0" layoutY="154.0" minHeight="60.0" minWidth="100.0" mnemonicParsing="false" onAction="#buttonA" style="-fx-background-radius: 80px;" text="A" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
@@ -50,7 +50,7 @@
                 </Button>
                 <Label fx:id="labelA" focusTraversable="false" layoutX="195.0" layoutY="160.0" text="Als kaas groot en sterk is wil ik veel vriendinnetjes en dan kan ik heel veel videogames spelen want blabla" wrapText="true" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
                     <font>
-                        <Font size="24.0" />
+                        <Font name="Bookman Old Style" size="24.0" />
                     </font>
                     <cursor>
                         <Cursor fx:constant="HAND" />
@@ -66,7 +66,7 @@
                 </Button>
                 <Label fx:id="labelB" focusTraversable="false" layoutX="195.0" layoutY="245.0" text="Nulla vitae felis condimentum facilisi. Lorem risus nonummy leo et pellentesque aliquet felis ut tortor elementum." wrapText="true" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.vgrow="ALWAYS">
                     <font>
-                        <Font size="24.0" />
+                        <Font name="Bookman Old Style" size="24.0" />
                     </font>
                     <cursor>
                         <Cursor fx:constant="HAND" />
@@ -82,7 +82,7 @@
                 </Button>
                 <Label fx:id="labelC" focusTraversable="false" layoutX="195.0" layoutY="320.0" text="Magna fames auctor eu vivamus ad sapien habitant potenti pellentesque libero ad dictum nam enim duis urna." wrapText="true" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" GridPane.vgrow="ALWAYS">
                     <font>
-                        <Font size="24.0" />
+                        <Font name="Bookman Old Style" size="24.0" />
                     </font>
                     <cursor>
                         <Cursor fx:constant="HAND" />
@@ -98,7 +98,7 @@
                 </Button>
                 <Label fx:id="labelD" focusTraversable="false" layoutX="195.0" layoutY="379.0" text="Nee dat is niet waar" wrapText="true" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="6" GridPane.vgrow="ALWAYS">
                     <font>
-                        <Font size="24.0" />
+                        <Font name="Bookman Old Style" size="24.0" />
                     </font>
                     <cursor>
                         <Cursor fx:constant="HAND" />
@@ -155,6 +155,11 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Button>
+            <Label fx:id="labelVraagNr" prefHeight="46.0" prefWidth="72.0" text="1/15" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Bookman Old Style Bold" size="18.0" />
+               </font>
+            </Label>
             </children>
         </GridPane>
     </children>

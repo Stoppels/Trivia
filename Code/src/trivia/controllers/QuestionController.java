@@ -38,6 +38,7 @@ import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
@@ -47,6 +48,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import trivia.Trivia;
+import static trivia.Trivia.alertDialog;
 import static trivia.controllers.GameSetUpController.makkelijkHolder;
 
 /**
@@ -115,6 +117,9 @@ public class QuestionController extends Trivia implements Initializable {
     @FXML
     Label labelD;
 
+    @FXML
+    Label labelVraagNr;
+
     /**
      * Initializes the controller class.
      *
@@ -125,6 +130,9 @@ public class QuestionController extends Trivia implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         Progressbar();
         autoPlay();
+        
+        // label Vraag nummer aanpassen
+         labelVraagNr.setText(VraagID + "/12");
 
         // sets the question
         dbm.openConnection();
@@ -201,6 +209,9 @@ public class QuestionController extends Trivia implements Initializable {
     private void previousQuestion() {
 
         VraagID--;
+        autoPlay();
+        Progressbar();
+        labelVraagNr.setText(VraagID + "/15");
         question.setText(qm.setQuestion(VraagID));
         qm.setWrongAnswer(antwoordfoutID1, labelA, VraagID);
         qm.setWrongAnswer(antwoordfoutID2, labelB, VraagID);
@@ -217,6 +228,7 @@ public class QuestionController extends Trivia implements Initializable {
         VraagID++;
         autoPlay();
         Progressbar();
+        labelVraagNr.setText(VraagID + "/12");
         question.setText(qm.setQuestion(VraagID));
         qm.setWrongAnswer(antwoordfoutID1, labelA, VraagID);
         qm.setWrongAnswer(antwoordfoutID2, labelB, VraagID);
@@ -295,8 +307,10 @@ public class QuestionController extends Trivia implements Initializable {
                     } catch (InterruptedException e) {
                         System.err.println(e.getLocalizedMessage());
                     }
-                    System.out.println(i);
+                    //test
+                    //System.out.println(i);
                     updateProgress(i, 10);
+
                 }
                 return null;
             }

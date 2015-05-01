@@ -92,6 +92,7 @@ public class Trivia extends Application {
 		Optional<ButtonType> result = alert.showAndWait();
 		return result.get() == ButtonType.OK;
 	}
+      
 
 	public void handleButtonAction(ActionEvent event) {
 		loadView(event);
