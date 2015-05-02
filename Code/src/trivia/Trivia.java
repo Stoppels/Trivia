@@ -128,9 +128,13 @@ public class Trivia extends Application {
 
 				System.out.println("c");
 				break;
-			case "gameSetUp":
+			case "ManageQuestions":
+				viewName = "ManageQuestions";
+				System.out.println("Opening ManageQuestions");
+				break;
+                        case "gameSetUp":
 				viewName = "GameSetUp";
-				System.out.println("d");
+				System.out.println("Opening GameSetUp");
 				break;
 			default:
 				System.err.println("View " + viewName + " not found.");
