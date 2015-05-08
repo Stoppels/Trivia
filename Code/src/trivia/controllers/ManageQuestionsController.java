@@ -31,6 +31,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,6 +43,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
 import javafx.scene.control.TextField;
@@ -93,10 +95,10 @@ public class ManageQuestionsController extends Trivia implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         mainMenu.setOnAction(this::handleButtonAction);
-        addQuestionButton.setOnAction(this::addQuestion);
+        addQuestionButton.setOnAction(this::confirmAlertAddQuestion);
         setComboBoxQuestions();
-        selectQuestion.setOnAction(e -> System.out.println("User selected : " + selectQuestion.getValue()));
-        deleteQuestionButton.setOnAction(this::deleteQuestion);
+        selectQuestion.setOnAction(e -> System.out.println("User selected : " + selectQuestion.getValue()));//From : https://www.youtube.com/watch?v=Bg5VcIL2IhY
+        deleteQuestionButton.setOnAction(this::confirmAlertDeleteQuestion);
     }
 
     @Override
@@ -105,6 +107,40 @@ public class ManageQuestionsController extends Trivia implements Initializable {
                 + ((Control) event.getSource()).getId());
         loadView(event);
     }
+
+    public void confirmAlertDeleteQuestion(ActionEvent event) {
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+
+        alert.setTitle("Bevestig Vraag Verwijderen");
+        alert.setHeaderText("Let op : \nU staat op het punt deze vraag te verwijderen : " + selectQuestion.getValue() );
+        alert.setContentText("Klik op 'OK' om te accepteren en deze vraag te verwijderen.");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            deleteQuestion();
+        } else {
+            // ... user chose CANCEL or closed the dialog
+        }
+    }
+    
+    public void confirmAlertAddQuestion(ActionEvent event) {
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+
+        alert.setTitle("Bevestig Vraag Toevoegen");
+        alert.setHeaderText("Let op : \nU staat op het punt deze vraag toe te voegen : " + addQuestionText.getText()
+                + "\nMet het volgende juiste antwoord : " + addCorrectAnswer.getText()
+                + "\nEn de volgende onjuiste antwoorden : " + addIncorrectAnswer1.getText() + ", " + addIncorrectAnswer2.getText()
+                + ", " + addIncorrectAnswer3.getText() );
+        alert.setContentText("Klik op 'OK' om te accepteren en deze vraag toe te voegen.");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            addQuestion();
+        } else {
+            // ... user chose CANCEL or closed the dialog
+        }
+    }
+    
 
     public void setComboBoxQuestions() {
 
@@ -142,10 +178,7 @@ public class ManageQuestionsController extends Trivia implements Initializable {
         }
     }
 
-    public void deleteQuestion(ActionEvent event) {
-        System.out.println("ManageQuestionsController check: "
-                + ((Control) event.getSource()).getId());
-
+    public void deleteQuestion() {
         try {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/trivia", "root", "");
 
@@ -173,21 +206,21 @@ public class ManageQuestionsController extends Trivia implements Initializable {
             alert.setContentText("Er is geen vraag geselecteerd om te verwijderen. "
                     + "Selecteer a.u.b. een vraag om deze te verwijderen.");
             alert.showAndWait();
-        }else{
+        } else {
             Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("Information Dialog");
-        alert.setHeaderText(null);
-        alert.setContentText("Vraag Succesvol verwijderd");
-        alert.showAndWait();
+            alert.setTitle("Information Dialog");
+            alert.setHeaderText(null);
+            alert.setContentText("Vraag Succesvol verwijderd");
+            alert.showAndWait();
         }
 
         //this refreshes the ComboBox because there is now an item deleted, so it has to be updated
         setComboBoxQuestions();
     }
 
-    public void addQuestion(ActionEvent event) {
-        System.out.println("ManageQuestionsController check: "
-                + ((Control) event.getSource()).getId());
+    public void addQuestion() {
+//        System.out.println("ManageQuestionsController check: "
+//                + ((Control) event.getSource()).getId());
 
         //Collect the Strings with getText from the selected textField
         String question = addQuestionText.getText();
