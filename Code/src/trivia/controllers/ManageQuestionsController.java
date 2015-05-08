@@ -28,16 +28,19 @@ import com.mysql.jdbc.Statement;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
@@ -58,7 +61,7 @@ public class ManageQuestionsController extends Trivia implements Initializable {
     Button mainMenu;
 
     @FXML
-    Button addQuestion;
+    Button addQuestionButton;
 
     @FXML
     TextField addQuestionText;
@@ -90,8 +93,10 @@ public class ManageQuestionsController extends Trivia implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         mainMenu.setOnAction(this::handleButtonAction);
-        addQuestion.setOnAction(this::addQuestion);
-
+        addQuestionButton.setOnAction(this::addQuestion);
+        setComboBoxQuestions();
+        selectQuestion.setOnAction(e -> System.out.println("User selected : " + selectQuestion.getValue()));
+        deleteQuestionButton.setOnAction(this::deleteQuestion);
     }
 
     @Override
@@ -99,6 +104,85 @@ public class ManageQuestionsController extends Trivia implements Initializable {
         System.out.println("ManageQuestionsController check: "
                 + ((Control) event.getSource()).getId());
         loadView(event);
+    }
+
+    public void setComboBoxQuestions() {
+
+        selectQuestion.setPromptText("Kies een vraag om te verwijderen");
+
+        //make a new list with questions for the combobox
+        ArrayList list = new ArrayList();
+
+        try {
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/trivia", "root", "");
+
+            Statement st = (Statement) con.createStatement();
+
+            //make the String selectQuestion for every VraagID in the database
+            //No idea how to do that, so for now it is < 100
+            for (int i = 1; i < 100; i++) {
+                String selectQuestion = "SELECT Vraag FROM vraag WHERE VraagID = " + i + " ; ";
+
+                // add the results of the SELECT query to the arraylist list
+                ResultSet rs = st.executeQuery(selectQuestion);
+                while (rs.next()) {
+                    list.add(rs.getString(1));
+                }
+            }
+            //lets see the list for a test
+            System.out.println("Dit is de list : " + list);
+
+            //cast arraylist to observable list from http://stackoverflow.com/questions/22191954/javafx-casting-arraylist-to-observablelist
+            ObservableList questions = FXCollections.observableArrayList(list);
+
+            //set the items(named : questions) in the ComboBox "selectQuestion"
+            selectQuestion.setItems(questions);
+
+        } catch (SQLException ex) {
+        }
+    }
+
+    public void deleteQuestion(ActionEvent event) {
+        System.out.println("ManageQuestionsController check: "
+                + ((Control) event.getSource()).getId());
+
+        try {
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/trivia", "root", "");
+
+            Statement st = (Statement) con.createStatement();
+
+            // this is the delete query
+            String deleteQuestionQuery = "DELETE FROM vraag WHERE Vraag = '" + selectQuestion.getValue() + "' ; ";
+
+            //execute Question delete script  
+            st.executeUpdate(deleteQuestionQuery);
+
+            if (st.executeUpdate(deleteQuestionQuery) == 0) {
+                System.out.println("Deleting question : " + selectQuestion.getValue());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ManageQuestionsController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        // if no question selected : there is no question selected to delete Error Dialog
+        if (selectQuestion.getValue() == null) {
+            System.out.println("There is no question selected to delete !");
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error Dialog");
+            alert.setHeaderText("Kan vraag niet verwijderen");
+            alert.setContentText("Er is geen vraag geselecteerd om te verwijderen. "
+                    + "Selecteer a.u.b. een vraag om deze te verwijderen.");
+            alert.showAndWait();
+        }else{
+            Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText(null);
+        alert.setContentText("Vraag Succesvol verwijderd");
+        alert.showAndWait();
+        }
+
+        //this refreshes the ComboBox because there is now an item deleted, so it has to be updated
+        setComboBoxQuestions();
     }
 
     public void addQuestion(ActionEvent event) {
@@ -112,7 +196,7 @@ public class ManageQuestionsController extends Trivia implements Initializable {
         String IncorrectAnswer2 = addIncorrectAnswer2.getText();
         String IncorrectAnswer3 = addIncorrectAnswer3.getText();
 
-        // System control of input
+        // System check of input
         System.out.println("Added question : " + question);
         System.out.println("Added Correct Answer : " + correctAnswer);
         System.out.println("Added Incorrect Answer 1 : " + IncorrectAnswer1);
@@ -149,6 +233,7 @@ public class ManageQuestionsController extends Trivia implements Initializable {
                     st.executeUpdate(insertIncorrectAnswer2);
                     st.executeUpdate(insertIncorrectAnswer3);
                 }
+
             } catch (SQLException ex) {
             } finally {
                 if (st != null) {
@@ -167,9 +252,14 @@ public class ManageQuestionsController extends Trivia implements Initializable {
         addIncorrectAnswer2.setText("");
         addIncorrectAnswer3.setText("");
 
-        alertDialog(Alert.AlertType.CONFIRMATION, "Vraag toevoegen geslaagd",
-                "Het uploaden van de vraag in de database is succesvol",
-                "U kunt een nieuwe vraag invoeren of afsluiten", StageStyle.UNDECORATED);
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText(null);
+        alert.setContentText("Vraag Succesvol toegevoegd");
+        alert.showAndWait();
+
+        //this refreshes the ComboBox because there is now an item added, so it has to be updated
+        setComboBoxQuestions();
 
     }
 

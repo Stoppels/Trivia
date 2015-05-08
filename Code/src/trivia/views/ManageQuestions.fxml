@@ -51,7 +51,7 @@
                     </font>
                 </Button>
             <TextField fx:id="addQuestionText" prefHeight="31.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-            <Button fx:id="addQuestion" alignment="CENTER" focusTraversable="false" minHeight="60.0" minWidth="240.0" mnemonicParsing="false" style="-fx-background-radius: 80px;" text="Voeg toe" textAlignment="CENTER" GridPane.columnIndex="5" GridPane.rowIndex="8">
+            <Button fx:id="addQuestionButton" alignment="CENTER" focusTraversable="false" minHeight="60.0" minWidth="240.0" mnemonicParsing="false" style="-fx-background-radius: 80px;" text="Voeg toe" textAlignment="CENTER" GridPane.columnIndex="5" GridPane.rowIndex="8">
                <font>
                   <Font size="24.0" />
                </font>
@@ -85,7 +85,12 @@
                   <Font size="24.0" />
                </font>
             </Button>
-            <ComboBox fx:id="selectQuestion" prefWidth="150.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+            <ComboBox fx:id="selectQuestion" prefHeight="31.0" prefWidth="348.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+            <Label text="Verwijder een vraag :" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
             </children>
         </GridPane>
     </children>
