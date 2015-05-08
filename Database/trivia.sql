@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 22 apr 2015 om 14:21
+-- Gegenereerd op: 08 mei 2015 om 14:48
 -- Serverversie: 5.6.20
 -- PHP-versie: 5.5.15
 
@@ -24,6 +24,7 @@ SET time_zone = "+00:00";
 CREATE SCHEMA IF NOT EXISTS `trivia`;
 USE `trivia`;
 
+
 -- --------------------------------------------------------
 
 --
@@ -42,42 +43,44 @@ CREATE TABLE IF NOT EXISTS `antwoordfout` (
 
 INSERT INTO `antwoordfout` (`AntwoordFoutID`, `AntwoordFout`, `VraagID`) VALUES
 (1, '1918', 1),
-(2, '1940', 1),
-(3, '1814', 1),
 (1, 'Nederland', 2),
-(2, 'Spanje', 2),
-(3, 'Brazilië', 2),
 (1, 'Cola', 3),
-(2, 'Calcium', 3),
-(3, 'Europa', 3),
 (1, 'Calcium', 4),
-(2, 'Ijzer', 4),
-(3, 'Zuurstof', 4),
 (1, 'Batman', 5),
-(2, 'Willem van Oranje', 5),
-(3, 'Geen van deze antwoorden', 5),
 (1, '1900', 6),
-(2, '1868', 6),
-(3, '1970', 6),
 (1, 'Mark Rutte', 7),
-(2, 'Willem ALexander', 7),
-(3, 'Jan Peter Balkenende', 7),
 (1, 'Olifant', 8),
-(2, 'Centaur', 8),
-(3, 'Sfinx', 8),
 (1, '1939', 9),
-(2, '1967', 9),
-(3, '1819', 9),
 (1, 'Spinnen', 10),
-(2, 'Oude mensen', 10),
-(3, 'Kinderen', 10),
 (1, 'George Walker Bush', 11),
-(2, 'Barack Obama', 11),
-(3, 'John Fitzgerald Kennedy', 11),
 (1, 'Carlos Manuel Piedra', 12),
+(1, 'Finland', 13),
+(2, '1940', 1),
+(2, 'Spanje', 2),
+(2, 'Calcium', 3),
+(2, 'Ijzer', 4),
+(2, 'Willem van Oranje', 5),
+(2, '1868', 6),
+(2, 'Willem ALexander', 7),
+(2, 'Centaur', 8),
+(2, '1967', 9),
+(2, 'Oude mensen', 10),
+(2, 'Barack Obama', 11),
 (2, 'Fulgencio Batista', 12),
-(3, 'Osvaldo Dorticós Torrado', 12);
-
+(2, 'Noorwegen', 13),
+(3, '1814', 1),
+(3, 'Brazilië', 2),
+(3, 'Europa', 3),
+(3, 'Zuurstof', 4),
+(3, 'Geen van deze antwoorden', 5),
+(3, '1970', 6),
+(3, 'Jan Peter Balkenende', 7),
+(3, 'Sfinx', 8),
+(3, '1819', 9),
+(3, 'Kinderen', 10),
+(3, 'John Fitzgerald Kennedy', 11),
+(3, 'Osvaldo Dorticós Torrado', 12),
+(3, 'Zweden', 13);
 
 -- --------------------------------------------------------
 
@@ -88,8 +91,8 @@ INSERT INTO `antwoordfout` (`AntwoordFoutID`, `AntwoordFout`, `VraagID`) VALUES
 CREATE TABLE IF NOT EXISTS `antwoordgoed` (
   `AntwoordGoedID` int(9) NOT NULL,
   `AntwoordGoed` varchar(255) DEFAULT NULL,
-  `VraagID` int(9) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `VraagID` int(25) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `antwoordgoed`
@@ -107,8 +110,8 @@ INSERT INTO `antwoordgoed` (`AntwoordGoedID`, `AntwoordGoed`, `VraagID`) VALUES
 (9, '1909', 9),
 (10, 'Vreemden, vreemdelingen', 10),
 (11, 'Harry Truman', 11),
-(12, 'Fidel Castro', 12);
-
+(12, 'Fidel Castro', 12),
+(13, 'Polen', 13);
 
 -- --------------------------------------------------------
 
@@ -117,9 +120,9 @@ INSERT INTO `antwoordgoed` (`AntwoordGoedID`, `AntwoordGoed`, `VraagID`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `vraag` (
-  `VraagID` int(9) NOT NULL,
+  `VraagID` int(25) NOT NULL,
   `Vraag` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `vraag`
@@ -137,7 +140,8 @@ INSERT INTO `vraag` (`VraagID`, `Vraag`) VALUES
 (9, 'In welk jaar was de eerste Elfstedentocht?'),
 (10, 'Waar is iemand die lijdt aan xenofobie bang voor?'),
 (11, 'Welke Amerikaanse president besloot tot het inzetten van de atoombom tegen Japan?'),
-(12, 'Wie bevrijdde Cuba in 1959 van de corrupte dictator Batista?');
+(12, 'Wie bevrijdde Cuba in 1959 van de corrupte dictator Batista?'),
+(13, 'Welk land is geen onderdeel van Scandinavië?');
 
 --
 -- Indexen voor geëxporteerde tabellen
@@ -164,6 +168,20 @@ ALTER TABLE `vraag`
   ADD PRIMARY KEY (`VraagID`);
 
 --
+-- AUTO_INCREMENT voor geëxporteerde tabellen
+--
+
+--
+-- AUTO_INCREMENT voor een tabel `antwoordgoed`
+--
+ALTER TABLE `antwoordgoed`
+  MODIFY `VraagID` int(25) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
+--
+-- AUTO_INCREMENT voor een tabel `vraag`
+--
+ALTER TABLE `vraag`
+  MODIFY `VraagID` int(25) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
+--
 -- Beperkingen voor geëxporteerde tabellen
 --
 
@@ -171,13 +189,13 @@ ALTER TABLE `vraag`
 -- Beperkingen voor tabel `antwoordfout`
 --
 ALTER TABLE `antwoordfout`
-  ADD CONSTRAINT `antwoordfout_constraint_1` FOREIGN KEY (`VraagID`) REFERENCES `vraag` (`VraagID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `antwoordfout_constraint_1` FOREIGN KEY (`VraagID`) REFERENCES `vraag` (`VraagID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Beperkingen voor tabel `antwoordgoed`
 --
-ALTER TABLE `antwoordgoed`
-  ADD CONSTRAINT `antwoordgoed_constraint_1` FOREIGN KEY (`VraagID`) REFERENCES `vraag` (`VraagID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ ALTER TABLE `antwoordgoed`
+  ADD CONSTRAINT `antwoordgoed_constraint_1` FOREIGN KEY (`VraagID`) REFERENCES `vraag` (`VraagID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
