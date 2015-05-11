@@ -8,7 +8,7 @@
 
 <AnchorPane minHeight="600.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="trivia.controllers.GameSetUpController">
     <children>
-        <GridPane style="-fx-background-color: #7DFEFE;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columnConstraints>
                 <ColumnConstraints hgrow="ALWAYS" minWidth="30.0" />
                 <ColumnConstraints hgrow="ALWAYS" minWidth="80.0" />
@@ -17,7 +17,6 @@
                 <ColumnConstraints hgrow="ALWAYS" minWidth="80.0" />
                 <ColumnConstraints hgrow="ALWAYS" minWidth="80.0" />
                 <ColumnConstraints hgrow="ALWAYS" minWidth="30.0" />
-                <ColumnConstraints />
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="ALWAYS" />
@@ -27,8 +26,8 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
+                <RowConstraints minHeight="80.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
             </rowConstraints>
             <children>
@@ -53,7 +52,7 @@
                         <ToggleGroup fx:id="moeilijkheid" />
                     </toggleGroup>
                 </RadioButton>
-                <RadioButton fx:id="moeilijkheidMoeilijk" focusTraversable="false" mnemonicParsing="false" style="-fx-background-color: #7DFEFE;" text="Moeilijk" toggleGroup="$moeilijkheid" GridPane.columnIndex="5" GridPane.rowIndex="3">
+                <RadioButton fx:id="moeilijkheidMoeilijk" focusTraversable="false" mnemonicParsing="false" text="Moeilijk" toggleGroup="$moeilijkheid" GridPane.columnIndex="5" GridPane.rowIndex="3">
                     <font>
                         <Font size="24.0" />
                     </font>
@@ -66,7 +65,7 @@
                         <Font size="24.0" />
                     </font>
                 </Label>
-                <RadioButton fx:id="waarvalsvragenToggleAan" focusTraversable="false" mnemonicParsing="false" selected="true" style="-fx-background-color: #7DFEFE;" text="Ja" GridPane.columnIndex="4" GridPane.rowIndex="4">
+                <RadioButton fx:id="waarvalsvragenToggleAan" focusTraversable="false" mnemonicParsing="false" selected="true" text="Ja" GridPane.columnIndex="4" GridPane.rowIndex="4">
                     <font>
                         <Font size="24.0" />
                     </font>
@@ -82,7 +81,7 @@
                         <Insets left="14.0" />
                     </GridPane.margin>
                 </RadioButton>
-                <Label text="Wilt u meerkeuzevragen?" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="5">
+                <Label text="Wilt u vierkeuzevragen?" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="5">
                     <font>
                         <Font size="24.0" />
                     </font>
@@ -130,12 +129,12 @@
                         <Insets left="14.0" />
                     </GridPane.margin>
                 </RadioButton>
-                <Button fx:id="mainMenu" alignment="CENTER" focusTraversable="false" minHeight="60.0" minWidth="240.0" mnemonicParsing="false" style="-fx-background-radius: 80px;" text="Hoofdmenu" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+                <Button fx:id="mainMenu" alignment="CENTER" focusTraversable="false" minHeight="60.0" minWidth="200.0" mnemonicParsing="false" style="-fx-background-radius: 80px;" text="Hoofdmenu" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="8" GridPane.valignment="CENTER">
                     <font>
                         <Font size="24.0" />
                     </font>
                 </Button>
-                <Button fx:id="startGame" focusTraversable="false" minHeight="60.0" minWidth="240.0" mnemonicParsing="false" style="-fx-background-radius: 80px;" text="Start Spel" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+                <Button fx:id="startGame" focusTraversable="false" minHeight="60.0" minWidth="200.0" mnemonicParsing="false" style="-fx-background-radius: 80px;" text="Start Spel" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="8" GridPane.valignment="CENTER">
                     <font>
                         <Font name="System Bold" size="24.0" />
                     </font>

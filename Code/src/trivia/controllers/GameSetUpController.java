@@ -63,10 +63,11 @@ public class GameSetUpController extends Trivia implements Initializable {
 	@FXML
 	Toggle timerToggleAan;
 
+	static int gameLength = 10;
 	static boolean makkelijkHolder;
 	static boolean waarvalsHolder;
 	static boolean meerkeuzeHolder;
-	static boolean timerHolder;
+	static boolean timerHolder = true;
 
 	/**
 	 * Initializes the controller class.
@@ -77,7 +78,7 @@ public class GameSetUpController extends Trivia implements Initializable {
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		mainMenu.setOnAction(this::handleButtonAction);
-		startGame.setOnAction(this::handleButtonAction);
+		startGame.setOnAction(this::startGame);
 	}
 
 	@Override
@@ -88,7 +89,7 @@ public class GameSetUpController extends Trivia implements Initializable {
 	}
 
 	@FXML
-	private void startGame() {
+	private void startGame(ActionEvent event) {
 //		loadView("Question");
 
 		if (moeilijkheidNormaal.isSelected()) {
@@ -110,9 +111,12 @@ public class GameSetUpController extends Trivia implements Initializable {
 			System.out.println("True/false");
 		}
 		if (timerToggleAan.isSelected()) {
-			System.out.println("Wel timer");
+			timerHolder = true;
+			System.out.println("Set timer");
 		} else {
-			System.out.println("Geen timer");
+			timerHolder = false;
+			System.out.println("Disable timer");
 		}
+		handleButtonAction(event);
 	}
 }

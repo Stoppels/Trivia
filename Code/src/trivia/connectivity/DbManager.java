@@ -100,22 +100,4 @@ public class DbManager {
 		return result;
 	}
 
-	/**
-	 * Executes a query with result.
-	 *
-	 * @param query, the SQL query
-	 * @return generated keys
-	 */
-	public ResultSet insertQuery(String query) {
-		ResultSet result = null;
-		try {
-			Statement statement = connection.createStatement();
-			statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
-			result = statement.getGeneratedKeys();
-		} catch (SQLException e) {
-			System.err.println(SQL_EXCEPTION + e.getLocalizedMessage());
-		}
-		return result;
-	}
-
 }

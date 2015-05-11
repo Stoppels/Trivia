@@ -58,7 +58,7 @@ public class SplashScreenController extends Trivia implements Initializable {
 	@FXML
 	private Label timerLabel;
 
-	private static final Integer STARTTIME = 7;
+	private static final Integer STARTTIME = 6;
 	private Timeline timeline;
 	private final IntegerProperty timeSeconds = new SimpleIntegerProperty(STARTTIME);
 
@@ -68,11 +68,9 @@ public class SplashScreenController extends Trivia implements Initializable {
 	 * @param url
 	 * @param rb
 	 */
-        
-        
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-            
+
 		autoPlay();
 		mainMenu.setOnAction(this::handleButtonAction);
 		adminMenu.setOnAction(this::handleButtonAction);

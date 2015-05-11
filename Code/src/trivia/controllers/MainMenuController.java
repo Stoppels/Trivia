@@ -24,8 +24,6 @@
  */
 package trivia.controllers;
 
-import trivia.connectivity.DbManager;
-import trivia.connectivity.QueryManager;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
@@ -74,7 +72,7 @@ public class MainMenuController extends Trivia implements Initializable {
 	 */
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-            
+
 		startGame.setOnAction(this::handleButtonAction);
 		gameSetUp.setOnAction(this::handleButtonAction);
 	}
@@ -83,17 +81,9 @@ public class MainMenuController extends Trivia implements Initializable {
 	public void handleButtonAction(ActionEvent event) {
 		System.out.println("MainMenuController check: "
 				+ ((Control) event.getSource()).getId());
-		loadView(event);
+			loadView(event);
 	}
 
-	// Deprecated method, remove this once you have replaced it
-//	@FXML
-//	private void startGame() {
-//		DbManager dbm = new DbManager();
-//		QueryManager qm = new QueryManager(dbm);
-//		dbm.openConnection();
-//
-//	}
 	@FXML
 	private void toggleHelp() {
 		List<Label> helpItems = Arrays.asList(uitlegA, uitlegB, uitlegC, uitlegD);

@@ -38,6 +38,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Control;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import static jdk.nashorn.internal.objects.NativeError.printStackTrace;
 
 /**
  * Application main class
@@ -46,8 +47,6 @@ import javafx.stage.StageStyle;
  * @version 1.0
  */
 public class Trivia extends Application {
-
-	Stage startStage;
 
 	@Override
 	public void start(Stage stage) {
@@ -63,8 +62,6 @@ public class Trivia extends Application {
 			stage.setFullScreenExitHint("");
 			//stage.setFullScreen(true);
 			stage.show();
-
-			startStage = stage;
 		} catch (IOException e) {
 			System.err.println("Error: " + e.getLocalizedMessage());
 		}
@@ -92,7 +89,6 @@ public class Trivia extends Application {
 		Optional<ButtonType> result = alert.showAndWait();
 		return result.get() == ButtonType.OK;
 	}
-      
 
 	public void handleButtonAction(ActionEvent event) {
 		loadView(event);
@@ -101,13 +97,12 @@ public class Trivia extends Application {
 	/**
 	 * Handles switching between views.
 	 *
-	 * @param viewName
 	 * @param event
 	 */
 	public void loadView(ActionEvent event) {
 		boolean error = false, onSplash = false;
 
-		// Fetch the FX:ID of the button and find out which button it was!
+// Fetch the FX:ID of the button and find out which button it was!
 		String viewName = ((Control) event.getSource()).getId();
 
 		// Depending on the target view, do something!
@@ -122,20 +117,20 @@ public class Trivia extends Application {
 				break;
 			case "startGame":
 				viewName = "Question";
-//				DbManager dbm = new DbManager();
-//				QueryManager qm = new QueryManager(dbm);
-//				dbm.openConnection();
-
-				System.out.println("c");
+				System.out.println("Opening Question");
 				break;
-			case "ManageQuestions":
+			case "manageQuestions":
 				viewName = "ManageQuestions";
 				System.out.println("Opening ManageQuestions");
 				break;
-                        case "gameSetUp":
+			case "gameSetUp":
 				viewName = "GameSetUp";
 				System.out.println("Opening GameSetUp");
 				break;
+//			case "nameWindow":
+//				viewName = "NameWindow";
+//				System.out.println("Opening NameWindow");
+//				break;
 			default:
 				System.err.println("View " + viewName + " not found.");
 				error = true;
@@ -156,7 +151,8 @@ public class Trivia extends Application {
 				stage.setScene(scene);
 				stage.show();
 			} catch (IOException e) {
-				System.err.println(e.getLocalizedMessage());
+				System.err.println(e.getLocalizedMessage() + "\n"
+						+ printStackTrace(e));
 			}
 		}
 	}
@@ -167,5 +163,4 @@ public class Trivia extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
-
 }

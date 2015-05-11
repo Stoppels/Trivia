@@ -38,14 +38,14 @@
                                 </Label>
                             </graphic>
                         </Label>
-                        <Label alignment="CENTER_RIGHT" layoutX="278.0" layoutY="32.0" minHeight="0.0" text="seconde(n)" AnchorPane.bottomAnchor="-32.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="32.0">
+                        <Label fx:id="secondsLabel" alignment="CENTER_RIGHT" layoutX="278.0" layoutY="32.0" minHeight="0.0" text="seconde(n)" AnchorPane.bottomAnchor="-32.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="32.0">
                             <font>
                                 <Font size="24.0" />
                             </font>
                         </Label>
                     </children>
                 </AnchorPane>
-                <Button fx:id="mainMenu" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" minHeight="80.0" minWidth="240.0" mnemonicParsing="false" style="-fx-background-radius: 80px;" text="Hoofdmenu" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                <Button fx:id="mainMenu" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="80.0" prefWidth="240.0" style="-fx-background-radius: 80px;" styleClass="splashButtons" text="Hoofdmenu" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                     <font>
                         <Font name="System Bold" size="24.0" />
                     </font>
@@ -53,7 +53,7 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Button>
-                <Button fx:id="adminMenu" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" minHeight="80.0" minWidth="240.0" mnemonicParsing="false" style="-fx-background-radius: 80px;" text="Adminmenu" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                <Button fx:id="adminMenu" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="80.0" prefWidth="240.0" style="-fx-background-radius: 80px;" styleClass="splashButtons" text="Adminmenu" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                     <font>
                         <Font name="System Bold" size="24.0" />
                     </font>

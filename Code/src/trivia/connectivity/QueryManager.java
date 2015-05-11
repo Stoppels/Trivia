@@ -26,7 +26,6 @@ package trivia.connectivity;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Random;
 import javafx.scene.control.Label;
 
 /**
@@ -93,7 +92,7 @@ public class QueryManager {
             result.next();
             labelNumber.setText(result.getString("AntwoordFout"));
         } catch (SQLException e) {
-            System.err.println("FOUT" + e.getLocalizedMessage());
+            System.err.println("Error: " + e.getLocalizedMessage());
         }
     }
 
@@ -116,7 +115,7 @@ public class QueryManager {
             result.next();
             labelNumber.setText(result.getString("AntwoordGoed"));
         } catch (SQLException e) {
-            System.err.println("FOUT" + e.getLocalizedMessage());
+            System.err.println("Error: " + e.getLocalizedMessage());
         }
     }
 

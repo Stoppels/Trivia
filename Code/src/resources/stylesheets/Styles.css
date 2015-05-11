@@ -1,31 +1,40 @@
-#pane{
-    -fx-background-image: url("../images/background_2.jpg");
-    -fx-background-repeat: stretch;   
-    -fx-background-size: 900 650;
-    -fx-background-position: center center;
-    -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0); 
+#pane {    
+    -fx-background-image:           url("../images/background.jpg");
+    -fx-background-size:            stretch;
 }
-#buttonA {
-    -fx-background-color: linear-gradient(#ff5400, #be1d00);
-    -fx-background-radius: 30;
-    -fx-background-insets: 0;
-    -fx-text-fill: white;
+.button, .toggle-button, .text-field, .combo-box {
+    -fx-background-color:           #FFFFFF;
+    -fx-background-radius:          80px;
+    -fx-background-insets:          0;
 }
-#buttonB {
-    -fx-background-color: #00FF00;
-    -fx-background-radius: 30;
-    -fx-background-insets: 0;
-    -fx-text-fill: white;
+.button, .toggle-button, #labelA, #labelB, #labelC, #labelD {
+    -fx-cursor:                     HAND;
 }
-#buttonC {
-    -fx-background-color: #1E90FF;
-    -fx-background-radius: 30;
-    -fx-background-insets: 0;
-    -fx-text-fill: white;
+.toggle-button:selected, .toggle-button:pressed, .button:pressed {
+    -fx-background-color:           #AAAAAA;
 }
-#buttonD {
-    -fx-background-color: #FFD700;
-    -fx-background-radius: 30;
-    -fx-background-insets: 0;
-    -fx-text-fill: white;
+.button:hover, .toggle-button:hover {
+    -fx-background-color:           #CCCCCC;
+}
+.buttons {
+    width:                          200px;
+    height:                         60px;
+}
+.largerButtons {
+    width:                          240px;
+    height:                         72px;
+}
+.splashButtons {
+    width:                          240px;
+    height:                         80px;
+}
+.cell {
+    -fx-background-radius:          80px;
+}
+.cell:odd {
+    -fx-background-color:           #DDDDDD;
+}
+.cell:odd:hover, .cell:selected {
+    -fx-background-color:           #0396C9;
+    -fx-text-fill:                  #FFFFFF;    
 }
