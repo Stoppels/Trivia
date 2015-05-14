@@ -28,7 +28,7 @@
                 <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
             </rowConstraints>
             <children>
-                <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" text="Admin" textAlignment="CENTER" textFill="#4700ee" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" styleClass="viewTitle" text="Admin" textAlignment="CENTER" textFill="#4700ee" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                     <font>
                         <Font name="System Bold" size="48.0" />
                     </font>

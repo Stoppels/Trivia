@@ -28,12 +28,10 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.stage.StageStyle;
 import trivia.Trivia;
@@ -73,15 +71,8 @@ public class MainMenuController extends Trivia implements Initializable {
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 
-		startGame.setOnAction(this::handleButtonAction);
-		gameSetUp.setOnAction(this::handleButtonAction);
-	}
-
-	@Override
-	public void handleButtonAction(ActionEvent event) {
-		System.out.println("MainMenuController check: "
-				+ ((Control) event.getSource()).getId());
-			loadView(event);
+		startGame.setOnAction(this::loadView);
+		gameSetUp.setOnAction(this::loadView);
 	}
 
 	@FXML

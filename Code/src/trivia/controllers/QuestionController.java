@@ -29,7 +29,6 @@ import trivia.connectivity.QueryManager;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -37,12 +36,12 @@ import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ToggleButton;
@@ -52,7 +51,6 @@ import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import trivia.Trivia;
 import static trivia.Trivia.alertDialog;
-import static trivia.controllers.GameSetUpController.makkelijkHolder;
 
 /**
  * FXML Controller class
@@ -71,13 +69,20 @@ public class QuestionController extends Trivia implements Initializable {
 	private Timeline timeline;
 	private final IntegerProperty timeSeconds = new SimpleIntegerProperty(STARTTIME);
 
-	Random rand = new Random();
-	int VraagId = rand.nextInt(4) + 1;
+//	Random rand = new Random();
+//	int questionId = rand.nextInt(4) + 1;
+/*
+	 SELECT questionId
+	 FROM question
+	 WHERE questionId = 1
+	 AND Loaded = false
+	 ORDER BY RAND()
+	 LIMIT 1;
 
-	int antwoordfoutID1 = 1;
-	int antwoordfoutID2 = 2;
-	int antwoordfoutID3 = 3;
-
+	 UPDATE question
+	 SET Loaded = true
+	 WHERE questionId = 1;
+	 */
 	@FXML
 	ToggleGroup toggleGroup;
 
@@ -93,9 +98,6 @@ public class QuestionController extends Trivia implements Initializable {
 	@FXML
 	ToggleButton buttonD;
 
-	private List<ToggleButton> menuButtons;
-	private final char[] chosenAnswers = new char[GameSetUpController.gameLength];
-
 	@FXML
 	Label questionProgress;
 
@@ -107,20 +109,18 @@ public class QuestionController extends Trivia implements Initializable {
 
 	@FXML
 	Label question;
-	
-	private int questionNumber;
 
 	@FXML
-	Label labelA;
+	Hyperlink labelA;
 
 	@FXML
-	Label labelB;
+	Hyperlink labelB;
 
 	@FXML
-	Label labelC;
+	Hyperlink labelC;
 
 	@FXML
-	Label labelD;
+	Hyperlink labelD;
 
 	@FXML
 	Button previousQuestion;
@@ -133,7 +133,16 @@ public class QuestionController extends Trivia implements Initializable {
 
 	@FXML
 	Button nameWindow;
-	
+
+	private List<ToggleButton> answerButtons;
+	private final char[] chosenAnswers = new char[GameSetUpController.gameLength];
+	private final int wrongAnswerId1 = 1, wrongAnswerId2 = 2, wrongAnswerId3 = 3;
+
+	public static int[] selectedQuestions;
+	private int questionId = 1;
+	private int questionFetcher = 0;
+	private int questionNumber = 1;
+
 	/**
 	 * Initializes the controller class.
 	 *
@@ -146,29 +155,36 @@ public class QuestionController extends Trivia implements Initializable {
 
 		loadGameSettings();
 
-		// Perform action for all items in list menuButtons
-		menuButtons = Arrays.asList(buttonA, buttonB, buttonC, buttonD);
-		for (ToggleButton a : menuButtons) {
+		// Perform action for all items in lists
+		answerButtons = Arrays.asList(buttonA, buttonB, buttonC, buttonD);
+		for (ToggleButton a : answerButtons) {
 			a.setOnAction(this::handleAnswerSelection);
 		}
-		questionNumber = 1;
-		nextQuestion.setOnAction(this::nextQuestion);
-		previousQuestion.setOnAction(this::previousQuestion);
-		mainMenu.setOnAction(this::stopQuiz);
-//		nameWindow.setOnAction(this::handleButtonAction);
+		List<Hyperlink> answerLabels = Arrays.asList(labelA, labelB, labelC, labelD);
+		for (Hyperlink a : answerLabels) {
+			a.setOnAction(this::handleAnswerSelection);
+		}
 
-		// label Vraag nummer aanpassen
-		questionProgress.setText(questionNumber + " / 10");
+		// Set actions for all buttons
+		nextQuestion.setOnAction((event) -> this.nextQuestion(event, true));
+		previousQuestion.setOnAction((event) -> this.nextQuestion(event, false));
+		mainMenu.setOnAction((event) -> {
+			timeline.stop();
+			this.stopQuiz(event);
+		});
+
+		// Update question progress label, start at 1
+		questionProgress.setText(questionNumber + " / " + GameSetUpController.gameLength);
 
 		// Sets the question
 		dbm.openConnection();
-		question.setText(qm.setQuestion(VraagId));
+		question.setText(qm.setQuestion(questionId));
 
 		//sets the wrong answer
-		qm.setWrongAnswer(antwoordfoutID1, labelA, VraagId);
-		qm.setWrongAnswer(antwoordfoutID2, labelB, VraagId);
-		qm.setWrongAnswer(antwoordfoutID3, labelC, VraagId);
-		qm.setRightAnswer(labelD, VraagId);
+		qm.setWrongAnswer(wrongAnswerId1, labelA, questionId);
+		qm.setWrongAnswer(wrongAnswerId2, labelB, questionId);
+		qm.setWrongAnswer(wrongAnswerId3, labelC, questionId);
+		qm.setRightAnswer(labelD, questionId);
 
 		// TODO
 		// if current answer > 10, scoreCheck()
@@ -183,7 +199,8 @@ public class QuestionController extends Trivia implements Initializable {
 	public void autoPlay() {
 		// Bind the timerLabel text property to the timeSeconds property
 		timer.textProperty().bind(timeSeconds.divide(100).asString());
-		progressBar.progressProperty().bind(timeSeconds.divide(STARTTIME * 100.0).subtract(1).multiply(-1));
+		progressBar.progressProperty().bind(
+				timeSeconds.divide(STARTTIME * 100.0).subtract(1).multiply(-1));
 		timer.setTextFill(Color.WHITE);
 
 		// Countdown from STARTTIME to zero
@@ -204,12 +221,42 @@ public class QuestionController extends Trivia implements Initializable {
 		});
 	}
 
+	private void handleAnswerSelection(ActionEvent event) {
+		String buttonName = ((Control) event.getSource()).getId();
+		System.out.println("QuestionController answer: "
+				+ buttonName);
+		switch (buttonName) {
+			case "buttonA":
+			case "labelA":
+				buttonA.setSelected(true);
+				chosenAnswers[questionNumber - 1] = 'A';
+				break;
+			case "buttonB":
+			case "labelB":
+				buttonB.setSelected(true);
+				chosenAnswers[questionNumber - 1] = 'B';
+				break;
+			case "buttonC":
+			case "labelC":
+				buttonC.setSelected(true);
+				chosenAnswers[questionNumber - 1] = 'C';
+				break;
+			case "buttonD":
+			case "labelD":
+				buttonD.setSelected(true);
+				chosenAnswers[questionNumber - 1] = 'D';
+				break;
+		}
+	}
+
 	/**
 	 * This method loads the game settings for the new game.
 	 */
 	@FXML
 	public void loadGameSettings() {
-		// 
+		selectedQuestions = qm.selectQuestions(GameSetUpController.gameLength);
+		questionId = selectedQuestions[questionFetcher];
+
 		if (GameSetUpController.timerHolder) {
 			progressBar.setVisible(true);
 			autoPlay();
@@ -217,82 +264,43 @@ public class QuestionController extends Trivia implements Initializable {
 			timer.setText("");
 			progressBar.setVisible(false);
 		}
-		if (GameSetUpController.makkelijkHolder) {
-			// System.out.println("yo");
-		}
-		if (makkelijkHolder) {
-			// System.out.println("yo2");
-		}
-		//enable timer? timerCountdown()
-		//other settings?
-	}
-
-	private void handleAnswerSelection(ActionEvent event) {
-		String buttonName = ((Control) event.getSource()).getId();
-		System.out.println("QuestionController answer: "
-				+ buttonName);
-		switch (buttonName) {
-			case "buttonA":
-				buttonA.setSelected(true);
-				chosenAnswers[questionNumber - 1] = 'A';
-				break;
-			case "buttonB":
-				buttonB.setSelected(true);
-				chosenAnswers[questionNumber - 1] = 'B';
-				break;
-			case "buttonC":
-				buttonC.setSelected(true);
-				chosenAnswers[questionNumber - 1] = 'C';
-				break;
-			case "buttonD":
-				buttonD.setSelected(true);
-				chosenAnswers[questionNumber - 1] = 'D';
-				break;
-		}
-	}
-
-	@Override
-	public void handleButtonAction(ActionEvent event) {
-		timeline.stop();
-		System.out.println("QuestionController check check: "
-				+ ((Control) event.getSource()).getId());
-		loadView(event);
 	}
 
 	@FXML
-	private void previousQuestion(ActionEvent event) {
-		VraagId--;
-		autoPlay();
-		questionProgress.setText(questionNumber + "/10");
-		question.setText(qm.setQuestion(VraagId));
-		qm.setWrongAnswer(antwoordfoutID1, labelA, VraagId);
-		qm.setWrongAnswer(antwoordfoutID2, labelB, VraagId);
-		qm.setWrongAnswer(antwoordfoutID3, labelC, VraagId);
-		qm.setRightAnswer(labelD, VraagId);
-
-		//saveAnswer();
-		//goto current -1
-	}
-
-	@FXML
-	private void nextQuestion(ActionEvent event) {
-		VraagId++;
-		questionNumber++;
-		autoPlay();
-		questionProgress.setText(questionNumber + "/10");
-		question.setText(qm.setQuestion(VraagId));
-		qm.setWrongAnswer(antwoordfoutID1, labelA, VraagId);
-		qm.setWrongAnswer(antwoordfoutID2, labelB, VraagId);
-		qm.setWrongAnswer(antwoordfoutID3, labelC, VraagId);
-		qm.setRightAnswer(labelD, VraagId);
+	private void nextQuestion(ActionEvent event, Boolean nextQuestion) {
+		if (nextQuestion) {
+			if (questionNumber + 1 > GameSetUpController.gameLength) {
+				mainMenu.fire();
+			} else {
+				questionFetcher++;
+				questionId = selectedQuestions[questionFetcher];
+				questionNumber++;
+			}
+		} else {
+			if (questionNumber <= 1) {
+				alertDialog(AlertType.ERROR, "Vorige vraag", "",
+						"Dit is de eerste vraag, er is geen vorige vraag.", StageStyle.UNDECORATED);
+				return;
+			} else {
+				questionFetcher--;
+				questionId = selectedQuestions[questionFetcher];
+				questionNumber++;
+			}
+		}
+		questionProgress.setText(questionNumber + " / " + GameSetUpController.gameLength);
+		question.setText(qm.setQuestion(questionId));
+		qm.setWrongAnswer(wrongAnswerId1, labelA, questionId);
+		qm.setWrongAnswer(wrongAnswerId2, labelB, questionId);
+		qm.setWrongAnswer(wrongAnswerId3, labelC, questionId);
+		qm.setRightAnswer(labelD, questionId);
 
 		//if () {
 		//} else {
-		for (ToggleButton a : menuButtons) {
+		for (ToggleButton a : answerButtons) {
 			a.setSelected(false);
 		}
-		if (questionNumber == 10) {
-			mainMenu.fire();
+		if (GameSetUpController.timerHolder) {
+			autoPlay();
 		}
 		//}
 		//saveAnswer();
@@ -305,10 +313,13 @@ public class QuestionController extends Trivia implements Initializable {
 				+ " de quiz wilt stoppen?", "De antwoorden worden niet opgeslagen."
 				+ "\nDit brengt u terug naar het hoofdmenu.", StageStyle.UNDECORATED)) {
 			// TO DO: WIPE SAVED ANSWERS
+			int i = 1;
 			for (char c : chosenAnswers) {
-				System.out.println("ALKADKLFJDLSJFLDJ: " + c);
+				System.out.println("Answer to question " + i + ": " + c);
+				i++;
 			}
-			handleButtonAction(event);
+			timeline.stop();
+			loadView(event);
 		}
 	}
 }

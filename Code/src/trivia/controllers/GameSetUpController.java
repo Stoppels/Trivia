@@ -24,14 +24,17 @@
  */
 package trivia.controllers;
 
+import static java.lang.Integer.parseInt;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
-import javafx.scene.control.Toggle;
+import javafx.scene.control.ToggleButton;
 import trivia.Trivia;
 
 /**
@@ -43,30 +46,50 @@ import trivia.Trivia;
 public class GameSetUpController extends Trivia implements Initializable {
 
 	@FXML
+	ToggleButton shortLength;
+
+	@FXML
+	ToggleButton mediumLength;
+
+	@FXML
+	ToggleButton longLength;
+
+	@FXML
+	ToggleButton xxlLength;
+
+	@FXML
+	ToggleButton difficultyEasy;
+
+	@FXML
+	ToggleButton difficultyHard;
+
+	@FXML
+	ToggleButton difficultyMixed;
+
+	@FXML
+	ToggleButton typeTf;
+
+	@FXML
+	ToggleButton typeMc;
+
+	@FXML
+	ToggleButton typeMixed;
+
+	@FXML
+	ToggleButton timerToggle;
+
+	@FXML
 	Button mainMenu;
 
 	@FXML
 	Button startGame;
 
-	@FXML
-	Toggle moeilijkheidNormaal;
-
-	@FXML
-	Toggle moeilijkheidMoeilijk;
-
-	@FXML
-	Toggle waarvalsvragenToggleAan;
-
-	@FXML
-	Toggle meerkeuzevragenToggleAan;
-
-	@FXML
-	Toggle timerToggleAan;
-
+	private List<ToggleButton> lengthButtons;
 	static int gameLength = 10;
-	static boolean makkelijkHolder;
-	static boolean waarvalsHolder;
-	static boolean meerkeuzeHolder;
+	public static boolean difficultyIsMixed = true;
+	public static boolean difficultyIsEasy = true;
+	static boolean tfHolder = true;
+	static boolean mcHolder = true;
 	static boolean timerHolder = true;
 
 	/**
@@ -77,46 +100,71 @@ public class GameSetUpController extends Trivia implements Initializable {
 	 */
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		mainMenu.setOnAction(this::handleButtonAction);
+		mainMenu.setOnAction(this::loadView);
 		startGame.setOnAction(this::startGame);
+
+		// Perform action for all items in list
+		lengthButtons = Arrays.asList(shortLength, mediumLength, longLength, xxlLength);
+		for (ToggleButton a : lengthButtons) {
+			a.setOnAction(this::handleLengthSelection);
+		}
 	}
 
-	@Override
-	public void handleButtonAction(ActionEvent event) {
-		System.out.println("GameSetUpController check: "
-				+ ((Control) event.getSource()).getId());
-		loadView(event);
+	private void handleLengthSelection(ActionEvent event) {
+		String selectedButton = ((Control) event.getSource()).getId();
+		switch (selectedButton) {
+			case "shortLength":
+				shortLength.setSelected(true);
+				gameLength = parseInt(shortLength.getText());
+				break;
+			case "mediumLength":
+				mediumLength.setSelected(true);
+				gameLength = parseInt(mediumLength.getText());
+				break;
+			case "longLength":
+				longLength.setSelected(true);
+				gameLength = parseInt(longLength.getText());
+				break;
+			case "xxlLength":
+				xxlLength.setSelected(true);
+				gameLength = parseInt(xxlLength.getText());
+				break;
+			default:
+				gameLength = 10;
+		}
 	}
 
 	@FXML
 	private void startGame(ActionEvent event) {
-//		loadView("Question");
-
-		if (moeilijkheidNormaal.isSelected()) {
-			System.out.println("normaal");
-			makkelijkHolder = true;
-		} else if (moeilijkheidMoeilijk.isSelected()) {
-			System.out.println("moeilijk");
-			makkelijkHolder = false;
+		System.out.print("Difficulty setting: ");
+		if (difficultyMixed.isSelected()) {
+			System.out.println("Mixed");
+			difficultyIsMixed = true;
+		} else if (difficultyEasy.isSelected()) {
+			System.out.println("Easy");
+			difficultyIsMixed = false;
+		} else if (difficultyHard.isSelected()) {
+			System.out.println("Hard");
+			difficultyIsMixed = false;
 		}
 
-		if (waarvalsvragenToggleAan.isSelected()) {
-			System.out.println("Waar");
-		} else {
-			System.out.println("Onwaar");
-		}
-		if (meerkeuzevragenToggleAan.isSelected()) {
-			System.out.println("Meerkeuze");
-		} else {
+		System.out.print("Question type: ");
+		if (typeMixed.isSelected()) {
+			System.out.println("Mixed");
+		} else if (typeTf.isSelected()) {
 			System.out.println("True/false");
+		} else if (typeMc.isSelected()) {
+			System.out.println("Four choices");
 		}
-		if (timerToggleAan.isSelected()) {
+
+		System.out.print("Timer is: ");
+		if (timerToggle.isSelected()) {
 			timerHolder = true;
-			System.out.println("Set timer");
+			System.out.println("Enabled");
 		} else {
 			timerHolder = false;
-			System.out.println("Disable timer");
+			System.out.println("Disabled");
 		}
-		handleButtonAction(event);
+		loadView(event);
 	}
 }

@@ -26,11 +26,9 @@ package trivia.controllers;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Control;
 import trivia.Trivia;
 
 /**
@@ -58,27 +56,8 @@ public class AdminMenuController extends Trivia implements Initializable {
 	 */
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		mainMenu.setOnAction(this::handleButtonAction);
-		manageQuestions.setOnAction(this::handleButtonAction);
-		openSettings.setOnAction(this::handleButtonAction);
+		mainMenu.setOnAction(this::loadView);
+		manageQuestions.setOnAction(this::loadView);
+		openSettings.setOnAction(this::loadView);
 	}
-
-	@Override
-	public void handleButtonAction(ActionEvent event) {
-		System.out.println("AdminMenuController check: "
-				+ ((Control) event.getSource()).getId());
-		super.handleButtonAction(event);
-	}
-//      
-//	@FXML
-//	private void manageQuestions() {
-//	//	loadView(manageQuestions);
-//	}
-
-//	@FXML
-//	private void openSettings() {
-//		//loadView("AdminSettings");
-//
-//		// Extra setting: Volgende vraag na antwoord selecteren
-//	}
 }

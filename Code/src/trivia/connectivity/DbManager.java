@@ -70,16 +70,18 @@ public class DbManager {
 	}
 
 	/**
-	 * Executes a query without result.
+	 * Executes a query without returning a result, such as updating and
+	 * deleting.
 	 *
 	 * @param query, the SQl query
 	 */
-	public void executeQuery(String query) {
+	public void executeUpdate(String query) {
 		try {
 			Statement statement = connection.createStatement();
-			statement.executeQuery(query);
+			statement.executeUpdate(query);
 		} catch (SQLException e) {
 			System.err.println(SQL_EXCEPTION + e.getLocalizedMessage());
+			e.printStackTrace();
 		}
 	}
 
@@ -94,7 +96,7 @@ public class DbManager {
 		try {
 			Statement statement = connection.createStatement();
 			result = statement.executeQuery(query);
-		} catch (SQLException e) {
+		} catch (SQLException | NullPointerException e) {
 			System.err.println(SQL_EXCEPTION + e.getLocalizedMessage());
 		}
 		return result;

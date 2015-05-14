@@ -24,18 +24,13 @@
  */
 package trivia.controllers;
 
-import com.mysql.jdbc.Statement;
 import static java.lang.Integer.parseInt;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -44,11 +39,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Control;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
+import javafx.stage.StageStyle;
 import trivia.Trivia;
+import static trivia.Trivia.alertDialog;
 import trivia.connectivity.DbManager;
 
 /**
@@ -86,7 +83,19 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 	@FXML
 	Button deleteQuestionButton;
 
+	@FXML
+	ToggleGroup difficultyGroup;
+
+	@FXML
+	ToggleButton difficultyEasy;
+
+	@FXML
+	ToggleButton difficultyHard;
+
 	DbManager dbm = new DbManager();
+	ResultSet rs = null;
+	String queryText = "";
+	public static String difficultySetter = "";
 
 	/**
 	 * Initializes the controller class.
@@ -96,217 +105,210 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 	 */
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		adminMenu.setOnAction(this::handleButtonAction);
+		adminMenu.setOnAction(this::loadView);
 		addQuestionButton.setOnAction(this::confirmAlertAddQuestion);
 		setComboBoxQuestions();
-		selectQuestion.setOnAction(e -> System.out.println("User selected : " + selectQuestion.getValue()));//From : https://www.youtube.com/watch?v=Bg5VcIL2IhY
-		deleteQuestionButton.setOnAction(this::confirmAlertDeleteQuestion);
+		// When something is selected the ComboBox (an event) -> print out the selection.
+		selectQuestion.setOnAction(e -> System.out.println("User selected : "
+				+ selectQuestion.getValue()));
+		deleteQuestionButton.setOnAction(this::confirmDeleteQuestion);
 	}
 
-	@Override
-	public void handleButtonAction(ActionEvent event) {
-		System.out.println("ManageQuestionsController check: "
-				+ ((Control) event.getSource()).getId());
-		loadView(event);
-	}
-
-	public void confirmAlertDeleteQuestion(ActionEvent event) {
-		Alert alert = new Alert(AlertType.CONFIRMATION);
-
-		alert.setTitle("Bevestig Vraag Verwijderen");
-		alert.setHeaderText("Let op : \nU staat op het punt deze vraag te verwijderen : " + selectQuestion.getValue());
-		alert.setContentText("Klik op 'OK' om te accepteren en deze vraag te verwijderen.");
-
-		Optional<ButtonType> result = alert.showAndWait();
-		if (result.get() == ButtonType.OK) {
-			deleteQuestion();
-		} else {
-			// ... user chose CANCEL or closed the dialog
-		}
-	}
-
+	/**
+	 * This method shows an alert dialog asking for confirmation for adding the
+	 * entered question and its answers.
+	 *
+	 * @param event
+	 */
 	public void confirmAlertAddQuestion(ActionEvent event) {
-		Alert alert = new Alert(AlertType.CONFIRMATION);
-
-		alert.setTitle("Bevestig Vraag Toevoegen");
-		alert.setHeaderText("Let op : \nU staat op het punt deze vraag toe te voegen : " + addQuestionText.getText()
-				+ "\nMet het volgende juiste antwoord : " + addCorrectAnswer.getText()
-				+ "\nEn de volgende onjuiste antwoorden : " + addIncorrectAnswer1.getText() + ", " + addIncorrectAnswer2.getText()
-				+ ", " + addIncorrectAnswer3.getText());
-		alert.setContentText("Klik op 'OK' om te accepteren en deze vraag toe te voegen.");
-
-		Optional<ButtonType> result = alert.showAndWait();
-		if (result.get() == ButtonType.OK) {
-			addQuestion();
-		} else {
-			// ... user chose CANCEL or closed the dialog
+		try {
+			if (addQuestionText.getText().equals("") || addQuestionText.getText().equals("")
+					|| addIncorrectAnswer1.getText().equals("")
+					|| addIncorrectAnswer2.getText().equals("")
+					|| addIncorrectAnswer3.getText().equals("") || (!difficultyEasy.isSelected() && !difficultyHard.isSelected())) {
+				alertDialog(Alert.AlertType.ERROR, "Tekstveld leeg", null, "Elk tekstveld moet "
+						+ "zijn ingevuld.", StageStyle.UNDECORATED);
+			} else if (alertDialog(Alert.AlertType.CONFIRMATION, "Vraag toevoegen",
+					"Weet u zeker dat u deze vraag wilt toevoegen?",
+					"De vraag: " + addQuestionText.getText()
+					+ "\nMet het juiste antwoord: " + addCorrectAnswer.getText()
+					+ "\nEn de onjuiste antwoorden:\n– " + addIncorrectAnswer1.getText()
+					+ "\n– " + addIncorrectAnswer2.getText() + "\n– " + addIncorrectAnswer3.getText(),
+					StageStyle.UNDECORATED)) {
+				addQuestion();
+			}
+		} catch (NoSuchElementException e) {
+			// No need to handle exception
 		}
 	}
 
+	/**
+	 * This method shows an alert dialog asking for confirmation for deleting
+	 * the selected question.
+	 *
+	 * @param event
+	 */
+	public void confirmDeleteQuestion(ActionEvent event) {
+		if (selectQuestion.getValue() == null) {
+			alertDialog(Alert.AlertType.ERROR, "Vraag verwijderen",
+					"Verwijdering gestopt",
+					"Er is geen vraag geselecteerd om te verwijderen."
+					+ "\nSelecteer een vraag om deze te verwijderen.", StageStyle.UNDECORATED);
+		} else if (alertDialog(AlertType.CONFIRMATION, "Vraag verwijderen", "Weet u zeker dat u "
+				+ "deze vraag wilt verwijderen?", "De vraag: " + selectQuestion.getValue(),
+				StageStyle.UNDECORATED)) {
+			deleteQuestion();
+		}
+		// Else -> User selected a question, but decided to cancel deletion.
+	}
+
+	/**
+	 * This method handles adding new questions to the database.
+	 */
+	public void addQuestion() {
+		// If the Toggle's properties contains "Easy" set as Easy, otherwise Hard
+		difficultySetter = difficultyGroup.getSelectedToggle().
+				toString().contains("Easy") ? "Easy" : "Hard";
+		// Collect the Strings with getText from the selected textField
+		String question = addQuestionText.getText();
+		String correctAnswer = addCorrectAnswer.getText();
+		String incorrectAnswer1 = addIncorrectAnswer1.getText();
+		String incorrectAnswer2 = addIncorrectAnswer2.getText();
+		String incorrectAnswer3 = addIncorrectAnswer3.getText();
+
+		// System check of input
+		System.out.println("Adding question: " + question + "\n"
+				+ "Adding Correct Answer: " + correctAnswer + "\n"
+				+ "Adding Incorrect Answer 1: " + incorrectAnswer1 + "\n"
+				+ "Adding Incorrect Answer 2: " + incorrectAnswer2 + "\n"
+				+ "Adding Incorrect Answer 3: " + incorrectAnswer3 + "\n"
+				+ "Setting question difficulty: " + difficultySetter);
+
+		dbm.openConnection();
+		queryText = "INSERT INTO question VALUES(NULL, '" + question + "', '" + difficultySetter + "');";
+
+		dbm.executeUpdate(queryText);
+		try {
+			//Get the QuestionId from the query
+			queryText = "SELECT QuestionId FROM question WHERE Question = '" + question + "';";
+
+			rs = dbm.doQuery(queryText);
+			rs.next();
+			String questionId = rs.getString("QuestionId");
+			System.out.println("QuestionId: " + questionId);
+
+			// Create the SQL insert scripts strings
+			String insertCorrectAnswer = "INSERT INTO rightanswer VALUES("
+					+ questionId + ", '" + correctAnswer + "', " + questionId + ");";
+			String insertIncorrectAnswers = "INSERT INTO `wronganswer` VALUES"
+					+ "(1, '" + incorrectAnswer1 + "', " + questionId + "),"
+					+ "(2, '" + incorrectAnswer2 + "', " + questionId + "),"
+					+ "(3, '" + incorrectAnswer3 + "', " + questionId + ");";
+
+			// Execute the script
+			dbm.executeUpdate(insertCorrectAnswer);
+			dbm.executeUpdate(insertIncorrectAnswers);
+
+			// If we get to here, everything is stored in the database
+			addQuestionText.setText("");
+			addCorrectAnswer.setText("");
+			addIncorrectAnswer1.setText("");
+			addIncorrectAnswer2.setText("");
+			addIncorrectAnswer3.setText("");
+			difficultyGroup.selectToggle(null);
+			addQuestionText.requestFocus();
+
+			alertDialog(Alert.AlertType.INFORMATION, "Vraag toevoegen", null,
+					"De vraag is succesvol toegevoegd!", StageStyle.UNDECORATED);
+			// Updates the ComboBox to reflect the changes
+			setComboBoxQuestions();
+		} catch (SQLException e) {
+			System.err.println("Error: " + e.getLocalizedMessage());
+		} finally {
+			dbm.closeConnection();
+			rs = null;
+			queryText = "";
+		}
+	}
+
+	/**
+	 * This method handles deleting questions from the database.
+	 */
+	public void deleteQuestion() {
+		try {
+			// If no question selected: there is no question selected to delete Error Dialog
+			dbm.openConnection();
+			String countRows = "SELECT COUNT(*) FROM question";
+			rs = dbm.doQuery(countRows);
+
+			rs.next();
+			int priorToUpdate = parseInt(rs.getString(1));
+			System.out.println("Questions prior to deletion: " + priorToUpdate);
+
+			queryText = "DELETE FROM question WHERE Question = '" + selectQuestion.getValue() + "';";
+			dbm.executeUpdate(queryText);
+
+			rs = dbm.doQuery(countRows);
+			rs.next();
+			System.out.println("Questions after deletion: " + parseInt(rs.getString(1)));
+
+			if ((priorToUpdate - 1) == parseInt(rs.getString(1))) {
+				System.out.println("Deleting question: " + selectQuestion.getValue());
+				alertDialog(Alert.AlertType.INFORMATION, "Vraag verwijderen", null,
+						"De vraag is succesvol verwijderd!", StageStyle.UNDECORATED);
+			}
+		} catch (SQLException e) {
+			e.getLocalizedMessage();
+		} finally {
+			dbm.closeConnection();
+			rs = null;
+			queryText = "";
+		}
+		// Updates the ComboBox to reflect the changes
+		setComboBoxQuestions();
+	}
+
+	/**
+	 * This populates the ComboBox with all the questions in the database.
+	 */
 	public void setComboBoxQuestions() {
 		//make a new list with questions for the combobox
 		ArrayList list = new ArrayList();
 
+		dbm.openConnection();
+		int questionsTotal = 0;
 		try {
-			dbm.openConnection();
+			queryText = "SELECT QuestionId FROM question ORDER by QuestionId DESC LIMIT 1";
+			rs = dbm.doQuery(queryText);
+			while (rs.next()) {
+				questionsTotal = parseInt(rs.getString(1));
+			}
+			for (int i = 0; i <= questionsTotal; i++) {
+				queryText = "SELECT Question FROM question WHERE QuestionId = " + i + ";";
 
-			//Statement st = (Statement) con.createStatement();
-
-			String queryText = "";
-			ResultSet rs;
-			//make the String selectQuestion for every VraagID in the database
-			//No idea how to do that, so for now it is < 100
-			int questionsTotal = 0;
-			try {
-				queryText = "SELECT COUNT(*) FROM vraag";
+				// add the results of the SELECT query to the arraylist list
 				rs = dbm.doQuery(queryText);
 				while (rs.next()) {
-					questionsTotal = parseInt(rs.getString(1));
+					list.add(rs.getString(1));
 				}
-			} catch (SQLException | NumberFormatException e) {
-				System.err.println("Error: " + e.getLocalizedMessage());
-			} finally {
-				for (int i = 0; i <= questionsTotal; i++) {
-					queryText = "SELECT Vraag FROM vraag WHERE VraagID = " + i + " ; ";
-
-					// add the results of the SELECT query to the arraylist list
-					rs = dbm.doQuery(queryText);
-					while (rs.next()) {
-						list.add(rs.getString(1));
-					}
-				}
-				//lets see the list for a test
-				System.out.println("Dit is de lijst: " + list + "\n"
-						+ "Aantel regels: " + questionsTotal);
-
-				//cast arraylist to observable list from http://stackoverflow.com/questions/22191954/javafx-casting-arraylist-to-observablelist
-				ObservableList questions = FXCollections.observableArrayList(list);
-
-				//set the items(named : questions) in the ComboBox "selectQuestion"
-				selectQuestion.setItems(questions);
 			}
-		} catch (SQLException e) {
+			// Showcase the list as a test
+			System.out.println("List of questions: " + list + "\n"
+					+ "Number of questions: " + questionsTotal);
+
+			//cast arraylist to observable list from
+			//http://stackoverflow.com/questions/22191954/javafx-casting-arraylist-to-observablelist
+			ObservableList questions = FXCollections.observableArrayList(list);
+
+			//set the items (named as questions) in the ComboBox "selectQuestion"
+			selectQuestion.setItems(questions);
+		} catch (SQLException | NumberFormatException e) {
 			System.err.println("Error: " + e.getLocalizedMessage());
+		} finally {
+			dbm.closeConnection();
+			rs = null;
+			queryText = "";
 		}
-	}
-
-	public void deleteQuestion() {
-		try {
-			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/trivia", "root", "");
-
-			Statement st = (Statement) con.createStatement();
-
-			// this is the delete query
-			String deleteQuestionQuery = "DELETE FROM vraag WHERE Vraag = '" + selectQuestion.getValue() + "' ; ";
-
-			//execute Question delete script  
-			st.executeUpdate(deleteQuestionQuery);
-
-			if (st.executeUpdate(deleteQuestionQuery) == 0) {
-				System.out.println("Deleting question : " + selectQuestion.getValue());
-			}
-		} catch (SQLException ex) {
-			Logger.getLogger(ManageQuestionsController.class.getName()).log(Level.SEVERE, null, ex);
-		}
-
-		// if no question selected : there is no question selected to delete Error Dialog
-		if (selectQuestion.getValue() == null) {
-			System.out.println("There is no question selected to delete !");
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Error Dialog");
-			alert.setHeaderText("Kan vraag niet verwijderen");
-			alert.setContentText("Er is geen vraag geselecteerd om te verwijderen. "
-					+ "Selecteer a.u.b. een vraag om deze te verwijderen.");
-			alert.showAndWait();
-		} else {
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Information Dialog");
-			alert.setHeaderText(null);
-			alert.setContentText("Vraag Succesvol verwijderd");
-			alert.showAndWait();
-		}
-
-		//this refreshes the ComboBox because there is now an item deleted, so it has to be updated
-		setComboBoxQuestions();
-	}
-
-	public void addQuestion() {
-//        System.out.println("ManageQuestionsController check: "
-//                + ((Control) event.getSource()).getId());
-
-		//Collect the Strings with getText from the selected textField
-		String question = addQuestionText.getText();
-		String correctAnswer = addCorrectAnswer.getText();
-		String IncorrectAnswer1 = addIncorrectAnswer1.getText();
-		String IncorrectAnswer2 = addIncorrectAnswer2.getText();
-		String IncorrectAnswer3 = addIncorrectAnswer3.getText();
-
-		// System check of input
-		System.out.println("Added question : " + question + "\n" +
-				"Added Correct Answer : " + correctAnswer + "\n" +
-				"Added Incorrect Answer 1 : " + IncorrectAnswer1 + "\n" +
-				"Added Incorrect Answer 2 : " + IncorrectAnswer2 + "\n" +
-				"Added Incorrect Answer 3 : " + IncorrectAnswer3);
-
-		try {
-			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/trivia", "root", "");
-
-			Statement st = (Statement) con.createStatement();
-
-			String insertQuestion = "INSERT INTO vraag VALUES(NULL, '" + question + "' ) ; ";
-
-			//execute Question insert script  
-			st.executeUpdate(insertQuestion);
-
-			try {
-				//Get the VraagID from the query
-				String query = "SELECT VraagID FROM vraag WHERE Vraag = '" + question + "' ;";
-
-				ResultSet rs = st.executeQuery(query);
-				while (rs.next()) {
-					String VraagID = rs.getString("VraagID");
-					System.out.println(VraagID);
-
-					// create the sql insert scripts strings
-					String insertCorrectAnswer = "INSERT INTO antwoordgoed VALUES(" + VraagID + ", '" + correctAnswer + "' , " + VraagID + " ) ;";
-					String insertIncorrectAnswer1 = "INSERT INTO antwoordfout VALUES(1, '" + IncorrectAnswer1 + "' , " + VraagID + " ) ;";
-					String insertIncorrectAnswer2 = "INSERT INTO antwoordfout VALUES(2, '" + IncorrectAnswer2 + "' , " + VraagID + " ) ;";
-					String insertIncorrectAnswer3 = "INSERT INTO antwoordfout VALUES(3, '" + IncorrectAnswer3 + "' , " + VraagID + " ) ;";
-					//execute the scripts 
-					st.executeUpdate(insertCorrectAnswer);
-					st.executeUpdate(insertIncorrectAnswer1);
-					st.executeUpdate(insertIncorrectAnswer2);
-					st.executeUpdate(insertIncorrectAnswer3);
-				}
-
-			} catch (SQLException e) {
-				System.err.println("Error: " + e.getLocalizedMessage());
-			} finally {
-				if (st != null) {
-					st.close();
-				}
-			}
-
-		} catch (SQLException ex) {
-			Logger.getLogger(ManageQuestionsController.class.getName()).log(Level.SEVERE, null, ex);
-		}
-
-		//after everything is put into the database, clear the textFields
-		addQuestionText.setText("");
-		addCorrectAnswer.setText("");
-		addIncorrectAnswer1.setText("");
-		addIncorrectAnswer2.setText("");
-		addIncorrectAnswer3.setText("");
-
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Information Dialog");
-		alert.setHeaderText(null);
-		alert.setContentText("Vraag Succesvol toegevoegd");
-		alert.showAndWait();
-
-		//this refreshes the ComboBox because there is now an item added, so it has to be updated
-		setComboBoxQuestions();
-
 	}
 
 }

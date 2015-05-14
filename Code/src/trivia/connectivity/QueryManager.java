@@ -24,9 +24,11 @@
  */
 package trivia.connectivity;
 
+import static java.lang.Integer.parseInt;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javafx.scene.control.Label;
+import javafx.scene.control.Hyperlink;
+import trivia.controllers.GameSetUpController;
 
 /**
  *
@@ -35,88 +37,122 @@ import javafx.scene.control.Label;
  */
 public class QueryManager {
 
-    // object databaseManager for databse connection
-    DbManager dbm = new DbManager();
+	// Create a database manager object for handling the database connection
+	private final DbManager dbm;
+	String sql = "";
 
-    // Generate random integer in order to fetch random question from database
-    
-    private final DbManager dbmanager;
+	/**
+	 *
+	 * @param dbm
+	 */
+	public QueryManager(DbManager dbm) {
+		this.dbm = dbm;
+	}
 
-    public QueryManager(DbManager dbmanager) {
-        this.dbmanager = dbmanager;
-    }
+	public int[] selectQuestions(int questionsCount) {
+		dbm.openConnection();
+		ResultSet rs = null;
+		int[] questionsHolder = null;
+		int i = 0;
+		sql = "SELECT QuestionId FROM question ORDER BY RAND() LIMIT " + questionsCount + ";";
+		rs = dbm.doQuery(sql);
+		try {
+			rs.beforeFirst();
+			rs.next();
+			while (rs.next()) {
+				questionsHolder[i] = parseInt(rs.getString(1));
+				i++;
+			}
+			return questionsHolder;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			dbm.closeConnection();
+		}
+	}
 
+	/**
+	 *
+	 * @param QuestionId
+	 * @return the string of the query
+	 */
+	public String setQuestion(int QuestionId) {
+		String difficulty = " AND Difficulty = '";
+		difficulty += GameSetUpController.difficultyIsEasy ? "Easy'" : "Hard'";
+		if (GameSetUpController.difficultyIsMixed) {
+			difficulty = "";
+		}
 
-    /**
-     *
-     * @param VraagID
-     * @return the string of the query
-     */
-    public String setQuestion(int VraagID) {
-        dbm.openConnection();
-        String sql = "SELECT Vraag FROM vraag WHERE VraagID =" + VraagID + ";";
-        System.out.println(sql);
-        String returnString = null;
-       
-        try {
-            ResultSet result = dbm.doQuery(sql);
-            result.next();
-            returnString = result.getString("Vraag");
-        } catch (SQLException e) {
-            System.err.println("Error: " + e.getLocalizedMessage());
-        }
+		dbm.openConnection();
+		sql = "SELECT Question FROM question WHERE QuestionId = " + QuestionId
+				+ difficulty + ";";
+		System.out.println(sql);
+		String returnString = null;
 
-        return returnString;
+		try {
+			ResultSet result = dbm.doQuery(sql);
+			result.next();
+			returnString = result.getString("Question");
+		} catch (SQLException e) {
+			System.err.println("Error: " + e.getLocalizedMessage());
+		} finally {
+			dbm.closeConnection();
+			sql = "";
+		}
+		return returnString;
+	}
 
-    }
+	/**
+	 *
+	 * @param labelNumber
+	 * @param QuestionId
+	 */
+	public void setRightAnswer(Hyperlink labelNumber, int QuestionId) {
 
-    /**
-     *
-     * @param antwoordfoutID
-     * @param labelNumber
-     * @param VraagID
-     */
-    public void setWrongAnswer(int antwoordfoutID ,Label labelNumber, int VraagID) {
+		QueryManager qm = new QueryManager(dbm);
 
-    
-        
-        // Open database connection
-        dbm.openConnection();
-        String sqlAnswer = "SELECT AntwoordFout FROM antwoordfout INNER JOIN vraag ON"
-                + " antwoordfout.VraagID = vraag.VraagID WHERE AntwoordFoutID ="
-                + antwoordfoutID + " AND vraag.VraagID = " + VraagID + ";";
-        System.out.println(sqlAnswer);
+		// Open database connection
+		dbm.openConnection();
+		sql = "SELECT RightAnswer FROM rightanswer WHERE QuestionId = " + QuestionId + ";";
+		System.out.println(sql);
 
-        try {
-            ResultSet result = dbm.doQuery(sqlAnswer);
-            result.next();
-            labelNumber.setText(result.getString("AntwoordFout"));
-        } catch (SQLException e) {
-            System.err.println("Error: " + e.getLocalizedMessage());
-        }
-    }
+		try {
+			ResultSet result = dbm.doQuery(sql);
+			result.next();
+			labelNumber.setText(result.getString("RightAnswer"));
+		} catch (SQLException e) {
+			System.err.println("Error: " + e.getLocalizedMessage());
+		} finally {
+			dbm.closeConnection();
+			sql = "";
+		}
+	}
 
-    /**
-     *
-     * @param labelNumber
-     */
-    public void setRightAnswer(Label labelNumber, int VraagID) {
+	/**
+	 *
+	 * @param wrongAnswerId
+	 * @param labelNumber
+	 * @param QuestionId
+	 */
+	public void setWrongAnswer(int wrongAnswerId, Hyperlink labelNumber, int QuestionId) {
 
-        QueryManager qm = new QueryManager(dbm);
+		// Open database connection
+		dbm.openConnection();
+		sql = "SELECT WrongAnswer FROM wronganswer INNER JOIN question ON"
+				+ " wronganswer.QuestionId = question.QuestionId WHERE wrongAnswerId = "
+				+ wrongAnswerId + " AND question.QuestionId = " + QuestionId + ";";
+		System.out.println(sql);
 
-        // Open database connection
-        dbm.openConnection();
-
-        String sqlAnswer = "SELECT AntwoordGoed FROM antwoordgoed WHERE VraagID = " + VraagID + ";";
-        System.out.println(sqlAnswer);
-
-        try {
-            ResultSet result = dbm.doQuery(sqlAnswer);
-            result.next();
-            labelNumber.setText(result.getString("AntwoordGoed"));
-        } catch (SQLException e) {
-            System.err.println("Error: " + e.getLocalizedMessage());
-        }
-    }
-
+		try {
+			ResultSet result = dbm.doQuery(sql);
+			result.next();
+			labelNumber.setText(result.getString("WrongAnswer"));
+		} catch (SQLException e) {
+			System.err.println("Error: " + e.getLocalizedMessage());
+		} finally {
+			dbm.closeConnection();
+			sql = "";
+		}
+	}
 }

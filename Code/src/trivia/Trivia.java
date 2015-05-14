@@ -50,13 +50,15 @@ public class Trivia extends Application {
 
 	@Override
 	public void start(Stage stage) {
+		//System.out.close(); // <- Uncomment on product shipment to shush console debug messages.
 		try {
-
-			Parent root = FXMLLoader.load(getClass().getResource("/trivia/views/SplashScreen.fxml"));
+			Parent root = FXMLLoader.load(getClass().
+					getResource("/trivia/views/SplashScreen.fxml"));
 			Scene scene = new Scene(root);
 
 			root.setId("pane");
-			scene.getStylesheets().addAll(this.getClass().getResource("/resources/stylesheets/Styles.css").toExternalForm());
+			scene.getStylesheets().addAll(this.getClass().
+					getResource("/resources/stylesheets/Styles.css").toExternalForm());
 
 			stage.setScene(scene);
 			stage.setFullScreenExitHint("");
@@ -68,7 +70,7 @@ public class Trivia extends Application {
 	}
 
 	/**
-	 * Allows for quick creation of a boolean AlertDialog.
+	 * Allows for quick and clean creation of a boolean AlertDialog.
 	 *
 	 * @param type
 	 * @param title
@@ -90,22 +92,18 @@ public class Trivia extends Application {
 		return result.get() == ButtonType.OK;
 	}
 
-	public void handleButtonAction(ActionEvent event) {
-		loadView(event);
-	}
-
 	/**
 	 * Handles switching between views.
 	 *
 	 * @param event
 	 */
 	public void loadView(ActionEvent event) {
-		boolean error = false, onSplash = false;
+		boolean error = false;
 
-// Fetch the FX:ID of the button and find out which button it was!
+		// Fetch the FX:ID of the button and find out which button it was.
 		String viewName = ((Control) event.getSource()).getId();
 
-		// Depending on the target view, do something!
+		// Depending on the target view, do something.
 		switch (viewName) {
 			case "mainMenu":
 				viewName = "MainMenu";
@@ -127,9 +125,9 @@ public class Trivia extends Application {
 				viewName = "GameSetUp";
 				System.out.println("Opening GameSetUp");
 				break;
-//			case "nameWindow":
-//				viewName = "NameWindow";
-//				System.out.println("Opening NameWindow");
+//			case "openSettings":
+//				viewName = "OpenSettings";
+//				System.out.println("Opening OpenSettings");
 //				break;
 			default:
 				System.err.println("View " + viewName + " not found.");
@@ -146,9 +144,9 @@ public class Trivia extends Application {
 				scene.getStylesheets().addAll(this.getClass().
 						getResource("/resources/stylesheets/Styles.css").toExternalForm());
 
-				// If we are on SplashScreen, then use startStage
 				Stage stage = ((Stage) ((Node) event.getSource()).getScene().getWindow());
 				stage.setScene(scene);
+				//stage.setFullScreen(true);
 				stage.show();
 			} catch (IOException e) {
 				System.err.println(e.getLocalizedMessage() + "\n"

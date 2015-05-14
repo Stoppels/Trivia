@@ -53,53 +53,41 @@
                   <Font name="System Bold" size="24.0" />
                </font>
             </ToggleButton>
-                <Label fx:id="labelA" focusTraversable="false" layoutX="195.0" layoutY="160.0" text="Antwoord A" wrapText="true" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
-                    <font>
-                        <Font name="Bookman Old Style" size="24.0" />
-                    </font>
-                    <cursor>
-                        <Cursor fx:constant="HAND" />
-                    </cursor>
-                </Label>
+            <Hyperlink fx:id="labelA" text="Antwoord A" wrapText="true" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Hyperlink>
             <ToggleButton fx:id="buttonB" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="100.0" style="-fx-background-radius: 80px;" text="B" toggleGroup="$answersGroup" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </ToggleButton>
-                <Label fx:id="labelB" focusTraversable="false" layoutX="195.0" layoutY="245.0" text="Antwoord B" wrapText="true" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.vgrow="ALWAYS">
-                    <font>
-                        <Font name="Bookman Old Style" size="24.0" />
-                    </font>
-                    <cursor>
-                        <Cursor fx:constant="HAND" />
-                    </cursor>
-                </Label>
+            <Hyperlink fx:id="labelB" text="Antwoord B" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="4">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Hyperlink>
             <ToggleButton fx:id="buttonC" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="100.0" style="-fx-background-radius: 80px;" text="C" toggleGroup="$answersGroup" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </ToggleButton>
-                <Label fx:id="labelC" focusTraversable="false" layoutX="195.0" layoutY="320.0" text="Antwoord C" wrapText="true" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" GridPane.vgrow="ALWAYS">
-                    <font>
-                        <Font name="Bookman Old Style" size="24.0" />
-                    </font>
-                    <cursor>
-                        <Cursor fx:constant="HAND" />
-                    </cursor>
-                </Label>
+            <Hyperlink fx:id="labelC" text="Antwoord C" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="5">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Hyperlink>
             <ToggleButton fx:id="buttonD" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="100.0" style="-fx-background-radius: 80px;" text="D" toggleGroup="$answersGroup" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </ToggleButton>
-                <Label fx:id="labelD" focusTraversable="false" layoutX="195.0" layoutY="379.0" text="Antwoord D" wrapText="true" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="6" GridPane.vgrow="ALWAYS">
-                    <font>
-                        <Font name="Bookman Old Style" size="24.0" />
-                    </font>
-                    <cursor>
-                        <Cursor fx:constant="HAND" />
-                    </cursor>
-                </Label>
+            <Hyperlink fx:id="labelD" text="Antwoord D" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="6">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Hyperlink>
                 <Label fx:id="timer" alignment="TOP_CENTER" layoutX="126" layoutY="120" text="00:00" textFill="RED" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="TOP">
                     <font>
                         <Font name="System Bold" size="36.0" />

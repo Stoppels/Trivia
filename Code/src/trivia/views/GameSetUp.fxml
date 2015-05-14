@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
@@ -14,29 +15,65 @@
                 <ColumnConstraints hgrow="ALWAYS" minWidth="80.0" />
                 <ColumnConstraints hgrow="ALWAYS" minWidth="30.0" />
                 <ColumnConstraints hgrow="ALWAYS" minWidth="30.0" />
-                <ColumnConstraints hgrow="ALWAYS" minWidth="80.0" />
-                <ColumnConstraints hgrow="ALWAYS" minWidth="80.0" />
-                <ColumnConstraints hgrow="ALWAYS" minWidth="30.0" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="40.0" />
+            <ColumnConstraints hgrow="ALWAYS" minWidth="40.0" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="40.0" />
+            <ColumnConstraints hgrow="ALWAYS" minWidth="40.0" />
+            <ColumnConstraints hgrow="ALWAYS" minWidth="40.0" />
+            <ColumnConstraints hgrow="ALWAYS" minWidth="30.0" />
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="ALWAYS" />
                 <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="80.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-                <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                <RowConstraints prefHeight="30.0" vgrow="ALWAYS" />
+                <RowConstraints prefHeight="30.0" vgrow="ALWAYS" />
+                <RowConstraints prefHeight="30.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="80.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
             </rowConstraints>
             <children>
-                <Label alignment="CENTER" text="Spel Opzetten" textAlignment="CENTER" textFill="#4700ee" GridPane.columnSpan="8" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                <Label alignment="CENTER" styleClass="viewTitle" text="Spel Opzetten" textAlignment="CENTER" textFill="#4700ee" GridPane.columnSpan="10" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                     <font>
                         <Font name="System Bold" size="48.0" />
                     </font>
                 </Label>
-                <Label text="Kies een moeilijkheidsgraad" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="3">
+            <Label text="Kies het aantal vragen" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="3">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <ToggleButton fx:id="shortLength" mnemonicParsing="false" prefWidth="60.0" selected="true" text="10" GridPane.columnIndex="4" GridPane.rowIndex="3">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <toggleGroup>
+                  <ToggleGroup fx:id="lengthGroup" />
+               </toggleGroup>
+            </ToggleButton>
+            <ToggleButton fx:id="mediumLength" mnemonicParsing="false" prefWidth="60.0" text="20" toggleGroup="$lengthGroup" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="-15.0" />
+               </GridPane.margin>
+            </ToggleButton>
+            <ToggleButton fx:id="longLength" mnemonicParsing="false" prefWidth="60.0" text="30" toggleGroup="$lengthGroup" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </ToggleButton>
+            <ToggleButton alignment="CENTER_LEFT" mnemonicParsing="false" prefWidth="60.0" text="40" toggleGroup="$lengthGroup" GridPane.columnIndex="7" GridPane.halignment="RIGHT" GridPane.rowIndex="3" fx:id="xxlLength">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </ToggleButton>
+                <Label text="Kies een moeilijkheidsgraad" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="4">
                     <font>
                         <Font size="24.0" />
                     </font>
@@ -44,67 +81,50 @@
                         <Insets />
                     </GridPane.margin>
                 </Label>
-                <RadioButton fx:id="moeilijkheidNormaal" focusTraversable="false" mnemonicParsing="false" selected="true" text="Normaal" GridPane.columnIndex="4" GridPane.rowIndex="3">
-                    <font>
-                        <Font size="24.0" />
-                    </font>
-                    <toggleGroup>
-                        <ToggleGroup fx:id="moeilijkheid" />
-                    </toggleGroup>
-                </RadioButton>
-                <RadioButton fx:id="moeilijkheidMoeilijk" focusTraversable="false" mnemonicParsing="false" text="Moeilijk" toggleGroup="$moeilijkheid" GridPane.columnIndex="5" GridPane.rowIndex="3">
-                    <font>
-                        <Font size="24.0" />
-                    </font>
-                    <GridPane.margin>
-                        <Insets left="14.0" />
-                    </GridPane.margin>
-                </RadioButton>
-                <Label text="Wilt u waar/vals-vragen?" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="4">
+            <ToggleButton fx:id="difficultyEasy" mnemonicParsing="false" prefWidth="140.0" text="Makkelijk" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="4">
+               <toggleGroup>
+                  <ToggleGroup fx:id="difficultyGroup" />
+               </toggleGroup>
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </ToggleButton>
+            <ToggleButton fx:id="difficultyHard" mnemonicParsing="false" prefWidth="140.0" text="Moeilijk" toggleGroup="$difficultyGroup" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="4">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </ToggleButton>
+            <ToggleButton fx:id="difficultyMixed" mnemonicParsing="false" prefWidth="140.0" selected="true" text="Gemengd" toggleGroup="$difficultyGroup" GridPane.columnIndex="8" GridPane.rowIndex="4">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </ToggleButton>
+                <Label text="Kies het soort vragen" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="5">
                     <font>
                         <Font size="24.0" />
                     </font>
                 </Label>
-                <RadioButton fx:id="waarvalsvragenToggleAan" focusTraversable="false" mnemonicParsing="false" selected="true" text="Ja" GridPane.columnIndex="4" GridPane.rowIndex="4">
-                    <font>
-                        <Font size="24.0" />
-                    </font>
-                    <toggleGroup>
-                        <ToggleGroup fx:id="waarvals" />
-                    </toggleGroup>
-                </RadioButton>
-                <RadioButton focusTraversable="false" mnemonicParsing="false" text="Nee" toggleGroup="$waarvals" GridPane.columnIndex="5" GridPane.rowIndex="4">
-                    <font>
-                        <Font size="24.0" />
-                    </font>
-                    <GridPane.margin>
-                        <Insets left="14.0" />
-                    </GridPane.margin>
-                </RadioButton>
-                <Label text="Wilt u vierkeuzevragen?" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="5">
-                    <font>
-                        <Font size="24.0" />
-                    </font>
-                    <GridPane.margin>
-                        <Insets />
-                    </GridPane.margin>
-                </Label>
-                <RadioButton fx:id="meerkeuzevragenToggleAan" focusTraversable="false" mnemonicParsing="false" selected="true" text="Ja" GridPane.columnIndex="4" GridPane.rowIndex="5">
-                    <font>
-                        <Font size="24.0" />
-                    </font>
-                    <toggleGroup>
-                        <ToggleGroup fx:id="meerkeuze" />
-                    </toggleGroup>
-                </RadioButton>
-                <RadioButton focusTraversable="false" mnemonicParsing="false" text="Nee" toggleGroup="$meerkeuze" GridPane.columnIndex="5" GridPane.rowIndex="5">
-                    <font>
-                        <Font size="24.0" />
-                    </font>
-                    <GridPane.margin>
-                        <Insets left="14.0" />
-                    </GridPane.margin>
-                </RadioButton>
+            <ToggleButton fx:id="typeTf" mnemonicParsing="false" prefWidth="140.0" text="Waar/vals" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="5">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <toggleGroup>
+                  <ToggleGroup fx:id="typeGroup" />
+               </toggleGroup>
+            </ToggleButton>
+            <ToggleButton fx:id="typeMc" mnemonicParsing="false" prefWidth="140.0" text="4 keuzes" toggleGroup="$typeGroup" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="5">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </ToggleButton>
+            <ToggleButton fx:id="typeMixed" mnemonicParsing="false" prefWidth="140.0" selected="true" text="Gemengd" toggleGroup="$typeGroup" GridPane.columnIndex="8" GridPane.rowIndex="5">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </ToggleButton>
                 <Label text="Wilt u een timer gebruiken?" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="6">
                     <font>
                         <Font size="24.0" />
@@ -113,32 +133,29 @@
                         <Insets />
                     </GridPane.margin>
                 </Label>
-                <RadioButton fx:id="timerToggleAan" focusTraversable="false" mnemonicParsing="false" selected="true" text="Ja" GridPane.columnIndex="4" GridPane.rowIndex="6">
-                    <font>
-                        <Font size="24.0" />
-                    </font>
-                    <toggleGroup>
-                        <ToggleGroup fx:id="timer" />
-                    </toggleGroup>
-                </RadioButton>
-                <RadioButton focusTraversable="false" mnemonicParsing="false" text="Nee" toggleGroup="$timer" GridPane.columnIndex="5" GridPane.rowIndex="6">
-                    <font>
-                        <Font size="24.0" />
-                    </font>
-                    <GridPane.margin>
-                        <Insets left="14.0" />
-                    </GridPane.margin>
-                </RadioButton>
-                <Button fx:id="mainMenu" alignment="CENTER" focusTraversable="false" minHeight="60.0" minWidth="200.0" mnemonicParsing="false" style="-fx-background-radius: 80px;" text="Hoofdmenu" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+            <ToggleButton fx:id="timerToggle" mnemonicParsing="false" prefWidth="80.0" selected="true" text="Ja" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="6">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <toggleGroup>
+                  <ToggleGroup fx:id="timerGroup" />
+               </toggleGroup>
+            </ToggleButton>
+                <Button fx:id="mainMenu" alignment="CENTER" focusTraversable="false" minHeight="60.0" minWidth="200.0" mnemonicParsing="false" style="-fx-background-radius: 80px;" text="Hoofdmenu" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="7" GridPane.valignment="CENTER">
                     <font>
                         <Font size="24.0" />
                     </font>
                 </Button>
-                <Button fx:id="startGame" focusTraversable="false" minHeight="60.0" minWidth="200.0" mnemonicParsing="false" style="-fx-background-radius: 80px;" text="Start Spel" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+                <Button fx:id="startGame" focusTraversable="false" minHeight="60.0" minWidth="200.0" mnemonicParsing="false" style="-fx-background-radius: 80px;" text="Start Spel" GridPane.columnIndex="6" GridPane.columnSpan="3" GridPane.halignment="RIGHT" GridPane.rowIndex="7" GridPane.valignment="CENTER">
                     <font>
                         <Font name="System Bold" size="24.0" />
                     </font>
                 </Button>
+            <ToggleButton mnemonicParsing="false" prefWidth="80.0" text="Nee" toggleGroup="$timerGroup" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="6">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </ToggleButton>
             </children>
         </GridPane>
     </children>

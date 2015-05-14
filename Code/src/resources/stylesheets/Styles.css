@@ -9,14 +9,21 @@
 }
 .button, .toggle-button, #labelA, #labelB, #labelC, #labelD {
     -fx-cursor:                     HAND;
-}
-.toggle-button:selected, .toggle-button:pressed, .button:pressed {
-    -fx-background-color:           #AAAAAA;
+    -fx-text-fill:                  #000000;
 }
 .button:hover, .toggle-button:hover {
-    -fx-background-color:           #CCCCCC;
+    -fx-background-color:           linear-gradient(#FFFFFF, #CCCCCC);
+    -fx-effect:               innershadow(three-pass-box, #AAAAAA, 10, 0, 0, 0);
 }
-.buttons {
+.toggle-button:pressed, .button:pressed {
+    -fx-background-color:           #BBBBBB;
+    -fx-effect:               innershadow(three-pass-box, #666666, 10, 0, 0, 0);
+}
+.toggle-button:selected {
+    -fx-background-color:           #AAAAAA;
+    -fx-effect:               innershadow(three-pass-box, #000000, 10, 0, 0, 0);
+
+}.button {
     width:                          200px;
     height:                         60px;
 }
@@ -37,4 +44,12 @@
 .cell:odd:hover, .cell:selected {
     -fx-background-color:           #0396C9;
     -fx-text-fill:                  #FFFFFF;    
+}
+.viewTitle {
+    -fx-text-fill:                  #000000;
+}
+#labelA:visited, #labelB:visited, #labelC:visited, #labelD:visited {
+    -fx-background-color:           transparent;
+    -fx-padding:                    0;
+    -fx-cursor:                     hand;
 }

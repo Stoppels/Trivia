@@ -35,7 +35,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
@@ -70,10 +69,15 @@ public class SplashScreenController extends Trivia implements Initializable {
 	 */
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-
 		autoPlay();
-		mainMenu.setOnAction(this::handleButtonAction);
-		adminMenu.setOnAction(this::handleButtonAction);
+		mainMenu.setOnAction((event) -> {
+			timeline.stop();
+			this.loadView(event);
+		});
+		adminMenu.setOnAction((event) -> {
+			timeline.stop();
+			this.loadView(event);
+		});
 	}
 
 	@FXML
@@ -98,13 +102,5 @@ public class SplashScreenController extends Trivia implements Initializable {
 			// Simulate button action
 			mainMenu.fire();
 		});
-	}
-
-	@Override
-	public void handleButtonAction(ActionEvent event) {
-		timeline.stop();
-		System.out.println("SplashScreenController check: "
-				+ ((Control) event.getSource()).getId());
-		loadView(event);
 	}
 }

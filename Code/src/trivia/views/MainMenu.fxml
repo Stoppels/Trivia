@@ -30,7 +30,7 @@
                 <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
             </rowConstraints>
             <children>
-                <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" text="Triviant" textAlignment="CENTER" textFill="#070017" GridPane.columnSpan="5" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" styleClass="viewTitle" text="Triviant" textAlignment="CENTER" textFill="#070017" GridPane.columnSpan="5" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                     <font>
                         <Font name="System Bold" size="48.0" />
                     </font>
