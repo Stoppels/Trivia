@@ -52,19 +52,20 @@ public class QueryManager {
 	public int[] selectQuestions(int questionsCount) {
 		dbm.openConnection();
 		ResultSet rs = null;
-		int[] questionsHolder = null;
-		int i = 0;
+		int[] questionsHolder = new int[questionsCount];
+		int i = 1;
 		sql = "SELECT QuestionId FROM question ORDER BY RAND() LIMIT " + questionsCount + ";";
 		rs = dbm.doQuery(sql);
 		try {
-			rs.beforeFirst();
-			rs.next();
 			while (rs.next()) {
-				questionsHolder[i] = parseInt(rs.getString(1));
+				System.out.println("Fetched QuestionId: " + parseInt(rs.getString(1))
+				);
+				questionsHolder[i - 1] = parseInt(rs.getString(1));
 				i++;
 			}
 			return questionsHolder;
 		} catch (SQLException e) {
+			e.getLocalizedMessage();
 			e.printStackTrace();
 			return null;
 		} finally {
@@ -96,6 +97,7 @@ public class QueryManager {
 			returnString = result.getString("Question");
 		} catch (SQLException e) {
 			System.err.println("Error: " + e.getLocalizedMessage());
+			e.printStackTrace();
 		} finally {
 			dbm.closeConnection();
 			sql = "";
@@ -123,6 +125,7 @@ public class QueryManager {
 			labelNumber.setText(result.getString("RightAnswer"));
 		} catch (SQLException e) {
 			System.err.println("Error: " + e.getLocalizedMessage());
+			e.printStackTrace();
 		} finally {
 			dbm.closeConnection();
 			sql = "";
@@ -150,6 +153,7 @@ public class QueryManager {
 			labelNumber.setText(result.getString("WrongAnswer"));
 		} catch (SQLException e) {
 			System.err.println("Error: " + e.getLocalizedMessage());
+			e.printStackTrace();
 		} finally {
 			dbm.closeConnection();
 			sql = "";

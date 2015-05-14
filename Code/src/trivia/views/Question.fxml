@@ -53,7 +53,7 @@
                   <Font name="System Bold" size="24.0" />
                </font>
             </ToggleButton>
-            <Hyperlink fx:id="labelA" text="Antwoord A" wrapText="true" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
+            <Hyperlink fx:id="labelA" focusTraversable="false" text="Antwoord A" wrapText="true" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
                <font>
                   <Font size="24.0" />
                </font>
@@ -63,7 +63,7 @@
                   <Font name="System Bold" size="24.0" />
                </font>
             </ToggleButton>
-            <Hyperlink fx:id="labelB" text="Antwoord B" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="4">
+            <Hyperlink fx:id="labelB" focusTraversable="false" text="Antwoord B" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="4">
                <font>
                   <Font size="24.0" />
                </font>
@@ -73,7 +73,7 @@
                   <Font name="System Bold" size="24.0" />
                </font>
             </ToggleButton>
-            <Hyperlink fx:id="labelC" text="Antwoord C" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="5">
+            <Hyperlink fx:id="labelC" focusTraversable="false" text="Antwoord C" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="5">
                <font>
                   <Font size="24.0" />
                </font>
@@ -83,7 +83,7 @@
                   <Font name="System Bold" size="24.0" />
                </font>
             </ToggleButton>
-            <Hyperlink fx:id="labelD" text="Antwoord D" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="6">
+            <Hyperlink fx:id="labelD" focusTraversable="false" text="Antwoord D" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="6">
                <font>
                   <Font size="24.0" />
                </font>
@@ -98,7 +98,7 @@
                   <Insets left="10.0" />
                </GridPane.margin></ProgressBar>
                 <AnchorPane opacity="0.4" style="-fx-background-color: #000;" GridPane.columnIndex="5" GridPane.columnSpan="3" GridPane.rowSpan="2147483647" />
-                <Button fx:id="nextQuestion" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" style="-fx-background-radius: 80px;" text="Volgende" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                <Button fx:id="nextQuestionButton" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" style="-fx-background-radius: 80px;" text="Volgende" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                     <font>
                         <Font name="System Bold" size="24.0" />
                     </font>
@@ -109,7 +109,7 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Button>
-                <Button fx:id="previousQuestion" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" style="-fx-background-radius: 80px;" text="Vorige" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                <Button fx:id="previousQuestionButton" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" style="-fx-background-radius: 80px;" text="Vorige" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                     <font>
                         <Font name="System Bold" size="24.0" />
                     </font>
