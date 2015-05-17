@@ -24,7 +24,12 @@
  */
 package trivia.connectivity;
 
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import java.sql.*;
+import javafx.scene.control.Alert;
+import javafx.stage.StageStyle;
+import static trivia.Trivia.alertDialog;
+import trivia.controllers.AddQuestionController;
 
 /**
  *
@@ -47,7 +52,7 @@ public class DbManager {
 
 			String url = "jdbc:mysql://localhost:3306/trivia";
 			String user = "root", pass = "";
-			System.out.println("Connected");
+			System.out.println("Database connection established.");
 
 			// Open connection
 			connection = DriverManager.getConnection(url, user, pass);
@@ -64,6 +69,7 @@ public class DbManager {
 	public void closeConnection() {
 		try {
 			connection.close();
+			System.out.println("Database connection terminated.");
 		} catch (Exception e) {
 			System.err.println(e.getLocalizedMessage());
 		}
@@ -79,6 +85,10 @@ public class DbManager {
 		try {
 			Statement statement = connection.createStatement();
 			statement.executeUpdate(query);
+		} catch (MySQLIntegrityConstraintViolationException e) {
+			alertDialog(Alert.AlertType.ERROR, "Vraag toevoegen", null,
+					"Deze vraag bestaat al!", StageStyle.UNDECORATED);
+			AddQuestionController.duplicateError = true;
 		} catch (SQLException e) {
 			System.err.println(SQL_EXCEPTION + e.getLocalizedMessage());
 			e.printStackTrace();

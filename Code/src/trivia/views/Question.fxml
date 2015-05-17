@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.shape.*?>
@@ -88,7 +89,7 @@
                   <Font size="24.0" />
                </font>
             </Hyperlink>
-                <Label fx:id="timer" alignment="TOP_CENTER" layoutX="126" layoutY="120" text="00:00" textFill="RED" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="TOP">
+                <Label fx:id="timer" alignment="TOP_CENTER" layoutX="126" layoutY="120" text="00:00" textFill="#f8a533" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="TOP">
                     <font>
                         <Font name="System Bold" size="36.0" />
                     </font>
@@ -98,6 +99,18 @@
                   <Insets left="10.0" />
                </GridPane.margin></ProgressBar>
                 <AnchorPane opacity="0.4" style="-fx-background-color: #000;" GridPane.columnIndex="5" GridPane.columnSpan="3" GridPane.rowSpan="2147483647" />
+            <Label alignment="BOTTOM_CENTER" contentDisplay="TOP" focusTraversable="false" text="Triviant" textAlignment="CENTER" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="150.0" fitWidth="175.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../resources/images/logo.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Label>
                 <Button fx:id="nextQuestionButton" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" style="-fx-background-radius: 80px;" text="Volgende" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                     <font>
                         <Font name="System Bold" size="24.0" />
@@ -122,7 +135,7 @@
                 </Button>
                 <Button fx:id="toggleHelp" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" style="-fx-background-radius: 80px;" text="Help" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                     <font>
-                        <Font size="24.0" />
+                        <Font name="System Bold" size="24.0" />
                     </font>
                     <GridPane.margin>
                         <Insets />
@@ -133,7 +146,7 @@
                 </Button>
                 <Button fx:id="mainMenu" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" style="-fx-background-radius: 80px;" text="Stop quiz" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
                     <font>
-                        <Font size="24.0" />
+                        <Font name="System Bold" size="24.0" />
                     </font>
                     <GridPane.margin>
                         <Insets />

@@ -51,6 +51,9 @@ public class MainMenuController extends Trivia implements Initializable {
 	private Button gameSetUp;
 
 	@FXML
+	private Button toggleHelp;
+
+	@FXML
 	private Label uitlegA;
 
 	@FXML
@@ -62,6 +65,8 @@ public class MainMenuController extends Trivia implements Initializable {
 	@FXML
 	private Label uitlegD;
 
+	List<Label> helpItems;
+
 	/**
 	 * Initializes the controller class.
 	 *
@@ -70,16 +75,16 @@ public class MainMenuController extends Trivia implements Initializable {
 	 */
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-
+		helpItems = Arrays.asList(uitlegA, uitlegB, uitlegC, uitlegD);
 		startGame.setOnAction(this::loadView);
 		gameSetUp.setOnAction(this::loadView);
 	}
 
+	/**
+	 * If isVisible() is false, then set true & vice versa.
+	 */
 	@FXML
 	private void toggleHelp() {
-		List<Label> helpItems = Arrays.asList(uitlegA, uitlegB, uitlegC, uitlegD);
-
-		// Is is true that isVisible() is false, then set true & vice versa
 		for (Label a : helpItems) {
 			a.setVisible(a.isVisible() != true);
 		}

@@ -40,13 +40,16 @@ import trivia.Trivia;
 public class AdminMenuController extends Trivia implements Initializable {
 
 	@FXML
-	Button mainMenu;
+	Button addQuestion;
 
 	@FXML
 	Button manageQuestions;
 
 	@FXML
 	Button openSettings;
+
+	@FXML
+	Button mainMenu;
 
 	/**
 	 * Initializes the controller class.
@@ -56,8 +59,9 @@ public class AdminMenuController extends Trivia implements Initializable {
 	 */
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		mainMenu.setOnAction(this::loadView);
+		addQuestion.setOnAction(this::loadView);
 		manageQuestions.setOnAction(this::loadView);
 		openSettings.setOnAction(this::loadView);
+		mainMenu.setOnAction(this::loadView);
 	}
 }

@@ -84,7 +84,6 @@ public class SplashScreenController extends Trivia implements Initializable {
 	public void autoPlay() {
 		// Bind the timerLabel text property to the timeSeconds property
 		timerLabel.textProperty().bind(timeSeconds.asString());
-		timerLabel.setTextFill(Color.RED);
 
 		// Countdown from STARTTIME to zero
 		if (timeline != null) {

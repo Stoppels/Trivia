@@ -8,144 +8,116 @@
 
 <AnchorPane minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="trivia.controllers.ManageQuestionsController">
     <children>
-        <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <GridPane layoutX="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="0.0">
             <columnConstraints>
-                <ColumnConstraints hgrow="ALWAYS" maxWidth="60.0" minWidth="30.0" />
-                <ColumnConstraints hgrow="ALWAYS" maxWidth="110.0" minWidth="100.0" />
-            <ColumnConstraints hgrow="ALWAYS" maxWidth="110.0" minWidth="100.0" />
-                <ColumnConstraints hgrow="ALWAYS" maxWidth="60.0" minWidth="30.0" />
-                <ColumnConstraints hgrow="ALWAYS" maxWidth="1000.0" minWidth="300.0" />
-                <ColumnConstraints hgrow="ALWAYS" maxWidth="60.0" minWidth="30.0" />
-                <ColumnConstraints hgrow="ALWAYS" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="220.0" />
-                <ColumnConstraints hgrow="ALWAYS" maxWidth="60.0" minWidth="30.0" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="30.0" percentWidth="15.0" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="500.0" percentWidth="70.0" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="30.0" percentWidth="15.0" />
+            <ColumnConstraints />
+            <ColumnConstraints />
+            <ColumnConstraints />
+            <ColumnConstraints />
+            <ColumnConstraints />
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="ALWAYS" />
                 <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="80.0" vgrow="ALWAYS" />
-                <RowConstraints minHeight="80.0" vgrow="ALWAYS" />
+            <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
+                <RowConstraints minHeight="40.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+            <RowConstraints minHeight="40.0" vgrow="ALWAYS" />
+            <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="80.0" vgrow="ALWAYS" />
             <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
             </rowConstraints>
             <children>
-                <Label alignment="CENTER" styleClass="viewTitle" text="Beheer vragen" textAlignment="CENTER" textFill="#4700ee" GridPane.columnSpan="8" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                <Label alignment="CENTER" styleClass="viewTitle" text="Beheer vragen" textAlignment="CENTER" GridPane.columnSpan="8" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                     <font>
                         <Font name="System Bold" size="48.0" />
                     </font>
                 </Label>
-            <Label text="Verwijder een vraag" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-            <ComboBox fx:id="selectQuestion" maxWidth="1000.0" minWidth="250.0" promptText="Selecteer een vraag" style="-fx-font-size: 18;" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+            <ComboBox fx:id="selectQuestion" maxWidth="1.7976931348623157E308" minWidth="500.0" promptText="Selecteer een vraag om te bewerken…" style="-fx-font-size: 18;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin></ComboBox>
-            <Button fx:id="deleteQuestionButton" alignment="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" style="-fx-background-radius: 80px;" text="Verwijder" textAlignment="CENTER" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="24.0" />
-               </font>
-            </Button>
-                <Label text="Voeg een vraag toe" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
-                    <font>
-                        <Font size="24.0" />
-                    </font>
-                    <GridPane.margin>
-                        <Insets />
-                    </GridPane.margin>
-                </Label>
-            <TextField fx:id="addQuestionText" minWidth="250.0" promptText="Typ hier..." GridPane.columnIndex="4" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+            <TextField fx:id="editQuestionText" disable="true" minWidth="500.0" promptText="Typ hier de vraag…" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                <font>
                   <Font size="18.0" />
                </font>
                <GridPane.margin>
-                  <Insets right="10.0" />
+                  <Insets />
                </GridPane.margin></TextField>
-            <Label text="Het juiste antwoord" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="CENTER">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-            <TextField fx:id="addCorrectAnswer" minWidth="250.0" promptText="Typ hier..." GridPane.columnIndex="4" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+            <TextField fx:id="editCorrectAnswer" disable="true" minWidth="500.0" promptText="Typ hier het juiste antwoord…" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                <font>
                   <Font size="18.0" />
                </font>
                <GridPane.margin>
-                  <Insets right="10.0" />
+                  <Insets />
                </GridPane.margin></TextField>
-            <Label text="Onjuist antwoord 1" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="LEFT" GridPane.rowIndex="5" GridPane.valignment="CENTER">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-            <TextField fx:id="addIncorrectAnswer1" minWidth="250.0" promptText="Typ hier..." GridPane.columnIndex="4" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+            <TextField fx:id="editIncorrectAnswer1" disable="true" minWidth="500.0" promptText="Typ hier een onjuist antwoord…" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
                <font>
                   <Font size="18.0" />
                </font>
                <GridPane.margin>
-                  <Insets right="10.0" />
+                  <Insets />
                </GridPane.margin></TextField>
-            <Label text="Onjuist antwoord 2" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="LEFT" GridPane.rowIndex="6" GridPane.valignment="CENTER">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-            <TextField fx:id="addIncorrectAnswer2" minWidth="250.0" promptText="Typ hier..." GridPane.columnIndex="4" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+            <TextField fx:id="editIncorrectAnswer2" disable="true" minWidth="500.0" promptText="Typ hier een onjuist antwoord…" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
                <font>
                   <Font size="18.0" />
                </font>
                <GridPane.margin>
-                  <Insets right="10.0" />
+                  <Insets />
                </GridPane.margin></TextField>
-            <Label text="Onjuist antwoord 3" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="LEFT" GridPane.rowIndex="7" GridPane.valignment="CENTER">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-            <TextField fx:id="addIncorrectAnswer3" minWidth="250.0" promptText="Typ hier..." GridPane.columnIndex="4" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
+            <TextField fx:id="editIncorrectAnswer3" disable="true" minWidth="500.0" promptText="Typ hier een onjuist antwoord…" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
                <font>
                   <Font size="18.0" />
                </font>
                <GridPane.margin>
-                  <Insets right="10.0" />
+                  <Insets />
                </GridPane.margin></TextField>
-                <Button fx:id="adminMenu" alignment="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" style="-fx-background-radius: 80px;" text="Adminmenu" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="9" GridPane.valignment="CENTER">
-                    <font>
-                        <Font size="24.0" />
-                    </font>
-                </Button>
-            <Button fx:id="addQuestionButton" alignment="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" style="-fx-background-radius: 80px;" text="Voeg toe" textAlignment="CENTER" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="CENTER">
+            <Label focusTraversable="false" text="Moeilijkheidsgraad" GridPane.columnIndex="1" GridPane.rowIndex="9" GridPane.valignment="CENTER">
                <font>
-                  <Font name="System Bold" size="24.0" />
+                  <Font size="18.0" />
                </font>
-            </Button>
-            <Label text="Moeilijkheidsgraad" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="LEFT" GridPane.rowIndex="8" GridPane.valignment="CENTER">
-               <font>
-                  <Font size="24.0" />
-               </font>
+               <GridPane.margin>
+                  <Insets left="12.0" />
+               </GridPane.margin>
             </Label>
-            <ToggleButton fx:id="difficultyEasy" mnemonicParsing="false" prefWidth="140.0" text="Makkelijk" GridPane.columnIndex="4" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+            <ToggleButton fx:id="difficultyEasy" disable="true" mnemonicParsing="false" prefWidth="140.0" text="Makkelijk" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="CENTER">
                <font>
-                  <Font size="24.0" />
+                  <Font size="18.0" />
                </font>
                <toggleGroup>
                   <ToggleGroup fx:id="difficultyGroup" />
                </toggleGroup>
             </ToggleButton>
-            <ToggleButton fx:id="difficultyHard" mnemonicParsing="false" prefWidth="140.0" text="Moeilijk" toggleGroup="$difficultyGroup" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+            <ToggleButton fx:id="difficultyHard" disable="true" mnemonicParsing="false" prefWidth="140.0" text="Moeilijk" toggleGroup="$difficultyGroup" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="9" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
                <font>
-                  <Font size="24.0" />
+                  <Font size="18.0" />
                </font>
             </ToggleButton>
+                <Button fx:id="adminMenu" alignment="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" style="-fx-background-radius: 80px;" text="Adminmenu" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="11" GridPane.valignment="CENTER">
+                    <font>
+                        <Font name="System Bold" size="24.0" />
+                    </font>
+                </Button>
+            <Button fx:id="deleteQuestionButton" alignment="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" style="-fx-background-radius: 80px;" text="Verwijder" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="11" GridPane.valignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Button>
+            <Button fx:id="editQuestionButton" alignment="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" style="-fx-background-radius: 80px;" text="Wijzig" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="11" GridPane.valignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Button>
             </children>
         </GridPane>
     </children>

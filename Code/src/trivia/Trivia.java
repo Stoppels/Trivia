@@ -38,7 +38,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Control;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import static jdk.nashorn.internal.objects.NativeError.printStackTrace;
 
 /**
  * Application main class
@@ -107,35 +106,38 @@ public class Trivia extends Application {
 		switch (viewName) {
 			case "mainMenu":
 				viewName = "MainMenu";
-				System.out.println("Opening MainMenu");
 				break;
 			case "adminMenu":
 				viewName = "AdminMenu";
-				System.out.println("Opening AdminMenu");
 				break;
 			case "startGame":
 				viewName = "Question";
-				System.out.println("Opening Question");
+				break;
+			case "addQuestion":
+				viewName = "AddQuestion";
 				break;
 			case "manageQuestions":
 				viewName = "ManageQuestions";
-				System.out.println("Opening ManageQuestions");
 				break;
 			case "gameSetUp":
 				viewName = "GameSetUp";
-				System.out.println("Opening GameSetUp");
 				break;
 //			case "openSettings":
 //				viewName = "OpenSettings";
-//				System.out.println("Opening OpenSettings");
+//				break;
+//			case "nameEntry":
+//				viewName = "NameEntry";
 //				break;
 			default:
 				System.err.println("View " + viewName + " not found.");
 				error = true;
+				break;
 		}
 
-		// Was a view chosen? If true continue, else do nothing.
+		// Was a view chosen? If true continue, otherwise do nothing.
 		if (!error) {
+			System.out.println("Opening: " + viewName);
+
 			try {
 				Parent root = FXMLLoader.load(getClass().getResource("/trivia/views/"
 						+ viewName + ".fxml"));
@@ -150,7 +152,7 @@ public class Trivia extends Application {
 				stage.show();
 			} catch (IOException e) {
 				System.err.println(e.getLocalizedMessage() + "\n"
-						+ printStackTrace(e));
+						+ e.getLocalizedMessage());
 			}
 		}
 	}

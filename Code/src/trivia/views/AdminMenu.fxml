@@ -28,12 +28,20 @@
                 <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
             </rowConstraints>
             <children>
-                <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" styleClass="viewTitle" text="Admin" textAlignment="CENTER" textFill="#4700ee" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" styleClass="viewTitle" text="Admin" textAlignment="CENTER" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                     <font>
                         <Font name="System Bold" size="48.0" />
                     </font>
                 </Label>
-                <Button fx:id="manageQuestions" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" minHeight="72.0" minWidth="240.0" mnemonicParsing="false" style="-fx-background-radius: 80px;" styleClass="largerButtons" text="Beheer vragen" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+            <Button fx:id="addQuestion" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" layoutX="291.0" layoutY="379.0" minHeight="72.0" minWidth="240.0" mnemonicParsing="false" style="-fx-background-radius: 80px;" styleClass="largerButtons" text="Nieuwe vraag" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Button>
+                <Button fx:id="manageQuestions" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" minHeight="72.0" minWidth="240.0" mnemonicParsing="false" style="-fx-background-radius: 80px;" styleClass="largerButtons" text="Beheer vragen" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                     <font>
                         <Font name="System Bold" size="24.0" />
                     </font>
@@ -44,7 +52,7 @@
                         <Insets />
                     </opaqueInsets>
                 </Button>
-                <Button fx:id="openSettings" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" minHeight="72.0" minWidth="240.0" mnemonicParsing="false" style="-fx-background-radius: 80px;" styleClass="largerButtons" text="Instellingen" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                <Button fx:id="openSettings" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" minHeight="72.0" minWidth="240.0" mnemonicParsing="false" style="-fx-background-radius: 80px;" styleClass="largerButtons" text="Instellingen" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                     <font>
                         <Font name="System Bold" size="24.0" />
                     </font>
@@ -54,7 +62,7 @@
                 </Button>
                 <Button fx:id="mainMenu" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" minHeight="72.0" minWidth="240.0" mnemonicParsing="false" style="-fx-background-radius: 80px;" styleClass="largerButtons" text="Hoofdmenu" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
                     <font>
-                        <Font size="24.0" />
+                        <Font name="System Bold" size="24.0" />
                     </font>
                     <cursor>
                         <Cursor fx:constant="HAND" />

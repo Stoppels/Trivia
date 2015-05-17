@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.text.*?>
@@ -17,7 +19,7 @@
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="ALWAYS" />
-                <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="80.0" vgrow="ALWAYS" />
+                <RowConstraints minHeight="150.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="100.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="100.0" vgrow="ALWAYS" />
@@ -26,19 +28,19 @@
             <children>
                 <AnchorPane maxWidth="-Infinity" prefWidth="395.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                     <children>
-                        <Label contentDisplay="RIGHT" layoutY="32.0" text="Hoofdmenu opent over" AnchorPane.bottomAnchor="-32.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="32.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                        <Label contentDisplay="RIGHT" layoutY="32.0" text="Hoofdmenu opent over" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                             <font>
                                 <Font size="24.0" />
                             </font>
                             <graphic>
-                                <Label fx:id="timerLabel">
+                                <Label fx:id="timerLabel" textFill="#522e90">
                                     <font>
                                         <Font size="24.0" />
                                     </font>
                                 </Label>
                             </graphic>
                         </Label>
-                        <Label fx:id="secondsLabel" alignment="CENTER_RIGHT" layoutX="278.0" layoutY="32.0" minHeight="0.0" text="seconde(n)" AnchorPane.bottomAnchor="-32.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="32.0">
+                        <Label fx:id="secondsLabel" alignment="CENTER_RIGHT" layoutX="278.0" layoutY="32.0" minHeight="0.0" text="seconde(n)" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <font>
                                 <Font size="24.0" />
                             </font>
@@ -61,6 +63,18 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Button>
+            <Label alignment="CENTER" contentDisplay="TOP" focusTraversable="false" styleClass="viewTitle" text="Triviant" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
+               <font>
+                  <Font name="System Bold" size="48.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="200.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../resources/images/logo.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Label>
             </children>
         </GridPane>
     </children>

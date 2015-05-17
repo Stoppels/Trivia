@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.geometry.*?>
@@ -21,7 +22,7 @@
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="ALWAYS" />
-                <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="80.0" vgrow="ALWAYS" />
+                <RowConstraints minHeight="80.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="80.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="80.0" vgrow="ALWAYS" />
@@ -30,10 +31,17 @@
                 <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
             </rowConstraints>
             <children>
-                <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" styleClass="viewTitle" text="Triviant" textAlignment="CENTER" textFill="#070017" GridPane.columnSpan="5" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                <Label alignment="BOTTOM_CENTER" contentDisplay="TOP" focusTraversable="false" styleClass="viewTitle" text="Triviant" textAlignment="CENTER" GridPane.columnSpan="5" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                     <font>
                         <Font name="System Bold" size="48.0" />
                     </font>
+               <graphic>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../resources/images/logo.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
                 </Label>
                 <Button fx:id="startGame" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" minHeight="72.0" minWidth="240.0" mnemonicParsing="false" style="-fx-background-radius: 80px;" styleClass="largerButtons" text="Nu spelen" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                     <font>
@@ -56,7 +64,7 @@
                 </Button>
                 <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" minHeight="72.0" minWidth="240.0" mnemonicParsing="false" onAction="#toggleHelp" style="-fx-background-radius: 80px;" styleClass="largerButtons" text="Help" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                     <font>
-                        <Font size="24.0" />
+                        <Font name="System Bold" size="24.0" />
                     </font>
                     <cursor>
                         <Cursor fx:constant="HAND" />
@@ -64,7 +72,7 @@
                 </Button>
                 <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" minHeight="72.0" minWidth="240.0" mnemonicParsing="false" onAction="#exit" style="-fx-background-radius: 80px;" styleClass="largerButtons" text="Afsluiten" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
                     <font>
-                        <Font size="24.0" />
+                        <Font name="System Bold" size="24.0" />
                     </font>
                     <cursor>
                         <Cursor fx:constant="HAND" />

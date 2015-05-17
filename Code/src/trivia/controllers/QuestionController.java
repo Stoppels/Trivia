@@ -48,7 +48,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.paint.Color;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import trivia.Trivia;
@@ -114,9 +113,9 @@ public class QuestionController extends Trivia implements Initializable {
 	Button nameWindow;
 
 	// Object to call connection
-	DbManager dbm = new DbManager();
+	private final DbManager dbm = new DbManager();
 	// Object to call QueryManager class
-	QueryManager qm = new QueryManager(dbm);
+	private final QueryManager qm = new QueryManager(dbm);
 
 	// Length of time for each question
 	private static final Integer STARTTIME = 10;
@@ -126,14 +125,13 @@ public class QuestionController extends Trivia implements Initializable {
 	private static int[] selectedQuestions;
 	private int questionId = 0, questionNumber = 1;
 
-	private ArrayList<Integer> remainingTimerDuration = new ArrayList<Integer>();
-	;
-	//private final IntegerProperty[] remainingTimeInSec = new SimpleIntegerProperty(STARTTIME);
+	ArrayList<Integer> remainingTimerDuration = new ArrayList<Integer>();
 
 	private List<ToggleButton> answerButtons;
 	private List<Hyperlink> answerLabels;
 	private final char[] chosenAnswers = new char[GameSetUpController.gameLength];
 	private final int wrongAnswerId1 = 1, wrongAnswerId2 = 2, wrongAnswerId3 = 3;
+	String[][] loadedStrings = new String[GameSetUpController.gameLength][5]; // <<----------------------------------------- NICK. FINISH. THIS.
 
 	/**
 	 * Initializes the controller class.
@@ -172,30 +170,40 @@ public class QuestionController extends Trivia implements Initializable {
 		questionProgress.setText(questionNumber + " / " + GameSetUpController.gameLength);
 		previousQuestionButton.setDisable(true);
 
-		// Sets the question
+		// Sets the question and answers
 		dbm.openConnection();
 		question.setText(qm.setQuestion(questionId));
-
-		// Sets the answers
 		qm.setWrongAnswer(wrongAnswerId1, labelA, questionId);
 		qm.setWrongAnswer(wrongAnswerId2, labelB, questionId);
 		qm.setWrongAnswer(wrongAnswerId3, labelC, questionId);
 		qm.setRightAnswer(labelD, questionId);
-
 	}
 
 	/**
-	 *
+	 * This method controls the timer.
 	 */
 	@FXML
-	public void autoPlay() {
+	private void autoPlay() {
 		int originalRunTester = remainingTimerDuration.get(questionNumber - 1);
+
+		// If time's up, player may not change answers.
+		if (originalRunTester <= 1) {
+			System.out.print("yseysysey");
+			for (ToggleButton a : answerButtons) {
+				System.out.println("kjhgfdsa");
+				a.setDisable(true);
+			}
+			for (Hyperlink a : answerLabels) {
+				System.out.println("nooooooo");
+				a.setDisable(true);
+			}
+		}
 
 		// Bind the timerLabel text property to the timeSeconds property
 		timer.textProperty().bind(timeSeconds.divide(100).asString());
 		progressBar.progressProperty().bind(
-				timeSeconds.divide(remainingTimerDuration.get(questionNumber - 1) * 100.0).subtract(1).multiply(-1));
-		timer.setTextFill(Color.WHITE);
+				timeSeconds.divide(remainingTimerDuration.get(questionNumber - 1)
+						* 100.0).subtract(1).multiply(-1));
 
 		// Countdown from STARTTIME to zero
 		if (timeline != null) {
@@ -204,15 +212,24 @@ public class QuestionController extends Trivia implements Initializable {
 		timeSeconds.set((remainingTimerDuration.get(questionNumber - 1) + 1) * 100);
 		timeline = new Timeline();
 		timeline.getKeyFrames().add(
-				new KeyFrame(Duration.seconds(remainingTimerDuration.get(questionNumber - 1) + 1),
-						new KeyValue(timeSeconds, 0)));
+				new KeyFrame(Duration.seconds(remainingTimerDuration.get(
+										questionNumber - 1) + 1), new KeyValue(timeSeconds, 0)));
 		timeline.playFromStart();
 
-		// When completed counting down, execute block content.
+		// When completed counting down, execute block contents.
 		timeline.setOnFinished((ActionEvent event) -> {
 			if (originalRunTester == STARTTIME) {
-				nextQuestionButton.fire(); // Simulate button action
+				nextQuestionButton.fire(); // Simulate button action, auto-continue to next Q
+			} else { // If time's up, player may not change answers.
+				System.out.print("yseysysey");
+				for (ToggleButton a : answerButtons) { // Disables the answer buttons
+					a.setDisable(true);
+				}
+				for (Hyperlink a : answerLabels) { // Disables the answer labels
+					a.setDisable(true);
+				}
 			}
+
 		});
 	}
 
@@ -257,16 +274,16 @@ public class QuestionController extends Trivia implements Initializable {
 		selectedQuestions = qm.selectQuestions(GameSetUpController.gameLength);
 		questionId = selectedQuestions[questionNumber - 1];
 
-		if (GameSetUpController.timerHolder) {
+		if (GameSetUpController.timerHolder) { // Timer enabled
 			progressBar.setVisible(true);
 			remainingTimerDuration = new ArrayList<Integer>();
 			for (int i = 0; i < GameSetUpController.gameLength; i++) {
-				System.out.println("oii");
 				remainingTimerDuration.add(i, timeSeconds.getValue());
-				System.out.println("heh: " + remainingTimerDuration.get(i).toString());
+				System.out.println("Time remaining for question " + (i + 1) + ": "
+						+ remainingTimerDuration.get(i).toString());
 			}
 			autoPlay();
-		} else {
+		} else { // Timer disabled
 			timer.setText("");
 			progressBar.setVisible(false);
 		}
@@ -275,11 +292,22 @@ public class QuestionController extends Trivia implements Initializable {
 	private void nextQuestion(ActionEvent event, Boolean nextQuestion) {
 		remainingTimerDuration.set(questionNumber - 1, parseInt(timer.getText()));
 		for (int i = 0; i < GameSetUpController.gameLength; i++) {
-			System.out.println("heh: " + remainingTimerDuration.get(i));
+			System.out.println("Time remaining for question " + (i + 1) + ": "
+					+ remainingTimerDuration.get(i).toString());
 		}
+
+		// Makes sure players can pick or change answers
+		for (ToggleButton a : answerButtons) {
+			a.setDisable(false);
+		}
+		for (Hyperlink a : answerLabels) {
+			a.setDisable(false);
+		}
+
 		if (nextQuestion) { // nextQuestionButton is pressed
-			if (questionNumber + 1 > GameSetUpController.gameLength) {
-				mainMenu.fire();
+			if (questionNumber + 1 > GameSetUpController.gameLength) { // There is no next Q.
+				mainMenu.fire(); // See Initialize: stops timeline and triggers stopQuiz().
+				// --> go to NameEntry
 			} else {
 				questionNumber++;
 				questionId = selectedQuestions[questionNumber - 1];
@@ -303,15 +331,19 @@ public class QuestionController extends Trivia implements Initializable {
 		qm.setWrongAnswer(wrongAnswerId2, labelB, questionId);
 		qm.setWrongAnswer(wrongAnswerId3, labelC, questionId);
 		qm.setRightAnswer(labelD, questionId);
-		setChosenQuestions(questionNumber);
+		setChosenAnswers(questionNumber);
 
 		if (GameSetUpController.timerHolder) {
 			autoPlay();
 		}
 	}
 
-	private void setChosenQuestions(int i) {
-
+	/**
+	 * Selects the answer player chose earlier for current Q if any
+	 *
+	 * @param i
+	 */
+	private void setChosenAnswers(int i) {
 		switch (chosenAnswers[i - 1]) {
 			case 'A':
 				buttonA.setSelected(true);
@@ -329,9 +361,10 @@ public class QuestionController extends Trivia implements Initializable {
 				for (ToggleButton a : answerButtons) {
 					a.setSelected(false);
 				}
-				// Use char 'E' as: user did not pick an answer
+				// Use char 'E' as: player did not pick an answer
 				// Prevents empty result set errors
 				chosenAnswers[questionNumber - 1] = 'E';
+				break;
 		}
 	}
 
@@ -348,6 +381,10 @@ public class QuestionController extends Trivia implements Initializable {
 			}
 			timeline.stop();
 			loadView(event);
+		} else { // Player cancels the method, if timer's enabled, continue countdown
+			if (GameSetUpController.timerHolder) {
+				timeline.play();
+			}
 		}
 	}
 }

@@ -53,10 +53,7 @@ public class GameSetUpController extends Trivia implements Initializable {
 
 	@FXML
 	ToggleButton longLength;
-
-	@FXML
-	ToggleButton xxlLength;
-
+	
 	@FXML
 	ToggleButton difficultyEasy;
 
@@ -85,7 +82,7 @@ public class GameSetUpController extends Trivia implements Initializable {
 	Button startGame;
 
 	private List<ToggleButton> lengthButtons;
-	static int gameLength = 10;
+	static int gameLength = 15;
 	public static boolean difficultyIsMixed = true;
 	public static boolean difficultyIsEasy = true;
 	static boolean tfHolder = true;
@@ -104,7 +101,7 @@ public class GameSetUpController extends Trivia implements Initializable {
 		startGame.setOnAction(this::startGame);
 
 		// Perform action for all items in list
-		lengthButtons = Arrays.asList(shortLength, mediumLength, longLength, xxlLength);
+		lengthButtons = Arrays.asList(shortLength, mediumLength, longLength);
 		for (ToggleButton a : lengthButtons) {
 			a.setOnAction(this::handleLengthSelection);
 		}
@@ -125,16 +122,11 @@ public class GameSetUpController extends Trivia implements Initializable {
 				longLength.setSelected(true);
 				gameLength = parseInt(longLength.getText());
 				break;
-			case "xxlLength":
-				xxlLength.setSelected(true);
-				gameLength = parseInt(xxlLength.getText());
-				break;
 			default:
-				gameLength = 10;
+				gameLength = parseInt(shortLength.getText());
 		}
 	}
 
-	@FXML
 	private void startGame(ActionEvent event) {
 		System.out.print("Difficulty setting: ");
 		if (difficultyMixed.isSelected()) {

@@ -24,7 +24,6 @@
  */
 package trivia.connectivity;
 
-import static java.lang.Integer.parseInt;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javafx.scene.control.Hyperlink;
@@ -39,7 +38,8 @@ public class QueryManager {
 
 	// Create a database manager object for handling the database connection
 	private final DbManager dbm;
-	String sql = "";
+	private ResultSet result = null;
+	private String sql = "";
 
 	/**
 	 *
@@ -49,31 +49,37 @@ public class QueryManager {
 		this.dbm = dbm;
 	}
 
+	/**
+	 * Selects a randomized set of questions, based on the gameLength setting.
+	 *
+	 * @param questionsCount
+	 * @return
+	 */
 	public int[] selectQuestions(int questionsCount) {
 		dbm.openConnection();
-		ResultSet rs = null;
 		int[] questionsHolder = new int[questionsCount];
 		int i = 1;
 		sql = "SELECT QuestionId FROM question ORDER BY RAND() LIMIT " + questionsCount + ";";
-		rs = dbm.doQuery(sql);
+		result = dbm.doQuery(sql);
 		try {
-			while (rs.next()) {
-				System.out.println("Fetched QuestionId: " + parseInt(rs.getString(1))
-				);
-				questionsHolder[i - 1] = parseInt(rs.getString(1));
+			while (result.next()) {
+				System.out.println("Fetched QuestionId: " + result.getInt(1));
+				questionsHolder[i - 1] = result.getInt(1);
 				i++;
 			}
 			return questionsHolder;
 		} catch (SQLException e) {
 			e.getLocalizedMessage();
-			e.printStackTrace();
 			return null;
 		} finally {
 			dbm.closeConnection();
+			result = null;
+			sql = "";
 		}
 	}
 
 	/**
+	 * Fetches the Question from the database, based on the difficulty setting.
 	 *
 	 * @param QuestionId
 	 * @return the string of the query
@@ -92,20 +98,22 @@ public class QueryManager {
 		String returnString = null;
 
 		try {
-			ResultSet result = dbm.doQuery(sql);
+			result = dbm.doQuery(sql);
 			result.next();
 			returnString = result.getString("Question");
 		} catch (SQLException e) {
 			System.err.println("Error: " + e.getLocalizedMessage());
-			e.printStackTrace();
 		} finally {
 			dbm.closeConnection();
+			result = null;
 			sql = "";
 		}
 		return returnString;
 	}
 
 	/**
+	 * Fetches the RightAnswer from the database and sets it as the labelNumber
+	 * text.
 	 *
 	 * @param labelNumber
 	 * @param QuestionId
@@ -120,19 +128,21 @@ public class QueryManager {
 		System.out.println(sql);
 
 		try {
-			ResultSet result = dbm.doQuery(sql);
+			result = dbm.doQuery(sql);
 			result.next();
 			labelNumber.setText(result.getString("RightAnswer"));
 		} catch (SQLException e) {
 			System.err.println("Error: " + e.getLocalizedMessage());
-			e.printStackTrace();
 		} finally {
 			dbm.closeConnection();
+			result = null;
 			sql = "";
 		}
 	}
 
 	/**
+	 * Fetches the WrongAnswer from the database and sets it as the labelNumber
+	 * text.
 	 *
 	 * @param wrongAnswerId
 	 * @param labelNumber
@@ -148,14 +158,14 @@ public class QueryManager {
 		System.out.println(sql);
 
 		try {
-			ResultSet result = dbm.doQuery(sql);
+			result = dbm.doQuery(sql);
 			result.next();
 			labelNumber.setText(result.getString("WrongAnswer"));
 		} catch (SQLException e) {
 			System.err.println("Error: " + e.getLocalizedMessage());
-			e.printStackTrace();
 		} finally {
 			dbm.closeConnection();
+			result = null;
 			sql = "";
 		}
 	}

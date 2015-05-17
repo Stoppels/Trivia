@@ -53,3 +53,9 @@
     -fx-padding:                    0;
     -fx-cursor:                     hand;
 }
+.text-field {
+    -fx-prompt-text-fill:           derive(-fx-control-inner-background,-30%);
+}
+.text-field:focused {
+    -fx-prompt-text-fill:           derive(-fx-control-inner-background,-30%);
+}
