@@ -53,7 +53,7 @@ public class GameSetUpController extends Trivia implements Initializable {
 
 	@FXML
 	ToggleButton longLength;
-	
+
 	@FXML
 	ToggleButton difficultyEasy;
 
@@ -83,11 +83,11 @@ public class GameSetUpController extends Trivia implements Initializable {
 
 	private List<ToggleButton> lengthButtons;
 	static int gameLength = 15;
-	public static boolean difficultyIsMixed = true;
-	public static boolean difficultyIsEasy = true;
-	static boolean tfHolder = true;
-	static boolean mcHolder = true;
-	static boolean timerHolder = true;
+	public static boolean difficultyIsMixed = true,
+			difficultyIsEasy = true;
+	static boolean tfHolder = true,
+			mcHolder = true,
+			timerHolder = true;
 
 	/**
 	 * Initializes the controller class.

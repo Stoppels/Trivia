@@ -125,7 +125,7 @@ public class QuestionController extends Trivia implements Initializable {
 	private static int[] selectedQuestions;
 	private int questionId = 0, questionNumber = 1;
 
-	ArrayList<Integer> remainingTimerDuration = new ArrayList<Integer>();
+	private ArrayList<Integer> remainingTimerDuration = new ArrayList<Integer>();
 
 	private List<ToggleButton> answerButtons;
 	private List<Hyperlink> answerLabels;

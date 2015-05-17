@@ -91,7 +91,6 @@ public class DbManager {
 			AddQuestionController.duplicateError = true;
 		} catch (SQLException e) {
 			System.err.println(SQL_EXCEPTION + e.getLocalizedMessage());
-			e.printStackTrace();
 		}
 	}
 

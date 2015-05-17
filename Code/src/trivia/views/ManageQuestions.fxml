@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
@@ -13,11 +14,6 @@
                 <ColumnConstraints hgrow="ALWAYS" minWidth="30.0" percentWidth="15.0" />
                 <ColumnConstraints hgrow="ALWAYS" minWidth="500.0" percentWidth="70.0" />
                 <ColumnConstraints hgrow="ALWAYS" minWidth="30.0" percentWidth="15.0" />
-            <ColumnConstraints />
-            <ColumnConstraints />
-            <ColumnConstraints />
-            <ColumnConstraints />
-            <ColumnConstraints />
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="ALWAYS" />
@@ -35,7 +31,7 @@
             <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
             </rowConstraints>
             <children>
-                <Label alignment="CENTER" styleClass="viewTitle" text="Beheer vragen" textAlignment="CENTER" GridPane.columnSpan="8" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                <Label alignment="CENTER" styleClass="viewTitle" text="Beheer vragen" textAlignment="CENTER" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                     <font>
                         <Font name="System Bold" size="48.0" />
                     </font>

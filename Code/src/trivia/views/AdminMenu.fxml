@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.geometry.*?>
@@ -19,7 +20,7 @@
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="ALWAYS" />
-                <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="80.0" vgrow="ALWAYS" />
+                <RowConstraints maxHeight="-Infinity" minHeight="80.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="80.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="80.0" vgrow="ALWAYS" />
@@ -28,10 +29,17 @@
                 <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
             </rowConstraints>
             <children>
-                <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" styleClass="viewTitle" text="Admin" textAlignment="CENTER" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                <Label alignment="TOP_CENTER" contentDisplay="TOP" focusTraversable="false" styleClass="viewTitle" text="Admin" textAlignment="CENTER" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                     <font>
                         <Font name="System Bold" size="48.0" />
                     </font>
+               <graphic>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../resources/images/logo.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
                 </Label>
             <Button fx:id="addQuestion" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" layoutX="291.0" layoutY="379.0" minHeight="72.0" minWidth="240.0" mnemonicParsing="false" style="-fx-background-radius: 80px;" styleClass="largerButtons" text="Nieuwe vraag" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                <cursor>

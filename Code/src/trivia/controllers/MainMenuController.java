@@ -86,7 +86,7 @@ public class MainMenuController extends Trivia implements Initializable {
 	@FXML
 	private void toggleHelp() {
 		for (Label a : helpItems) {
-			a.setVisible(a.isVisible() != true);
+			a.setVisible(!a.isVisible());
 		}
 	}
 

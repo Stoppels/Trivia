@@ -22,7 +22,7 @@
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="ALWAYS" />
-                <RowConstraints minHeight="80.0" vgrow="ALWAYS" />
+                <RowConstraints maxHeight="-Infinity" minHeight="80.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="80.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="80.0" vgrow="ALWAYS" />
@@ -31,7 +31,7 @@
                 <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
             </rowConstraints>
             <children>
-                <Label alignment="BOTTOM_CENTER" contentDisplay="TOP" focusTraversable="false" styleClass="viewTitle" text="Triviant" textAlignment="CENTER" GridPane.columnSpan="5" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                <Label alignment="BOTTOM_CENTER" contentDisplay="TOP" focusTraversable="false" styleClass="viewTitle" text="Triviant" textAlignment="CENTER" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                     <font>
                         <Font name="System Bold" size="48.0" />
                     </font>

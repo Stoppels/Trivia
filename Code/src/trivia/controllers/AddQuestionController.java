@@ -82,8 +82,8 @@ public class AddQuestionController extends Trivia implements Initializable {
 
 	private final DbManager dbm = new DbManager();
 	private ResultSet rs = null;
-	private String queryText = "";
-	private String difficultySetter = "";
+	private String queryText = "",
+			difficultySetter = "";
 	public static Boolean duplicateError = false;
 
 	/**
@@ -134,11 +134,11 @@ public class AddQuestionController extends Trivia implements Initializable {
 		difficultySetter = difficultyGroup.getSelectedToggle().
 				toString().contains("Easy") ? "Easy" : "Hard";
 		// Collect the Strings with getText from the selected textField
-		String question = addQuestionText.getText();
-		String correctAnswer = addCorrectAnswer.getText();
-		String incorrectAnswer1 = addIncorrectAnswer1.getText();
-		String incorrectAnswer2 = addIncorrectAnswer2.getText();
-		String incorrectAnswer3 = addIncorrectAnswer3.getText();
+		String question = addQuestionText.getText(),
+				correctAnswer = addCorrectAnswer.getText(),
+				incorrectAnswer1 = addIncorrectAnswer1.getText(),
+				incorrectAnswer2 = addIncorrectAnswer2.getText(),
+				incorrectAnswer3 = addIncorrectAnswer3.getText();
 
 		question = Character.toUpperCase(question.charAt(0)) + question.substring(1);
 		// System check of input
@@ -150,6 +150,7 @@ public class AddQuestionController extends Trivia implements Initializable {
 		if (duplicateError) {
 			dbm.closeConnection();
 			addQuestionText.requestFocus();
+			duplicateError = false;
 			return;
 		}
 		System.out.println("Adding question: " + question + "\n"
