@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `trivia`
 --
+DROP DATABASE `trivia`;
+
 CREATE DATABASE IF NOT EXISTS `trivia` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `trivia`;
 
