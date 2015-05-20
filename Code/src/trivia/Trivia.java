@@ -47,120 +47,123 @@ import javafx.stage.StageStyle;
  */
 public class Trivia extends Application {
 
-	@Override
-	public void start(Stage stage) {
-		//System.out.close(); // <- Uncomment on product shipment to shush console debug messages.
-		try {
-			Parent root = FXMLLoader.load(getClass().
-					getResource("/trivia/views/SplashScreen.fxml"));
-			Scene scene = new Scene(root);
+    @Override
+    public void start(Stage stage) {
+        //System.out.close(); // <- Uncomment on product shipment to shush console debug messages.
+        try {
+            Parent root = FXMLLoader.load(getClass().
+                    getResource("/trivia/views/SplashScreen.fxml"));
+            Scene scene = new Scene(root);
 
-			root.setId("pane");
-			scene.getStylesheets().addAll(this.getClass().
-					getResource("/resources/stylesheets/Styles.css").toExternalForm());
+            root.setId("pane");
+            scene.getStylesheets().addAll(this.getClass().
+                    getResource("/resources/stylesheets/Styles.css").toExternalForm());
 
-			stage.setScene(scene);
-			stage.setFullScreenExitHint("");
-			//stage.setFullScreen(true);
-			stage.show();
-		} catch (IOException e) {
-			System.err.println("Error: " + e.getLocalizedMessage());
-		}
-	}
+            stage.setScene(scene);
+            stage.setFullScreenExitHint("");
+            //stage.setFullScreen(true);
+            stage.show();
+        } catch (IOException e) {
+            System.err.println("Error: " + e.getLocalizedMessage());
+        }
+    }
 
-	/**
-	 * Allows for quick and clean creation of a boolean AlertDialog.
-	 *
-	 * @param type
-	 * @param title
-	 * @param header
-	 * @param content
-	 * @param style
-	 * @return boolean value
-	 */
-	public static boolean alertDialog(AlertType type, String title,
-			String header, String content, StageStyle style) {
-		Alert alert = new Alert(type);
-		alert.setTitle(title);
-		alert.setHeaderText(header);
-		alert.setContentText(content);
-		alert.initStyle(style);
+    /**
+     * Allows for quick and clean creation of a boolean AlertDialog.
+     *
+     * @param type
+     * @param title
+     * @param header
+     * @param content
+     * @param style
+     * @return boolean value
+     */
+    public static boolean alertDialog(AlertType type, String title,
+            String header, String content, StageStyle style) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.initStyle(style);
 
-		// Does user choose button OK or not?
-		Optional<ButtonType> result = alert.showAndWait();
-		return result.get() == ButtonType.OK;
-	}
+        // Does user choose button OK or not?
+        Optional<ButtonType> result = alert.showAndWait();
+        return result.get() == ButtonType.OK;
+    }
 
-	/**
-	 * Handles switching between views.
-	 *
-	 * @param event
-	 */
-	public void loadView(ActionEvent event) {
-		boolean error = false;
+    /**
+     * Handles switching between views.
+     *
+     * @param event
+     */
+    public void loadView(ActionEvent event) {
+        boolean error = false;
 
-		// Fetch the FX:ID of the button and find out which button it was.
-		String viewName = ((Control) event.getSource()).getId();
+        // Fetch the FX:ID of the button and find out which button it was.
+        String viewName = ((Control) event.getSource()).getId();
 
-		// Depending on the target view, do something.
-		switch (viewName) {
-			case "mainMenu":
-				viewName = "MainMenu";
-				break;
-			case "adminMenu":
-				viewName = "AdminMenu";
-				break;
-			case "startGame":
-				viewName = "Question";
-				break;
-			case "addQuestion":
-				viewName = "AddQuestion";
-				break;
-			case "manageQuestions":
-				viewName = "ManageQuestions";
-				break;
-			case "gameSetUp":
-				viewName = "GameSetUp";
-				break;
+        // Depending on the target view, do something.
+        switch (viewName) {
+            case "mainMenu":
+                viewName = "MainMenu";
+                break;
+            case "adminMenu":
+                viewName = "AdminMenu";
+                break;
+            case "startGame":
+                viewName = "Question";
+                break;
+            case "addQuestion":
+                viewName = "AddQuestion";
+                break;
+            case "manageQuestions":
+                viewName = "ManageQuestions";
+                break;
+            case "gameSetUp":
+                viewName = "GameSetUp";
+                break;
+            case "nextQuestionButton":
+                viewName = "GameOverview";
+                break;
 //			case "openSettings":
 //				viewName = "OpenSettings";
 //				break;
 //			case "nameEntry":
 //				viewName = "NameEntry";
 //				break;
-			default:
-				System.err.println("View " + viewName + " not found.");
-				error = true;
-				break;
-		}
+            default:
+                System.err.println("View " + viewName + " not found.");
+                error = true;
+                break;
+        }
 
-		// Was a view chosen? If true continue, otherwise do nothing.
-		if (!error) {
-			System.out.println("Opening: " + viewName);
+        // Was a view chosen? If true continue, otherwise do nothing.
+        if (!error) {
+            System.out.println("Opening: " + viewName);
 
-			try {
-				Parent root = FXMLLoader.load(getClass().getResource("/trivia/views/"
-						+ viewName + ".fxml"));
-				Scene scene = new Scene(root);
-				root.setId("pane");
-				scene.getStylesheets().addAll(this.getClass().
-						getResource("/resources/stylesheets/Styles.css").toExternalForm());
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("/trivia/views/"
+                        + viewName + ".fxml"));
+                Scene scene = new Scene(root);
+                root.setId("pane");
+                scene.getStylesheets().addAll(this.getClass().
+                        getResource("/resources/stylesheets/Styles.css").toExternalForm());
 
-				Stage stage = ((Stage) ((Node) event.getSource()).getScene().getWindow());
-				stage.setScene(scene);
-				//stage.setFullScreen(true);
-				stage.show();
-			} catch (IOException e) {
-				System.err.println(e.getLocalizedMessage() + "\n"
-						+ e.getLocalizedMessage());
-			}
-		}
-	}
+                Stage stage = ((Stage) ((Node) event.getSource()).getScene().getWindow());
+                stage.setScene(scene);
+                //stage.setFullScreen(true);
+                stage.show();
+            } catch (IOException e) {
+                System.err.println(e.getLocalizedMessage() + "\n"
+                        + e.getLocalizedMessage());
+            }
+        }
+    }
 
-	/**
-	 * @param args the command line arguments
-	 */
-	public static void main(String[] args) {
-		launch(args);
-	}
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        launch(args);
+    }
 }

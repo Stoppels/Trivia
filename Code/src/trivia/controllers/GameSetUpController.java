@@ -34,7 +34,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import trivia.Trivia;
 
 /**
@@ -45,40 +47,29 @@ import trivia.Trivia;
  */
 public class GameSetUpController extends Trivia implements Initializable {
 
-	@FXML
 	ToggleButton shortLength;
 
-	@FXML
 	ToggleButton mediumLength;
 
-	@FXML
 	ToggleButton longLength;
 
-	@FXML
 	ToggleButton difficultyEasy;
 
-	@FXML
 	ToggleButton difficultyHard;
 
-	@FXML
 	ToggleButton difficultyMixed;
 
-	@FXML
 	ToggleButton typeTf;
 
-	@FXML
 	ToggleButton typeMc;
 
-	@FXML
 	ToggleButton typeMixed;
 
-	@FXML
 	ToggleButton timerToggle;
 
 	@FXML
 	Button mainMenu;
 
-	@FXML
 	Button startGame;
 
 	private List<ToggleButton> lengthButtons;
@@ -88,6 +79,24 @@ public class GameSetUpController extends Trivia implements Initializable {
 	static boolean tfHolder = true,
 			mcHolder = true,
 			timerHolder = true;
+    @FXML
+    private RadioButton moeilijkheidNormaal;
+    @FXML
+    private ToggleGroup moeilijkheid;
+    @FXML
+    private RadioButton moeilijkheidMoeilijk;
+    @FXML
+    private RadioButton waarvalsvragenToggleAan;
+    @FXML
+    private ToggleGroup waarvals;
+    @FXML
+    private RadioButton meerkeuzevragenToggleAan;
+    @FXML
+    private ToggleGroup meerkeuze;
+    @FXML
+    private RadioButton timerToggleAan;
+    @FXML
+    private ToggleGroup timer;
 
 	/**
 	 * Initializes the controller class.

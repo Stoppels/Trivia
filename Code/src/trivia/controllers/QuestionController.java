@@ -306,8 +306,10 @@ public class QuestionController extends Trivia implements Initializable {
 
 		if (nextQuestion) { // nextQuestionButton is pressed
 			if (questionNumber + 1 > GameSetUpController.gameLength) { // There is no next Q.
-				mainMenu.fire(); // See Initialize: stops timeline and triggers stopQuiz().
-				// --> go to NameEntry
+                            timeline.stop();
+
+			loadView(event);                                
+                                
 			} else {
 				questionNumber++;
 				questionId = selectedQuestions[questionNumber - 1];

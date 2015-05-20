@@ -46,7 +46,7 @@
     -fx-text-fill:                  #FFFFFF;    
 }
 .viewTitle {
-    -fx-text-fill:                  #000000;
+    -fx-text-fill:                  #e49a4a;
 }
 #labelA:visited, #labelB:visited, #labelC:visited, #labelD:visited {
     -fx-background-color:           transparent;
