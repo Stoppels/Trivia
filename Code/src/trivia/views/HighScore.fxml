@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+
+<AnchorPane minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="trivia.controllers.ManageQuestionsController">
+   <children>
+      <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label alignment="CENTER" text="Ranglijst" textAlignment="CENTER" GridPane.columnSpan="7" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+               <font>
+                  <Font name="System Bold" size="48.0" />
+               </font>
+            </Label>
+            <TableView fx:id="listTableView" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <columns>
+                  <TableColumn fx:id="listTableViewName" prefWidth="60.0" text="Nr" />
+                  <TableColumn fx:id="listTableViewAddress" prefWidth="350.0" text="Naam" />
+                  <TableColumn fx:id="listTableViewPhone" prefWidth="229.0" text="Tijd" />
+                  <TableColumn fx:id="listTableViewEmail" prefWidth="160.0" text="Score" />
+               </columns>
+            </TableView>
+         </children>
+         <columnConstraints>
+            <ColumnConstraints hgrow="ALWAYS" maxWidth="60.0" minWidth="30.0" />
+            <ColumnConstraints hgrow="ALWAYS" maxWidth="1000.0" minWidth="300.0" />
+            <ColumnConstraints hgrow="ALWAYS" maxWidth="60.0" minWidth="30.0" />
+            <ColumnConstraints />
+            <ColumnConstraints />
+            <ColumnConstraints />
+            <ColumnConstraints />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="ALWAYS" />
+            <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="80.0" vgrow="ALWAYS" />
+            <RowConstraints minHeight="80.0" vgrow="ALWAYS" />
+            <RowConstraints minHeight="80.0" prefHeight="30.0" vgrow="ALWAYS" />
+         </rowConstraints>
+      </GridPane>
+   </children>
+</AnchorPane>
