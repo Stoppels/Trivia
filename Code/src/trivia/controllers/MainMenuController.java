@@ -33,6 +33,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
 import javafx.stage.StageStyle;
 import trivia.Trivia;
 
@@ -45,13 +46,13 @@ import trivia.Trivia;
 public class MainMenuController extends Trivia implements Initializable {
 
 	@FXML
+	private GridPane rootPane;
+
+	@FXML
 	private Button startGame;
 
 	@FXML
 	private Button gameSetUp;
-
-	@FXML
-	private Button toggleHelp;
 
 	@FXML
 	private Label uitlegA;
