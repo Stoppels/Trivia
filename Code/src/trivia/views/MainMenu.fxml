@@ -12,7 +12,7 @@
 
 <AnchorPane minHeight="600.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="trivia.controllers.MainMenuController">
     <children>
-        <GridPane fx:id="rootPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columnConstraints>
                 <ColumnConstraints hgrow="ALWAYS" minWidth="-Infinity" prefWidth="200.0" />
                 <ColumnConstraints hgrow="ALWAYS" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="30.0" />
@@ -31,17 +31,20 @@
                 <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
             </rowConstraints>
             <children>
-                <Label alignment="BOTTOM_CENTER" contentDisplay="TOP" focusTraversable="false" styleClass="viewTitle" text="Triviant" textAlignment="CENTER" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                <Label alignment="BOTTOM_CENTER" contentDisplay="TOP" focusTraversable="false" styleClass="viewTitle" text="  Triviant" textAlignment="CENTER" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                     <font>
                         <Font name="System Bold" size="48.0" />
                     </font>
-               <graphic>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../resources/images/logo.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
+                    <graphic>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../resources/images/logo.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <GridPane.margin>
+                        <Insets right="15.0" />
+                    </GridPane.margin>
                 </Label>
                 <Button fx:id="startGame" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" minHeight="72.0" minWidth="240.0" mnemonicParsing="false" style="-fx-background-radius: 80px;" styleClass="largerButtons" text="Nu spelen" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                     <font>

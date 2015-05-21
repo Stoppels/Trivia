@@ -26,9 +26,13 @@ package trivia.controllers;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import trivia.Trivia;
 
 /**
@@ -37,19 +41,67 @@ import trivia.Trivia;
  * @author Team Silent Coders
  * @version 1.0
  */
-public class AdminMenuController extends Trivia implements Initializable {
+public class DefaultSettingsController extends Trivia implements Initializable {
 
 	@FXML
-	Button addQuestion;
+	public ToggleButton difficultyHard;
 
 	@FXML
-	Button manageQuestions;
+	public ToggleButton typeTf;
 
 	@FXML
-	Button defaultSettings;
+	public CheckBox lengthModifiability;
 
 	@FXML
-	Button mainMenu;
+	public ToggleGroup typeGroup;
+
+	@FXML
+	private Button mainMenu;
+
+	@FXML
+	public ToggleGroup lengthGroup;
+
+	@FXML
+	public ToggleButton shortLength;
+
+	@FXML
+	public ToggleGroup difficultyGroup;
+
+	@FXML
+	private Button saveSettings;
+
+	@FXML
+	public ToggleGroup timerGroup;
+
+	@FXML
+	public CheckBox difficultyModifiability;
+
+	@FXML
+	public ToggleButton typeMixed;
+
+	@FXML
+	public CheckBox timerModifiability;
+
+	@FXML
+	public ToggleButton mediumLength;
+
+	@FXML
+	public ToggleButton difficultyEasy;
+
+	@FXML
+	public CheckBox typeModifiability;
+
+	@FXML
+	public ToggleButton longLength;
+
+	@FXML
+	public ToggleButton timerToggle;
+
+	@FXML
+	public ToggleButton difficultyMixed;
+
+	@FXML
+	public ToggleButton typeMc;
 
 	/**
 	 * Initializes the controller class.
@@ -59,9 +111,11 @@ public class AdminMenuController extends Trivia implements Initializable {
 	 */
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		addQuestion.setOnAction(this::loadView);
-		manageQuestions.setOnAction(this::loadView);
-		defaultSettings.setOnAction(this::loadView);
 		mainMenu.setOnAction(this::loadView);
+		saveSettings.setOnAction(this::saveSettings);
+	}
+
+	private void saveSettings(Event event) {
+
 	}
 }

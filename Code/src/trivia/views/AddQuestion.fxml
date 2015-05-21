@@ -23,10 +23,10 @@
                 <RowConstraints minHeight="40.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="40.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="40.0" vgrow="ALWAYS" />
-            <RowConstraints minHeight="40.0" vgrow="ALWAYS" />
-            <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
+                <RowConstraints minHeight="40.0" vgrow="ALWAYS" />
+                <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="80.0" vgrow="ALWAYS" />
-            <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
+                <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
             </rowConstraints>
             <children>
                 <Label alignment="CENTER" styleClass="viewTitle" text="Nieuwe vraag" textAlignment="CENTER" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="1">
@@ -34,75 +34,80 @@
                         <Font name="System Bold" size="48.0" />
                     </font>
                 </Label>
-            <TextField fx:id="addQuestionText" minWidth="500.0" promptText="Typ hier de vraag…" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
-               <font>
-                  <Font size="18.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin></TextField>
-            <TextField fx:id="addCorrectAnswer" minWidth="500.0" promptText="Typ hier het juiste antwoord…" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
-               <font>
-                  <Font size="18.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin></TextField>
-            <TextField fx:id="addIncorrectAnswer1" minWidth="500.0" promptText="Typ hier een onjuist antwoord…" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
-               <font>
-                  <Font size="18.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin></TextField>
-            <TextField fx:id="addIncorrectAnswer2" minWidth="500.0" promptText="Typ hier een onjuist antwoord…" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
-               <font>
-                  <Font size="18.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin></TextField>
-            <TextField fx:id="addIncorrectAnswer3" minWidth="500.0" promptText="Typ hier een onjuist antwoord…" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
-               <font>
-                  <Font size="18.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin></TextField>
-            <Label focusTraversable="false" text="Moeilijkheidsgraad" GridPane.columnIndex="1" GridPane.rowIndex="8" GridPane.valignment="CENTER">
-               <font>
-                  <Font size="18.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets left="12.0" />
-               </GridPane.margin>
-            </Label>
-            <ToggleButton fx:id="difficultyEasy" mnemonicParsing="false" prefWidth="140.0" text="Makkelijk" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
-               <font>
-                  <Font size="18.0" />
-               </font>
-               <toggleGroup>
-                  <ToggleGroup fx:id="difficultyGroup" />
-               </toggleGroup>
-            </ToggleButton>
-            <ToggleButton fx:id="difficultyHard" mnemonicParsing="false" prefWidth="140.0" text="Moeilijk" toggleGroup="$difficultyGroup" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="8" GridPane.valignment="CENTER">
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </ToggleButton>
+                <TextField fx:id="addQuestionText" minWidth="500.0" promptText="Typ hier de vraag…" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                    <GridPane.margin>
+                        <Insets />
+                    </GridPane.margin>
+                </TextField>
+                <TextField fx:id="addCorrectAnswer" minWidth="500.0" promptText="Typ hier het juiste antwoord…" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                    <GridPane.margin>
+                        <Insets />
+                    </GridPane.margin>
+                </TextField>
+                <TextField fx:id="addIncorrectAnswer1" minWidth="500.0" promptText="Typ hier een onjuist antwoord…" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                    <GridPane.margin>
+                        <Insets />
+                    </GridPane.margin>
+                </TextField>
+                <TextField fx:id="addIncorrectAnswer2" minWidth="500.0" promptText="Typ hier een onjuist antwoord…" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                    <GridPane.margin>
+                        <Insets />
+                    </GridPane.margin>
+                </TextField>
+                <TextField fx:id="addIncorrectAnswer3" minWidth="500.0" promptText="Typ hier een onjuist antwoord…" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                    <GridPane.margin>
+                        <Insets />
+                    </GridPane.margin>
+                </TextField>
+                <Label focusTraversable="false" text="Moeilijkheidsgraad" GridPane.columnIndex="1" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                    <GridPane.margin>
+                        <Insets left="12.0" />
+                    </GridPane.margin>
+                </Label>
+                <ToggleButton fx:id="difficultyEasy" mnemonicParsing="false" prefWidth="140.0" text="Makkelijk" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                    <toggleGroup>
+                        <ToggleGroup fx:id="difficultyGroup" />
+                    </toggleGroup>
+                </ToggleButton>
+                <ToggleButton fx:id="difficultyHard" mnemonicParsing="false" prefWidth="140.0" text="Moeilijk" toggleGroup="$difficultyGroup" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+                    <GridPane.margin>
+                        <Insets />
+                    </GridPane.margin>
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </ToggleButton>
                 <Button fx:id="adminMenu" alignment="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" style="-fx-background-radius: 80px;" text="Adminmenu" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="10" GridPane.valignment="CENTER">
                     <font>
                         <Font name="System Bold" size="24.0" />
                     </font>
                 </Button>
-            <Button fx:id="addQuestionButton" alignment="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" style="-fx-background-radius: 80px;" text="Voeg toe" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="10" GridPane.valignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="24.0" />
-               </font>
-            </Button>
+                <Button fx:id="addQuestionButton" alignment="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" style="-fx-background-radius: 80px;" text="Voeg toe" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="10" GridPane.valignment="CENTER">
+                    <font>
+                        <Font name="System Bold" size="24.0" />
+                    </font>
+                </Button>
             </children>
         </GridPane>
     </children>

@@ -2,28 +2,33 @@
     -fx-background-image:           url("../images/background.jpg");
     -fx-background-size:            stretch;
 }
-.button, .toggle-button, .text-field, .combo-box {
+.button, .toggle-button, .text-field, .check-box *.box {
     -fx-background-color:           #FFFFFF;
     -fx-background-radius:          80px;
     -fx-background-insets:          0;
 }
-.button, .toggle-button, #labelA, #labelB, #labelC, #labelD {
+.button, .toggle-button, #labelA, #labelB, #labelC, #labelD, .check-box *.box {
     -fx-cursor:                     HAND;
     -fx-text-fill:                  #000000;
 }
-.button:hover, .toggle-button:hover {
+.button:hover, .toggle-button:hover, .check-box *.box:hover {
     -fx-background-color:           linear-gradient(#FFFFFF, #CCCCCC);
     -fx-effect:               innershadow(three-pass-box, #AAAAAA, 10, 0, 0, 0);
 }
-.toggle-button:pressed, .button:pressed {
+.toggle-button:pressed, .button:pressed, .check-box *.box:pressed {
     -fx-background-color:           #BBBBBB;
     -fx-effect:               innershadow(three-pass-box, #666666, 10, 0, 0, 0);
 }
-.toggle-button:selected {
+.toggle-button:selected, .check-box:selected .box {
     -fx-background-color:           #AAAAAA;
     -fx-effect:               innershadow(three-pass-box, #000000, 10, 0, 0, 0);
-
-}.button {
+}
+.check-box:selected .mark {
+    -fx-background-color:           #522E90;
+    -fx-mark-highlight-color:       yellow; 
+    -fx-mark-color:                 red;
+}
+.button {
     width:                          200px;
     height:                         60px;
 }
@@ -35,7 +40,7 @@
     width:                          240px;
     height:                         80px;
 }
-.cell {
+.cell, .check-box {
     -fx-background-radius:          80px;
 }
 .cell:odd {

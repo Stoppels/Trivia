@@ -26,10 +26,7 @@ package trivia.controllers;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 
 /**
  * FXML Controller class
@@ -37,23 +34,13 @@ import javafx.scene.control.Label;
  * @author Yassinee
  */
 public class GameOverview implements Initializable {
-    @FXML
-    private Label LabelQuizGemaakt;
-    @FXML
-    private Label LabelKlaar;
-    @FXML
-    private Label LabelNaam;
-    @FXML
-    private Button ButtonJa;
-    @FXML
-    private Button ButtonNee;
 
-    /**
-     * Initializes the controller class.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
-    
+	/**
+	 * Initializes the controller class.
+	 */
+	@Override
+	public void initialize(URL url, ResourceBundle rb) {
+		// TODO
+	}
+
 }

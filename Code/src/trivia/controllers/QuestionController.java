@@ -24,7 +24,6 @@
  */
 package trivia.controllers;
 
-import java.io.Console;
 import static java.lang.Integer.parseInt;
 import trivia.connectivity.DbManager;
 import java.net.URL;
@@ -132,9 +131,9 @@ public class QuestionController extends Trivia implements Initializable {
 
 	private List<ToggleButton> answerButtons;
 	private List<Hyperlink> answerLabels;
-	private final String[][] loadedStrings = new String[GameSetUpController.gameLength][7],
-			chosenAnswers = new String[GameSetUpController.gameLength][2];
-	private final String[] correctAnswers = new String[GameSetUpController.gameLength];
+	private final String[][] loadedStrings = new String[GameSetUpController.gameLength][7];
+	final String[][] chosenAnswers = new String[GameSetUpController.gameLength][2];
+	final String[] correctAnswers = new String[GameSetUpController.gameLength];
 
 	/**
 	 * Initializes the controller class.
@@ -294,36 +293,14 @@ public class QuestionController extends Trivia implements Initializable {
 					+ GameSetUpController.gameLength + ";";
 			result = dbm.doQuery(queryText); // Get everything above.
 			while (result.next()) { // Save everything.
-				System.out.print("\nLoaded details for {"
-						+ ++questionsIndex + "}"); // Loads next Q
+				System.out.print("Loaded details for {"
+						+ ++questionsIndex + "}"); // Loads next question.
 				for (int i = 0; i <= 6; i++) {
 					loadedStrings[questionsIndex][i] = result.getString(i + 1);
 					System.out.print("[" + i + "]");
-				}
-			}
-			for (int i = 0; i < GameSetUpController.gameLength; i++) { // Print loaded questions
-				System.out.print("\nLoaded data #" + (i + 1) + ": ");
-				for (int j = 0; j <= 6; j++) { // Print stored data for each question
-					if (j > 0) {
-						System.out.print(" | ");
+					if (i == 6) {
+						System.out.println("");
 					}
-					System.out.print(loadedStrings[i][j]);
-				}
-			}
-			for (int i = 0; i < GameSetUpController.gameLength; i++) {
-				correctAnswers[i] = loadedStrings[i][1];
-			}
-			System.out.println("\nStored correct answers for all questions.");
-
-			Collections.shuffle(Arrays.asList(loadedStrings)); // Randomizes answer labels
-
-			for (int i = 0; i < GameSetUpController.gameLength; i++) { // Print loaded questions
-				System.out.print("\nLoaded data #" + (i + 1) + ": ");
-				for (int j = 0; j <= 6; j++) { // Print stored data for each question
-					if (j > 0) {
-						System.out.print(" | ");
-					}
-					System.out.print(loadedStrings[i][j]);
 				}
 			}
 		} catch (SQLException e) {
@@ -333,6 +310,42 @@ public class QuestionController extends Trivia implements Initializable {
 			dbm.closeConnection();
 			result = null;
 			queryText = "";
+		}
+		// Print loaded questions.
+		for (int i = 0; i < GameSetUpController.gameLength; i++) {
+			System.out.print("\nLoaded data #" + (i + 1) + ": ");
+			for (int j = 0; j <= 6; j++) { // Print stored data for each question.
+				if (j > 0) {
+					System.out.print(" | ");
+				}
+				System.out.print(loadedStrings[i][j]);
+			}
+		}
+		// Store all correct answers.
+		for (int i = 0; i < GameSetUpController.gameLength; i++) {
+			correctAnswers[i] = loadedStrings[i][1];
+		}
+		System.out.print("\nStored correct answers for all questions.");
+		// Randomize answers order for every question.
+		for (int i = 0; i < loadedStrings.length; i++) {
+			String[] temp = new String[4];
+			System.out.print("\nQuestion " + (i + 1) + " prior to randomization: ");
+			for (int j = 1; j < 5; j++) {
+				if (j > 1) {
+					System.out.print(" | ");
+				}
+				System.out.print(loadedStrings[i][j]);
+				temp[j - 1] = loadedStrings[i][j];
+			}
+			Collections.shuffle(Arrays.asList(temp));
+			System.out.print("\nQuestion " + (i + 1) + " after randomization: ");
+			for (int j = 0; j < 4; j++) {
+				loadedStrings[i][j + 1] = temp[j];
+				if (j > 0) {
+					System.out.print(" | ");
+				}
+				System.out.print(loadedStrings[i][j + 1]);
+			}
 		}
 
 		if (GameSetUpController.timerHolder) { // Timer enabled
@@ -360,7 +373,8 @@ public class QuestionController extends Trivia implements Initializable {
 	 * @param nextQuestion
 	 */
 	private void nextQuestion(ActionEvent event, Boolean nextQuestion) {
-		System.out.println("User hit next or previous question button.");
+		String temp = nextQuestion ? "next" : "previous";
+		System.out.println("User hit " + temp + "QuestionButton.");
 		remainingTimerDuration.set(questionNumber - 1, parseInt(timer.getText()));
 		for (int i = 0; i < GameSetUpController.gameLength; i++) {
 			System.out.println("Time remaining for question " + (i + 1) + ": "
@@ -377,8 +391,11 @@ public class QuestionController extends Trivia implements Initializable {
 
 		if (nextQuestion) { // nextQuestionButton is pressed
 			if (questionNumber + 1 > GameSetUpController.gameLength) { // There is no next Q.
-				mainMenu.fire(); // See Initialize: stops timeline and triggers stopQuiz().
-				// --> go to ScoreOverview
+				timeline.stop();
+				for (int i = 0; i < chosenAnswers.length; i++) { // Print chosen answers.
+					System.out.println("Answer to question " + i + ": " + chosenAnswers[i][1]);
+				}
+				loadView(event); // --> go to ScoreOverview
 			} else {
 				questionNumber++;
 				previousQuestionButton.setDisable(false);
@@ -453,9 +470,6 @@ public class QuestionController extends Trivia implements Initializable {
 				+ " de quiz wilt stoppen?", "De antwoorden worden niet opgeslagen."
 				+ "\nDit brengt u terug naar het hoofdmenu.", StageStyle.UNDECORATED)) {
 			// TO DO: WIPE SAVED ANSWERS
-			for (int i = 0; i < chosenAnswers.length; i++) {
-				System.out.println("Answer to question " + i + ": " + chosenAnswers[i][1]);
-			}
 			timeline.stop();
 			loadView(event);
 		} else { // Player cancels the method, if timer's enabled, continue countdown

@@ -28,8 +28,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import trivia.Trivia;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 
 /**
  * FXML Controller class
@@ -37,31 +37,25 @@ import trivia.Trivia;
  * @author Team Silent Coders
  * @version 1.0
  */
-public class AdminMenuController extends Trivia implements Initializable {
+public class HighScoreController implements Initializable {
 
 	@FXML
-	Button addQuestion;
-
+	private TableView<?> listTableView;
 	@FXML
-	Button manageQuestions;
-
+	private TableColumn<?, ?> listTableViewName;
 	@FXML
-	Button defaultSettings;
-
+	private TableColumn<?, ?> listTableViewAddress;
 	@FXML
-	Button mainMenu;
+	private TableColumn<?, ?> listTableViewPhone;
+	@FXML
+	private TableColumn<?, ?> listTableViewEmail;
 
 	/**
 	 * Initializes the controller class.
-	 *
-	 * @param url
-	 * @param rb
 	 */
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		addQuestion.setOnAction(this::loadView);
-		manageQuestions.setOnAction(this::loadView);
-		defaultSettings.setOnAction(this::loadView);
-		mainMenu.setOnAction(this::loadView);
+		// TODO
 	}
+
 }

@@ -43,8 +43,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
@@ -62,28 +60,40 @@ import trivia.connectivity.DbManager;
  */
 public class ManageQuestionsController extends Trivia implements Initializable {
 
+	@FXML
 	ComboBox selectQuestion;
 
+	@FXML
 	TextField editQuestionText;
 
+	@FXML
 	TextField editCorrectAnswer;
 
+	@FXML
 	TextField editIncorrectAnswer1;
 
+	@FXML
 	TextField editIncorrectAnswer2;
 
+	@FXML
 	TextField editIncorrectAnswer3;
 
+	@FXML
 	ToggleGroup difficultyGroup;
 
+	@FXML
 	ToggleButton difficultyEasy;
 
+	@FXML
 	ToggleButton difficultyHard;
 
+	@FXML
 	Button adminMenu;
 
+	@FXML
 	Button deleteQuestionButton;
 
+	@FXML
 	Button editQuestionButton;
 
 	private final DbManager dbm = new DbManager();
@@ -92,16 +102,6 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 			difficultySetter = "";
 	private int currentQuestion = 0;
 	private List<TextField> answerFields;
-    @FXML
-    private TableView<?> listTableView;
-    @FXML
-    private TableColumn<?, ?> listTableViewName;
-    @FXML
-    private TableColumn<?, ?> listTableViewAddress;
-    @FXML
-    private TableColumn<?, ?> listTableViewPhone;
-    @FXML
-    private TableColumn<?, ?> listTableViewEmail;
 
 	/**
 	 * Initializes the controller class.
