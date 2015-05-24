@@ -25,15 +25,25 @@
 package trivia.controllers;
 
 import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
-import javafx.event.Event;
+import java.util.prefs.BackingStoreException;
+import java.util.prefs.PreferenceChangeEvent;
+import java.util.prefs.PreferenceChangeListener;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
+import static sun.font.FontManagerNativeLibrary.load;
 import trivia.Trivia;
+import trivia.connectivity.DbManager;
 
 /**
  * FXML Controller class
@@ -44,64 +54,72 @@ import trivia.Trivia;
 public class DefaultSettingsController extends Trivia implements Initializable {
 
 	@FXML
-	public ToggleButton difficultyHard;
+	private ToggleGroup difficultyGroup;
 
 	@FXML
-	public ToggleButton typeTf;
+	private ToggleGroup typeGroup;
 
 	@FXML
-	public CheckBox lengthModifiability;
+	private ToggleGroup lengthGroup;
 
 	@FXML
-	public ToggleGroup typeGroup;
+	private ToggleGroup timerGroup;
 
 	@FXML
-	private Button mainMenu;
+	private ToggleButton difficultyMixedButton;
 
 	@FXML
-	public ToggleGroup lengthGroup;
+	private ToggleButton difficultyHardButton;
 
 	@FXML
-	public ToggleButton shortLength;
+	private ToggleButton difficultyEasyButton;
 
 	@FXML
-	public ToggleGroup difficultyGroup;
+	private ToggleButton typeMixedButton;
+
+	@FXML
+	private ToggleButton typeTfButton;
+
+	@FXML
+	private ToggleButton typeMcButton;
+
+	@FXML
+	private ToggleButton shortLengthButton;
+
+	@FXML
+	private ToggleButton mediumLengthButton;
+
+	@FXML
+	private ToggleButton longLengthButton;
+
+	@FXML
+	private ToggleButton timerToggle;
+
+	@FXML
+	private ToggleButton timerToggleNo;
+
+	@FXML
+	private CheckBox difficultyModifiability;
+
+	@FXML
+	private CheckBox lengthModifiability;
+
+	@FXML
+	private CheckBox typeModifiability;
+
+	@FXML
+	private CheckBox timerModifiability;
+
+	@FXML
+	private Button adminMenu;
 
 	@FXML
 	private Button saveSettings;
 
-	@FXML
-	public ToggleGroup timerGroup;
-
-	@FXML
-	public CheckBox difficultyModifiability;
-
-	@FXML
-	public ToggleButton typeMixed;
-
-	@FXML
-	public CheckBox timerModifiability;
-
-	@FXML
-	public ToggleButton mediumLength;
-
-	@FXML
-	public ToggleButton difficultyEasy;
-
-	@FXML
-	public CheckBox typeModifiability;
-
-	@FXML
-	public ToggleButton longLength;
-
-	@FXML
-	public ToggleButton timerToggle;
-
-	@FXML
-	public ToggleButton difficultyMixed;
-
-	@FXML
-	public ToggleButton typeMc;
+	// Object to call connection
+	private final DbManager dbm = new DbManager();
+	static boolean difficultyIsMixed = true, difficultyIsEasy = true;
+	private List<ToggleGroup> groupsList;
 
 	/**
 	 * Initializes the controller class.
@@ -111,11 +129,199 @@ public class DefaultSettingsController extends Trivia implements Initializable {
 	 */
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		mainMenu.setOnAction(this::loadView);
-		saveSettings.setOnAction(this::saveSettings);
+		adminMenu.setOnAction(this::loadView);
+		saveSettings.setOnAction(this::setSettings);
+		getSettings();
+
+		// Can't unselect buttons: one is selected at all times.
+		groupsList = Arrays.asList(difficultyGroup, typeGroup, lengthGroup, timerGroup);
+		for (ToggleGroup tg : groupsList) {
+			tg.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+				@Override
+				public void changed(ObservableValue<? extends Toggle> ov,
+						Toggle toggle, Toggle new_toggle) {
+					if (new_toggle == null) {
+						toggle.setSelected(true);
+
+					}
+				}
+			});
+		}
 	}
 
-	private void saveSettings(Event event) {
+	/**
+	 * This precious makes sure the last saved settings are loaded.
+	 */
+	private void getSettings() {
+		System.out.println("Loading default settings.");
 
+		loadSettings();
+
+		System.out.println("WOWOWOWOW: " + prefs.get(difficultyHolder, "wut"));
+
+		for (String s : varHolder) {
+			switch (s) {
+				case "difficultyMixed":
+					System.out.println("Default difficulty setting: mixed.");
+					difficultyMixedButton.setSelected(true);
+					break;
+				case "difficultyEasy":
+					System.out.println("Default difficulty setting: easy.");
+					difficultyEasyButton.setSelected(true);
+					break;
+				case "difficultyHard":
+					System.out.println("Default difficulty setting: hard.");
+					difficultyHardButton.setSelected(true);
+					break;
+				case "typeMixed":
+					System.out.println("Default type setting: mixed.");
+					typeMixedButton.setSelected(true);
+					break;
+				case "typeTf":
+					System.out.println("Default type setting: true or false.");
+					typeTfButton.setSelected(true);
+					break;
+				case "typeMc":
+					System.out.println("Default type setting: multiple choice.");
+					typeMcButton.setSelected(true);
+					break;
+				case "shortLength":
+					System.out.println("Default length setting: short.");
+					shortLengthButton.setSelected(true);
+					shortLengthButton.setText(String.valueOf(Trivia.SHORT_LENGTH));
+					break;
+				case "mediumLength":
+					System.out.println("Default length setting: medium.");
+					mediumLengthButton.setSelected(true);
+					mediumLengthButton.setText(String.valueOf(Trivia.MEDIUM_LENGTH));
+					break;
+				case "longLength":
+					System.out.println("Default length setting: long.");
+					longLengthButton.setSelected(true);
+					longLengthButton.setText(String.valueOf(Trivia.LONG_LENGTH));
+					break;
+				default: // Nothing is selected.
+					System.err.println("Something is wrong with the (default) var prefs.");
+					break;
+			}
+		}
+		int i = 0;
+		for (Boolean b : boolHolder) {
+			switch (i) {
+				case 0:
+					System.out.println("Default timer setting: " + (b ? "on." : "off."));
+					timerToggle.setSelected(b);
+					timerToggleNo.setSelected(!b);
+					break;
+				case 1:
+					System.out.println("Default difficulty modifiability: " + (b ? "on." : "off."));
+					difficultyModifiability.setSelected(b);
+					break;
+				case 2:
+					System.out.println("Default length modifiability: " + (b ? "on." : "off."));
+					lengthModifiability.setSelected(b);
+					break;
+				case 3:
+					System.out.println("Default type modifiability: " + (b ? "on." : "off."));
+					typeModifiability.setSelected(b);
+					break;
+				case 4:
+					System.out.println("Default timer modifiability: " + (b ? "on." : "off."));
+					timerModifiability.setSelected(b);
+					break;
+				default:
+					System.err.println("Something is wrong with the (default) bool prefs.");
+					break;
+			}
+			i++;
+		}
+	}
+
+	private void setSettings(ActionEvent event) {
+		System.out.println("Setting following default settings.");
+
+		System.out.print("New default difficulty setting: ");
+		prefs.remove(difficultyHolder);
+		if (difficultyMixedButton.isSelected()) {
+			prefs.put(difficultyHolder, "difficultyMixed");
+			System.out.println("Mixed.");
+		} else if (difficultyEasyButton.isSelected()) {
+			prefs.put(difficultyHolder, "difficultyEasy");
+			System.out.println("Easy.");
+		} else if (difficultyHardButton.isSelected()) {
+			prefs.put(difficultyHolder, "difficultyHard");
+			System.out.println("Hard.");
+		} else {
+			System.out.println("\nSomething went wrong when setting a new difficulty.");
+			return;
+		}
+		System.out.println("WOWOWOWOW: " + prefs.get(difficultyHolder, "wut"));
+
+		System.out.print("New default question type: ");
+		prefs.remove(typeHolder);
+		if (typeMixedButton.isSelected()) {
+			prefs.put(typeHolder, "typeMixed");
+			System.out.println("Mixed.");
+		} else if (typeTfButton.isSelected()) {
+			prefs.put(typeHolder, "typeTf");
+			System.out.println("short length.");
+		} else if (typeMcButton.isSelected()) {
+			prefs.put(typeHolder, "typeMc");
+			System.out.println("short length.");
+		} else {
+			System.out.println("\nSomething went wrong when setting a new type.");
+			return;
+		}
+
+		System.out.print("New default game length: ");
+		prefs.remove(lengthHolder);
+		if (shortLengthButton.isSelected()) {
+			prefs.put(lengthHolder, "shortLength");
+			System.out.println("short length.");
+		} else if (mediumLengthButton.isSelected()) {
+			prefs.put(lengthHolder, "mediumLength");
+			System.out.println("medium length.");
+		} else if (longLengthButton.isSelected()) {
+			prefs.put(lengthHolder, "longLength");
+			System.out.println("long length.");
+		} else {
+			System.out.println("\nSomething went wrong when setting a new length.");
+			return;
+		}
+
+		prefs.putBoolean(timerHolder, timerToggle.isSelected());
+		System.out.println("New default timer setting: "
+				+ (timerToggle.isSelected() ? "on." : "off."));
+		prefs.putBoolean(difficultyModifier, difficultyModifiability.isSelected());
+		System.out.println("New default difficulty modifiability: "
+				+ (difficultyModifiability.isSelected() ? "allowed." : "prohibited."));
+		prefs.putBoolean(lengthModifier, lengthModifiability.isSelected());
+		System.out.println("New default length modifiability: "
+				+ (lengthModifiability.isSelected() ? "allowed." : "prohibited."));
+		prefs.putBoolean(typeModifier, typeModifiability.isSelected());
+		System.out.println("New default type modifiability: "
+				+ (typeModifiability.isSelected() ? "allowed." : "prohibited."));
+		prefs.putBoolean(timerModifier, timerModifiability.isSelected());
+		System.out.println("New default timer modifiability: "
+				+ (timerModifiability.isSelected() ? "allowed." : "prohibited."));
+
+		try {
+			prefs.flush();
+		} catch (BackingStoreException e) {
+			System.out.println("Error! Unable to flush after putting: "
+					+ e.getLocalizedMessage());
+		}
+		loadView(event);
+	}
+
+	private static class PreferenceChangeListenerImpl implements PreferenceChangeListener {
+
+		public PreferenceChangeListenerImpl() {
+		}
+
+		@Override
+		public void preferenceChange(PreferenceChangeEvent evt) {
+			load();
+		}
 	}
 }

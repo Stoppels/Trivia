@@ -18,7 +18,7 @@
                 <ColumnConstraints hgrow="ALWAYS" minWidth="150.0" />
                 <ColumnConstraints hgrow="ALWAYS" minWidth="150.0" />
                 <ColumnConstraints hgrow="ALWAYS" minWidth="30.0" />
-                <ColumnConstraints />
+            <ColumnConstraints />
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="ALWAYS" />
@@ -46,7 +46,7 @@
                         <Insets />
                     </GridPane.margin>
                 </Label>
-                <ToggleButton fx:id="difficultyMixed" mnemonicParsing="false" prefWidth="140.0" selected="true" text="Gemengd" GridPane.columnIndex="3" GridPane.columnSpan="5" GridPane.rowIndex="3">
+                <ToggleButton fx:id="difficultyMixedButton" mnemonicParsing="false" prefWidth="140.0" text="Gemengd" GridPane.columnIndex="3" GridPane.columnSpan="5" GridPane.rowIndex="3">
                     <toggleGroup>
                         <ToggleGroup fx:id="difficultyGroup" />
                     </toggleGroup>
@@ -54,12 +54,12 @@
                         <Font size="24.0" />
                     </font>
                 </ToggleButton>
-                <ToggleButton fx:id="difficultyEasy" mnemonicParsing="false" prefWidth="140.0" text="Makkelijk" toggleGroup="$difficultyGroup" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+                <ToggleButton fx:id="difficultyEasyButton" mnemonicParsing="false" prefWidth="140.0" text="Makkelijk" toggleGroup="$difficultyGroup" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                     <font>
                         <Font size="24.0" />
                     </font>
                 </ToggleButton>
-                <ToggleButton fx:id="difficultyHard" mnemonicParsing="false" prefWidth="140.0" text="Moeilijk" toggleGroup="$difficultyGroup" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+                <ToggleButton fx:id="difficultyHardButton" mnemonicParsing="false" prefWidth="140.0" text="Moeilijk" toggleGroup="$difficultyGroup" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                     <font>
                         <Font size="24.0" />
                     </font>
@@ -72,7 +72,7 @@
                         <Font size="24.0" />
                     </font>
                 </Label>
-                <ToggleButton fx:id="typeMixed" mnemonicParsing="false" prefWidth="140.0" selected="true" text="Gemengd" GridPane.columnIndex="3" GridPane.columnSpan="5" GridPane.rowIndex="4">
+                <ToggleButton fx:id="typeMixedButton" mnemonicParsing="false" prefWidth="140.0" text="Gemengd" GridPane.columnIndex="3" GridPane.columnSpan="5" GridPane.rowIndex="4">
                     <toggleGroup>
                         <ToggleGroup fx:id="typeGroup" />
                     </toggleGroup>
@@ -80,12 +80,12 @@
                         <Font size="24.0" />
                     </font>
                 </ToggleButton>
-                <ToggleButton fx:id="typeTf" mnemonicParsing="false" prefWidth="140.0" text="Waar/vals" toggleGroup="$typeGroup" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+                <ToggleButton fx:id="typeTfButton" mnemonicParsing="false" prefWidth="140.0" text="Waar/vals" toggleGroup="$typeGroup" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="4">
                     <font>
                         <Font size="24.0" />
                     </font>
                 </ToggleButton>
-                <ToggleButton fx:id="typeMc" mnemonicParsing="false" prefWidth="140.0" text="4 keuzes" toggleGroup="$typeGroup" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+                <ToggleButton fx:id="typeMcButton" mnemonicParsing="false" prefWidth="140.0" text="4 keuzes" toggleGroup="$typeGroup" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
                     <font>
                         <Font size="24.0" />
                     </font>
@@ -95,7 +95,7 @@
                         <Font size="24.0" />
                     </font>
                 </Label>
-                <ToggleButton fx:id="shortLength" mnemonicParsing="false" prefWidth="140.0" selected="true" text="15" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="5">
+                <ToggleButton fx:id="shortLengthButton" mnemonicParsing="false" prefWidth="140.0" text="15" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="5">
                     <toggleGroup>
                         <ToggleGroup fx:id="lengthGroup" />
                     </toggleGroup>
@@ -103,7 +103,7 @@
                         <Font size="24.0" />
                     </font>
                 </ToggleButton>
-                <ToggleButton fx:id="mediumLength" mnemonicParsing="false" prefWidth="140.0" text="30" toggleGroup="$lengthGroup" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="5">
+                <ToggleButton fx:id="mediumLengthButton" mnemonicParsing="false" prefWidth="140.0" text="30" toggleGroup="$lengthGroup" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="5">
                     <font>
                         <Font size="24.0" />
                     </font>
@@ -111,7 +111,7 @@
                         <Insets />
                     </GridPane.margin>
                 </ToggleButton>
-                <ToggleButton fx:id="longLength" mnemonicParsing="false" prefWidth="140.0" text="45" toggleGroup="$lengthGroup" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
+                <ToggleButton fx:id="longLengthButton" mnemonicParsing="false" prefWidth="140.0" text="45" toggleGroup="$lengthGroup" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
                     <font>
                         <Font size="24.0" />
                     </font>
@@ -124,7 +124,7 @@
                         <Insets />
                     </GridPane.margin>
                 </Label>
-                <ToggleButton fx:id="timerToggle" mnemonicParsing="false" prefWidth="140.0" selected="true" text="Ja" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="6">
+                <ToggleButton fx:id="timerToggle" mnemonicParsing="false" prefWidth="140.0" text="Ja" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="6">
                     <font>
                         <Font size="24.0" />
                     </font>
@@ -132,7 +132,7 @@
                         <ToggleGroup fx:id="timerGroup" />
                     </toggleGroup>
                 </ToggleButton>
-                <ToggleButton layoutX="394.0" layoutY="382.0" mnemonicParsing="false" prefWidth="140.0" text="Nee" toggleGroup="$timerGroup" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+                <ToggleButton fx:id="timerToggleNo" layoutX="394.0" layoutY="382.0" mnemonicParsing="false" prefWidth="140.0" text="Nee" toggleGroup="$timerGroup" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="6">
                     <font>
                         <Font size="24.0" />
                     </font>

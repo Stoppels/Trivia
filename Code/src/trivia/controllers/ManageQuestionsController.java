@@ -98,8 +98,7 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 
 	private final DbManager dbm = new DbManager();
 	private ResultSet result = null;
-	private String queryText = "",
-			difficultySetter = "";
+	private String queryText = "", difficultySetter = "";
 	private int currentQuestion = 0;
 	private List<TextField> answerFields;
 
@@ -180,7 +179,7 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 				editQuestion();
 			}
 		} catch (NoSuchElementException e) {
-			// No need to handle exception
+			// No need to handle exception. Alert already does.
 		}
 	}
 
@@ -188,9 +187,9 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 	 * This method handles deleting questions from the database.
 	 */
 	private void deleteQuestion() {
+		dbm.openConnection();
 		try {
-			// If no question selected: there is no question selected to delete Error Dialog
-			dbm.openConnection();
+			// If no question selected: there is no question selected to delete Error Dialog.
 			String countRows = "SELECT COUNT(*) FROM question";
 			result = dbm.doQuery(countRows);
 
@@ -301,8 +300,6 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 				+ "Changing Incorrect Answer 3 to: " + incorrectAnswer3 + "\n"
 				+ "Changing question difficulty to: " + difficultySetter);
 
-		dbm.openConnection();
-
 		System.out.println("QuestionId: " + currentQuestion);
 		String[] newEntries = new String[]{"UPDATE question SET Question = '" + question
 			+ "', Difficulty = '" + difficultySetter + "' WHERE QuestionId = "
@@ -315,6 +312,7 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 			"UPDATE wronganswer set WrongAnswer = '" + incorrectAnswer2
 			+ "' WHERE QuestionId = " + currentQuestion + " AND WrongAnswerId = 3"};
 
+		dbm.openConnection();
 		for (String s : newEntries) { // Update all entries.
 			dbm.executeUpdate(s);
 		}

@@ -63,5 +63,6 @@ public class AdminMenuController extends Trivia implements Initializable {
 		manageQuestions.setOnAction(this::loadView);
 		defaultSettings.setOnAction(this::loadView);
 		mainMenu.setOnAction(this::loadView);
+		loadSettings();
 	}
 }

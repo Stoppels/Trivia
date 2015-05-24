@@ -24,17 +24,20 @@
  */
 package trivia.controllers;
 
-import static java.lang.Integer.parseInt;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
+import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import trivia.Trivia;
 
 /**
@@ -46,48 +49,59 @@ import trivia.Trivia;
 public class GameSetUpController extends Trivia implements Initializable {
 
 	@FXML
-	ToggleButton shortLength;
+	public ToggleGroup difficultyGroup;
 
 	@FXML
-	ToggleButton mediumLength;
+	public ToggleGroup typeGroup;
 
 	@FXML
-	ToggleButton longLength;
+	public ToggleGroup lengthGroup;
 
 	@FXML
-	ToggleButton difficultyEasy;
+	public ToggleGroup timerGroup;
 
 	@FXML
-	ToggleButton difficultyHard;
+	private ToggleButton shortLengthButton;
 
 	@FXML
-	ToggleButton difficultyMixed;
+	private ToggleButton mediumLengthButton;
 
 	@FXML
-	ToggleButton typeTf;
+	private ToggleButton longLengthButton;
 
 	@FXML
-	ToggleButton typeMc;
+	private ToggleButton difficultyEasyButton;
 
 	@FXML
-	ToggleButton typeMixed;
+	private ToggleButton difficultyHardButton;
 
 	@FXML
-	ToggleButton timerToggle;
+	private ToggleButton difficultyMixedButton;
 
 	@FXML
-	Button mainMenu;
+	private ToggleButton typeTfButton;
 
 	@FXML
-	Button startGame;
+	private ToggleButton typeMcButton;
 
-	private List<ToggleButton> lengthButtons;
-	static int gameLength = 15;
-	public static boolean difficultyIsMixed = true,
-			difficultyIsEasy = true;
-	static boolean tfHolder = true,
-			mcHolder = true,
-			timerHolder = true;
+	@FXML
+	private ToggleButton typeMixedButton;
+
+	@FXML
+	private ToggleButton timerToggle;
+
+	@FXML
+	private ToggleButton timerToggleNo;
+
+	@FXML
+	private Button mainMenu;
+
+	@FXML
+	private Button startGame;
+
+	private List<ToggleGroup> groupsList;
+	static boolean difficultyIsMixed = true, difficultyIsEasy = true;
+	static boolean tfSetter = true, mcSetter = true;
 
 	/**
 	 * Initializes the controller class.
@@ -97,66 +111,176 @@ public class GameSetUpController extends Trivia implements Initializable {
 	 */
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
+
 		mainMenu.setOnAction(this::loadView);
 		startGame.setOnAction(this::startGame);
 
-		// Perform action for all items in list
-		lengthButtons = Arrays.asList(shortLength, mediumLength, longLength);
-		for (ToggleButton a : lengthButtons) {
-			a.setOnAction(this::handleLengthSelection);
+		// Can't unselect entire ToggleGroup: keep one selected at all times.
+		groupsList = Arrays.asList(difficultyGroup, typeGroup, lengthGroup, timerGroup);
+		for (ToggleGroup tg : groupsList) {
+			tg.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+				@Override
+				public void changed(ObservableValue<? extends Toggle> ov,
+						Toggle toggle, Toggle new_toggle) {
+					if (new_toggle == null) {
+						toggle.setSelected(true);
+
+					}
+				}
+			});
+		}
+
+		getSettings();
+	}
+
+	/**
+	 * This precious makes sure the last saved settings are loaded.
+	 */
+	private void getSettings() {
+		System.out.println("Loading default settings.");
+
+		loadSettings();
+
+//		for (String s : varHolder) {
+//			switch (s) {
+//				case "difficultyMixed":
+//					System.out.println("Default difficulty setting: mixed.");
+//					difficultyMixedButton.setSelected(true);
+//					break;
+//				case "difficultyEasy":
+//					System.out.println("Default difficulty setting: easy.");
+//					difficultyEasyButton.setSelected(true);
+//					break;
+//				case "difficultyHard":
+//					System.out.println("Default difficulty setting: hard.");
+//					difficultyHardButton.setSelected(true);
+//					break;
+//				case "typeMixed":
+//					System.out.println("Default type setting: mixed.");
+//					typeMixedButton.setSelected(true);
+//					break;
+//				case "typeTf":
+//					System.out.println("Default type setting: true or false.");
+//					typeTfButton.setSelected(true);
+//					break;
+//				case "typeMc":
+//					System.out.println("Default type setting: multiple choice.");
+//					typeMcButton.setSelected(true);
+//					break;
+//				case "shortLength":
+//					System.out.println("Default length setting: short.");
+//					shortLengthButton.setSelected(true);
+//					shortLengthButton.setText(String.valueOf(gameLength = SHORT_LENGTH));
+//					break;
+//				case "mediumLength":
+//					System.out.println("Default length setting: medium.");
+//					mediumLengthButton.setSelected(true);
+//					mediumLengthButton.setText(String.valueOf(gameLength = MEDIUM_LENGTH));
+//					break;
+//				case "longLength":
+//					System.out.println("Default length setting: long.");
+//					longLengthButton.setSelected(true);
+//					longLengthButton.setText(String.valueOf(gameLength = LONG_LENGTH));
+//					break;
+//				default: // Nothing is selected.
+//					System.err.println("Something is wrong with the (default) var prefs.");
+//					break;
+//			}
+//		}
+
+		int i = 0;
+		for (Boolean b : boolHolder) {
+			switch (i) {
+				case 0:
+					System.out.println("Default timer setting: " + (b ? "on." : "off."));
+					timerToggle.setSelected(b);
+					break;
+				case 1:
+					System.out.println("Default difficulty modifiability: " + (b ? "on." : "off."));
+					difficultyMixedButton.setDisable(!b);
+					difficultyEasyButton.setDisable(!b);
+					difficultyHardButton.setDisable(!b);
+					break;
+				case 2:
+					System.out.println("Default length modifiability: " + (b ? "on." : "off."));
+					shortLengthButton.setDisable(!b);
+					mediumLengthButton.setDisable(!b);
+					longLengthButton.setDisable(!b);
+					break;
+				case 3:
+					System.out.println("Default type modifiability: " + (b ? "on." : "off."));
+					typeMixedButton.setDisable(!b);
+					typeTfButton.setDisable(!b);
+					typeMcButton.setDisable(!b);
+					break;
+				case 4:
+					System.out.println("Default timer modifiability: " + (b ? "on." : "off."));
+					timerToggle.setDisable(!b);
+					timerToggleNo.setDisable(!b);
+					break;
+				default:
+					System.err.println("Something is wrong with the (default) bool prefs.");
+					break;
+			}
+			i++;
 		}
 	}
 
 	private void handleLengthSelection(ActionEvent event) {
 		String selectedButton = ((Control) event.getSource()).getId();
 		switch (selectedButton) {
-			case "shortLength":
-				shortLength.setSelected(true);
-				gameLength = parseInt(shortLength.getText());
+			case "shortLengthButton":
+				shortLengthButton.setSelected(true);
 				break;
-			case "mediumLength":
-				mediumLength.setSelected(true);
-				gameLength = parseInt(mediumLength.getText());
+			case "mediumLengthButton":
+				mediumLengthButton.setSelected(true);
 				break;
-			case "longLength":
-				longLength.setSelected(true);
-				gameLength = parseInt(longLength.getText());
+			case "longLengthButton":
+				longLengthButton.setSelected(true);
 				break;
-			default:
-				gameLength = parseInt(shortLength.getText());
 		}
 	}
 
 	private void startGame(ActionEvent event) {
-		System.out.print("Difficulty setting: ");
-		if (difficultyMixed.isSelected()) {
+		System.out.print("Chosen difficulty setting: ");
+		if (difficultyMixedButton.isSelected()) {
 			System.out.println("Mixed");
-			difficultyIsMixed = true;
-		} else if (difficultyEasy.isSelected()) {
-			System.out.println("Easy");
-			difficultyIsMixed = false;
-			difficultyIsEasy = true;
-		} else if (difficultyHard.isSelected()) {
-			System.out.println("Hard");
-			difficultyIsMixed = false;
 			difficultyIsEasy = false;
+			difficultyIsMixed = true;
+		} else if (difficultyEasyButton.isSelected()) {
+			System.out.println("Easy");
+			difficultyIsEasy = true;
+			difficultyIsMixed = false;
+		} else if (difficultyHardButton.isSelected()) {
+			System.out.println("Hard");
+			difficultyIsEasy = false;
+			difficultyIsMixed = false;
 		}
 
-		System.out.print("Question type: ");
-		if (typeMixed.isSelected()) {
+		System.out.print("Chosen question type: ");
+		if (typeMixedButton.isSelected()) {
 			System.out.println("Mixed");
-		} else if (typeTf.isSelected()) {
+		} else if (typeTfButton.isSelected()) {
 			System.out.println("True/false");
-		} else if (typeMc.isSelected()) {
+		} else if (typeMcButton.isSelected()) {
 			System.out.println("Four choices");
+		}
+
+		System.out.print("Chosen game length: ");
+		if (shortLengthButton.isSelected()) {
+			System.out.println(gameLength = SHORT_LENGTH);
+		} else if (mediumLengthButton.isSelected()) {
+			System.out.println(gameLength = MEDIUM_LENGTH);
+		} else if (longLengthButton.isSelected()) {
+			System.out.println(gameLength = LONG_LENGTH);
 		}
 
 		System.out.print("Timer is: ");
 		if (timerToggle.isSelected()) {
-			timerHolder = true;
+			timerSetting = true;
 			System.out.println("Enabled");
 		} else {
-			timerHolder = false;
+			timerSetting = false;
 			System.out.println("Disabled");
 		}
 		loadView(event);

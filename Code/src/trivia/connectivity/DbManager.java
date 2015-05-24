@@ -72,6 +72,8 @@ public class DbManager {
 			System.out.println("Database connection terminated.");
 		} catch (Exception e) {
 			System.err.println(e.getLocalizedMessage());
+		} catch (Throwable e) {
+			System.err.println("Throwable exception: " + e.getLocalizedMessage());
 		}
 	}
 
@@ -91,6 +93,8 @@ public class DbManager {
 			AddQuestionController.duplicateError = true;
 		} catch (SQLException e) {
 			System.err.println(SQL_EXCEPTION + e.getLocalizedMessage());
+		} catch (Throwable e) {
+			System.err.println("Throwable exception: " + e.getLocalizedMessage());
 		}
 	}
 
@@ -107,6 +111,8 @@ public class DbManager {
 			result = statement.executeQuery(query);
 		} catch (SQLException | NullPointerException e) {
 			System.err.println(SQL_EXCEPTION + e.getLocalizedMessage());
+		} catch (Throwable e) {
+			System.err.println("Throwable exception: " + e.getLocalizedMessage());
 		}
 		return result;
 	}

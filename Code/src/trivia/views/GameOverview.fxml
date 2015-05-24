@@ -10,7 +10,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="trivia.controllers.GameOverview">
     <children>
-        <GridPane layoutY="-3.0" minHeight="600.0" minWidth="800.0" stylesheets="@../Documents/NetBeansProjects/AMS009/Trivia/Code/src/resources/stylesheets/Styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <GridPane layoutY="-3.0" minHeight="600.0" minWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="197.0" minWidth="10.0" prefWidth="91.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="271.0" minWidth="0.0" prefWidth="240.0" />
@@ -30,7 +30,7 @@
                         <Font size="41.0" />
                     </font>
                 </Label>
-                <Label fx:id="LabelKlaar" prefHeight="106.0" prefWidth="618.0" text="               Quiz klaar" textAlignment="CENTER" GridPane.columnSpan="2147483647">
+                <Label fx:id="LabelKlaar" prefHeight="106.0" prefWidth="618.0" styleClass="viewTitle" text="               Quiz klaar" textAlignment="CENTER" GridPane.columnSpan="2147483647">
                     <font>
                         <Font size="65.0" />
                     </font>

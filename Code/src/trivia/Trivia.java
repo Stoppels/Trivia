@@ -26,9 +26,11 @@ package trivia;
 
 import java.io.IOException;
 import java.util.Optional;
+import java.util.prefs.Preferences;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.LoadException;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -47,6 +49,24 @@ import javafx.stage.StageStyle;
  */
 public class Trivia extends Application {
 
+	// Preference holders.
+	public static Preferences prefs;
+	public static String difficultyHolder = "", typeHolder = "", lengthHolder = "", timerHolder = "",
+			difficultyModifier = "", lengthModifier = "", typeModifier = "", timerModifier = "";
+	public static String[] varHolder = new String[3];
+	public static Boolean[] boolHolder = new Boolean[5];
+
+	// Length of time for each question
+	public static final Integer START_TIME = 30;
+	// Default settings
+	public static final Boolean TIMER_DEFAULT = true;
+	public static Boolean timerSetting = TIMER_DEFAULT;
+	public static final Integer SHORT_LENGTH = 15;
+	public static final Integer MEDIUM_LENGTH = 30;
+	public static final Integer LONG_LENGTH = 45;
+	public static final Integer DEFAULT_LENGTH = SHORT_LENGTH;
+	public static Integer gameLength = DEFAULT_LENGTH;
+
 	@Override
 	public void start(Stage stage) {
 		//System.out.close(); // <- Uncomment on product shipment to shush console debug messages.
@@ -63,6 +83,9 @@ public class Trivia extends Application {
 			stage.setFullScreenExitHint("");
 			//stage.setFullScreen(true);
 			stage.show();
+
+			prefs = Preferences.userRoot().node(this.getClass().getName());
+//			loadSettings();
 		} catch (IOException e) {
 			System.err.println("Error: " + e.getLocalizedMessage());
 		}
@@ -128,9 +151,12 @@ public class Trivia extends Application {
 			case "defaultSettings":
 				viewName = "DefaultSettings";
 				break;
-//			case "nameEntry":
-//				viewName = "NameEntry";
-//				break;
+			case "nameEntry":
+				viewName = "NameEntry";
+				break;
+			case "saveSettings":
+				viewName = "AdminMenu";
+				break;
 			default:
 				System.err.println("View " + viewName + " not found.");
 				error = true;
@@ -153,11 +179,36 @@ public class Trivia extends Application {
 				stage.setScene(scene);
 				//stage.setFullScreen(true);
 				stage.show();
+			} catch (LoadException e) {
+				System.out.print("LoadException with file: ");
+				e.printStackTrace();
 			} catch (IOException e) {
-				System.err.println(e.getLocalizedMessage());
+				System.out.print("Error (loadView): ");
 				e.printStackTrace();
 			}
 		}
+	}
+
+	/**
+	 * This precious makes sure the last saved settings are loaded.
+	 */
+	public static void loadSettings() {
+		System.out.println("Loading default settings.");
+
+		varHolder[0] = prefs.get(difficultyHolder, "difficultyMixed");
+		varHolder[1] = prefs.get(typeHolder, "typeMixed");
+		varHolder[2] = prefs.get(lengthHolder, "shortLength");
+		boolHolder[0] = prefs.getBoolean(timerHolder, true);
+		boolHolder[1] = prefs.getBoolean(difficultyModifier, true);
+		boolHolder[2] = prefs.getBoolean(lengthModifier, true);
+		boolHolder[3] = prefs.getBoolean(typeModifier, true);
+		boolHolder[4] = prefs.getBoolean(timerModifier, true);
+//		try {
+//			prefs.sync();
+//		} catch (BackingStoreException e) {
+//			System.out.println("Error! Unable to sync on creation of node: "
+//					+ e.getLocalizedMessage());
+//		}
 	}
 
 	/**
