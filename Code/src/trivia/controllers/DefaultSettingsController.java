@@ -29,8 +29,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.prefs.BackingStoreException;
-import java.util.prefs.PreferenceChangeEvent;
-import java.util.prefs.PreferenceChangeListener;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -41,7 +39,6 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
-import static sun.font.FontManagerNativeLibrary.load;
 import trivia.Trivia;
 import trivia.connectivity.DbManager;
 
@@ -306,22 +303,11 @@ public class DefaultSettingsController extends Trivia implements Initializable {
 				+ (timerModifiability.isSelected() ? "allowed." : "prohibited."));
 
 		try {
-			prefs.flush();
+			prefs.sync();
 		} catch (BackingStoreException e) {
-			System.out.println("Error! Unable to flush after putting: "
+			System.err.println("Error! Unable to sync after putting prefs: "
 					+ e.getLocalizedMessage());
 		}
 		loadView(event);
-	}
-
-	private static class PreferenceChangeListenerImpl implements PreferenceChangeListener {
-
-		public PreferenceChangeListenerImpl() {
-		}
-
-		@Override
-		public void preferenceChange(PreferenceChangeEvent evt) {
-			load();
-		}
 	}
 }
