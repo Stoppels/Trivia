@@ -197,12 +197,12 @@ public class Trivia extends Application {
 		System.out.println("Loading default settings.");
 
 		varHolder[0] = prefs.get(difficultyHolder, "difficultyMixed");
-		varHolder[1] = prefs.get(typeHolder, "typeMixed");
+		varHolder[1] = prefs.get(typeHolder, "typeMc");
 		varHolder[2] = prefs.get(lengthHolder, "shortLength");
 		boolHolder[0] = prefs.getBoolean(timerHolder, true);
-		boolHolder[1] = prefs.getBoolean(difficultyModifier, true);
-		boolHolder[2] = prefs.getBoolean(lengthModifier, true);
-		boolHolder[3] = prefs.getBoolean(typeModifier, true);
+		boolHolder[1] = prefs.getBoolean(difficultyModifier, false);
+		boolHolder[2] = prefs.getBoolean(lengthModifier, false);
+		boolHolder[3] = prefs.getBoolean(typeModifier, false);
 		boolHolder[4] = prefs.getBoolean(timerModifier, true);
 //		try {
 //			prefs.sync();
