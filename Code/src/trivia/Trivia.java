@@ -51,8 +51,9 @@ public class Trivia extends Application {
 
 	// Preference holders.
 	public static Preferences prefs;
-	public static String difficultyHolder = "", typeHolder = "", lengthHolder = "", timerHolder = "",
-			difficultyModifier = "", lengthModifier = "", typeModifier = "", timerModifier = "";
+	public static String difficultyHolder = "1", typeHolder = "2", lengthHolder = "3",
+			timerHolder = "4", difficultyModifier = "5", lengthModifier = "6",
+			typeModifier = "7", timerModifier = "8";
 	public static String[] varHolder = new String[3];
 	public static Boolean[] boolHolder = new Boolean[5];
 

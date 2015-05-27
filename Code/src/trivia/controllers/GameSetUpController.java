@@ -141,52 +141,52 @@ public class GameSetUpController extends Trivia implements Initializable {
 
 		loadSettings();
 
-//		for (String s : varHolder) {
-//			switch (s) {
-//				case "difficultyMixed":
-//					System.out.println("Default difficulty setting: mixed.");
-//					difficultyMixedButton.setSelected(true);
-//					break;
-//				case "difficultyEasy":
-//					System.out.println("Default difficulty setting: easy.");
-//					difficultyEasyButton.setSelected(true);
-//					break;
-//				case "difficultyHard":
-//					System.out.println("Default difficulty setting: hard.");
-//					difficultyHardButton.setSelected(true);
-//					break;
-//				case "typeMixed":
-//					System.out.println("Default type setting: mixed.");
-//					typeMixedButton.setSelected(true);
-//					break;
-//				case "typeTf":
-//					System.out.println("Default type setting: true or false.");
-//					typeTfButton.setSelected(true);
-//					break;
-//				case "typeMc":
-//					System.out.println("Default type setting: multiple choice.");
-//					typeMcButton.setSelected(true);
-//					break;
-//				case "shortLength":
-//					System.out.println("Default length setting: short.");
-//					shortLengthButton.setSelected(true);
-//					shortLengthButton.setText(String.valueOf(gameLength = SHORT_LENGTH));
-//					break;
-//				case "mediumLength":
-//					System.out.println("Default length setting: medium.");
-//					mediumLengthButton.setSelected(true);
-//					mediumLengthButton.setText(String.valueOf(gameLength = MEDIUM_LENGTH));
-//					break;
-//				case "longLength":
-//					System.out.println("Default length setting: long.");
-//					longLengthButton.setSelected(true);
-//					longLengthButton.setText(String.valueOf(gameLength = LONG_LENGTH));
-//					break;
-//				default: // Nothing is selected.
-//					System.err.println("Something is wrong with the (default) var prefs.");
-//					break;
-//			}
-//		}
+		for (String s : varHolder) {
+			switch (s) {
+				case "difficultyMixed":
+					System.out.println("Default difficulty setting: mixed.");
+					difficultyMixedButton.setSelected(true);
+					break;
+				case "difficultyEasy":
+					System.out.println("Default difficulty setting: easy.");
+					difficultyEasyButton.setSelected(true);
+					break;
+				case "difficultyHard":
+					System.out.println("Default difficulty setting: hard.");
+					difficultyHardButton.setSelected(true);
+					break;
+				case "typeMixed":
+					System.out.println("Default type setting: mixed.");
+					typeMixedButton.setSelected(true);
+					break;
+				case "typeTf":
+					System.out.println("Default type setting: true or false.");
+					typeTfButton.setSelected(true);
+					break;
+				case "typeMc":
+					System.out.println("Default type setting: multiple choice.");
+					typeMcButton.setSelected(true);
+					break;
+				case "shortLength":
+					System.out.println("Default length setting: short.");
+					shortLengthButton.setSelected(true);
+					shortLengthButton.setText(String.valueOf(gameLength = SHORT_LENGTH));
+					break;
+				case "mediumLength":
+					System.out.println("Default length setting: medium.");
+					mediumLengthButton.setSelected(true);
+					mediumLengthButton.setText(String.valueOf(gameLength = MEDIUM_LENGTH));
+					break;
+				case "longLength":
+					System.out.println("Default length setting: long.");
+					longLengthButton.setSelected(true);
+					longLengthButton.setText(String.valueOf(gameLength = LONG_LENGTH));
+					break;
+				default: // Nothing is selected.
+					System.err.println("Something is wrong with the (default) var prefs.");
+					break;
+			}
+		}
 
 		int i = 0;
 		for (Boolean b : boolHolder) {
@@ -194,6 +194,7 @@ public class GameSetUpController extends Trivia implements Initializable {
 				case 0:
 					System.out.println("Default timer setting: " + (b ? "on." : "off."));
 					timerToggle.setSelected(b);
+					timerToggleNo.setSelected(!b);
 					break;
 				case 1:
 					System.out.println("Default difficulty modifiability: " + (b ? "on." : "off."));
