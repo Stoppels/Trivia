@@ -25,7 +25,6 @@
 package trivia;
 
 import javafx.scene.image.Image;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.file.Path;
@@ -39,6 +38,7 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.LoadException;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -46,6 +46,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Control;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import static trivia.AppConfig.*;
@@ -80,28 +81,35 @@ public class Trivia extends Application {
 	public static PreparedStatement statement;
 	public static List<String> updateParameters;
 	public static Boolean duplicateError = false;
+	public static Stage stage = null;
+	public static Scene scene = null;
+	public static Rectangle2D screenBounds;
 
 	@Override
 	public void start(Stage stage) {
 //		streamSettings(); // Shushing out stream & saving err.
-		stage.getIcons().add(new Image("resources/images/logo.png")); // App icon.
 		try {
+			screenBounds = Screen.getPrimary().getVisualBounds();
+
+			Trivia.stage = stage;
+			Trivia.stage.getIcons().add(new Image("resources/images/logo.png")); // App icon.
 			Parent root = FXMLLoader.load(getClass().
 					getResource("/trivia/views/SplashScreen.fxml"));
-			Scene scene = new Scene(root);
 			root.setId("pane");
+			scene = new Scene(root);
 			scene.getStylesheets().addAll(this.getClass().
 					getResource("/resources/stylesheets/Styles.css").toExternalForm());
 
-			stage.setScene(scene);
-			stage.setTitle(APPLICATION_NAME);
-			stage.setMinHeight(MIN_HEIGHT);
-			stage.setMinWidth(MIN_WIDTH);
-			stage.setFullScreenExitHint("");
-//			stage.setMaximized(true);
+			Trivia.stage.setScene(scene);
+			Trivia.stage.setTitle(APPLICATION_NAME);
+			Trivia.stage.setMinHeight(MIN_HEIGHT);
+			Trivia.stage.setMinWidth(MIN_WIDTH);
 //			stage.setFullScreen(true);
-			stage.show();
-
+			Trivia.stage.setWidth(screenBounds.getWidth());
+			Trivia.stage.setHeight(screenBounds.getHeight());
+			Trivia.stage.initStyle(StageStyle.UNDECORATED);
+			Trivia.stage.setFullScreenExitHint("");
+			Trivia.stage.show();
 			prefs = Preferences.userRoot().node(this.getClass().getName());
 			setTime = Integer.parseInt(prefs.get(timerLength, START_TIME.toString()));
 		} catch (IOException e) {
@@ -208,16 +216,14 @@ public class Trivia extends Application {
 			try {
 				Parent root = FXMLLoader.load(getClass().getResource("/trivia/views/"
 						+ viewName + ".fxml"));
-				Scene scene = new Scene(root);
+//				stage.setFullScreen(true);
+				scene = new Scene(root, screenBounds.getWidth(), screenBounds.getHeight());
 				root.setId("pane");
 				scene.getStylesheets().addAll(this.getClass().
 						getResource("/resources/stylesheets/Styles.css").toExternalForm());
-
-				Stage stage = ((Stage) ((Node) event.getSource()).getScene().getWindow());
+				stage = ((Stage) ((Node) event.getSource()).getScene().getWindow());
 				stage.setScene(scene);
 				stage.setTitle(APPLICATION_NAME + " " + viewName);
-//				stage.setMaximized(true);
-//				stage.setFullScreen(true);
 				stage.show();
 			} catch (LoadException e) {
 				System.out.print("LoadException with file: " + e.getLocalizedMessage());

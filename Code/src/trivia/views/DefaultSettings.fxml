@@ -29,9 +29,9 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
                 <RowConstraints prefHeight="30.0" vgrow="ALWAYS" />
                 <RowConstraints prefHeight="30.0" vgrow="ALWAYS" />
-                <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
+                <RowConstraints maxHeight="60.0" minHeight="30.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="80.0" vgrow="ALWAYS" />
-                <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
+                <RowConstraints maxHeight="60.0" minHeight="30.0" vgrow="ALWAYS" />
             </rowConstraints>
             <children>
                 <Label alignment="CENTER" styleClass="viewTitle" text="Standaardinstellingen" textAlignment="CENTER" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
@@ -78,7 +78,7 @@
                         <Font size="32.0" />
                     </font>
                 </CheckBox>
-                <Label focusTraversable="false" text="Kies het soort vragen" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                <Label focusTraversable="false" text="Kies aantal antwoorden" GridPane.columnIndex="1" GridPane.rowIndex="4">
                     <font>
                         <Font size="24.0" />
                     </font>
@@ -91,7 +91,7 @@
                         <Font size="24.0" />
                     </font>
                 </ToggleButton>
-                <ToggleButton fx:id="typeTfButton" mnemonicParsing="false" prefWidth="140.0" text="Waar/vals" toggleGroup="$typeGroup" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+                <ToggleButton fx:id="typeTfButton" mnemonicParsing="false" prefWidth="140.0" text="2 keuzes" toggleGroup="$typeGroup" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="4">
                     <font>
                         <Font size="24.0" />
                     </font>

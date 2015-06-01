@@ -71,3 +71,6 @@
     -fx-background-insets:          2px;
     -fx-background-color:           #522E90;
 }
+.slider {
+    -fx-background-color:           #000000;
+}

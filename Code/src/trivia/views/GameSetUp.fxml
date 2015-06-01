@@ -67,7 +67,7 @@
                         <Insets />
                     </GridPane.margin>
                 </ToggleButton>
-                <Label focusTraversable="false" text="Kies het soort vragen" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                <Label focusTraversable="false" text="Kies aantal antwoorden" GridPane.columnIndex="1" GridPane.rowIndex="4">
                     <font>
                         <Font size="24.0" />
                     </font>
@@ -80,7 +80,7 @@
                         <Font size="24.0" />
                     </font>
                 </ToggleButton>
-                <ToggleButton fx:id="typeTfButton" mnemonicParsing="false" prefWidth="140.0" text="Waar/vals" toggleGroup="$typeGroup" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+                <ToggleButton fx:id="typeTfButton" mnemonicParsing="false" prefWidth="140.0" text="2 keuzes" toggleGroup="$typeGroup" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="4">
                     <font>
                         <Font size="24.0" />
                     </font>
