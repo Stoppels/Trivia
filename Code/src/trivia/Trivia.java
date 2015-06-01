@@ -134,6 +134,7 @@ public class Trivia extends Application {
 		alert.setHeaderText(header);
 		alert.setContentText(content);
 		alert.initStyle(style);
+		stage.toBack();
 
 		// Does user choose button OK or not?
 		Optional<ButtonType> result = alert.showAndWait();
