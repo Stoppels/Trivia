@@ -190,7 +190,6 @@ public class DbManager {
 			result = statement.executeQuery();
 		} catch (SQLException e) {
 			System.err.println(SQL_EXCEPTION + e.getLocalizedMessage());
-			e.printStackTrace();
 		}
 		return result;
 	}

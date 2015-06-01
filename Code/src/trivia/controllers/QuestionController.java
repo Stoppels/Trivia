@@ -27,7 +27,6 @@ package trivia.controllers;
 import static java.lang.Integer.parseInt;
 import trivia.connectivity.DbManager;
 import java.net.URL;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -265,8 +264,8 @@ public class QuestionController extends Trivia implements Initializable {
 	public void loadGameSettings() {
 		int questionsIndex = -1;
 
-		String difficulty = " AND q.Difficulty = ";
-		difficulty += GameSetUpController.difficultyIsEasy ? "Easy" : "Hard";
+		String difficulty = " AND Difficulty = '";
+		difficulty += GameSetUpController.difficultyIsEasy ? "Easy'" : "Hard'";
 		if (GameSetUpController.difficultyIsMixed) {
 			difficulty = "";
 		}
@@ -298,7 +297,6 @@ public class QuestionController extends Trivia implements Initializable {
 			}
 		} catch (SQLException e) {
 			System.err.println("Error: " + e.getLocalizedMessage());
-			e.printStackTrace();
 		} finally {
 			dbm.closeConnection();
 			rs = null;

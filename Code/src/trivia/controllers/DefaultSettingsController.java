@@ -151,12 +151,11 @@ public class DefaultSettingsController extends Trivia implements Initializable {
 						Toggle toggle, Toggle new_toggle) {
 					if (new_toggle == null) {
 						toggle.setSelected(true);
-
 					}
+					disableSaveButton();
 				}
 			});
 		}
-
 		timerLabel.setText(Math.round(timerSlider.getValue()) + "");
 		timerSlider.valueProperty().addListener(new ChangeListener<Number>() {
 			@Override
@@ -166,8 +165,21 @@ public class DefaultSettingsController extends Trivia implements Initializable {
 					return;
 				}
 				timerLabel.setText(Math.round(newValue.intValue()) + "");
+				disableSaveButton();
 			}
 		});
+	}
+
+	private void disableSaveButton() {
+		// To do or not to do?
+//		if (editFields.get(0).getText().isEmpty() || editFields.get(1).getText().isEmpty()
+//				|| editFields.get(2).getText().isEmpty() || editFields.get(3).getText().isEmpty()
+//				|| editFields.get(4).getText().isEmpty()
+//				|| (!difficultyEasy.isSelected() && !difficultyHard.isSelected())) {
+//			saveSettings.setDisable(true);
+//		} else {
+//			saveSettings.setDisable(false);
+//		}
 	}
 
 	/**
@@ -335,5 +347,9 @@ public class DefaultSettingsController extends Trivia implements Initializable {
 					+ e.getLocalizedMessage());
 		}
 		loadView(event);
+	}
+
+	private void storeOriginalValues() {
+		// To do or not to do?
 	}
 }

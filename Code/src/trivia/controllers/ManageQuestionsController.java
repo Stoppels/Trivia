@@ -189,7 +189,7 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 					|| editFields.get(2).getText().equals(editFields.get(4).getText())
 					|| editFields.get(3).getText().equals(editFields.get(4).getText())) {
 				alertDialog(Alert.AlertType.ERROR, "Dubbele waarde", null, "Elk tekstveld moet "
-						+ "een unieke zin bevatten.", StageStyle.UNDECORATED);
+						+ "een unieke invoer bevatten.", StageStyle.UNDECORATED);
 			} else if (alertDialog(Alert.AlertType.CONFIRMATION, "Vraag wijzigen",
 					"Weet u zeker dat u de wijzigingen wilt opslaan?",
 					"De vraag: " + editFields.get(0).getText()
@@ -332,7 +332,6 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 			dbm.executeUpdate(statement, updateParameters);
 		} catch (SQLException e) {
 			System.out.println("Error: " + e.getLocalizedMessage());
-			e.printStackTrace();
 		} finally {
 			dbm.closeConnection();
 			statement = null;
@@ -413,6 +412,7 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 			statement = null;
 			updateParameters = null;
 		}
+		disableEditButton();
 	}
 
 	/**
@@ -455,7 +455,6 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 			selectQuestion.setItems(questions);
 		} catch (SQLException | NumberFormatException e) {
 			System.err.println("Error: " + e.getLocalizedMessage());
-			e.printStackTrace();
 		} finally {
 			dbm.closeConnection();
 			rs = null;

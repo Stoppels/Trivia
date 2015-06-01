@@ -168,7 +168,7 @@
                         <Font size="24.0" />
                     </font>
                 </Label>
-            <Label fx:id="timerLabel" focusTraversable="false" text="43" textFill="#522e90" GridPane.columnIndex="3" GridPane.rowIndex="7">
+            <Label fx:id="timerLabel" focusTraversable="false" text="30" textFill="#522e90" GridPane.columnIndex="3" GridPane.rowIndex="7">
                <font>
                   <Font name="System Bold" size="36.0" />
                </font>

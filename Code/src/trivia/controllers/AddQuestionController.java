@@ -255,7 +255,7 @@ public class AddQuestionController extends Trivia implements Initializable {
 					|| addFields.get(2).getText().equals(addFields.get(4).getText())
 					|| addFields.get(3).getText().equals(addFields.get(4).getText())) {
 				alertDialog(Alert.AlertType.ERROR, "Dubbele waarde", null, "Elk tekstveld moet "
-						+ "een unieke zin bevatten.", StageStyle.UNDECORATED);
+						+ "een unieke invoer bevatten.", StageStyle.UNDECORATED);
 			} else if (alertDialog(Alert.AlertType.CONFIRMATION, "Vraag toevoegen",
 					"Weet u zeker dat u deze vraag wilt toevoegen?",
 					"De vraag: " + addFields.get(0).getText()

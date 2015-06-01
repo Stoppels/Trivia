@@ -24,13 +24,12 @@
  */
 package trivia;
 
-import java.io.File;
 import javafx.scene.image.Image;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.PrintStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
@@ -222,7 +221,6 @@ public class Trivia extends Application {
 				stage.show();
 			} catch (LoadException e) {
 				System.out.print("LoadException with file: " + e.getLocalizedMessage());
-				e.printStackTrace();
 			} catch (IOException e) {
 				System.out.print("Error (loadView): " + e.getLocalizedMessage());
 			}
@@ -234,13 +232,18 @@ public class Trivia extends Application {
 		System.out.close();
 
 		try { // Logs errors in a tmp file.
-			File file = new File(System.getProperty("java.io.tmpdir")
-					.concat("Trivia Error Logs.txt"));
-			OutputStream output = new FileOutputStream(file);
-			PrintStream printer = new PrintStream(output);
+//			File file = new File(System.getProperty("java.io.tmpdir")
+//					.concat("Trivia Error Logs.txt"));
+//			OutputStream output = new FileOutputStream(file);
+//			PrintStream printer = new PrintStream(w);
+
+			Path path = Paths.get(System.getProperty("java.io.tmpdir"), "Trivia Error Logs.txt");
+//			FileWriter writer = new FileWriter(path.toFile(), true);
+			PrintStream printer = new PrintStream(path.toFile());
 			System.setErr(printer);
-		} catch (FileNotFoundException e) {
+		} catch (IOException e) {
 			System.err.println("Error: " + e.getLocalizedMessage());
+
 		}
 
 	}
