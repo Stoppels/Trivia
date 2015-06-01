@@ -24,7 +24,16 @@
  */
 package trivia;
 
+import java.io.File;
+import javafx.scene.image.Image;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.prefs.Preferences;
 import javafx.application.Application;
@@ -40,6 +49,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Control;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import static trivia.AppConfig.*;
 
 /**
  * Application main class
@@ -53,40 +63,48 @@ public class Trivia extends Application {
 	public static Preferences prefs;
 	public static String difficultyHolder = "1", typeHolder = "2", lengthHolder = "3",
 			timerHolder = "4", difficultyModifier = "5", lengthModifier = "6",
-			typeModifier = "7", timerModifier = "8";
-	public static String[] varHolder = new String[3];
+			typeModifier = "7", timerModifier = "8", timerLength = "9",
+			dbUrl = "10", dbUser = "11", dbPass = "12";
+	public static String[] varHolder = new String[4];
 	public static Boolean[] boolHolder = new Boolean[5];
 
-	// Length of time for each question
+	// Length of time for each question.
 	public static final Integer START_TIME = 30;
-	// Default settings
-	public static final Boolean TIMER_DEFAULT = true;
+	public static Integer setTime = 0;
+
 	public static Boolean timerSetting = TIMER_DEFAULT;
-	public static final Integer SHORT_LENGTH = 15;
-	public static final Integer MEDIUM_LENGTH = 30;
-	public static final Integer LONG_LENGTH = 45;
-	public static final Integer DEFAULT_LENGTH = SHORT_LENGTH;
 	public static Integer gameLength = DEFAULT_LENGTH;
+
+	// For use in any class.
+	public String viewName = "";
+	public static ResultSet rs = null;
+	public static PreparedStatement statement;
+	public static List<String> updateParameters;
+	public static Boolean duplicateError = false;
 
 	@Override
 	public void start(Stage stage) {
-		//System.out.close(); // <- Uncomment on product shipment to shush console debug messages.
+//		streamSettings(); // Shushing out stream & saving err.
+		stage.getIcons().add(new Image("resources/images/logo.png")); // App icon.
 		try {
 			Parent root = FXMLLoader.load(getClass().
 					getResource("/trivia/views/SplashScreen.fxml"));
 			Scene scene = new Scene(root);
-
 			root.setId("pane");
 			scene.getStylesheets().addAll(this.getClass().
 					getResource("/resources/stylesheets/Styles.css").toExternalForm());
 
 			stage.setScene(scene);
+			stage.setTitle(APPLICATION_NAME);
+			stage.setMinHeight(MIN_HEIGHT);
+			stage.setMinWidth(MIN_WIDTH);
 			stage.setFullScreenExitHint("");
-			//stage.setFullScreen(true);
+//			stage.setMaximized(true);
+//			stage.setFullScreen(true);
 			stage.show();
 
 			prefs = Preferences.userRoot().node(this.getClass().getName());
-//			loadSettings();
+			setTime = Integer.parseInt(prefs.get(timerLength, START_TIME.toString()));
 		} catch (IOException e) {
 			System.err.println("Error: " + e.getLocalizedMessage());
 		}
@@ -116,6 +134,26 @@ public class Trivia extends Application {
 	}
 
 	/**
+	 * This precious makes sure the last saved settings are loaded.
+	 */
+	public static void loadSettings() {
+		System.out.println("Loading default settings.");
+
+		varHolder[0] = prefs.get(difficultyHolder, "difficultyMixed");
+		varHolder[1] = prefs.get(typeHolder, "typeMc");
+		varHolder[2] = prefs.get(lengthHolder, "shortLength");
+		varHolder[3] = prefs.get(timerLength, START_TIME.toString());
+//		varHolder[4] = prefs.get(dbUrl, DEFAULT_URL);
+//		varHolder[5] = prefs.get(dbUser, DEFAULT_USER);
+//		varHolder[6] = prefs.get(dbPass, DEFAULT_PASS);
+		boolHolder[0] = prefs.getBoolean(timerHolder, true);
+		boolHolder[1] = prefs.getBoolean(difficultyModifier, false);
+		boolHolder[2] = prefs.getBoolean(typeModifier, false);
+		boolHolder[3] = prefs.getBoolean(lengthModifier, false);
+		boolHolder[4] = prefs.getBoolean(timerModifier, true);
+	}
+
+	/**
 	 * Handles switching between views.
 	 *
 	 * @param event
@@ -124,7 +162,7 @@ public class Trivia extends Application {
 		boolean error = false;
 
 		// Fetch the FX:ID of the button and find out which button it was.
-		String viewName = ((Control) event.getSource()).getId();
+		viewName = ((Control) event.getSource()).getId();
 
 		// Depending on the target view, do something.
 		switch (viewName) {
@@ -147,7 +185,7 @@ public class Trivia extends Application {
 				viewName = "GameSetUp";
 				break;
 			case "nextQuestionButton":
-				viewName = "GameOverview";
+				viewName = "MainMenu"; // <<<<±———————— NICK, GAMEOVERVIEW
 				break;
 			case "defaultSettings":
 				viewName = "DefaultSettings";
@@ -178,38 +216,33 @@ public class Trivia extends Application {
 
 				Stage stage = ((Stage) ((Node) event.getSource()).getScene().getWindow());
 				stage.setScene(scene);
-				//stage.setFullScreen(true);
+				stage.setTitle(APPLICATION_NAME + " " + viewName);
+//				stage.setMaximized(true);
+//				stage.setFullScreen(true);
 				stage.show();
 			} catch (LoadException e) {
-				System.out.print("LoadException with file: ");
+				System.out.print("LoadException with file: " + e.getLocalizedMessage());
 				e.printStackTrace();
 			} catch (IOException e) {
-				System.out.print("Error (loadView): ");
-				e.printStackTrace();
+				System.out.print("Error (loadView): " + e.getLocalizedMessage());
 			}
 		}
 	}
 
-	/**
-	 * This precious makes sure the last saved settings are loaded.
-	 */
-	public static void loadSettings() {
-		System.out.println("Loading default settings.");
+	private void streamSettings() {
+		// Uncomment on product shipment to shush console debug messages.
+		System.out.close();
 
-		varHolder[0] = prefs.get(difficultyHolder, "difficultyMixed");
-		varHolder[1] = prefs.get(typeHolder, "typeMc");
-		varHolder[2] = prefs.get(lengthHolder, "shortLength");
-		boolHolder[0] = prefs.getBoolean(timerHolder, true);
-		boolHolder[1] = prefs.getBoolean(difficultyModifier, false);
-		boolHolder[2] = prefs.getBoolean(lengthModifier, false);
-		boolHolder[3] = prefs.getBoolean(typeModifier, false);
-		boolHolder[4] = prefs.getBoolean(timerModifier, true);
-//		try {
-//			prefs.sync();
-//		} catch (BackingStoreException e) {
-//			System.out.println("Error! Unable to sync on creation of node: "
-//					+ e.getLocalizedMessage());
-//		}
+		try { // Logs errors in a tmp file.
+			File file = new File(System.getProperty("java.io.tmpdir")
+					.concat("Trivia Error Logs.txt"));
+			OutputStream output = new FileOutputStream(file);
+			PrintStream printer = new PrintStream(output);
+			System.setErr(printer);
+		} catch (FileNotFoundException e) {
+			System.err.println("Error: " + e.getLocalizedMessage());
+		}
+
 	}
 
 	/**

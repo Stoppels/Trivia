@@ -26,10 +26,18 @@ package trivia.connectivity;
 
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import java.sql.*;
+import java.util.List;
 import javafx.scene.control.Alert;
 import javafx.stage.StageStyle;
+import static trivia.AppConfig.DEFAULT_PASS;
+import static trivia.AppConfig.DEFAULT_URL;
+import static trivia.AppConfig.DEFAULT_USER;
+import trivia.Trivia;
 import static trivia.Trivia.alertDialog;
-import trivia.controllers.AddQuestionController;
+import static trivia.Trivia.dbPass;
+import static trivia.Trivia.dbUrl;
+import static trivia.Trivia.dbUser;
+import static trivia.Trivia.prefs;
 
 /**
  *
@@ -42,55 +50,106 @@ public class DbManager {
 	public static final String SQL_EXCEPTION = "SQL Exception: ";
 
 	public Connection connection;
+	public ResultSet result;
 
+//	public PreparedStatement pStatement;
+//	public ResultSet rs = getResultSet(pStatement, stmParameters);
 	/**
-	 * Open database connection
+	 * Opens database connection.
 	 */
 	public void openConnection() {
+		String url = "", user = "", pass = "";
+		boolean error = true;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 
-			String url = "jdbc:mysql://localhost:3306/trivia";
-			String user = "root", pass = "";
-			System.out.println("Database connection established.");
+			url = prefs.get(dbUrl, DEFAULT_URL);
+			user = prefs.get(dbUser, DEFAULT_USER);
+			pass = prefs.get(dbPass, DEFAULT_PASS);
+
+			// TSC test server 1
+//			url = "jdbc:mysql://oege.ie.hva.nl:3306/zshayann001";
+//			user = "shayann001";
+//			pass = "hT5vz8pZ8W+mCP";
+			// TSC test server 2
+//			url = "jdbc:mysql://sql5.freesqldatabase.com:3306/sql578983";
+//			user = "sql578983";
+//			pass = "fA4*tH9%";
+			// TSC test server 3
+//			url = "jdbc:mysql://db4free.net:3306/trivia2";
+//			user = "n21s";
+//			pass = "t9t8TqZqyzuenh2xRQUC";
+			System.out.println("Initiating connection with database.");
 
 			// Open connection
 			connection = DriverManager.getConnection(url, user, pass);
+			error = false;
 		} catch (ClassNotFoundException e) {
 			System.err.println(JDBC_EXCEPTION + e.getLocalizedMessage());
+			error = true;
 		} catch (SQLException e) {
 			System.err.println(SQL_EXCEPTION + e.getLocalizedMessage());
+			error = true;
+		} finally {
+			if (error) { // Switch to local database if remote database fails.
+				try {
+					url = DEFAULT_URL;
+					user = DEFAULT_USER;
+					pass = DEFAULT_PASS;
+					connection = DriverManager.getConnection(url, user, pass);
+					error = false;
+				} catch (SQLException e) {
+					System.err.println(SQL_EXCEPTION + e.getLocalizedMessage());
+					error = true;
+				} finally {
+					if (error) {
+						alertDialog(Alert.AlertType.ERROR, "Verbinding mislukt", null,
+								"De database kan niet worden bereikt. Probeer het "
+								+ "later opnieuw", StageStyle.UNDECORATED);
+					} else {
+						System.out.println("Database connection established with local: " + url);
+					}
+				}
+			} else {
+				System.out.println("Database connection established with server: " + url);
+			}
 		}
 	}
 
 	/**
-	 * Close database connection
+	 * Closes database connection.
 	 */
 	public void closeConnection() {
 		try {
 			connection.close();
 			System.out.println("Database connection terminated.");
 		} catch (Exception e) {
-			System.err.println(e.getLocalizedMessage());
+			System.err.println("Exception: " + e.getLocalizedMessage());
 		} catch (Throwable e) {
 			System.err.println("Throwable exception: " + e.getLocalizedMessage());
 		}
 	}
 
 	/**
-	 * Executes a query without returning a result, such as updating and
-	 * deleting.
+	 * Executes a SQL-injection proof query with result.
 	 *
-	 * @param query, the SQl query
+	 * @param statement
+	 * @param parameters
 	 */
-	public void executeUpdate(String query) {
+	public void executeUpdate(PreparedStatement statement, List<String> parameters) {
 		try {
-			Statement statement = connection.createStatement();
-			statement.executeUpdate(query);
+			int i = 1;
+			for (String pars : parameters) {
+				statement.setString(i++, pars);
+			}
+			statement.executeUpdate();
 		} catch (MySQLIntegrityConstraintViolationException e) {
+			System.out.println("Error: " + e.getLocalizedMessage());
+
 			alertDialog(Alert.AlertType.ERROR, "Vraag toevoegen", null,
 					"Deze vraag bestaat al!", StageStyle.UNDECORATED);
-			AddQuestionController.duplicateError = true;
+
+			Trivia.duplicateError = true;
 		} catch (SQLException e) {
 			System.err.println(SQL_EXCEPTION + e.getLocalizedMessage());
 		} catch (Throwable e) {
@@ -99,20 +158,39 @@ public class DbManager {
 	}
 
 	/**
-	 * Executes a query with result.
+	 * Executes a SQL-injection proof query with result.
 	 *
-	 * @param query, the SQL query
-	 * @return query results
+	 * @param statement
+	 * @return ResultSet
 	 */
-	public ResultSet doQuery(String query) {
-		ResultSet result = null;
+	public ResultSet getResultSet(PreparedStatement statement) {
+		result = null;
 		try {
-			Statement statement = connection.createStatement();
-			result = statement.executeQuery(query);
-		} catch (SQLException | NullPointerException e) {
+			result = statement.executeQuery();
+		} catch (SQLException e) {
 			System.err.println(SQL_EXCEPTION + e.getLocalizedMessage());
-		} catch (Throwable e) {
-			System.err.println("Throwable exception: " + e.getLocalizedMessage());
+		}
+		return result;
+	}
+
+	/**
+	 * Executes a SQL-injection proof query with result.
+	 *
+	 * @param statement
+	 * @param parameters
+	 * @return ResultSet
+	 */
+	public ResultSet getResultSet(PreparedStatement statement, List<String> parameters) {
+		result = null;
+		try {
+			int i = 1;
+			for (String pars : parameters) {
+				statement.setString(i++, pars);
+			}
+			result = statement.executeQuery();
+		} catch (SQLException e) {
+			System.err.println(SQL_EXCEPTION + e.getLocalizedMessage());
+			e.printStackTrace();
 		}
 		return result;
 	}

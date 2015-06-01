@@ -37,6 +37,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.util.Duration;
+import static trivia.AppConfig.APPLICATION_COPYRIGHT;
 import trivia.Trivia;
 
 /**
@@ -55,6 +56,9 @@ public class SplashScreenController extends Trivia implements Initializable {
 
 	@FXML
 	private Label timerLabel;
+
+	@FXML
+	private Label copyrightLabel;
 
 	private static final Integer STARTTIME = 6;
 	private Timeline timeline;
@@ -77,6 +81,7 @@ public class SplashScreenController extends Trivia implements Initializable {
 			timeline.stop();
 			this.loadView(event);
 		});
+		copyrightLabel.setText(APPLICATION_COPYRIGHT);
 	}
 
 	@FXML

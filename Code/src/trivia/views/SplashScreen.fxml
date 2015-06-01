@@ -73,6 +73,7 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Button>
+            <Label fx:id="copyrightLabel" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" textFill="#522e90" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
             </children>
         </GridPane>
     </children>

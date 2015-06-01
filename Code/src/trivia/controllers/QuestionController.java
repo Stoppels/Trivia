@@ -109,12 +109,9 @@ public class QuestionController extends Trivia implements Initializable {
 
 	// Object to call connection
 	private final DbManager dbm = new DbManager();
-	// Object to store query results
-	private ResultSet result = null;
-	private String queryText = "";
 
 	private Timeline timeline;
-	private final IntegerProperty timeSeconds = new SimpleIntegerProperty(START_TIME);
+	private final IntegerProperty timeSeconds = new SimpleIntegerProperty(setTime);
 
 	private int questionNumber = 1;
 
@@ -190,7 +187,7 @@ public class QuestionController extends Trivia implements Initializable {
 				timeSeconds.divide(remainingTimerDuration.get(questionNumber - 1)
 						* 100.0).subtract(1).multiply(-1));
 
-		// Countdown from START_TIME to zero
+		// Countdown from setTime to zero
 		if (timeline != null) {
 			timeline.stop();
 		}
@@ -203,7 +200,7 @@ public class QuestionController extends Trivia implements Initializable {
 
 		// When completed counting down, execute block contents.
 		timeline.setOnFinished((ActionEvent event) -> {
-			if (originalRunTester == START_TIME) {
+			if (originalRunTester == setTime) {
 				nextQuestionButton.fire(); // Simulate button action, auto-continue to next Q.
 			} else { // If time's up, player may not change answers.
 				for (ToggleButton a : answerButtons) { // Disables the answer buttons.
@@ -268,30 +265,31 @@ public class QuestionController extends Trivia implements Initializable {
 	public void loadGameSettings() {
 		int questionsIndex = -1;
 
-		String difficulty = " AND Difficulty = '";
-		difficulty += GameSetUpController.difficultyIsEasy ? "Easy'" : "Hard'";
+		String difficulty = " AND q.Difficulty = ";
+		difficulty += GameSetUpController.difficultyIsEasy ? "Easy" : "Hard";
 		if (GameSetUpController.difficultyIsMixed) {
 			difficulty = "";
 		}
 
-		dbm.openConnection();
 		try {
-			result = null;
-			queryText = "SELECT q.Question, r.RightAnswer, w.WrongAnswer, w2.WrongAnswer, "
+			dbm.openConnection();
+			String queryText = ("SELECT q.Question, r.RightAnswer, w.WrongAnswer, w2.WrongAnswer, "
 					+ "w3.WrongAnswer, q.Difficulty, q.QuestionId FROM question q "
-					+ "inner join rightanswer r ON q.QuestionId = r.QuestionId "
-					+ "inner join wronganswer w ON w.QuestionId = q.QuestionId "
-					+ "inner join wronganswer w2 ON w2.QuestionId = q.QuestionId "
-					+ "inner join wronganswer w3 ON w3.QuestionId = q.QuestionId "
+					+ "INNER JOIN rightanswer r ON q.QuestionId = r.QuestionId "
+					+ "INNER JOIN wronganswer w ON w.QuestionId = q.QuestionId "
+					+ "INNER JOIN wronganswer w2 ON w2.QuestionId = q.QuestionId "
+					+ "INNER JOIN wronganswer w3 ON w3.QuestionId = q.QuestionId "
 					+ "WHERE w.WrongAnswerId = 1 AND w2.WrongAnswerId = 2 AND "
-					+ "w3.WrongAnswerId = 3" + difficulty + " ORDER BY RAND() LIMIT "
-					+ gameLength + ";";
-			result = dbm.doQuery(queryText); // Get everything above.
-			while (result.next()) { // Save everything.
+					+ "w3.WrongAnswerId = 3" + difficulty + " ORDER BY RAND() LIMIT ?;");
+			statement = dbm.connection.prepareStatement(queryText);
+			// Get everything above.
+			statement.setInt(1, gameLength);
+			rs = statement.executeQuery(); // Get everything.
+			while (rs.next()) { // Save everything.
 				System.out.print("Loaded details for {"
 						+ ++questionsIndex + "}"); // Loads next question.
 				for (int i = 0; i <= 6; i++) {
-					loadedStrings[questionsIndex][i] = result.getString(i + 1);
+					loadedStrings[questionsIndex][i] = rs.getString(i + 1);
 					System.out.print("[" + i + "]");
 					if (i == 6) {
 						System.out.println("");
@@ -300,10 +298,12 @@ public class QuestionController extends Trivia implements Initializable {
 			}
 		} catch (SQLException e) {
 			System.err.println("Error: " + e.getLocalizedMessage());
+			e.printStackTrace();
 		} finally {
 			dbm.closeConnection();
-			result = null;
-			queryText = "";
+			rs = null;
+			statement = null;
+			updateParameters = null;
 		}
 		// Print loaded questions.
 		for (int i = 0; i < gameLength; i++) {
@@ -340,6 +340,7 @@ public class QuestionController extends Trivia implements Initializable {
 				}
 				System.out.print(loadedStrings[i][j + 1]);
 			}
+			System.out.println("");
 		}
 
 		if (GameSetUpController.timerSetting) { // Timer enabled.
@@ -368,7 +369,7 @@ public class QuestionController extends Trivia implements Initializable {
 	 */
 	private void nextQuestion(ActionEvent event, Boolean nextQuestion) {
 		String temp = nextQuestion ? "next" : "previous";
-		System.out.println("User hit " + temp + "QuestionButton.");
+		System.out.println(temp + "QuestionButton was fired.");
 		remainingTimerDuration.set(questionNumber - 1, parseInt(timer.getText()));
 		for (int i = 0; i < gameLength; i++) {
 			System.out.println("Time remaining for question " + (i + 1) + ": "
@@ -390,7 +391,8 @@ public class QuestionController extends Trivia implements Initializable {
 					System.out.println("Answer to question " + (i + 1) + ": "
 							+ chosenAnswers[i][1]);
 				}
-				loadView(event); // --> go to ScoreOverview.
+				//loadView(event); // --> go to ScoreOverview.
+				stopQuiz(event);
 			} else {
 				questionNumber++;
 				previousQuestionButton.setDisable(false);

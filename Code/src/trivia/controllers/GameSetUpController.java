@@ -24,6 +24,7 @@
  */
 package trivia.controllers;
 
+import static java.lang.Integer.parseInt;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
@@ -38,6 +39,9 @@ import javafx.scene.control.Control;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
+import static trivia.AppConfig.LONG_LENGTH;
+import static trivia.AppConfig.MEDIUM_LENGTH;
+import static trivia.AppConfig.SHORT_LENGTH;
 import trivia.Trivia;
 
 /**
@@ -100,8 +104,8 @@ public class GameSetUpController extends Trivia implements Initializable {
 	private Button startGame;
 
 	private List<ToggleGroup> groupsList;
-	static boolean difficultyIsMixed = true, difficultyIsEasy = true;
-	static boolean tfSetter = true, mcSetter = true;
+	static boolean difficultyIsMixed = true, difficultyIsEasy = true,
+			tfSetter = true, mcSetter = true;
 
 	/**
 	 * Initializes the controller class.
@@ -111,7 +115,6 @@ public class GameSetUpController extends Trivia implements Initializable {
 	 */
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-
 		mainMenu.setOnAction(this::loadView);
 		startGame.setOnAction(this::startGame);
 
@@ -124,7 +127,6 @@ public class GameSetUpController extends Trivia implements Initializable {
 						Toggle toggle, Toggle new_toggle) {
 					if (new_toggle == null) {
 						toggle.setSelected(true);
-
 					}
 				}
 			});
@@ -137,8 +139,6 @@ public class GameSetUpController extends Trivia implements Initializable {
 	 * This precious makes sure the last saved settings are loaded.
 	 */
 	private void getSettings() {
-		System.out.println("Loading default settings.");
-
 		loadSettings();
 
 		for (String s : varHolder) {
@@ -183,7 +183,11 @@ public class GameSetUpController extends Trivia implements Initializable {
 					longLengthButton.setText(String.valueOf(gameLength = LONG_LENGTH));
 					break;
 				default: // Nothing is selected.
-					System.err.println("Something is wrong with the (default) var prefs.");
+					if (parseInt(s) >= 10 && parseInt(s) <= 60) {
+						System.out.println("Default timer duration: " + s + " seconds.");
+					} else {
+						System.err.println("Something is wrong with the (default) var prefs. Suspect: " + s);
+					}
 					break;
 			}
 		}
@@ -203,16 +207,16 @@ public class GameSetUpController extends Trivia implements Initializable {
 					difficultyHardButton.setDisable(!b);
 					break;
 				case 2:
-					System.out.println("Default length modifiability: " + (b ? "on." : "off."));
-					shortLengthButton.setDisable(!b);
-					mediumLengthButton.setDisable(!b);
-					longLengthButton.setDisable(!b);
-					break;
-				case 3:
 					System.out.println("Default type modifiability: " + (b ? "on." : "off."));
 					typeMixedButton.setDisable(!b);
 					typeTfButton.setDisable(!b);
 					typeMcButton.setDisable(!b);
+					break;
+				case 3:
+					System.out.println("Default length modifiability: " + (b ? "on." : "off."));
+					shortLengthButton.setDisable(!b);
+					mediumLengthButton.setDisable(!b);
+					longLengthButton.setDisable(!b);
 					break;
 				case 4:
 					System.out.println("Default timer modifiability: " + (b ? "on." : "off."));

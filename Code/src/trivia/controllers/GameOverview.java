@@ -31,12 +31,15 @@ import javafx.fxml.Initializable;
 /**
  * FXML Controller class
  *
- * @author Yassinee
+ * @author Team Silent Coders
+ * @version 1.0
  */
 public class GameOverview implements Initializable {
 
 	/**
 	 * Initializes the controller class.
+	 * @param url
+	 * @param rb
 	 */
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {

@@ -1,4 +1,4 @@
- /*
+/*
  * The MIT License
  *
  * Copyright 2015 Team Silent Coders.
@@ -22,42 +22,74 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package trivia.controllers;
-
-import java.net.URL;
-import java.util.ResourceBundle;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+package trivia;
 
 /**
- * FXML Controller class
+ * Application configuration. Contains the default settings.
  *
  * @author Team Silent Coders
  * @version 1.0
  */
-public class HighScoreController implements Initializable {
-
-	@FXML
-	private TableView<?> listTableView;
-	@FXML
-	private TableColumn<?, ?> listTableViewName;
-	@FXML
-	private TableColumn<?, ?> listTableViewAddress;
-	@FXML
-	private TableColumn<?, ?> listTableViewPhone;
-	@FXML
-	private TableColumn<?, ?> listTableViewEmail;
+public class AppConfig {
 
 	/**
-	 * Initializes the controller class.
-	 * @param url
-	 * @param rb
+	 * Application wide title.
 	 */
-	@Override
-	public void initialize(URL url, ResourceBundle rb) {
-		// TODO
-	}
+	public static final String APPLICATION_NAME = "Amsta Triviant";
+
+	/**
+	 * Application copyright.
+	 */
+	public static final String APPLICATION_COPYRIGHT = "Copyright 2015 Amsta";
+
+	/**
+	 * Default value for timer.
+	 */
+	public static final Boolean TIMER_DEFAULT = true;
+
+	/**
+	 * Default value for short games.
+	 */
+	public static final Integer SHORT_LENGTH = 15;
+
+	/**
+	 * Default value for medium games.
+	 */
+	public static final Integer MEDIUM_LENGTH = 30;
+
+	/**
+	 * Default value for long games.
+	 */
+	public static final Integer LONG_LENGTH = 45;
+
+	/**
+	 * Default value for games.
+	 */
+	public static final Integer DEFAULT_LENGTH = SHORT_LENGTH;
+
+	/**
+	 * Minimum application width.
+	 */
+	public static final int MIN_WIDTH = 800;
+
+	/**
+	 * Minimum application height.
+	 */
+	public static final int MIN_HEIGHT = 600;
+
+	/**
+	 * Default database URL.
+	 */
+	public static final String DEFAULT_URL = "jdbc:mysql://localhost:3306/trivia";
+
+	/**
+	 * Default database user.
+	 */
+	public static final String DEFAULT_USER = "root";
+
+	/**
+	 * Default database user password.
+	 */
+	public static final String DEFAULT_PASS = "";
 
 }

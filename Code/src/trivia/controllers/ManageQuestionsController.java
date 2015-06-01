@@ -25,7 +25,6 @@
 package trivia.controllers;
 
 import java.net.URL;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,6 +32,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -50,7 +51,11 @@ import javafx.scene.control.ToggleGroup;
 import javafx.stage.StageStyle;
 import trivia.Trivia;
 import static trivia.Trivia.alertDialog;
+import static trivia.Trivia.rs;
+import static trivia.Trivia.statement;
+import static trivia.Trivia.updateParameters;
 import trivia.connectivity.DbManager;
+import static trivia.controllers.AddQuestionController.duplicateError;
 
 /**
  * FXML Controller class
@@ -97,10 +102,12 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 	Button editQuestionButton;
 
 	private final DbManager dbm = new DbManager();
-	private ResultSet result = null;
-	private String queryText = "", difficultySetter = "";
+	private String difficultySetter = "",
+			questionText = "", correctAnswer = "", incorrectAnswer1 = "",
+			incorrectAnswer2 = "", incorrectAnswer3 = "";
 	private int currentQuestion = 0;
-	private List<TextField> answerFields;
+	public List<String> editStrings;
+	public List<TextField> answerFields, editFields;
 
 	/**
 	 * Initializes the controller class.
@@ -112,25 +119,89 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 	public void initialize(URL url, ResourceBundle rb) {
 		answerFields = Arrays.asList(editCorrectAnswer, editIncorrectAnswer1,
 				editIncorrectAnswer2, editIncorrectAnswer3);
+		editFields = Arrays.asList(editQuestionText, editCorrectAnswer,
+				editIncorrectAnswer1, editIncorrectAnswer2, editIncorrectAnswer3);
+		editStrings = Arrays.asList(questionText, correctAnswer,
+				incorrectAnswer1, incorrectAnswer2, incorrectAnswer3);
 
 		adminMenu.setOnAction(this::loadView);
 		editQuestionButton.setOnAction(this::confirmAlertEditQuestion);
 		setComboBoxQuestions();
-		// When something is selected the ComboBox (an event) -> print out the selection.
+		// When something is selected in the ComboBox (= an event) -> print out the selection.
 		selectQuestion.setOnAction(this::fillFields);
 		deleteQuestionButton.setOnAction(this::confirmDeleteQuestion);
+
+		// Can't unselect entire ToggleGroup: keep one selected at all times.
+		difficultyGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+			@Override
+			public void changed(ObservableValue<? extends Toggle> ov,
+					Toggle toggle, Toggle new_toggle) {
+				disableEditButton();
+			}
+		});
+		editQuestionButton.setDisable(true);
+		for (TextField tf : editFields) {
+			tf.textProperty().addListener(new ChangeListener<String>() {
+				@Override
+				public void changed(ObservableValue<? extends String> observable,
+						String oldValue, String newValue) {
+					disableEditButton();
+				}
+			});
+		}
 	}
 
 	/**
 	 * Clears all the fields and deselects all toggles.
 	 */
 	private void clearFields() {
-		editQuestionText.setText("");
-		for (TextField t : answerFields) {
-			t.setText("");
+		for (TextField tf : editFields) {
+			tf.setText("");
 		}
 		difficultyGroup.selectToggle(null);
-		editQuestionText.requestFocus();
+		editFields.get(0).requestFocus();
+	}
+
+	/**
+	 * This method shows an alert dialog asking for confirmation for saving the
+	 * edited question and its answers.
+	 *
+	 * @param event
+	 */
+	private void confirmAlertEditQuestion(ActionEvent event) {
+		try {
+			if (editFields.get(0).getText().isEmpty() || editFields.get(1).getText().isEmpty()
+					|| editFields.get(2).getText().isEmpty()
+					|| editFields.get(3).getText().isEmpty()
+					|| editFields.get(4).getText().isEmpty()
+					|| (!difficultyEasy.isSelected() && !difficultyHard.isSelected())) {
+				alertDialog(Alert.AlertType.ERROR, "Tekstveld leeg", null, "Elk tekstveld moet"
+						+ " zijn ingevuld en een moeilijkheidsgraad moet zijn gekozen.",
+						StageStyle.UNDECORATED);
+			} else if (editFields.get(0).getText().equals(editFields.get(1).getText())
+					|| editFields.get(0).getText().equals(editFields.get(2).getText())
+					|| editFields.get(0).getText().equals(editFields.get(3).getText())
+					|| editFields.get(0).getText().equals(editFields.get(4).getText())
+					|| editFields.get(1).getText().equals(editFields.get(2).getText())
+					|| editFields.get(1).getText().equals(editFields.get(3).getText())
+					|| editFields.get(1).getText().equals(editFields.get(4).getText())
+					|| editFields.get(2).getText().equals(editFields.get(3).getText())
+					|| editFields.get(2).getText().equals(editFields.get(4).getText())
+					|| editFields.get(3).getText().equals(editFields.get(4).getText())) {
+				alertDialog(Alert.AlertType.ERROR, "Dubbele waarde", null, "Elk tekstveld moet "
+						+ "een unieke zin bevatten.", StageStyle.UNDECORATED);
+			} else if (alertDialog(Alert.AlertType.CONFIRMATION, "Vraag wijzigen",
+					"Weet u zeker dat u de wijzigingen wilt opslaan?",
+					"De vraag: " + editFields.get(0).getText()
+					+ "\nMet het juiste antwoord: " + editFields.get(1).getText()
+					+ "\nEn de onjuiste antwoorden:\n– " + editFields.get(2).getText()
+					+ "\n– " + editFields.get(3).getText() + "\n– "
+					+ editFields.get(4).getText(), StageStyle.UNDECORATED)) {
+				editQuestion();
+			}
+		} catch (NoSuchElementException e) {
+			// No need to handle exception. Alert already does.
+		}
 	}
 
 	/**
@@ -154,36 +225,6 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 	}
 
 	/**
-	 * This method shows an alert dialog asking for confirmation for saving the
-	 * edited question and its answers.
-	 *
-	 * @param event
-	 */
-	private void confirmAlertEditQuestion(ActionEvent event) {
-		try {
-			if (editQuestionText.getText().equals("") || editQuestionText.getText().equals("")
-					|| editIncorrectAnswer1.getText().equals("")
-					|| editIncorrectAnswer2.getText().equals("")
-					|| editIncorrectAnswer3.getText().equals("")
-					|| (!difficultyEasy.isSelected() && !difficultyHard.isSelected())) {
-				alertDialog(Alert.AlertType.ERROR, "Tekstveld leeg", null, "Elk tekstveld moet"
-						+ " zijn ingevuld en een moeilijkheidsgraad moet zijn gekozen.",
-						StageStyle.UNDECORATED);
-			} else if (alertDialog(Alert.AlertType.CONFIRMATION, "Vraag wijzigen",
-					"Weet u zeker dat u de wijzigingen wilt opslaan?",
-					"De vraag: " + editQuestionText.getText()
-					+ "\nMet het juiste antwoord: " + editCorrectAnswer.getText()
-					+ "\nEn de onjuiste antwoorden:\n– " + editIncorrectAnswer1.getText()
-					+ "\n– " + editIncorrectAnswer2.getText() + "\n– "
-					+ editIncorrectAnswer3.getText(), StageStyle.UNDECORATED)) {
-				editQuestion();
-			}
-		} catch (NoSuchElementException e) {
-			// No need to handle exception. Alert already does.
-		}
-	}
-
-	/**
 	 * This method handles deleting questions from the database.
 	 */
 	private void deleteQuestion() {
@@ -191,21 +232,27 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 		try {
 			// If no question selected: there is no question selected to delete Error Dialog.
 			String countRows = "SELECT COUNT(*) FROM question";
-			result = dbm.doQuery(countRows);
+			statement = dbm.connection
+					.prepareStatement(countRows);
+			updateParameters = Arrays.asList();
+			rs = dbm.getResultSet(statement, updateParameters);
 
-			result.next();
-			int priorToUpdate = result.getInt(1);
+			rs.next();
+			int priorToUpdate = rs.getInt(1);
 			System.out.println("Questions prior to deletion: " + priorToUpdate);
+			statement = dbm.connection
+					.prepareStatement("DELETE FROM question WHERE Question = ?;");
+			updateParameters = Arrays.asList(selectQuestion.getValue().toString());
+			dbm.executeUpdate(statement, updateParameters);
 
-			queryText = "DELETE FROM question WHERE Question = '"
-					+ selectQuestion.getValue() + "';";
-			dbm.executeUpdate(queryText);
+			statement = dbm.connection
+					.prepareStatement(countRows);
+			updateParameters = Arrays.asList();
+			rs = dbm.getResultSet(statement, updateParameters);
+			rs.next();
+			System.out.println("Questions after deletion: " + rs.getInt(1));
 
-			result = dbm.doQuery(countRows);
-			result.next();
-			System.out.println("Questions after deletion: " + result.getInt(1));
-
-			if ((priorToUpdate - 1) == result.getInt(1)) {
+			if ((priorToUpdate - 1) == rs.getInt(1)) {
 				System.out.println("Deleted question: " + selectQuestion.getValue());
 				alertDialog(Alert.AlertType.INFORMATION, "Vraag verwijderen", null,
 						"De vraag is succesvol verwijderd!", StageStyle.UNDECORATED);
@@ -214,14 +261,102 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 			e.getLocalizedMessage();
 		} finally {
 			dbm.closeConnection();
-			result = null;
-			queryText = "";
+			rs = null;
+			statement = null;
+			updateParameters = null;
 		}
 		// Updates the ComboBox to reflect the changes.
 		setComboBoxQuestions();
 
 		// If we get to here, the question entry and its answers have been deleted.
 		clearFields();
+	}
+
+	private void disableEditButton() {
+		if (editFields.get(0).getText().isEmpty() || editFields.get(1).getText().isEmpty()
+				|| editFields.get(2).getText().isEmpty() || editFields.get(3).getText().isEmpty()
+				|| editFields.get(4).getText().isEmpty()
+				|| (!difficultyEasy.isSelected() && !difficultyHard.isSelected())
+				|| (editFields.get(0).getText().equals(editStrings.get(0))
+				&& editFields.get(1).getText().equals(editStrings.get(1))
+				&& editFields.get(2).getText().equals(editStrings.get(2))
+				&& editFields.get(3).getText().equals(editStrings.get(3))
+				&& editFields.get(4).getText().equals(editStrings.get(4))
+				&& (difficultyGroup.getSelectedToggle().toString().contains(difficultySetter)))) {
+			editQuestionButton.setDisable(true);
+		} else {
+			editQuestionButton.setDisable(false);
+		}
+	}
+
+	/**
+	 * This method handles adding new questions to the database.
+	 */
+	private void editQuestion() {
+		storeStrings();
+
+		System.out.println("QuestionId: " + currentQuestion + "\n"
+				+ "Changing question to: " + editStrings.get(0) + "\n"
+				+ "Changing Correct Answer to: " + editStrings.get(1) + "\n"
+				+ "Changing Incorrect Answer 1 to: " + editStrings.get(2) + "\n"
+				+ "Changing Incorrect Answer 2 to: " + editStrings.get(3) + "\n"
+				+ "Changing Incorrect Answer 3 to: " + editStrings.get(4) + "\n"
+				+ "Changing question difficulty to: " + difficultySetter);
+
+		try {
+			dbm.openConnection();
+			// Create the insert script strings and execute it.
+			statement = dbm.connection.prepareStatement(
+					"UPDATE question SET Question = ?, Difficulty = ? WHERE QuestionId = ?;");
+			updateParameters = Arrays.asList(editStrings.get(0), difficultySetter, String.valueOf(currentQuestion));
+			dbm.executeUpdate(statement, updateParameters);
+
+			statement = dbm.connection.prepareStatement(
+					"UPDATE rightanswer SET RightAnswer = ? WHERE QuestionId = ?;");
+			updateParameters = Arrays.asList(editStrings.get(1), String.valueOf(currentQuestion));
+			dbm.executeUpdate(statement, updateParameters);
+
+			statement = dbm.connection.prepareStatement("UPDATE wronganswer set "
+					+ "WrongAnswer = ? WHERE QuestionId = ? AND WrongAnswerId = 1");
+			updateParameters = Arrays.asList(editStrings.get(2), String.valueOf(currentQuestion));
+			dbm.executeUpdate(statement, updateParameters);
+
+			statement = dbm.connection.prepareStatement("UPDATE wronganswer set "
+					+ "WrongAnswer = ? WHERE QuestionId = ? AND WrongAnswerId = 2");
+			updateParameters = Arrays.asList(editStrings.get(3), String.valueOf(currentQuestion));
+			dbm.executeUpdate(statement, updateParameters);
+
+			statement = dbm.connection.prepareStatement("UPDATE wronganswer set "
+					+ "WrongAnswer = ? WHERE QuestionId = ? AND WrongAnswerId = 3");
+			updateParameters = Arrays.asList(editStrings.get(4), String.valueOf(currentQuestion));
+			dbm.executeUpdate(statement, updateParameters);
+		} catch (SQLException e) {
+			System.out.println("Error: " + e.getLocalizedMessage());
+			e.printStackTrace();
+		} finally {
+			dbm.closeConnection();
+			statement = null;
+			updateParameters = null;
+		}
+		// System check of input.
+		if (duplicateError) { // <<—————— DOUBLE CHECK WHETHER THIS EVEN WORKS.
+			rs = null;
+			statement = null;
+			updateParameters = null;
+
+			editFields.get(0).requestFocus();
+			duplicateError = false;
+			return;
+		}
+
+		// Updates the ComboBox to reflect the changes.
+		setComboBoxQuestions();
+		selectQuestion.setValue(null);
+
+		// If we get to here, the question entry and its answers have been updated.
+		clearFields();
+		alertDialog(Alert.AlertType.INFORMATION, "Vraag bewerken", null,
+				"De vraag is succesvol aangepast!", StageStyle.UNDECORATED);
 	}
 
 	/**
@@ -240,119 +375,76 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 			System.err.println("Error: " + e.getLocalizedMessage()); // Hurr durr I exception
 		}
 
-		String question = selectQuestion.getValue().toString();
 		int i = 1;
-		System.out.println("Player selected question: " + question);
-		dbm.openConnection();
 		try {
-			queryText = "SELECT r.RightAnswer, w.WrongAnswer, w2.WrongAnswer, "
+			dbm.openConnection();
+			statement = dbm.connection.prepareStatement(
+					"SELECT r.RightAnswer, w.WrongAnswer, w2.WrongAnswer, "
 					+ "w3.WrongAnswer, q.Difficulty, q.QuestionId FROM question q "
-					+ "inner join rightanswer r ON q.QuestionId = r.QuestionId "
-					+ "inner join wronganswer w ON w.QuestionId = q.QuestionId "
-					+ "inner join wronganswer w2 ON w2.QuestionId = q.QuestionId "
-					+ "inner join wronganswer w3 ON w3.QuestionId = q.QuestionId "
+					+ "INNER JOIN rightanswer r ON q.QuestionId = r.QuestionId "
+					+ "INNER JOIN wronganswer w ON w.QuestionId = q.QuestionId "
+					+ "INNER JOIN wronganswer w2 ON w2.QuestionId = q.QuestionId "
+					+ "INNER JOIN wronganswer w3 ON w3.QuestionId = q.QuestionId "
 					+ "WHERE w.WrongAnswerId = 1 AND w2.WrongAnswerId = 2 AND "
-					+ "w3.WrongAnswerId = 3 AND Question = '" + question + "';";
-			result = dbm.doQuery(queryText); // Get everything
-			result.next();
-			editQuestionText.setText(question); // Fill the question field
-			for (TextField t : answerFields) { // Fill the answer fields
-				t.setText(result.getString(i));
-				i++;
+					+ "w3.WrongAnswerId = 3 AND Question = ?;");
+			System.out.println("Player selected question: " + (updateParameters
+					= Arrays.asList(selectQuestion.getValue().toString())).get(0));
+
+			rs = dbm.getResultSet(statement, updateParameters); // Get everything.
+			rs.next();
+			editFields.get(0).setText(updateParameters.get(0)); // Fill the question field.
+
+			for (TextField tf : answerFields) { // Fill the answer fields.
+				tf.setText(rs.getString(i++));
 			}
-			if (result.getString(i).contains("Easy")) { // Select the right difficulty toggle
+			if (rs.getString(i).contains("Easy")) { // Select the right difficulty toggle
 				difficultyEasy.setSelected(true);
-			} else if (result.getString(i).contains("Hard")) {
+			} else if (rs.getString(i).contains("Hard")) {
 				difficultyHard.setSelected(true);
 			}
-			currentQuestion = result.getInt(i + 1); // Store QuestionId in case of edit
+
+			currentQuestion = rs.getInt(i + 1); // Store QuestionId in case of edit
+			storeStrings();
 		} catch (SQLException e) {
 			System.err.println("Error: " + e.getLocalizedMessage());
 		} finally {
 			dbm.closeConnection();
-			result = null;
-			queryText = "";
+			rs = null;
+			statement = null;
+			updateParameters = null;
 		}
-	}
-
-	/**
-	 * This method handles adding new questions to the database.
-	 */
-	private void editQuestion() {
-		// If the Toggle's properties contains "Easy" set as Easy, otherwise Hard
-		difficultySetter = difficultyGroup.getSelectedToggle().
-				toString().contains("Easy") ? "Easy" : "Hard";
-		// Collect the Strings with getText from the selected textField
-		String question = editQuestionText.getText(),
-				correctAnswer = editCorrectAnswer.getText(),
-				incorrectAnswer1 = editIncorrectAnswer1.getText(),
-				incorrectAnswer2 = editIncorrectAnswer2.getText(),
-				incorrectAnswer3 = editIncorrectAnswer3.getText();
-
-		// Make sure the question starts with an uppercase letter
-		question = Character.toUpperCase(question.charAt(0)) + question.substring(1);
-
-		// System check of input
-		System.out.println("Changing question to: " + question + "\n"
-				+ "Changing Correct Answer to: " + correctAnswer + "\n"
-				+ "Changing Incorrect Answer 1 to: " + incorrectAnswer1 + "\n"
-				+ "Changing Incorrect Answer 2 to: " + incorrectAnswer2 + "\n"
-				+ "Changing Incorrect Answer 3 to: " + incorrectAnswer3 + "\n"
-				+ "Changing question difficulty to: " + difficultySetter);
-
-		System.out.println("QuestionId: " + currentQuestion);
-		String[] newEntries = new String[]{"UPDATE question SET Question = '" + question
-			+ "', Difficulty = '" + difficultySetter + "' WHERE QuestionId = "
-			+ currentQuestion + ";", "UPDATE rightanswer SET RightAnswer = '"
-			+ correctAnswer + "' WHERE QuestionId = " + currentQuestion + ";",
-			"UPDATE wronganswer set WrongAnswer = '" + incorrectAnswer1
-			+ "' WHERE QuestionId = " + currentQuestion + " AND WrongAnswerId = 1",
-			"UPDATE wronganswer set WrongAnswer = '" + incorrectAnswer2
-			+ "' WHERE QuestionId = " + currentQuestion + " AND WrongAnswerId = 2",
-			"UPDATE wronganswer set WrongAnswer = '" + incorrectAnswer2
-			+ "' WHERE QuestionId = " + currentQuestion + " AND WrongAnswerId = 3"};
-
-		dbm.openConnection();
-		for (String s : newEntries) { // Update all entries.
-			dbm.executeUpdate(s);
-		}
-		dbm.closeConnection();
-		// Updates the ComboBox to reflect the changes.
-		setComboBoxQuestions();
-		selectQuestion.setValue(null);
-		// If we get to here, the question entry and its answers have been deleted.
-		clearFields();
-		alertDialog(Alert.AlertType.INFORMATION, "Vraag bewerken", null,
-				"De vraag is succesvol aangepast!", StageStyle.UNDECORATED);
 	}
 
 	/**
 	 * This populates the ComboBox with all the questions in the database.
 	 */
 	private void setComboBoxQuestions() {
-		//make a new list with questions for the combobox
+		// Make a new list with questions for the combobox.
 		ArrayList list = new ArrayList();
 
-		dbm.openConnection();
 		int questionsTotal = 0;
 		try {
-			queryText = "SELECT QuestionId FROM question ORDER by QuestionId DESC LIMIT 1";
-			result = dbm.doQuery(queryText);
-			while (result.next()) {
-				questionsTotal = result.getInt(1);
+			dbm.openConnection();
+			statement = dbm.connection.prepareStatement(
+					"SELECT QuestionId FROM question ORDER by QuestionId DESC LIMIT 1;");
+			rs = dbm.getResultSet(statement);
+			while (rs.next()) {
+				questionsTotal = rs.getInt(1);
 			}
 			for (int i = 0; i <= questionsTotal; i++) {
-				queryText = "SELECT Question FROM question WHERE QuestionId = " + i + ";";
+				statement = dbm.connection.prepareStatement(
+						"SELECT Question FROM question WHERE QuestionId = ?;");
+				updateParameters = Arrays.asList(String.valueOf(i));
 
-				// Add the results of the query to the ArrayList list
-				result = dbm.doQuery(queryText);
-				while (result.next()) {
-					list.add(result.getString(1));
+				// Add the results of the 'query' to the ArrayList list.
+				rs = dbm.getResultSet(statement, updateParameters);
+				while (rs.next()) {
+					list.add(rs.getString(1));
 				}
 			}
-			// Test the list by showcasing it
+			// Test the list by showcasing it.
 			System.out.println("List of questions: " + list + "\n"
-					+ "Number of questions: " + questionsTotal);
+					+ "Highest questionId: " + questionsTotal);
 
 			// Cast arraylist to observable list from
 			// stackoverflow.com/questions/22191954/javafx-casting-arraylist-to-observablelist
@@ -363,10 +455,32 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 			selectQuestion.setItems(questions);
 		} catch (SQLException | NumberFormatException e) {
 			System.err.println("Error: " + e.getLocalizedMessage());
+			e.printStackTrace();
 		} finally {
 			dbm.closeConnection();
-			result = null;
-			queryText = "";
+			rs = null;
+			statement = null;
+			updateParameters = null;
+		}
+	}
+
+	private void storeStrings() {
+		// If the Toggle's properties contains "Easy" set as Easy, otherwise Hard.
+		difficultySetter = difficultyGroup.getSelectedToggle().
+				toString().contains("Easy") ? "Easy" : "Hard";
+
+		// Collect the Strings with getText from the selected textField.
+		int i = -1;
+		for (TextField tf : editFields) {
+			// Make sure all strings start with an uppercase letter.
+			System.out.println("Initiated at row: " + ++i);
+			if (Character.isLetter(tf.getText().charAt(0))) {
+				Character.toUpperCase(tf.getText().charAt(0));
+				editStrings.set(i, Character.toUpperCase(tf.getText().charAt(0))
+						+ tf.getText().substring(1));
+			} else {
+				editStrings.set(i, tf.getText());
+			}
 		}
 	}
 
@@ -376,14 +490,13 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 	 * @param b
 	 */
 	private void toggleFields(Boolean b) {
-		selectQuestion.requestFocus();
-		editQuestionText.setDisable(b);
-		for (TextField t : answerFields) {
-			t.setDisable(b);
+		for (TextField tf : editFields) {
+			tf.setDisable(b);
 		}
 		for (Toggle t : difficultyGroup.getToggles()) {
 			((ToggleButton) t).setDisable(b);
 		}
+		selectQuestion.requestFocus();
 	}
 
 }

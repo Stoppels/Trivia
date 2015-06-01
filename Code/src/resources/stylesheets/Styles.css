@@ -53,14 +53,21 @@
 .viewTitle {
     -fx-text-fill:                  #F8A533;
 }
+.goedAntwoord {
+    -fx-text-fill:                  #6b8e23;
+}
 #labelA:visited, #labelB:visited, #labelC:visited, #labelD:visited {
     -fx-background-color:           transparent;
     -fx-padding:                    0;
     -fx-cursor:                     hand;
 }
-.text-field {
+.text-field, .text-field:focused {
     -fx-prompt-text-fill:           derive(-fx-control-inner-background,-30%);
 }
-.text-field:focused {
-    -fx-prompt-text-fill:           derive(-fx-control-inner-background,-30%);
+.progress-bar .track {
+    -fx-background-color:           #FFFFFF;
+}
+.progress-bar .bar { 
+    -fx-background-insets:          2px;
+    -fx-background-color:           #522E90;
 }

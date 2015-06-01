@@ -18,7 +18,7 @@
                 <ColumnConstraints hgrow="ALWAYS" minWidth="150.0" />
                 <ColumnConstraints hgrow="ALWAYS" minWidth="150.0" />
                 <ColumnConstraints hgrow="ALWAYS" minWidth="30.0" />
-            <ColumnConstraints />
+                <ColumnConstraints />
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="ALWAYS" />

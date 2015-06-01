@@ -28,6 +28,7 @@
                 <RowConstraints prefHeight="30.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
                 <RowConstraints prefHeight="30.0" vgrow="ALWAYS" />
+                <RowConstraints prefHeight="30.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="80.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
@@ -162,12 +163,30 @@
                         <Font size="32.0" />
                     </font>
                 </CheckBox>
-                <Button fx:id="adminMenu" alignment="CENTER" focusTraversable="false" minHeight="60.0" minWidth="200.0" mnemonicParsing="false" style="-fx-background-radius: 80px;" text="Adminmenu" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+                <Label focusTraversable="false" layoutX="40.0" layoutY="327.0" text="Kies de timerduur" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                </Label>
+            <Label fx:id="timerLabel" focusTraversable="false" text="43" textFill="#522e90" GridPane.columnIndex="3" GridPane.rowIndex="7">
+               <font>
+                  <Font name="System Bold" size="36.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="50.0" />
+               </GridPane.margin>
+            </Label>
+                <Slider fx:id="timerSlider" blockIncrement="5.0" majorTickUnit="10.0" max="60.0" min="10.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" value="30.0" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="7">
+                    <GridPane.margin>
+                        <Insets />
+                    </GridPane.margin>
+                </Slider>
+                <Button fx:id="adminMenu" alignment="CENTER" focusTraversable="false" minHeight="60.0" minWidth="200.0" mnemonicParsing="false" style="-fx-background-radius: 80px;" text="Adminmenu" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="9" GridPane.valignment="CENTER">
                     <font>
                         <Font name="System Bold" size="24.0" />
                     </font>
                 </Button>
-                <Button fx:id="saveSettings" focusTraversable="false" minHeight="60.0" minWidth="200.0" mnemonicParsing="false" style="-fx-background-radius: 80px;" text="Bewaar" GridPane.columnIndex="4" GridPane.columnSpan="3" GridPane.halignment="RIGHT" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+                <Button fx:id="saveSettings" focusTraversable="false" minHeight="60.0" minWidth="200.0" mnemonicParsing="false" style="-fx-background-radius: 80px;" text="Bewaar" GridPane.columnIndex="4" GridPane.columnSpan="3" GridPane.halignment="RIGHT" GridPane.rowIndex="9" GridPane.valignment="CENTER">
                     <font>
                         <Font name="System Bold" size="24.0" />
                     </font>
