@@ -34,7 +34,7 @@ import javafx.fxml.Initializable;
  * @author Team Silent Coders
  * @version 1.0
  */
-public class GameOverview implements Initializable {
+public class GameOverview extends trivia.Trivia implements Initializable {
 
 	/**
 	 * Initializes the controller class.
