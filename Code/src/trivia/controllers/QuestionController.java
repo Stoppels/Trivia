@@ -118,7 +118,7 @@ public class QuestionController extends Trivia implements Initializable {
 
 	private List<ToggleButton> answerButtons;
 	private List<Hyperlink> answerLabels;
-	private String[][] loadedStrings = new String[gameLength][7];
+	private String[][] loadedStrings = new String[gameLength][8];
 	String[][] chosenAnswers = new String[gameLength][2];
 	String[] correctAnswers = new String[gameLength];
 
@@ -264,8 +264,14 @@ public class QuestionController extends Trivia implements Initializable {
 	public void loadGameSettings() {
 		int questionsIndex = -1;
 
-		String difficulty = " AND Difficulty = '";
+		String type = " AND GameType = '", difficulty = " AND Difficulty = '";
+
+		type += GameSetUpController.typeIsTf ? "True/False'" : "Multiple Choice'";
 		difficulty += GameSetUpController.difficultyIsEasy ? "Easy'" : "Hard'";
+
+		if (GameSetUpController.typeIsMixed) {
+			type = "";
+		}
 		if (GameSetUpController.difficultyIsMixed) {
 			difficulty = "";
 		}
@@ -273,13 +279,13 @@ public class QuestionController extends Trivia implements Initializable {
 		try {
 			dbm.openConnection();
 			String queryText = ("SELECT q.Question, r.RightAnswer, w.WrongAnswer, w2.WrongAnswer, "
-					+ "w3.WrongAnswer, q.Difficulty, q.QuestionId FROM question q "
+					+ "w3.WrongAnswer, q.GameType, q.Difficulty, q.QuestionId FROM question q "
 					+ "INNER JOIN rightanswer r ON q.QuestionId = r.QuestionId "
 					+ "INNER JOIN wronganswer w ON w.QuestionId = q.QuestionId "
 					+ "INNER JOIN wronganswer w2 ON w2.QuestionId = q.QuestionId "
 					+ "INNER JOIN wronganswer w3 ON w3.QuestionId = q.QuestionId "
 					+ "WHERE w.WrongAnswerId = 1 AND w2.WrongAnswerId = 2 AND "
-					+ "w3.WrongAnswerId = 3" + difficulty + " ORDER BY RAND() LIMIT ?;");
+					+ "w3.WrongAnswerId = 3" + type + difficulty + " ORDER BY RAND() LIMIT ?;");
 			statement = dbm.connection.prepareStatement(queryText);
 			// Get everything above.
 			statement.setInt(1, gameLength);
@@ -287,10 +293,10 @@ public class QuestionController extends Trivia implements Initializable {
 			while (rs.next()) { // Save everything.
 				System.out.print("Loaded details for {"
 						+ ++questionsIndex + "}"); // Loads next question.
-				for (int i = 0; i <= 6; i++) {
+				for (int i = 0; i <= 7; i++) {
 					loadedStrings[questionsIndex][i] = rs.getString(i + 1);
 					System.out.print("[" + i + "]");
-					if (i == 6) {
+					if (i == 7) {
 						System.out.println("");
 					}
 				}
@@ -306,7 +312,7 @@ public class QuestionController extends Trivia implements Initializable {
 		// Print loaded questions.
 		for (int i = 0; i < gameLength; i++) {
 			System.out.print("\nLoaded data #" + (i + 1) + ": ");
-			for (int j = 0; j <= 6; j++) { // Print stored data for each question.
+			for (int j = 0; j <= 7; j++) { // Print stored data for each question.
 				if (j > 0) {
 					System.out.print(" | ");
 				}
@@ -341,7 +347,7 @@ public class QuestionController extends Trivia implements Initializable {
 			System.out.println("");
 		}
 
-		if (GameSetUpController.timerSetting) { // Timer enabled.
+		if (timerSetting) { // Timer enabled.
 			progressBar.setVisible(true);
 			remainingTimerDuration = new ArrayList<Integer>();
 			for (int i = 0; i < gameLength; i++) {
@@ -368,10 +374,12 @@ public class QuestionController extends Trivia implements Initializable {
 	private void nextQuestion(ActionEvent event, Boolean nextQuestion) {
 		String temp = nextQuestion ? "next" : "previous";
 		System.out.println(temp + "QuestionButton was fired.");
-		remainingTimerDuration.set(questionNumber - 1, parseInt(timer.getText()));
-		for (int i = 0; i < gameLength; i++) {
-			System.out.println("Time remaining for question " + (i + 1) + ": "
-					+ remainingTimerDuration.get(i).toString());
+		if (timerSetting) {
+			remainingTimerDuration.set(questionNumber - 1, parseInt(timer.getText()));
+			for (int i = 0; i < gameLength; i++) {
+				System.out.println("Time remaining for question " + (i + 1) + ": "
+						+ remainingTimerDuration.get(i).toString());
+			}
 		}
 
 		// Makes sure players can pick or change answers.
@@ -413,7 +421,7 @@ public class QuestionController extends Trivia implements Initializable {
 		setLabels(questionNumber - 1);
 		setChosenAnswers(questionNumber - 1);
 
-		if (GameSetUpController.timerSetting) {
+		if (timerSetting) {
 			autoPlay();
 		}
 	}

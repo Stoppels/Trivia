@@ -86,13 +86,13 @@ public class Trivia extends Application {
 	public static Rectangle2D screenBounds;
 
 	@Override
-	public void start(Stage stage) {
-//		streamSettings(); // Shushing out stream & saving err.
+	public void start(Stage startStage) {
+		//streamSettings(); // Shushing out stream & saving err.
 		try {
-			screenBounds = Screen.getPrimary().getVisualBounds();
+			screenBounds = Screen.getPrimary().getVisualBounds(); // Get screen size.
 
-			Trivia.stage = stage;
-			Trivia.stage.getIcons().add(new Image("resources/images/logo.png")); // App icon.
+			stage = startStage;
+			stage.getIcons().add(new Image("resources/images/logo.png")); // App icon.
 			Parent root = FXMLLoader.load(getClass().
 					getResource("/trivia/views/SplashScreen.fxml"));
 			root.setId("pane");
@@ -100,16 +100,16 @@ public class Trivia extends Application {
 			scene.getStylesheets().addAll(this.getClass().
 					getResource("/resources/stylesheets/Styles.css").toExternalForm());
 
-			Trivia.stage.setScene(scene);
-			Trivia.stage.setTitle(APPLICATION_NAME);
-			Trivia.stage.setMinHeight(MIN_HEIGHT);
-			Trivia.stage.setMinWidth(MIN_WIDTH);
+			stage.setScene(scene);
+			stage.setTitle(APPLICATION_NAME);
+			stage.setMinHeight(MIN_HEIGHT);
+			stage.setMinWidth(MIN_WIDTH);
 //			stage.setFullScreen(true);
-			Trivia.stage.setWidth(screenBounds.getWidth());
-			Trivia.stage.setHeight(screenBounds.getHeight());
-			Trivia.stage.initStyle(StageStyle.UNDECORATED);
-			Trivia.stage.setFullScreenExitHint("");
-			Trivia.stage.show();
+			stage.setWidth(screenBounds.getWidth());
+			stage.setHeight(screenBounds.getHeight());
+			stage.initStyle(StageStyle.UNDECORATED);
+			stage.setFullScreenExitHint("");
+			stage.show();
 			prefs = Preferences.userRoot().node(this.getClass().getName());
 			setTime = Integer.parseInt(prefs.get(timerLength, START_TIME.toString()));
 		} catch (IOException e) {
@@ -134,7 +134,6 @@ public class Trivia extends Application {
 		alert.setHeaderText(header);
 		alert.setContentText(content);
 		alert.initStyle(style);
-		stage.toBack();
 
 		// Does user choose button OK or not?
 		Optional<ButtonType> result = alert.showAndWait();

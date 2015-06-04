@@ -54,7 +54,12 @@
     -fx-text-fill:                  #F8A533;
 }
 .goedAntwoord {
-    -fx-text-fill:                  #6b8e23;
+    -fx-background-color:           #008000;
+    -fx-text-fill:                  #FFFFFF;
+}
+.foutAntwoord {
+    -fx-background-color:           #CE2029;
+    -fx-text-fill:                  #FFFFFF;
 }
 #labelA:visited, #labelB:visited, #labelC:visited, #labelD:visited {
     -fx-background-color:           transparent;

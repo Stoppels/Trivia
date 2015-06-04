@@ -84,6 +84,15 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 	TextField editIncorrectAnswer3;
 
 	@FXML
+	private ToggleGroup typeGroup;
+
+	@FXML
+	private ToggleButton typeTrueFalseButton;
+
+	@FXML
+	private ToggleButton typeMultipleChoiceButton;
+
+	@FXML
 	ToggleGroup difficultyGroup;
 
 	@FXML
@@ -102,12 +111,13 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 	Button editQuestionButton;
 
 	private final DbManager dbm = new DbManager();
-	private String difficultySetter = "",
+	private String typeSetter = "", difficultySetter = "",
 			questionText = "", correctAnswer = "", incorrectAnswer1 = "",
-			incorrectAnswer2 = "", incorrectAnswer3 = "";
+			incorrectAnswer2 = "", incorrectAnswer3 = "", tempStr1 = "", tempStr2 = "";
 	private int currentQuestion = 0;
 	public List<String> editStrings;
-	public List<TextField> answerFields, editFields;
+	public List<TextField> answerFields, editMcFields, editTfFields, selectedFields;
+	private Boolean reset = false;
 
 	/**
 	 * Initializes the controller class.
@@ -119,10 +129,13 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 	public void initialize(URL url, ResourceBundle rb) {
 		answerFields = Arrays.asList(editCorrectAnswer, editIncorrectAnswer1,
 				editIncorrectAnswer2, editIncorrectAnswer3);
-		editFields = Arrays.asList(editQuestionText, editCorrectAnswer,
+		editMcFields = Arrays.asList(editQuestionText, editCorrectAnswer,
 				editIncorrectAnswer1, editIncorrectAnswer2, editIncorrectAnswer3);
+		editTfFields = Arrays.asList(editQuestionText, editCorrectAnswer,
+				editIncorrectAnswer1);
 		editStrings = Arrays.asList(questionText, correctAnswer,
 				incorrectAnswer1, incorrectAnswer2, incorrectAnswer3);
+		selectedFields = editMcFields;
 
 		adminMenu.setOnAction(this::loadView);
 		editQuestionButton.setOnAction(this::confirmAlertEditQuestion);
@@ -131,16 +144,56 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 		selectQuestion.setOnAction(this::fillFields);
 		deleteQuestionButton.setOnAction(this::confirmDeleteQuestion);
 
+		typeGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+			@Override
+			public void changed(ObservableValue<? extends Toggle> ov,
+					Toggle toggle, Toggle new_toggle) {
+				if (!reset && new_toggle == null) {
+					// Can't unselect entire ToggleGroup: keep one selected at all times.
+					toggle.setSelected(true);
+					disableEditButton();
+				} else if (reset && new_toggle == null) {
+					disableEditButton();
+				} else if (new_toggle != null) {
+					disableEditButton();
+					difficultyEasy.setDisable(false);
+					difficultyHard.setDisable(false);
+					if (new_toggle == typeTrueFalseButton
+							&& (difficultyEasy.isSelected() || difficultyHard.isSelected())) {
+						editIncorrectAnswer2.setDisable(true);
+						editIncorrectAnswer3.setDisable(true);
+						tempStr1 = editIncorrectAnswer2.getText();
+						tempStr2 = editIncorrectAnswer3.getText();
+						editIncorrectAnswer2.setText("");
+						editIncorrectAnswer3.setText("");
+					} else if (new_toggle == typeMultipleChoiceButton
+							&& (difficultyEasy.isSelected() || difficultyHard.isSelected())) {
+						editIncorrectAnswer2.setDisable(false);
+						editIncorrectAnswer3.setDisable(false);
+						editIncorrectAnswer2.setText(tempStr1);
+						editIncorrectAnswer3.setText(tempStr2);
+					}
+				}
+			}
+		});
 		// Can't unselect entire ToggleGroup: keep one selected at all times.
 		difficultyGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
 			@Override
 			public void changed(ObservableValue<? extends Toggle> ov,
 					Toggle toggle, Toggle new_toggle) {
-				disableEditButton();
+				if (!reset && new_toggle == null) {
+					// Can't unselect entire ToggleGroup: keep one selected at all times.
+					toggle.setSelected(true);
+					disableEditButton();
+				} else if (reset && new_toggle == null) {
+					disableEditButton();
+				} else if (new_toggle != null) {
+					disableEditButton();
+				}
 			}
 		});
 		editQuestionButton.setDisable(true);
-		for (TextField tf : editFields) {
+		for (TextField tf : editMcFields) {
 			tf.textProperty().addListener(new ChangeListener<String>() {
 				@Override
 				public void changed(ObservableValue<? extends String> observable,
@@ -155,11 +208,21 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 	 * Clears all the fields and deselects all toggles.
 	 */
 	private void clearFields() {
-		for (TextField tf : editFields) {
+		reset = true;
+		for (TextField tf : editMcFields) {
 			tf.setText("");
 		}
+		typeGroup.selectToggle(null);
 		difficultyGroup.selectToggle(null);
-		editFields.get(0).requestFocus();
+		typeSetter = "";
+		difficultySetter = "";
+		selectedFields = null;
+		tempStr1 = "";
+		tempStr2 = "";
+		editQuestionButton.setDisable(true);
+		editMcFields.get(0).requestFocus();
+		reset = false;
+		System.out.println("Fields cleared.");
 	}
 
 	/**
@@ -170,33 +233,34 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 	 */
 	private void confirmAlertEditQuestion(ActionEvent event) {
 		try {
-			if (editFields.get(0).getText().isEmpty() || editFields.get(1).getText().isEmpty()
-					|| editFields.get(2).getText().isEmpty()
-					|| editFields.get(3).getText().isEmpty()
-					|| editFields.get(4).getText().isEmpty()
+			if (editMcFields.get(0).getText().isEmpty() || editMcFields.get(1).getText().isEmpty()
+					|| editMcFields.get(2).getText().isEmpty()
+					|| editMcFields.get(3).getText().isEmpty()
+					|| editMcFields.get(4).getText().isEmpty()
+					|| (!typeTrueFalseButton.isSelected() && !typeMultipleChoiceButton.isSelected())
 					|| (!difficultyEasy.isSelected() && !difficultyHard.isSelected())) {
 				alertDialog(Alert.AlertType.ERROR, "Tekstveld leeg", null, "Elk tekstveld moet"
 						+ " zijn ingevuld en een moeilijkheidsgraad moet zijn gekozen.",
 						StageStyle.UNDECORATED);
-			} else if (editFields.get(0).getText().equals(editFields.get(1).getText())
-					|| editFields.get(0).getText().equals(editFields.get(2).getText())
-					|| editFields.get(0).getText().equals(editFields.get(3).getText())
-					|| editFields.get(0).getText().equals(editFields.get(4).getText())
-					|| editFields.get(1).getText().equals(editFields.get(2).getText())
-					|| editFields.get(1).getText().equals(editFields.get(3).getText())
-					|| editFields.get(1).getText().equals(editFields.get(4).getText())
-					|| editFields.get(2).getText().equals(editFields.get(3).getText())
-					|| editFields.get(2).getText().equals(editFields.get(4).getText())
-					|| editFields.get(3).getText().equals(editFields.get(4).getText())) {
+			} else if (editMcFields.get(0).getText().equals(editMcFields.get(1).getText())
+					|| editMcFields.get(0).getText().equals(editMcFields.get(2).getText())
+					|| editMcFields.get(0).getText().equals(editMcFields.get(3).getText())
+					|| editMcFields.get(0).getText().equals(editMcFields.get(4).getText())
+					|| editMcFields.get(1).getText().equals(editMcFields.get(2).getText())
+					|| editMcFields.get(1).getText().equals(editMcFields.get(3).getText())
+					|| editMcFields.get(1).getText().equals(editMcFields.get(4).getText())
+					|| editMcFields.get(2).getText().equals(editMcFields.get(3).getText())
+					|| editMcFields.get(2).getText().equals(editMcFields.get(4).getText())
+					|| editMcFields.get(3).getText().equals(editMcFields.get(4).getText())) {
 				alertDialog(Alert.AlertType.ERROR, "Dubbele waarde", null, "Elk tekstveld moet "
 						+ "een unieke invoer bevatten.", StageStyle.UNDECORATED);
 			} else if (alertDialog(Alert.AlertType.CONFIRMATION, "Vraag wijzigen",
 					"Weet u zeker dat u de wijzigingen wilt opslaan?",
-					"De vraag: " + editFields.get(0).getText()
-					+ "\nMet het juiste antwoord: " + editFields.get(1).getText()
-					+ "\nEn de onjuiste antwoorden:\n– " + editFields.get(2).getText()
-					+ "\n– " + editFields.get(3).getText() + "\n– "
-					+ editFields.get(4).getText(), StageStyle.UNDECORATED)) {
+					"De vraag: " + editMcFields.get(0).getText()
+					+ "\nMet het juiste antwoord: " + editMcFields.get(1).getText()
+					+ "\nEn de onjuiste antwoorden:\n– " + editMcFields.get(2).getText()
+					+ "\n– " + editMcFields.get(3).getText() + "\n– "
+					+ editMcFields.get(4).getText(), StageStyle.UNDECORATED)) {
 				editQuestion();
 			}
 		} catch (NoSuchElementException e) {
@@ -232,8 +296,7 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 		try {
 			// If no question selected: there is no question selected to delete Error Dialog.
 			String countRows = "SELECT COUNT(*) FROM question";
-			statement = dbm.connection
-					.prepareStatement(countRows);
+			statement = dbm.connection.prepareStatement(countRows);
 			updateParameters = Arrays.asList();
 			rs = dbm.getResultSet(statement, updateParameters);
 
@@ -245,8 +308,7 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 			updateParameters = Arrays.asList(selectQuestion.getValue().toString());
 			dbm.executeUpdate(statement, updateParameters);
 
-			statement = dbm.connection
-					.prepareStatement(countRows);
+			statement = dbm.connection.prepareStatement(countRows);
 			updateParameters = Arrays.asList();
 			rs = dbm.getResultSet(statement, updateParameters);
 			rs.next();
@@ -273,15 +335,21 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 	}
 
 	private void disableEditButton() {
-		if (editFields.get(0).getText().isEmpty() || editFields.get(1).getText().isEmpty()
-				|| editFields.get(2).getText().isEmpty() || editFields.get(3).getText().isEmpty()
-				|| editFields.get(4).getText().isEmpty()
-				|| (!difficultyEasy.isSelected() && !difficultyHard.isSelected())
-				|| (editFields.get(0).getText().equals(editStrings.get(0))
-				&& editFields.get(1).getText().equals(editStrings.get(1))
-				&& editFields.get(2).getText().equals(editStrings.get(2))
-				&& editFields.get(3).getText().equals(editStrings.get(3))
-				&& editFields.get(4).getText().equals(editStrings.get(4))
+		if ((typeTrueFalseButton.isSelected() && (editMcFields.get(0).getText().isEmpty()
+				|| editMcFields.get(1).getText().isEmpty()
+				|| editMcFields.get(2).getText().isEmpty()))
+				|| (typeMultipleChoiceButton.isSelected()
+				&& (editMcFields.get(0).getText().isEmpty()
+				|| editMcFields.get(1).getText().isEmpty()
+				|| editMcFields.get(2).getText().isEmpty()
+				|| editMcFields.get(3).getText().isEmpty()
+				|| editMcFields.get(4).getText().isEmpty()))
+				|| (editMcFields.get(0).getText().equals(editStrings.get(0))
+				&& editMcFields.get(1).getText().equals(editStrings.get(1))
+				&& editMcFields.get(2).getText().equals(editStrings.get(2))
+				&& editMcFields.get(3).getText().equals(editStrings.get(3))
+				&& editMcFields.get(4).getText().equals(editStrings.get(4))
+				&& (typeGroup.getSelectedToggle().toString().contains(typeSetter))
 				&& (difficultyGroup.getSelectedToggle().toString().contains(difficultySetter)))) {
 			editQuestionButton.setDisable(true);
 		} else {
@@ -301,14 +369,17 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 				+ "Changing Incorrect Answer 1 to: " + editStrings.get(2) + "\n"
 				+ "Changing Incorrect Answer 2 to: " + editStrings.get(3) + "\n"
 				+ "Changing Incorrect Answer 3 to: " + editStrings.get(4) + "\n"
+				+ "Changing question type to: " + typeSetter + "\n"
 				+ "Changing question difficulty to: " + difficultySetter);
 
 		try {
 			dbm.openConnection();
 			// Create the insert script strings and execute it.
 			statement = dbm.connection.prepareStatement(
-					"UPDATE question SET Question = ?, Difficulty = ? WHERE QuestionId = ?;");
-			updateParameters = Arrays.asList(editStrings.get(0), difficultySetter, String.valueOf(currentQuestion));
+					"UPDATE question SET Question = ?, GameType = ?,"
+					+ " Difficulty = ? WHERE QuestionId = ?;");
+			updateParameters = Arrays.asList(editStrings.get(0), typeSetter,
+					difficultySetter, String.valueOf(currentQuestion));
 			dbm.executeUpdate(statement, updateParameters);
 
 			statement = dbm.connection.prepareStatement(
@@ -343,7 +414,7 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 			statement = null;
 			updateParameters = null;
 
-			editFields.get(0).requestFocus();
+			editMcFields.get(0).requestFocus();
 			duplicateError = false;
 			return;
 		}
@@ -363,15 +434,15 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 	 * selected.
 	 */
 	private void fillFields(Event event) {
+		clearFields();
 		try {
-			if (selectQuestion.getValue() == null) { // If no question has been selected
-				toggleFields(true); // Disable all fields and ToggleButtons
-				return; // And don't try to fill/select them (aborts this method)
-			} else {
-				toggleFields(false); // Otherwise enable the fields and execute this method
+			if (selectQuestion.getValue() == null) { // If no question has been selected.
+				selectedFields = editMcFields;
+				toggleFields(true); // Disable all fields and ToggleButtons.
+				return; // And don't try to fill/select them (aborts this method).
 			}
 		} catch (NullPointerException e) {
-			System.err.println("Error: " + e.getLocalizedMessage()); // Hurr durr I exception
+			System.err.println("Error: " + e.getLocalizedMessage()); // Hurr durr I exception.
 		}
 
 		int i = 1;
@@ -379,7 +450,7 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 			dbm.openConnection();
 			statement = dbm.connection.prepareStatement(
 					"SELECT r.RightAnswer, w.WrongAnswer, w2.WrongAnswer, "
-					+ "w3.WrongAnswer, q.Difficulty, q.QuestionId FROM question q "
+					+ "w3.WrongAnswer, q.GameType, q.Difficulty, q.QuestionId FROM question q "
 					+ "INNER JOIN rightanswer r ON q.QuestionId = r.QuestionId "
 					+ "INNER JOIN wronganswer w ON w.QuestionId = q.QuestionId "
 					+ "INNER JOIN wronganswer w2 ON w2.QuestionId = q.QuestionId "
@@ -391,27 +462,34 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 
 			rs = dbm.getResultSet(statement, updateParameters); // Get everything.
 			rs.next();
-			editFields.get(0).setText(updateParameters.get(0)); // Fill the question field.
+			editMcFields.get(0).setText(updateParameters.get(0)); // Fill the question field.
 
 			for (TextField tf : answerFields) { // Fill the answer fields.
 				tf.setText(rs.getString(i++));
 			}
-			if (rs.getString(i).contains("Easy")) { // Select the right difficulty toggle
+			if (rs.getString(i).contains("TrueFalse")) { // Select the right type toggle.
+				typeTrueFalseButton.setSelected(true);
+			} else if (rs.getString(i).contains("MultipleChoice")) {
+				typeMultipleChoiceButton.setSelected(true);
+			}
+			if (rs.getString(++i).contains("Easy")) { // Select the right difficulty toggle.
 				difficultyEasy.setSelected(true);
 			} else if (rs.getString(i).contains("Hard")) {
 				difficultyHard.setSelected(true);
 			}
 
-			currentQuestion = rs.getInt(i + 1); // Store QuestionId in case of edit
+			currentQuestion = rs.getInt(i + 1); // Store QuestionId in case of edit.
 			storeStrings();
 		} catch (SQLException e) {
 			System.err.println("Error: " + e.getLocalizedMessage());
+			toggleFields(true); // Something went wrong, disable all fields.
 		} finally {
 			dbm.closeConnection();
 			rs = null;
 			statement = null;
 			updateParameters = null;
 		}
+		toggleFields(false); // Enable the necessary fields.
 		disableEditButton();
 	}
 
@@ -464,22 +542,34 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 	}
 
 	private void storeStrings() {
-		// If the Toggle's properties contains "Easy" set as Easy, otherwise Hard.
+		// If the Toggle's properties contain "TF", set as TF, otherwise MC.
+		typeSetter = typeGroup.getSelectedToggle().toString().
+				contains("TrueFalse") ? "TrueFalse" : "MultipleChoice";
+
+		// If the Toggle's properties contain "Easy" set as Easy, otherwise Hard.
 		difficultySetter = difficultyGroup.getSelectedToggle().
 				toString().contains("Easy") ? "Easy" : "Hard";
 
 		// Collect the Strings with getText from the selected textField.
 		int i = -1;
-		for (TextField tf : editFields) {
+		selectedFields = typeSetter.contains("TrueFalse") ? editTfFields : editMcFields;
+		for (TextField tf : selectedFields) {
 			// Make sure all strings start with an uppercase letter.
 			System.out.println("Initiated at row: " + ++i);
-			if (Character.isLetter(tf.getText().charAt(0))) {
+			if (!tf.getText().isEmpty() && Character.isLetter(tf.getText().charAt(0))) {
 				Character.toUpperCase(tf.getText().charAt(0));
 				editStrings.set(i, Character.toUpperCase(tf.getText().charAt(0))
 						+ tf.getText().substring(1));
 			} else {
 				editStrings.set(i, tf.getText());
 			}
+		}
+		if (selectedFields == editTfFields) { // Also store the correct strings if empty.
+			editStrings.set(3, "");
+			editStrings.set(4, "");
+		}
+		if (!editStrings.get(0).endsWith("?")) { // Make sure all questions end with ?.
+			editStrings.set(0, editStrings.get(0).concat("?"));
 		}
 	}
 
@@ -489,8 +579,15 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 	 * @param b
 	 */
 	private void toggleFields(Boolean b) {
-		for (TextField tf : editFields) {
+		for (TextField tf : selectedFields) {
 			tf.setDisable(b);
+		}
+		if (selectedFields == editTfFields && b == false) {
+			editIncorrectAnswer2.setDisable(!b);
+			editIncorrectAnswer3.setDisable(!b);
+		}
+		for (Toggle t : typeGroup.getToggles()) {
+			((ToggleButton) t).setDisable(b);
 		}
 		for (Toggle t : difficultyGroup.getToggles()) {
 			((ToggleButton) t).setDisable(b);

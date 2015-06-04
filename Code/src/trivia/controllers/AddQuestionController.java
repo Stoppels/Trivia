@@ -70,6 +70,15 @@ public class AddQuestionController extends Trivia implements Initializable {
 	private TextField addIncorrectAnswer3;
 
 	@FXML
+	private ToggleGroup typeGroup;
+
+	@FXML
+	private ToggleButton typeTrueFalseButton;
+
+	@FXML
+	private ToggleButton typeMultipleChoiceButton;
+
+	@FXML
 	private ToggleGroup difficultyGroup;
 
 	@FXML
@@ -85,11 +94,11 @@ public class AddQuestionController extends Trivia implements Initializable {
 	private Button addQuestionButton;
 
 	private final DbManager dbm = new DbManager();
-	private String difficultySetter = "",
+	private String typeSetter = "", difficultySetter = "",
 			question = "", correctAnswer = "", incorrectAnswer1 = "",
-			incorrectAnswer2 = "", incorrectAnswer3 = "";
+			incorrectAnswer2 = "", incorrectAnswer3 = "", tempStr1 = "", tempStr2 = "";
 	public List<String> addStrings;
-	public List<TextField> addFields;
+	public List<TextField> addMcFields, addTfFields, selectedFields;
 	private Boolean reset = false;
 
 	/**
@@ -102,29 +111,73 @@ public class AddQuestionController extends Trivia implements Initializable {
 	public void initialize(URL url, ResourceBundle rb) {
 		addStrings = Arrays.asList(question, correctAnswer,
 				incorrectAnswer1, incorrectAnswer2, incorrectAnswer3);
-		addFields = Arrays.asList(addQuestionText, addCorrectAnswer,
+		addMcFields = Arrays.asList(addQuestionText, addCorrectAnswer,
 				addIncorrectAnswer1, addIncorrectAnswer2, addIncorrectAnswer3);
+		addTfFields = Arrays.asList(addQuestionText, addCorrectAnswer, addIncorrectAnswer1);
 
 		adminMenu.setOnAction(this::loadView);
 		addQuestionButton.setOnAction(this::confirmAlertAddQuestion);
 
-		// Can't unselect entire ToggleGroup: keep one selected at all times.
-		difficultyGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+		typeGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
 			@Override
 			public void changed(ObservableValue<? extends Toggle> ov,
 					Toggle toggle, Toggle new_toggle) {
 				if (!reset && new_toggle == null) {
+					// Can't unselect entire ToggleGroup: keep one selected at all times.
 					toggle.setSelected(true);
 					disableAddButton();
 				} else if (reset && new_toggle == null) {
 					disableAddButton();
 				} else if (new_toggle != null) {
 					disableAddButton();
+					difficultyEasy.setDisable(false);
+					difficultyHard.setDisable(false);
+					if (new_toggle == typeTrueFalseButton
+							&& (difficultyEasy.isSelected() || difficultyHard.isSelected())) {
+						addIncorrectAnswer2.setDisable(true);
+						addIncorrectAnswer3.setDisable(true);
+						tempStr1 = addIncorrectAnswer2.getText();
+						tempStr2 = addIncorrectAnswer3.getText();
+						addIncorrectAnswer2.setText("");
+						addIncorrectAnswer3.setText("");
+					} else if (new_toggle == typeMultipleChoiceButton
+							&& (difficultyEasy.isSelected() || difficultyHard.isSelected())) {
+						addIncorrectAnswer2.setDisable(false);
+						addIncorrectAnswer3.setDisable(false);
+						addIncorrectAnswer2.setText(tempStr1);
+						addIncorrectAnswer3.setText(tempStr2);
+					}
 				}
 			}
 		});
-		addQuestionButton.setDisable(true);
-		for (TextField tf : addFields) {
+		difficultyGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+			@Override
+			public void changed(ObservableValue<? extends Toggle> ov,
+					Toggle toggle, Toggle new_toggle) {
+				if (!reset && new_toggle == null) {
+					// Can't unselect entire ToggleGroup: keep one selected at all times.
+					toggle.setSelected(true);
+					disableAddButton();
+				} else if (reset && new_toggle == null) {
+					disableAddButton();
+				} else if (new_toggle != null) {
+					disableAddButton();
+					if (typeTrueFalseButton.isSelected() || typeMultipleChoiceButton.isSelected()) {
+						addQuestionText.setDisable(false);
+						addCorrectAnswer.setDisable(false);
+						addIncorrectAnswer1.setDisable(false);
+						if (typeTrueFalseButton.isSelected()) {
+							addIncorrectAnswer2.setDisable(true);
+							addIncorrectAnswer3.setDisable(true);
+						} else if (typeMultipleChoiceButton.isSelected()) {
+							addIncorrectAnswer2.setDisable(false);
+							addIncorrectAnswer3.setDisable(false);
+						}
+					}
+				}
+			}
+		});
+		for (TextField tf : addMcFields) {
 			tf.textProperty().addListener(new ChangeListener<String>() {
 				@Override
 				public void changed(ObservableValue<? extends String> observable,
@@ -140,26 +193,35 @@ public class AddQuestionController extends Trivia implements Initializable {
 	 */
 	private void addQuestion() {
 		// If the Toggle's properties contains "Easy" set as Easy, otherwise Hard.
+		typeSetter = typeGroup.getSelectedToggle().toString().
+				contains("TrueFalse") ? "TrueFalse" : "MultipleChoice";
+		System.out.println(typeSetter);
+		// If the Toggle's properties contains "Easy" set as Easy, otherwise Hard.
 		difficultySetter = difficultyGroup.getSelectedToggle().
 				toString().contains("Easy") ? "Easy" : "Hard";
 		// Collect the Strings with getText from the selected textField.
 		int i = -1;
-		for (TextField tf : addFields) {
+		selectedFields = typeSetter.contains("TrueFalse") ? addTfFields : addMcFields;
+		for (TextField tf : selectedFields) {
 			// Make sure all strings start with an uppercase letter.
 			System.out.println("Initiated at row: " + ++i);
-			if (Character.isLetter(tf.getText().charAt(0))) {
+			// Change all first characters to uppercase if they're letters.
+			if (!tf.getText().isEmpty() && Character.isLetter(tf.getText().charAt(0))) {
 				addStrings.set(i, Character.toUpperCase(tf.getText().charAt(0))
 						+ tf.getText().substring(1));
 			} else {
 				addStrings.set(i, tf.getText());
+			}
+			if (!addStrings.get(0).endsWith("?")) {
+				addStrings.set(0, addStrings.get(0).concat("?"));
 			}
 		}
 
 		try {
 			dbm.openConnection();
 			statement = dbm.connection
-					.prepareStatement("INSERT INTO question VALUES(NULL, ?, ?);");
-			updateParameters = Arrays.asList(addStrings.get(0), difficultySetter);
+					.prepareStatement("INSERT INTO question VALUES(NULL, ?, ?, ?);");
+			updateParameters = Arrays.asList(addStrings.get(0), typeSetter, difficultySetter);
 			dbm.executeUpdate(statement, updateParameters);
 		} catch (SQLException e) {
 			System.err.println("Error: " + e.getLocalizedMessage());
@@ -172,15 +234,18 @@ public class AddQuestionController extends Trivia implements Initializable {
 			statement = null;
 			updateParameters = null;
 
-			addFields.get(0).requestFocus();
+			addMcFields.get(0).requestFocus();
 			duplicateError = false;
 			return;
 		}
 		System.out.println("Adding question: " + addStrings.get(0) + "\n"
 				+ "Adding Correct Answer: " + addStrings.get(1) + "\n"
-				+ "Adding Incorrect Answer 1: " + addStrings.get(2) + "\n"
-				+ "Adding Incorrect Answer 2: " + addStrings.get(3) + "\n"
-				+ "Adding Incorrect Answer 3: " + addStrings.get(4) + "\n"
+				+ "Adding Incorrect Answer 1: " + addStrings.get(2));
+		if (typeMultipleChoiceButton.isSelected()) {
+			System.out.println("Adding Incorrect Answer 2: " + addStrings.get(3) + "\n"
+					+ "Adding Incorrect Answer 3: " + addStrings.get(4));
+		}
+		System.out.println("Setting question type as: " + typeSetter + "\n"
 				+ "Setting question difficulty: " + difficultySetter);
 
 		try {
@@ -221,11 +286,16 @@ public class AddQuestionController extends Trivia implements Initializable {
 
 	private void clearFields() {
 		reset = true;
-		for (TextField tf : addFields) {
+		for (TextField tf : addMcFields) {
 			tf.setText("");
+			tf.setDisable(true);
 		}
+		typeGroup.selectToggle(null);
 		difficultyGroup.selectToggle(null);
-		addFields.get(0).requestFocus();
+		selectedFields = null;
+		tempStr1 = "";
+		tempStr2 = "";
+		addMcFields.get(0).requestFocus();
 		reset = false;
 	}
 
@@ -237,33 +307,53 @@ public class AddQuestionController extends Trivia implements Initializable {
 	 */
 	private void confirmAlertAddQuestion(ActionEvent event) {
 		try {
-			if (addFields.get(0).getText().isEmpty() || addFields.get(1).getText().isEmpty()
-					|| addFields.get(2).getText().isEmpty()
-					|| addFields.get(3).getText().isEmpty()
-					|| addFields.get(4).getText().isEmpty()
-					|| (!difficultyEasy.isSelected() && !difficultyHard.isSelected())) {
-				alertDialog(Alert.AlertType.ERROR, "Invoerveld leeg", null, "Elk tekstveld moet "
-						+ "zijn ingevuld en een moeilijkheidsgraad gekozen.", StageStyle.UNDECORATED);
-			} else if (addFields.get(0).getText().equals(addFields.get(1).getText())
-					|| addFields.get(0).getText().equals(addFields.get(2).getText())
-					|| addFields.get(0).getText().equals(addFields.get(3).getText())
-					|| addFields.get(0).getText().equals(addFields.get(4).getText())
-					|| addFields.get(1).getText().equals(addFields.get(2).getText())
-					|| addFields.get(1).getText().equals(addFields.get(3).getText())
-					|| addFields.get(1).getText().equals(addFields.get(4).getText())
-					|| addFields.get(2).getText().equals(addFields.get(3).getText())
-					|| addFields.get(2).getText().equals(addFields.get(4).getText())
-					|| addFields.get(3).getText().equals(addFields.get(4).getText())) {
-				alertDialog(Alert.AlertType.ERROR, "Dubbele waarde", null, "Elk tekstveld moet "
-						+ "een unieke invoer bevatten.", StageStyle.UNDECORATED);
-			} else if (alertDialog(Alert.AlertType.CONFIRMATION, "Vraag toevoegen",
-					"Weet u zeker dat u deze vraag wilt toevoegen?",
-					"De vraag: " + addFields.get(0).getText()
-					+ "\nMet het juiste antwoord: " + addFields.get(1).getText()
-					+ "\nEn de onjuiste antwoorden:\n– " + addFields.get(2).getText()
-					+ "\n– " + addFields.get(3).getText() + "\n– " + addFields.get(4).getText(),
-					StageStyle.UNDECORATED)) {
-				addQuestion();
+			if ((typeTrueFalseButton.isSelected() && (addMcFields.get(0).getText().isEmpty()
+					|| addMcFields.get(1).getText().isEmpty()
+					|| addMcFields.get(2).getText().isEmpty())) || (typeMultipleChoiceButton.isSelected()
+					&& (addMcFields.get(0).getText().isEmpty()
+					|| addMcFields.get(1).getText().isEmpty()
+					|| addMcFields.get(2).getText().isEmpty()
+					|| addMcFields.get(3).getText().isEmpty()
+					|| addMcFields.get(4).getText().isEmpty()))) {
+				alertDialog(Alert.AlertType.ERROR, "Invoerveld leeg", null, "Elk "
+						+ "tekstveld moet zijn ingevuld en een moeilijkheidsgraad"
+						+ " gekozen.", StageStyle.UNDECORATED);
+			} else if ((typeTrueFalseButton.isSelected()
+					&& (addMcFields.get(0).getText().equals(addMcFields.get(1).getText())
+					|| addMcFields.get(0).getText().equals(addMcFields.get(2).getText())
+					|| addMcFields.get(1).getText().equals(addMcFields.get(2).getText())))
+					|| (typeMultipleChoiceButton.isSelected()
+					&& (addMcFields.get(0).getText().equals(addMcFields.get(1).getText())
+					|| addMcFields.get(0).getText().equals(addMcFields.get(2).getText())
+					|| addMcFields.get(0).getText().equals(addMcFields.get(3).getText())
+					|| addMcFields.get(0).getText().equals(addMcFields.get(4).getText())
+					|| addMcFields.get(1).getText().equals(addMcFields.get(2).getText())
+					|| addMcFields.get(1).getText().equals(addMcFields.get(3).getText())
+					|| addMcFields.get(1).getText().equals(addMcFields.get(4).getText())
+					|| addMcFields.get(2).getText().equals(addMcFields.get(3).getText())
+					|| addMcFields.get(2).getText().equals(addMcFields.get(4).getText())
+					|| addMcFields.get(3).getText().equals(addMcFields.get(4).getText())))) {
+				alertDialog(Alert.AlertType.ERROR, "Dubbele waarde", null, "Elk tekstveld"
+						+ " moet een unieke invoer bevatten.", StageStyle.UNDECORATED);
+			} else if (typeMultipleChoiceButton.isSelected()) {
+				if (alertDialog(Alert.AlertType.CONFIRMATION, "Vraag toevoegen",
+						"Weet u zeker dat u deze vraag wilt toevoegen?",
+						"De vraag: " + addMcFields.get(0).getText()
+						+ "\nMet het juiste antwoord: " + addMcFields.get(1).getText()
+						+ "\nEn de onjuiste antwoorden:\n– " + addMcFields.get(2).getText()
+						+ "\n– " + addMcFields.get(3).getText() + "\n– "
+						+ addMcFields.get(4).getText(), StageStyle.UNDECORATED)) {
+					addQuestion();
+				}
+			} else if (typeTrueFalseButton.isSelected()) {
+				if (alertDialog(Alert.AlertType.CONFIRMATION, "Vraag toevoegen",
+						"Weet u zeker dat u deze vraag wilt toevoegen?",
+						"De vraag: " + addMcFields.get(0).getText()
+						+ "\nMet het juiste antwoord: " + addMcFields.get(1).getText()
+						+ "\n\nEn het onjuiste antwoord: " + addMcFields.get(2).getText(),
+						StageStyle.UNDECORATED)) {
+					addQuestion();
+				}
 			}
 		} catch (NoSuchElementException e) {
 			System.err.println(e.getLocalizedMessage());
@@ -271,11 +361,16 @@ public class AddQuestionController extends Trivia implements Initializable {
 		}
 	}
 
+	/**
+	 * Method that disables the addQuestionButton if any of the necessary fields
+	 * is empty.
+	 */
 	private void disableAddButton() {
-		if (addFields.get(0).getText().isEmpty() || addFields.get(1).getText().isEmpty()
-				|| addFields.get(2).getText().isEmpty() || addFields.get(3).getText().isEmpty()
-				|| addFields.get(4).getText().isEmpty()
-				|| (!difficultyEasy.isSelected() && !difficultyHard.isSelected())) {
+		if ((typeTrueFalseButton.isSelected() && (addMcFields.get(0).getText().isEmpty()
+				|| addMcFields.get(1).getText().isEmpty() || addMcFields.get(2).getText().isEmpty()))
+				|| (typeMultipleChoiceButton.isSelected() && (addMcFields.get(0).getText().isEmpty()
+				|| addMcFields.get(1).getText().isEmpty() || addMcFields.get(2).getText().isEmpty()
+				|| addMcFields.get(3).getText().isEmpty() || addMcFields.get(4).getText().isEmpty()))) {
 			addQuestionButton.setDisable(true);
 		} else {
 			addQuestionButton.setDisable(false);

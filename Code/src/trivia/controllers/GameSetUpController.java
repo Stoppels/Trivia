@@ -105,7 +105,7 @@ public class GameSetUpController extends Trivia implements Initializable {
 
 	private List<ToggleGroup> groupsList;
 	static boolean difficultyIsMixed = true, difficultyIsEasy = true,
-			tfSetter = true, mcSetter = true;
+			typeIsMixed = true, typeIsTf = true;
 
 	/**
 	 * Initializes the controller class.
@@ -265,10 +265,16 @@ public class GameSetUpController extends Trivia implements Initializable {
 		System.out.print("Chosen question type: ");
 		if (typeMixedButton.isSelected()) {
 			System.out.println("Mixed");
+			typeIsTf = false;
+			typeIsMixed = true;
 		} else if (typeTfButton.isSelected()) {
 			System.out.println("True/false");
+			typeIsTf = true;
+			typeIsMixed = false;
 		} else if (typeMcButton.isSelected()) {
 			System.out.println("Four choices");
+			typeIsTf = false;
+			typeIsMixed = false;
 		}
 
 		System.out.print("Chosen game length: ");

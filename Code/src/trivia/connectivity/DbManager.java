@@ -66,7 +66,6 @@ public class DbManager {
 //			url = prefs.get(dbUrl, DEFAULT_URL);
 //			user = prefs.get(dbUser, DEFAULT_USER);
 //			pass = prefs.get(dbPass, DEFAULT_PASS);
-
 			// TSC test server 1
 			url = "jdbc:mysql://oege.ie.hva.nl:3306/zshayann001";
 			user = "shayann001";
