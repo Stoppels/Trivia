@@ -192,7 +192,7 @@ public class Trivia extends Application {
 				viewName = "GameSetUp";
 				break;
 			case "nextQuestionButton":
-				viewName = "MainMenu"; // <<<<±———————— NICK, GAMEOVERVIEW
+				viewName = "NameEntry"; // <<<<±———————— NICK, GAMEOVERVIEW
 				break;
 			case "defaultSettings":
 				viewName = "DefaultSettings";
@@ -202,6 +202,9 @@ public class Trivia extends Application {
 				break;
 			case "saveSettings":
 				viewName = "AdminMenu";
+				break;
+                        case "next":
+				viewName = "HighScore";
 				break;
 			default:
 				System.err.println("View " + viewName + " not found.");

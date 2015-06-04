@@ -397,8 +397,8 @@ public class QuestionController extends Trivia implements Initializable {
 					System.out.println("Answer to question " + (i + 1) + ": "
 							+ chosenAnswers[i][1]);
 				}
-				//loadView(event); // --> go to ScoreOverview.
-				stopQuiz(event);
+				loadView(event); // --> go to ScoreOverview.
+				//stopQuiz(event);
 			} else {
 				questionNumber++;
 				previousQuestionButton.setDisable(false);
