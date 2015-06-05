@@ -52,7 +52,7 @@
                         <Insets />
                     </GridPane.margin>
                 </Label>
-                <ToggleButton fx:id="difficultyMixedButton" mnemonicParsing="false" prefWidth="140.0" text="Gemengd" GridPane.columnIndex="3" GridPane.columnSpan="5" GridPane.rowIndex="3">
+                <ToggleButton fx:id="difficultyMixedButton" mnemonicParsing="false" prefWidth="140.0" text="Gemengd" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="3">
                     <toggleGroup>
                         <ToggleGroup fx:id="difficultyGroup" />
                     </toggleGroup>
@@ -83,7 +83,7 @@
                         <Font size="24.0" />
                     </font>
                 </Label>
-                <ToggleButton fx:id="typeMixedButton" mnemonicParsing="false" prefWidth="140.0" text="Gemengd" GridPane.columnIndex="3" GridPane.columnSpan="5" GridPane.rowIndex="4">
+                <ToggleButton fx:id="typeMixedButton" mnemonicParsing="false" prefWidth="140.0" text="Gemengd" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="4">
                     <toggleGroup>
                         <ToggleGroup fx:id="typeGroup" />
                     </toggleGroup>
@@ -91,7 +91,7 @@
                         <Font size="24.0" />
                     </font>
                 </ToggleButton>
-                <ToggleButton fx:id="typeTfButton" mnemonicParsing="false" prefWidth="140.0" text="2 keuzes" toggleGroup="$typeGroup" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+                <ToggleButton fx:id="typeTfButton" mnemonicParsing="false" prefWidth="140.0" text="Ja / Nee" toggleGroup="$typeGroup" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="4">
                     <font>
                         <Font size="24.0" />
                     </font>
@@ -153,7 +153,7 @@
                         <ToggleGroup fx:id="timerGroup" />
                     </toggleGroup>
                 </ToggleButton>
-                <ToggleButton fx:id="timerToggleNo" layoutX="394.0" layoutY="382.0" mnemonicParsing="false" prefWidth="140.0" text="Nee" toggleGroup="$timerGroup" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+                <ToggleButton fx:id="timerToggleNo" layoutX="394.0" layoutY="382.0" mnemonicParsing="false" prefWidth="140.0" text="Nee" toggleGroup="$timerGroup" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
                     <font>
                         <Font size="24.0" />
                     </font>
@@ -168,18 +168,21 @@
                         <Font size="24.0" />
                     </font>
                 </Label>
-            <Label fx:id="timerLabel" focusTraversable="false" text="30" textFill="#522e90" GridPane.columnIndex="3" GridPane.rowIndex="7">
+            <Label fx:id="timerLabel" focusTraversable="false" text="30" textFill="#522e90" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="6">
                <font>
                   <Font name="System Bold" size="36.0" />
                </font>
                <GridPane.margin>
-                  <Insets left="50.0" />
+                  <Insets />
                </GridPane.margin>
             </Label>
-                <Slider fx:id="timerSlider" blockIncrement="5.0" majorTickUnit="10.0" max="60.0" min="10.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" value="30.0" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="7">
-                    <GridPane.margin>
-                        <Insets />
-                    </GridPane.margin>
+                <Slider fx:id="timerSlider" blockIncrement="5.0" majorTickUnit="10.0" max="60.0" min="10.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" value="30.0" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="7" GridPane.valignment="CENTER">
+               <padding>
+                  <Insets left="-5.0" top="20.0" />
+               </padding>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
                 </Slider>
                 <Button fx:id="adminMenu" alignment="CENTER" focusTraversable="false" minHeight="60.0" minWidth="200.0" mnemonicParsing="false" style="-fx-background-radius: 80px;" text="Adminmenu" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="9" GridPane.valignment="CENTER">
                     <font>

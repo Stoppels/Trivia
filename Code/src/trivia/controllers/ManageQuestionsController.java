@@ -115,8 +115,8 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 			questionText = "", correctAnswer = "", incorrectAnswer1 = "",
 			incorrectAnswer2 = "", incorrectAnswer3 = "", tempStr1 = "", tempStr2 = "";
 	private int currentQuestion = 0;
-	public List<String> editStrings;
-	public List<TextField> answerFields, editMcFields, editTfFields, selectedFields;
+	private List<String> editStrings;
+	private List<TextField> answerFields, editMcFields, editTfFields, selectedFields;
 	private Boolean reset = false;
 
 	/**
@@ -364,13 +364,13 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 		storeStrings();
 
 		System.out.println("QuestionId: " + currentQuestion + "\n"
-				+ "Changing question to: " + editStrings.get(0) + "\n"
-				+ "Changing Correct Answer to: " + editStrings.get(1) + "\n"
-				+ "Changing Incorrect Answer 1 to: " + editStrings.get(2) + "\n"
-				+ "Changing Incorrect Answer 2 to: " + editStrings.get(3) + "\n"
-				+ "Changing Incorrect Answer 3 to: " + editStrings.get(4) + "\n"
-				+ "Changing question type to: " + typeSetter + "\n"
-				+ "Changing question difficulty to: " + difficultySetter);
+				+ "Saving question as: " + editStrings.get(0) + "\n"
+				+ "Saving Correct Answer as: " + editStrings.get(1) + "\n"
+				+ "Saving Incorrect Answer 1 as: " + editStrings.get(2) + "\n"
+				+ "Saving Incorrect Answer 2 as: " + editStrings.get(3) + "\n"
+				+ "Saving Incorrect Answer 3 as: " + editStrings.get(4) + "\n"
+				+ "Saving question type as: " + typeSetter + "\n"
+				+ "Saving question difficulty as: " + difficultySetter);
 
 		try {
 			dbm.openConnection();
@@ -564,7 +564,7 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 				editStrings.set(i, tf.getText());
 			}
 		}
-		if (selectedFields == editTfFields) { // Also store the correct strings if empty.
+		if (selectedFields == editTfFields) { // Also store the §§correct strings if empty.
 			editStrings.set(3, "");
 			editStrings.set(4, "");
 		}

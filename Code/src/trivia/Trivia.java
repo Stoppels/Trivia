@@ -203,7 +203,7 @@ public class Trivia extends Application {
 			case "saveSettings":
 				viewName = "AdminMenu";
 				break;
-                        case "next":
+			case "next":
 				viewName = "HighScore";
 				break;
 			default:
@@ -241,13 +241,7 @@ public class Trivia extends Application {
 		System.out.close();
 
 		try { // Logs errors in a tmp file.
-//			File file = new File(System.getProperty("java.io.tmpdir")
-//					.concat("Trivia Error Logs.txt"));
-//			OutputStream output = new FileOutputStream(file);
-//			PrintStream printer = new PrintStream(w);
-
 			Path path = Paths.get(System.getProperty("java.io.tmpdir"), "Trivia Error Logs.txt");
-//			FileWriter writer = new FileWriter(path.toFile(), true);
 			PrintStream printer = new PrintStream(path.toFile());
 			System.setErr(printer);
 		} catch (IOException e) {

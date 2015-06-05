@@ -80,7 +80,7 @@
                         <Font size="24.0" />
                     </font>
                 </ToggleButton>
-                <ToggleButton fx:id="typeTfButton" mnemonicParsing="false" prefWidth="140.0" text="2 keuzes" toggleGroup="$typeGroup" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+                <ToggleButton fx:id="typeTfButton" mnemonicParsing="false" prefWidth="140.0" text="Ja / Nee" toggleGroup="$typeGroup" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="4">
                     <font>
                         <Font size="24.0" />
                     </font>

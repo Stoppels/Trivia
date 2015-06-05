@@ -129,6 +129,7 @@ public class DefaultSettingsController extends Trivia implements Initializable {
 	private final DbManager dbm = new DbManager();
 	static boolean difficultyIsMixed = true, difficultyIsEasy = true;
 	private List<ToggleGroup> groupsList;
+	private List<String> currentSettings = Arrays.asList("", "", "", "", "", "", "", "", "");
 
 	/**
 	 * Initializes the controller class.
@@ -156,6 +157,19 @@ public class DefaultSettingsController extends Trivia implements Initializable {
 				}
 			});
 		}
+		timerGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+			@Override
+			public void changed(ObservableValue<? extends Toggle> ov,
+					Toggle toggle, Toggle new_toggle) {
+				if (new_toggle == timerToggleNo) {
+					timerLabel.setOpacity(0.4);
+					timerSlider.setOpacity(0.4);
+				} else {
+					timerLabel.setOpacity(1.0);
+					timerSlider.setOpacity(1.0);
+				}
+			}
+		});
 		timerLabel.setText(Math.round(timerSlider.getValue()) + "");
 		timerSlider.valueProperty().addListener(new ChangeListener<Number>() {
 			@Override
@@ -170,16 +184,25 @@ public class DefaultSettingsController extends Trivia implements Initializable {
 		});
 	}
 
+	/**
+	 * Disable the save button, unless a setting has been changed.
+	 */
 	private void disableSaveButton() {
-		// To do or not to do?
-//		if (editFields.get(0).getText().isEmpty() || editFields.get(1).getText().isEmpty()
-//				|| editFields.get(2).getText().isEmpty() || editFields.get(3).getText().isEmpty()
-//				|| editFields.get(4).getText().isEmpty()
-//				|| (!difficultyEasy.isSelected() && !difficultyHard.isSelected())) {
-//			saveSettings.setDisable(true);
-//		} else {
-//			saveSettings.setDisable(false);
-//		}
+		if (difficultyGroup.getSelectedToggle().toString().contains(currentSettings.get(0))
+				&& typeGroup.getSelectedToggle().toString().contains(currentSettings.get(1))
+				&& lengthGroup.getSelectedToggle().toString().contains(currentSettings.get(2))
+				&& timerGroup.getSelectedToggle().toString().contains(currentSettings.get(3))
+				&& timerLabel.getText().equals(currentSettings.get(4))
+				&& String.valueOf(difficultyModifiability.isSelected()).equals(currentSettings.get(5))
+				&& String.valueOf(typeModifiability.isSelected()).equals(currentSettings.get(6))
+				&& String.valueOf(lengthModifiability.isSelected()).equals(currentSettings.get(7))
+				&& String.valueOf(timerModifiability.isSelected()).equals(currentSettings.get(8))) {
+			saveSettings.setDisable(true);
+			System.out.println("Disabled.");
+		} else {
+			saveSettings.setDisable(false);
+			System.out.println("Not disabled.");
+		}
 	}
 
 	/**
@@ -194,40 +217,49 @@ public class DefaultSettingsController extends Trivia implements Initializable {
 			switch (s) {
 				case "difficultyMixed":
 					System.out.println("Default difficulty setting: mixed.");
+					currentSettings.set(0, "Mixed");
 					difficultyMixedButton.setSelected(true);
 					break;
 				case "difficultyEasy":
 					System.out.println("Default difficulty setting: easy.");
+					currentSettings.set(0, "Easy");
 					difficultyEasyButton.setSelected(true);
 					break;
 				case "difficultyHard":
 					System.out.println("Default difficulty setting: hard.");
+					currentSettings.set(0, "Hard");
 					difficultyHardButton.setSelected(true);
 					break;
 				case "typeMixed":
 					System.out.println("Default type setting: mixed.");
+					currentSettings.set(1, "Mixed");
 					typeMixedButton.setSelected(true);
 					break;
 				case "typeTf":
 					System.out.println("Default type setting: true or false.");
+					currentSettings.set(1, "Tf");
 					typeTfButton.setSelected(true);
 					break;
 				case "typeMc":
 					System.out.println("Default type setting: multiple choice.");
+					currentSettings.set(1, "Mc");
 					typeMcButton.setSelected(true);
 					break;
 				case "shortLength":
 					System.out.println("Default length setting: short.");
+					currentSettings.set(2, "short");
 					shortLengthButton.setSelected(true);
 					shortLengthButton.setText(String.valueOf(SHORT_LENGTH));
 					break;
 				case "mediumLength":
 					System.out.println("Default length setting: medium.");
+					currentSettings.set(2, "medium");
 					mediumLengthButton.setSelected(true);
 					mediumLengthButton.setText(String.valueOf(MEDIUM_LENGTH));
 					break;
 				case "longLength":
 					System.out.println("Default length setting: long.");
+					currentSettings.set(2, "long");
 					longLengthButton.setSelected(true);
 					longLengthButton.setText(String.valueOf(LONG_LENGTH));
 					break;
@@ -248,21 +280,27 @@ public class DefaultSettingsController extends Trivia implements Initializable {
 					System.out.println("Default timer setting: " + (b ? "on." : "off."));
 					timerToggle.setSelected(b);
 					timerToggleNo.setSelected(!b);
+					currentSettings.set(3, b ? "timerToggle," : "timerToggleNo");
+					currentSettings.set(4, timerLabel.getText());
 					break;
 				case 1:
 					System.out.println("Default difficulty modifiability: " + (b ? "on." : "off."));
+					currentSettings.set(5, b.toString());
 					difficultyModifiability.setSelected(b);
 					break;
 				case 2:
 					System.out.println("Default type modifiability: " + (b ? "on." : "off."));
+					currentSettings.set(6, b.toString());
 					typeModifiability.setSelected(b);
 					break;
 				case 3:
 					System.out.println("Default length modifiability: " + (b ? "on." : "off."));
+					currentSettings.set(7, b.toString());
 					lengthModifiability.setSelected(b);
 					break;
 				case 4:
 					System.out.println("Default timer modifiability: " + (b ? "on." : "off."));
+					currentSettings.set(8, b.toString());
 					timerModifiability.setSelected(b);
 					break;
 				default:
@@ -271,10 +309,16 @@ public class DefaultSettingsController extends Trivia implements Initializable {
 			}
 			i++;
 		}
+		disableSaveButton();
 	}
 
+	/**
+	 * Method that saves changes to the default settings.
+	 *
+	 * @param event
+	 */
 	private void setSettings(ActionEvent event) {
-		System.out.println("Setting following default settings.");
+		System.out.println("Setting following new default settings.");
 
 		System.out.print("New default difficulty setting: ");
 		if (difficultyMixedButton.isSelected()) {
@@ -297,10 +341,10 @@ public class DefaultSettingsController extends Trivia implements Initializable {
 			System.out.println("Mixed.");
 		} else if (typeTfButton.isSelected()) {
 			prefs.put(typeHolder, "typeTf");
-			System.out.println("short length.");
+			System.out.println("True/False.");
 		} else if (typeMcButton.isSelected()) {
 			prefs.put(typeHolder, "typeMc");
-			System.out.println("short length.");
+			System.out.println("Multiple Choice.");
 		} else {
 			System.out.println("\nSomething went wrong when setting a new type.");
 			return;
@@ -309,13 +353,13 @@ public class DefaultSettingsController extends Trivia implements Initializable {
 		System.out.print("New default game length: ");
 		if (shortLengthButton.isSelected()) {
 			prefs.put(lengthHolder, "shortLength");
-			System.out.println("short length.");
+			System.out.println("Short length.");
 		} else if (mediumLengthButton.isSelected()) {
 			prefs.put(lengthHolder, "mediumLength");
-			System.out.println("medium length.");
+			System.out.println("Medium length.");
 		} else if (longLengthButton.isSelected()) {
 			prefs.put(lengthHolder, "longLength");
-			System.out.println("long length.");
+			System.out.println("Long length.");
 		} else {
 			System.out.println("\nSomething went wrong when setting a new length.");
 			return;
@@ -324,18 +368,23 @@ public class DefaultSettingsController extends Trivia implements Initializable {
 		prefs.putBoolean(timerHolder, timerToggle.isSelected());
 		System.out.println("New default timer setting: "
 				+ (timerToggle.isSelected() ? "on." : "off."));
+
 		prefs.put(timerLength, (setTime = parseInt(timerLabel.getText())).toString());
 		System.out.println("New default timer duration: "
 				+ timerLabel.getText());
+
 		prefs.putBoolean(difficultyModifier, difficultyModifiability.isSelected());
 		System.out.println("New default difficulty modifiability: "
 				+ (difficultyModifiability.isSelected() ? "allowed." : "prohibited."));
-		prefs.putBoolean(lengthModifier, lengthModifiability.isSelected());
-		System.out.println("New default length modifiability: "
-				+ (lengthModifiability.isSelected() ? "allowed." : "prohibited."));
+
 		prefs.putBoolean(typeModifier, typeModifiability.isSelected());
 		System.out.println("New default type modifiability: "
 				+ (typeModifiability.isSelected() ? "allowed." : "prohibited."));
+
+		prefs.putBoolean(lengthModifier, lengthModifiability.isSelected());
+		System.out.println("New default length modifiability: "
+				+ (lengthModifiability.isSelected() ? "allowed." : "prohibited."));
+
 		prefs.putBoolean(timerModifier, timerModifiability.isSelected());
 		System.out.println("New default timer modifiability: "
 				+ (timerModifiability.isSelected() ? "allowed." : "prohibited."));
@@ -349,7 +398,4 @@ public class DefaultSettingsController extends Trivia implements Initializable {
 		loadView(event);
 	}
 
-	private void storeOriginalValues() {
-		// To do or not to do?
-	}
 }

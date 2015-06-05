@@ -63,13 +63,14 @@ public class DbManager {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 
-//			url = prefs.get(dbUrl, DEFAULT_URL);
-//			user = prefs.get(dbUser, DEFAULT_USER);
-//			pass = prefs.get(dbPass, DEFAULT_PASS);
+			// User set default database.
+			url = prefs.get(dbUrl, DEFAULT_URL);
+			user = prefs.get(dbUser, DEFAULT_USER);
+			pass = prefs.get(dbPass, DEFAULT_PASS);
 			// TSC test server 1
-			url = "jdbc:mysql://oege.ie.hva.nl:3306/zshayann001";
-			user = "shayann001";
-			pass = "hT5vz8pZ8W+mCP";
+//			url = "jdbc:mysql://oege.ie.hva.nl:3306/zshayann001";
+//			user = "shayann001";
+//			pass = "hT5vz8pZ8W+mCP";
 			// TSC test server 2
 //			url = "jdbc:mysql://sql5.freesqldatabase.com:3306/sql578983";
 //			user = "sql578983";
@@ -105,6 +106,7 @@ public class DbManager {
 						alertDialog(Alert.AlertType.ERROR, "Verbinding mislukt", null,
 								"De database kan niet worden bereikt. Probeer het "
 								+ "later opnieuw", StageStyle.UNDECORATED);
+						
 					} else {
 						System.out.println("Database connection established with local: " + url);
 					}
