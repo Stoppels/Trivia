@@ -192,7 +192,10 @@ public class Trivia extends Application {
 				viewName = "GameSetUp";
 				break;
 			case "nextQuestionButton":
-				viewName = "NameEntry"; // <<<<±———————— NICK, GAMEOVERVIEW
+				viewName = "GameOverview"; // <<<<±———————— NICK, GAMEOVERVIEW
+				break;
+                        case "nextNameEntry":
+				viewName = "NameEntry";
 				break;
 			case "defaultSettings":
 				viewName = "DefaultSettings";

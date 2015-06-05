@@ -25,22 +25,22 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <Label fx:id="LabelQuizGemaakt" prefHeight="70.0" prefWidth="570.0" text="Vragen goed:" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1">
+                <Label fx:id="questionsGood" prefHeight="70.0" prefWidth="570.0" text="Vragen goed:" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1">
                     <font>
                         <Font size="41.0" />
                     </font>
                 </Label>
-                <Label fx:id="LabelKlaar" prefHeight="106.0" prefWidth="618.0" styleClass="viewTitle" text="               Quiz klaar" textAlignment="CENTER" GridPane.columnSpan="2147483647">
+                <Label fx:id="QuizDone" prefHeight="106.0" prefWidth="618.0" styleClass="viewTitle" text="               Quiz klaar" textAlignment="CENTER" GridPane.columnSpan="2147483647">
                     <font>
                         <Font size="65.0" />
                     </font>
                 </Label>
-                <Label fx:id="LabelNaam" prefHeight="70.0" prefWidth="802.0" text="Uw tijd:" textAlignment="JUSTIFY" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                <Label fx:id="timeDone" prefHeight="70.0" prefWidth="802.0" text="Uw tijd:" textAlignment="JUSTIFY" GridPane.columnIndex="1" GridPane.rowIndex="2">
                     <font>
                         <Font size="41.0" />
                     </font>
                 </Label>
-                <Button fx:id="ButtonJa" alignment="CENTER" contentDisplay="CENTER" minHeight="60.0" minWidth="240.0" mnemonicParsing="false" style="-fx-background-radius: 80;" text="Bekijk vragen" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.rowSpan="2147483647" GridPane.valignment="CENTER">
+                <Button fx:id="lookAtQuestion" alignment="CENTER" contentDisplay="CENTER" minHeight="60.0" minWidth="240.0" mnemonicParsing="false" style="-fx-background-radius: 80;" text="Bekijk vragen" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.rowSpan="2147483647" GridPane.valignment="CENTER">
                     <font>
                         <Font name="System Bold" size="31.0" />
                     </font>
@@ -51,7 +51,7 @@
                         <Insets />
                     </GridPane.margin>
                 </Button>
-                <Button fx:id="ButtonNee" minHeight="60.0" minWidth="240.0" mnemonicParsing="false" style="-fx-background-radius: 80;" text="Volgende" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                <Button fx:id="nextNameEntry" minHeight="60.0" minWidth="240.0" mnemonicParsing="false" style="-fx-background-radius: 80;" text="Volgende" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="3">
                     <font>
                         <Font name="System Bold" size="31.0" />
                     </font>
@@ -59,12 +59,12 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Button>
-            <Label text="Vragen fout:" GridPane.columnIndex="3" GridPane.rowIndex="1">
+            <Label fx:id="questionWrong" text="Vragen fout:" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <font>
                   <Font size="41.0" />
                </font>
             </Label>
-            <Label fx:id="LabelNaam1" prefHeight="70.0" prefWidth="802.0" text="Uw score:" textAlignment="JUSTIFY" GridPane.columnIndex="3" GridPane.rowIndex="2">
+            <Label fx:id="playerScore" prefHeight="70.0" prefWidth="802.0" text="Uw score:" textAlignment="JUSTIFY" GridPane.columnIndex="3" GridPane.rowIndex="2">
                <font>
                   <Font size="41.0" />
                </font>

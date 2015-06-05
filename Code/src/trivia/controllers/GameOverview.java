@@ -26,24 +26,59 @@ package trivia.controllers;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 
 /**
  * FXML Controller class
  *
- * @author Team Silent Coders
- * @version 1.0
+ * @author axel
  */
 public class GameOverview extends trivia.Trivia implements Initializable {
+    
+    @FXML
+    private Label questionsGood;
+    @FXML
+    private Label QuizDone;
+    @FXML
+    private Label timeDone;
+    @FXML
+    private Button lookAtQuestion;
+    @FXML
+    private Button nextNameEntry;
+    @FXML
+    private Label questionWrong;
+    @FXML
+    private Label playerScore;
 
-	/**
-	 * Initializes the controller class.
-	 * @param url
-	 * @param rb
-	 */
-	@Override
-	public void initialize(URL url, ResourceBundle rb) {
-		// TODO
-	}
+    /**
+     * Initializes the controller class.
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        nextNameEntry.setOnAction(this::loadView);
 
+    }    
+    @FXML
+    public void SeeScore(){
+        
+    }
+    @FXML
+    public void QuestionsGood(){
+        
+    }
+    @FXML
+    public void QuestionsWrong(){
+        
+    }
+    @FXML
+    public void TimeDone(){
+        
+    }
+    @FXML
+    public void score(){
+        
+    }
 }
