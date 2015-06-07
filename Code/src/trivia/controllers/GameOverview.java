@@ -30,6 +30,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import static trivia.controllers.QuestionController.correctAnswersTotal;
+import static trivia.controllers.QuestionController.correctlyAnsweredQuestions;
+import static trivia.controllers.QuestionController.remainingTimerDuration;
+import static trivia.controllers.QuestionController.skippedQuestionsTotal;
 
 /**
  * FXML Controller class
@@ -37,48 +41,56 @@ import javafx.scene.control.Label;
  * @author axel
  */
 public class GameOverview extends trivia.Trivia implements Initializable {
-    
-    @FXML
-    private Label questionsGood;
-    @FXML
-    private Label QuizDone;
-    @FXML
-    private Label timeDone;
-    @FXML
-    private Button lookAtQuestion;
-    @FXML
-    private Button nextNameEntry;
-    @FXML
-    private Label questionWrong;
-    @FXML
-    private Label playerScore;
 
-    /**
-     * Initializes the controller class.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        nextNameEntry.setOnAction(this::loadView);
+	@FXML
+	private Label correctlyAnsweredLabel;
 
-    }    
-    @FXML
-    public void SeeScore(){
-        
-    }
-    @FXML
-    public void QuestionsGood(){
-        
-    }
-    @FXML
-    public void QuestionsWrong(){
-        
-    }
-    @FXML
-    public void TimeDone(){
-        
-    }
-    @FXML
-    public void score(){
-        
-    }
+	@FXML
+	private Label totalQuestionsLabel;
+
+	@FXML
+	private Label skippedQuestionsLabel;
+
+	@FXML
+	private Label remainingTimeLabel;
+
+	@FXML
+	private Label scoreLabel;
+
+	@FXML
+	private Button highScore;
+
+	private int remainingTime = 0;
+
+	/**
+	 * Initializes the controller class.
+	 */
+	@Override
+	public void initialize(URL url, ResourceBundle rb) {
+		highScore.setOnAction(this::loadView);
+
+		correctlyAnsweredLabel.setText(
+				correctAnswersTotal.toString() + (correctAnswersTotal < 10 ? " " : ""));
+		totalQuestionsLabel.setText(gameLength.toString());
+		skippedQuestionsLabel.setText(skippedQuestionsTotal.toString());
+		computeScore();
+	}
+
+	private void computeScore() {
+		int score = 0;
+
+		score += (correctAnswersTotal * 10); // 10 points for every correct answer.
+		score *= 0.9; // Subtract 10% of score.
+		if (timerSetting) {
+			for (Integer i : correctlyAnsweredQuestions) {
+				remainingTime += remainingTimerDuration.get(i);
+				System.out.println("Added remaining time for question: " + (i + 1));
+			}
+			score += (remainingTime * 0.2);
+			remainingTimeLabel.setText(String.valueOf(remainingTime));
+			scoreLabel.setText(String.valueOf(score));
+		} else {
+			remainingTimeLabel.setVisible(false);
+		}
+	}
 }

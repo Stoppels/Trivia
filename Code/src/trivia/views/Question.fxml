@@ -12,7 +12,7 @@
 
 <AnchorPane minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="trivia.controllers.QuestionController">
     <children>
-        <GridPane layoutX="-7.0" minHeight="600.0" minWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <GridPane fx:id="gridPane" layoutX="-7.0" minHeight="600.0" minWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columnConstraints>
                 <ColumnConstraints hgrow="ALWAYS" minWidth="60.0" />
                 <ColumnConstraints hgrow="ALWAYS" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="120.0" />
@@ -46,7 +46,12 @@
                         <Font name="Bookman Old Style Bold" size="24.0" />
                     </font>
                 </Label>
-                <ToggleButton fx:id="buttonA" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="100.0" style="-fx-background-radius: 80px;" text="A" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+            <Label fx:id="checkMarkA" focusTraversable="false" textFill="GREEN" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+               <font>
+                  <Font name="System Bold" size="48.0" />
+               </font>
+            </Label>
+                <ToggleButton fx:id="buttonA" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="100.0" style="-fx-background-radius: 80px;" styleClass="answerButton" text="A" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                     <toggleGroup>
                         <ToggleGroup fx:id="answersGroup" />
                     </toggleGroup>
@@ -54,37 +59,52 @@
                         <Font name="System Bold" size="24.0" />
                     </font>
                 </ToggleButton>
-                <Hyperlink fx:id="labelA" focusTraversable="false" text="Antwoord A" wrapText="true" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
+                <Hyperlink fx:id="labelA" focusTraversable="false" styleClass="answerLabel" text="Antwoord A" wrapText="true" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
                     <font>
                         <Font size="24.0" />
                     </font>
                 </Hyperlink>
-                <ToggleButton fx:id="buttonB" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="100.0" style="-fx-background-radius: 80px;" text="B" toggleGroup="$answersGroup" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+            <Label fx:id="checkMarkB" focusTraversable="false" textFill="GREEN" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+               <font>
+                  <Font name="System Bold" size="48.0" />
+               </font>
+            </Label>
+                <ToggleButton fx:id="buttonB" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="100.0" style="-fx-background-radius: 80px;" styleClass="answerButton" text="B" toggleGroup="$answersGroup" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                     <font>
                         <Font name="System Bold" size="24.0" />
                     </font>
                 </ToggleButton>
-                <Hyperlink fx:id="labelB" focusTraversable="false" text="Antwoord B" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="4">
+                <Hyperlink fx:id="labelB" focusTraversable="false" styleClass="answerLabel" text="Antwoord B" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="4">
                     <font>
                         <Font size="24.0" />
                     </font>
                 </Hyperlink>
-                <ToggleButton fx:id="buttonC" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="100.0" style="-fx-background-radius: 80px;" text="C" toggleGroup="$answersGroup" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+            <Label fx:id="checkMarkC" focusTraversable="false" textFill="GREEN" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
+               <font>
+                  <Font name="System Bold" size="48.0" />
+               </font>
+            </Label>
+                <ToggleButton fx:id="buttonC" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="100.0" style="-fx-background-radius: 80px;" styleClass="answerButton" text="C" toggleGroup="$answersGroup" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                     <font>
                         <Font name="System Bold" size="24.0" />
                     </font>
                 </ToggleButton>
-                <Hyperlink fx:id="labelC" focusTraversable="false" text="Antwoord C" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="5">
+                <Hyperlink fx:id="labelC" focusTraversable="false" styleClass="answerLabel" text="Antwoord C" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="5">
                     <font>
                         <Font size="24.0" />
                     </font>
                 </Hyperlink>
-                <ToggleButton fx:id="buttonD" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="100.0" style="-fx-background-radius: 80px;" text="D" toggleGroup="$answersGroup" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+            <Label fx:id="checkMarkD" focusTraversable="false" textFill="GREEN" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
+               <font>
+                  <Font name="System Bold" size="48.0" />
+               </font>
+            </Label>
+                <ToggleButton fx:id="buttonD" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="100.0" style="-fx-background-radius: 80px;" styleClass="answerButton" text="D" toggleGroup="$answersGroup" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
                     <font>
                         <Font name="System Bold" size="24.0" />
                     </font>
                 </ToggleButton>
-                <Hyperlink fx:id="labelD" focusTraversable="false" text="Antwoord D" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="6">
+                <Hyperlink fx:id="labelD" focusTraversable="false" styleClass="answerLabel" text="Antwoord D" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="6">
                     <font>
                         <Font size="24.0" />
                     </font>

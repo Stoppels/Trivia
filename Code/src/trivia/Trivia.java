@@ -150,9 +150,6 @@ public class Trivia extends Application {
 		varHolder[1] = prefs.get(typeHolder, "typeMc");
 		varHolder[2] = prefs.get(lengthHolder, "shortLength");
 		varHolder[3] = prefs.get(timerLength, START_TIME.toString());
-//		varHolder[4] = prefs.get(dbUrl, DEFAULT_URL);
-//		varHolder[5] = prefs.get(dbUser, DEFAULT_USER);
-//		varHolder[6] = prefs.get(dbPass, DEFAULT_PASS);
 		boolHolder[0] = prefs.getBoolean(timerHolder, true);
 		boolHolder[1] = prefs.getBoolean(difficultyModifier, false);
 		boolHolder[2] = prefs.getBoolean(typeModifier, false);
@@ -177,37 +174,29 @@ public class Trivia extends Application {
 				viewName = "MainMenu";
 				break;
 			case "adminMenu":
+			case "saveSettings":
 				viewName = "AdminMenu";
 				break;
 			case "startGame":
 				viewName = "Question";
+				break;
+			case "nextQuestionButton":
+				viewName = "GameOverview";
+				break;
+			case "highScore":
+				viewName = "HighScore";
+				break;
+			case "gameSetUp":
+				viewName = "GameSetUp";
+				break;
+			case "defaultSettings":
+				viewName = "DefaultSettings";
 				break;
 			case "addQuestion":
 				viewName = "AddQuestion";
 				break;
 			case "manageQuestions":
 				viewName = "ManageQuestions";
-				break;
-			case "gameSetUp":
-				viewName = "GameSetUp";
-				break;
-			case "nextQuestionButton":
-				viewName = "GameOverview"; // <<<<±———————— NICK, GAMEOVERVIEW
-				break;
-                        case "nextNameEntry":
-				viewName = "NameEntry";
-				break;
-			case "defaultSettings":
-				viewName = "DefaultSettings";
-				break;
-			case "nameEntry":
-				viewName = "NameEntry";
-				break;
-			case "saveSettings":
-				viewName = "AdminMenu";
-				break;
-			case "next":
-				viewName = "HighScore";
 				break;
 			default:
 				System.err.println("View " + viewName + " not found.");
@@ -233,6 +222,7 @@ public class Trivia extends Application {
 				stage.show();
 			} catch (LoadException e) {
 				System.out.print("LoadException with file: " + e.getLocalizedMessage());
+				e.printStackTrace();
 			} catch (IOException e) {
 				System.out.print("Error (loadView): " + e.getLocalizedMessage());
 			}

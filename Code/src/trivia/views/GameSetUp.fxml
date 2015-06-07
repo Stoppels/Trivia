@@ -24,10 +24,10 @@
                 <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="ALWAYS" />
                 <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="80.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
-                <RowConstraints prefHeight="30.0" vgrow="ALWAYS" />
-                <RowConstraints prefHeight="30.0" vgrow="ALWAYS" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-                <RowConstraints prefHeight="30.0" vgrow="ALWAYS" />
+                <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
+                <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
+                <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
+                <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
                 <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="80.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="30.0" vgrow="ALWAYS" />

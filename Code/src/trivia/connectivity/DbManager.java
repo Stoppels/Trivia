@@ -67,18 +67,11 @@ public class DbManager {
 			url = prefs.get(dbUrl, DEFAULT_URL);
 			user = prefs.get(dbUser, DEFAULT_USER);
 			pass = prefs.get(dbPass, DEFAULT_PASS);
+			
 			// TSC test server 1
 //			url = "jdbc:mysql://oege.ie.hva.nl:3306/zshayann001";
 //			user = "shayann001";
 //			pass = "hT5vz8pZ8W+mCP";
-			// TSC test server 2
-//			url = "jdbc:mysql://sql5.freesqldatabase.com:3306/sql578983";
-//			user = "sql578983";
-//			pass = "fA4*tH9%";
-			// TSC test server 3
-//			url = "jdbc:mysql://db4free.net:3306/trivia2";
-//			user = "n21s";
-//			pass = "t9t8TqZqyzuenh2xRQUC";
 			System.out.println("Initiating connection with database.");
 
 			// Open connection

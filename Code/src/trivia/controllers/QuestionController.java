@@ -48,6 +48,8 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import trivia.Trivia;
@@ -60,6 +62,9 @@ import static trivia.Trivia.alertDialog;
  * @version 1.0
  */
 public class QuestionController extends Trivia implements Initializable {
+
+	@FXML
+	private GridPane gridPane;
 
 	@FXML
 	private ToggleButton buttonA;
@@ -98,6 +103,18 @@ public class QuestionController extends Trivia implements Initializable {
 	private Hyperlink labelD;
 
 	@FXML
+	private Label checkMarkA;
+
+	@FXML
+	private Label checkMarkB;
+
+	@FXML
+	private Label checkMarkC;
+
+	@FXML
+	private Label checkMarkD;
+
+	@FXML
 	private Button previousQuestionButton;
 
 	@FXML
@@ -114,13 +131,24 @@ public class QuestionController extends Trivia implements Initializable {
 
 	private int questionNumber = 1;
 
-	private ArrayList<Integer> remainingTimerDuration = new ArrayList<Integer>();
+	public static ArrayList<Integer> remainingTimerDuration = new ArrayList<Integer>();
 
 	private List<ToggleButton> answerButtons;
 	private List<Hyperlink> answerLabels;
 	private String[][] loadedStrings = new String[gameLength][8];
-	String[][] chosenAnswers = new String[gameLength][2];
-	String[] correctAnswers = new String[gameLength];
+	public String[][] chosenAnswers = new String[gameLength][2];
+	public String[][] correctAnswers = new String[gameLength][2];
+	public static List<Integer> correctlyAnsweredQuestions = new ArrayList<Integer>();
+	private Boolean gameIsFinished = false;
+	private Boolean reviewedAnswers = false;
+	public static Integer correctAnswersTotal = 0;
+	public static Integer skippedQuestionsTotal = 0;
+
+	private final Color BLACK = Color.web("#000"); // Black
+	private final Color GREEN = Color.web("#008000"); // Green
+	private final Color LIGHTER_GREEN = Color.web("#00F72C"); // Free Speech Green
+	private final Color RED = Color.web("CE2029"); // Fire Engine Red
+	private final String css = "/resources/stylesheets/ReviewStyles.css";
 
 	/**
 	 * Initializes the controller class.
@@ -131,10 +159,9 @@ public class QuestionController extends Trivia implements Initializable {
 	@Override
 
 	public void initialize(URL url, ResourceBundle rb) {
-//		loadSettings();
 		loadGameSettings();
 
-		// Perform action for all items in lists
+		// Perform action for all items in lists.
 		answerButtons = Arrays.asList(buttonA, buttonB, buttonC, buttonD);
 		answerLabels = Arrays.asList(labelA, labelB, labelC, labelD);
 		for (ToggleButton a : answerButtons) {
@@ -143,22 +170,22 @@ public class QuestionController extends Trivia implements Initializable {
 		for (Hyperlink a : answerLabels) {
 			a.setOnAction(this::handleAnswerSelection);
 		}
-		// Use Str empty as: user did not pick an answer, prevents empty ResultSet errors
+		// Use Str empty as: player did not pick an answer, prevents empty ResultSet errors.
 		for (int i = 0; i < chosenAnswers.length; i++) {
 			chosenAnswers[i][0] = "";
 			chosenAnswers[i][1] = "E";
 		}
 
-		// Set actions for all buttons
+		// Set actions for all buttons.
 		nextQuestionButton.setOnAction((event) -> this.nextQuestion(event, true));
 		previousQuestionButton.setOnAction((event) -> this.nextQuestion(event, false));
 		mainMenu.setOnAction(this::stopQuiz);
 
-		// Update question progress label, start at 1 and therefore disable previousQuestionButton
+		// Update question progress label, start at 1 and therefore disable previousQuestionButton.
 		questionProgress.setText(questionNumber + " / " + gameLength);
 		previousQuestionButton.setDisable(true);
 
-		// Sets the question and answers
+		// Sets the question and answers.
 		questionProgress.setText(questionNumber + " / " + gameLength);
 		setLabels(questionNumber - 1);
 	}
@@ -191,11 +218,14 @@ public class QuestionController extends Trivia implements Initializable {
 			timeline.stop();
 		}
 		timeSeconds.set((remainingTimerDuration.get(questionNumber - 1) + 1) * 100);
-		timeline = new Timeline();
-		timeline.getKeyFrames().add(
-				new KeyFrame(Duration.seconds(remainingTimerDuration.get(
-										questionNumber - 1) + 1), new KeyValue(timeSeconds, 0)));
-		timeline.playFromStart();
+		if (!gameIsFinished) {
+			timeline = new Timeline();
+			timeline.getKeyFrames().add(
+					new KeyFrame(Duration.seconds(
+									remainingTimerDuration.get(questionNumber - 1) + 1),
+							new KeyValue(timeSeconds, 0)));
+			timeline.playFromStart();
+		}
 
 		// When completed counting down, execute block contents.
 		timeline.setOnFinished((ActionEvent event) -> {
@@ -214,13 +244,43 @@ public class QuestionController extends Trivia implements Initializable {
 	}
 
 	/**
-	 * This method remembers which answers were chosen by player.
+	 * Selects the answer player chose earlier for current question, if any.
+	 *
+	 * @param i
+	 */
+	private void getChosenAnswers(int i) {
+		switch (chosenAnswers[i][1]) {
+			case "A":
+				buttonA.setSelected(true);
+				break;
+			case "B":
+				buttonB.setSelected(true);
+				break;
+			case "C":
+				buttonC.setSelected(true);
+				break;
+			case "D":
+				buttonD.setSelected(true);
+				break;
+			default:
+				for (ToggleButton a : answerButtons) {
+					a.setSelected(false);
+				}
+				// Use char 'E' as: player did not pick an answer
+				// Prevents empty result set errors
+				chosenAnswers[i][1] = "E";
+				break;
+		}
+	}
+
+	/**
+	 * This method saves which answers were chosen by player.
 	 *
 	 * @param event
 	 */
 	private void handleAnswerSelection(ActionEvent event) {
 		String buttonName = ((Control) event.getSource()).getId();
-		System.out.println("User selected answer via Object: "
+		System.out.println("Player selected answer via Object: "
 				+ buttonName + ".");
 		for (Hyperlink h : answerLabels) { // For each answer label.
 			h.setVisited(false);
@@ -266,7 +326,7 @@ public class QuestionController extends Trivia implements Initializable {
 
 		String type = " AND GameType = '", difficulty = " AND Difficulty = '";
 
-		type += GameSetUpController.typeIsTf ? "True/False'" : "Multiple Choice'";
+		type += GameSetUpController.typeIsTf ? "TrueFalse'" : "MultipleChoice'";
 		difficulty += GameSetUpController.difficultyIsEasy ? "Easy'" : "Hard'";
 
 		if (GameSetUpController.typeIsMixed) {
@@ -319,11 +379,8 @@ public class QuestionController extends Trivia implements Initializable {
 				System.out.print(loadedStrings[i][j]);
 			}
 		}
-		// Store all correct answers.
-		for (int i = 0; i < gameLength; i++) {
-			correctAnswers[i] = loadedStrings[i][1];
-		}
-		System.out.print("\nStored correct answers for all questions.");
+		// Store all correct answer strings.
+		storeCorrectAnswerStrings();
 		// Randomize answers order for every question.
 		for (int i = 0; i < loadedStrings.length; i++) {
 			String[] temp = new String[4];
@@ -335,7 +392,7 @@ public class QuestionController extends Trivia implements Initializable {
 				System.out.print(loadedStrings[i][j]);
 				temp[j - 1] = loadedStrings[i][j];
 			}
-			Collections.shuffle(Arrays.asList(temp));
+			Collections.shuffle(Arrays.asList(temp)); // Randomization takes place.
 			System.out.print("\nQuestion " + (i + 1) + " after randomization: ");
 			for (int j = 0; j < 4; j++) {
 				loadedStrings[i][j + 1] = temp[j];
@@ -346,6 +403,8 @@ public class QuestionController extends Trivia implements Initializable {
 			}
 			System.out.println("");
 		}
+		// Store all correct answer labels.
+		storeCorrectAnswerLabels();
 
 		if (timerSetting) { // Timer enabled.
 			progressBar.setVisible(true);
@@ -374,35 +433,76 @@ public class QuestionController extends Trivia implements Initializable {
 	private void nextQuestion(ActionEvent event, Boolean nextQuestion) {
 		String temp = nextQuestion ? "next" : "previous";
 		System.out.println(temp + "QuestionButton was fired.");
-		if (timerSetting) {
+		if (timerSetting && !gameIsFinished) { // Updates timer for each question.
 			remainingTimerDuration.set(questionNumber - 1, parseInt(timer.getText()));
-			for (int i = 0; i < gameLength; i++) {
-				System.out.println("Time remaining for question " + (i + 1) + ": "
-						+ remainingTimerDuration.get(i).toString());
+//			for (int i = 0; i < gameLength; i++) {
+//				System.out.println("Time remaining for question " + (i + 1) + ": "
+//						+ remainingTimerDuration.get(i).toString());
+//			}
+//			for (int i = 0; i < chosenAnswers.length; i++) { // Print chosen answers.
+//				System.out.println("Answer to question " + (i + 1) + ": "
+//						+ chosenAnswers[i][1]);
+//			}
+		} else if (gameIsFinished) { // Game ended, reviewing answers.
+//			timer.setVisible(false);
+			progressBar.setVisible(false);
+		}
+
+		// Makes sure players can pick or change answers, unless the game's finished.
+		for (ToggleButton tb : answerButtons) {
+			tb.setDisable(gameIsFinished);
+		}
+		for (Hyperlink h : answerLabels) {
+			h.setDisable(gameIsFinished);
+		}
+		if (gameIsFinished) { // Show answers as normal, even though they're disabled.
+			for (ToggleButton tb : answerButtons) {
+				tb.setOpacity(1.0);
+			}
+			for (Hyperlink h : answerLabels) {
+				h.setOpacity(1.0);
 			}
 		}
 
-		// Makes sure players can pick or change answers.
-		for (ToggleButton tb : answerButtons) {
-			tb.setDisable(false);
-		}
-		for (Hyperlink h : answerLabels) {
-			h.setDisable(false);
-		}
-
 		if (nextQuestion) { // nextQuestionButton is pressed.
-			if (questionNumber + 1 > gameLength) { // There is no next Q.
-				timeline.stop();
-				for (int i = 0; i < chosenAnswers.length; i++) { // Print chosen answers.
-					System.out.println("Answer to question " + (i + 1) + ": "
-							+ chosenAnswers[i][1]);
+			if (questionNumber + 1 > gameLength) { // There is no next question (this is the last).
+				if (timerSetting) {
+					timeline.stop();
 				}
-				loadView(event); // --> go to ScoreOverview.
-				//stopQuiz(event);
-			} else {
+				if (gameIsFinished && reviewedAnswers) {
+					if (alertDialog(AlertType.CONFIRMATION, "Score bekijken", null,
+							"Als u doorgaat ziet u uw score en kunt u de vragen "
+							+ "niet meer bekijken.", StageStyle.UNDECORATED)) {
+						loadView(event); // --> go to ScoreOverview.
+						return; // End of method.
+					}
+					return; // Player canceled, player can still view previous answers.
+				} else if (gameIsFinished) { // Only supposed to reach this once, use return.
+					questionNumber = 1;
+					reviewedAnswers = true;
+					for (int i = 0; i < gameLength; i++) {
+						System.out.println("Correct answer " + (i + 1) + ": "
+								+ correctAnswers[i][1] + " | " + correctAnswers[i][0]);
+					}
+					return;
+				}
+				if (alertDialog(AlertType.CONFIRMATION, "Quiz beëindigen", null,
+						"Als u doorgaat wordt het spel beëindigd en kunt u de"
+						+ " juiste antwoorden inzien.", StageStyle.UNDECORATED)) {
+					for (int i = 0; i < chosenAnswers.length; i++) { // Print chosen answers.
+						System.out.println("Answer to question " + (i + 1) + ": "
+								+ chosenAnswers[i][1]);
+					}
+					gameIsFinished = true; // Only supposed to reach this once, use return.
+					nextQuestionButton.setText("Volgende");
+					nextQuestion(event, true);
+				}
+			} else { // Next question is not the last question.
 				questionNumber++;
 				previousQuestionButton.setDisable(false);
-				if (questionNumber + 1 > gameLength) {
+				if (questionNumber + 1 > gameLength && !gameIsFinished) {
+					nextQuestionButton.setText("Bekijk vragen");
+				} else if (questionNumber + 1 > gameLength && gameIsFinished && reviewedAnswers) {
 					nextQuestionButton.setText("Bekijk score");
 				}
 			}
@@ -411,48 +511,20 @@ public class QuestionController extends Trivia implements Initializable {
 				previousQuestionButton.setDisable(true);
 			}
 			questionNumber--;
-			if (questionNumber + 2 > gameLength
-					&& !(questionNumber + 1 > gameLength)) {
-				nextQuestionButton.setText("Volgende"); // In case we're near the last.
+			if (questionNumber + 2 > gameLength && !(questionNumber + 1 > gameLength)) {
+				nextQuestionButton.setText("Volgende"); // In case we're only near the last.
 			}
 		}
-		// Set question progress (e.g. 1/10), set question and answers.
+		// Set question progress (e.g. 1/15), set question and answers.
 		questionProgress.setText(questionNumber + " / " + gameLength);
 		setLabels(questionNumber - 1);
-		setChosenAnswers(questionNumber - 1);
+		getChosenAnswers(questionNumber - 1);
 
 		if (timerSetting) {
 			autoPlay();
 		}
-	}
-
-	/**
-	 * Selects the answer player chose earlier for current question, if any.
-	 *
-	 * @param i
-	 */
-	private void setChosenAnswers(int i) {
-		switch (chosenAnswers[i][1]) {
-			case "A":
-				buttonA.setSelected(true);
-				break;
-			case "B":
-				buttonB.setSelected(true);
-				break;
-			case "C":
-				buttonC.setSelected(true);
-				break;
-			case "D":
-				buttonD.setSelected(true);
-				break;
-			default:
-				for (ToggleButton a : answerButtons) {
-					a.setSelected(false);
-				}
-				// Use char 'E' as: player did not pick an answer
-				// Prevents empty result set errors
-				chosenAnswers[i][1] = "E";
-				break;
+		if (gameIsFinished) {
+			showAnswers();
 		}
 	}
 
@@ -470,6 +542,140 @@ public class QuestionController extends Trivia implements Initializable {
 		}
 	}
 
+	private void showAnswers() {
+		if (chosenAnswers[questionNumber - 1][0].equals(correctAnswers[questionNumber - 1][0])) {
+			correctAnswersTotal++;
+			correctlyAnsweredQuestions.add(questionNumber - 1);
+			switch (chosenAnswers[questionNumber - 1][1]) {
+				case "A":
+					checkMarkA.setStyle("-fx-text-fill: #00F72C");
+					checkMarkA.setText("√");
+					checkMarkB.setText("");
+					checkMarkC.setText("");
+					checkMarkD.setText("");
+					break;
+				case "B":
+					checkMarkB.setStyle("-fx-text-fill: #00F72C");
+					checkMarkA.setText("");
+					checkMarkB.setText("√");
+					checkMarkC.setText("");
+					checkMarkD.setText("");
+					break;
+				case "C":
+					checkMarkC.setStyle("-fx-text-fill: #00F72C");
+					checkMarkA.setText("");
+					checkMarkB.setText("");
+					checkMarkC.setText("√");
+					checkMarkD.setText("");
+					break;
+				case "D":
+					checkMarkD.setStyle("-fx-text-fill: #00F72C");
+					checkMarkA.setText("");
+					checkMarkB.setText("");
+					checkMarkC.setText("");
+					checkMarkD.setText("√");
+					break;
+				default:
+					checkMarkA.setText("");
+					checkMarkB.setText("");
+					checkMarkC.setText("");
+					checkMarkD.setText("");
+					break;
+			}
+		} else {
+			switch (chosenAnswers[questionNumber - 1][1]) {
+				case "A":
+					checkMarkA.setStyle("-fx-text-fill: #CE2029");
+					checkMarkA.setText("X");
+					checkMarkB.setText("");
+					checkMarkC.setText("");
+					checkMarkD.setText("");
+					break;
+				case "B":
+					checkMarkB.setStyle("-fx-text-fill: #CE2029");
+					checkMarkA.setText("");
+					checkMarkB.setText("X");
+					checkMarkC.setText("");
+					checkMarkD.setText("");
+					break;
+				case "C":
+					checkMarkC.setStyle("-fx-text-fill: #CE2029");
+					checkMarkA.setText("");
+					checkMarkB.setText("");
+					checkMarkC.setText("X");
+					checkMarkD.setText("");
+					break;
+				case "D":
+					checkMarkD.setStyle("-fx-text-fill: #CE2029");
+					checkMarkA.setText("");
+					checkMarkB.setText("");
+					checkMarkC.setText("");
+					checkMarkD.setText("X");
+					break;
+				default: // Player skipped question.
+					skippedQuestionsTotal++;
+					checkMarkA.setText("");
+					checkMarkB.setText("");
+					checkMarkC.setText("");
+					checkMarkD.setText("");
+					break;
+			}
+		}
+		switch (correctAnswers[questionNumber - 1][1]) {
+			case "A":
+				labelA.setTextFill(GREEN);
+				buttonA.getStylesheets().add(css);
+				labelB.setTextFill(BLACK);
+				buttonB.getStylesheets().clear();
+				labelC.setTextFill(BLACK);
+				buttonC.getStylesheets().clear();
+				labelD.setTextFill(BLACK);
+				buttonD.getStylesheets().clear();
+				break;
+			case "B":
+				labelA.setTextFill(BLACK);
+				buttonA.getStylesheets().clear();
+				labelB.setTextFill(GREEN);
+				buttonB.getStylesheets().add(css);
+				labelC.setTextFill(BLACK);
+				buttonC.getStylesheets().clear();
+				labelD.setTextFill(BLACK);
+				buttonD.getStylesheets().clear();
+				break;
+			case "C":
+				labelA.setTextFill(BLACK);
+				buttonA.getStylesheets().clear();
+				labelB.setTextFill(BLACK);
+				buttonB.getStylesheets().clear();
+				labelC.setTextFill(GREEN);
+				buttonC.getStylesheets().add(css);
+				labelD.setTextFill(BLACK);
+				buttonD.getStylesheets().clear();
+				break;
+			case "D":
+				labelA.setTextFill(BLACK);
+				buttonA.getStylesheets().clear();
+				labelB.setTextFill(BLACK);
+				buttonB.getStylesheets().clear();
+				labelC.setTextFill(BLACK);
+				buttonC.getStylesheets().clear();
+				labelD.setTextFill(GREEN);
+				buttonD.getStylesheets().add(css);
+				break;
+			default:
+				labelA.setTextFill(BLACK);
+				buttonA.getStylesheets().clear();
+				labelB.setTextFill(BLACK);
+				buttonB.getStylesheets().clear();
+				labelC.setTextFill(BLACK);
+				buttonC.getStylesheets().clear();
+				labelD.setTextFill(BLACK);
+				buttonD.getStylesheets().clear();
+				System.out.println("There was no correct answer saved.");
+		}
+
+	}
+
 	@FXML
 	private void stopQuiz(ActionEvent event) {
 		if (timerSetting) {
@@ -481,8 +687,51 @@ public class QuestionController extends Trivia implements Initializable {
 			// TO DO: WIPE SAVED ANSWERS
 			loadView(event);
 		} else { // Player cancels the method, if timer's enabled, continue countdown.
-			if (timerSetting) {
+			if (timerSetting && !gameIsFinished) {
 				timeline.play();
+			}
+		}
+	}
+
+	/**
+	 * Method stores the correct answer string.
+	 */
+	private void storeCorrectAnswerStrings() {
+		for (int i = 0; i < gameLength; i++) {
+			correctAnswers[i][0] = loadedStrings[i][1];
+		}
+		System.out.print("\nStored correct answers for all questions.");
+	}
+
+	/**
+	 * Method stores the label containing the correct answer after
+	 * randomization.
+	 *
+	 * @param answer
+	 */
+	private void storeCorrectAnswerLabels() {
+		for (int i = 0; i < loadedStrings.length; i++) {
+			for (int j = 1; j < 5; j++) {
+				if (loadedStrings[i][j].equals(correctAnswers[i][0])) {
+					switch (j) { // Find and remember which label holds the correct answer.
+						case 1:
+							correctAnswers[i][1] = "A";
+							break;
+						case 2:
+							correctAnswers[i][1] = "B";
+							break;
+						case 3:
+							correctAnswers[i][1] = "C";
+							break;
+						case 4:
+							correctAnswers[i][1] = "D";
+							break;
+						default:
+							System.out.println("Something went wrong when storing answers.");
+							break;
+					}
+					break;
+				}
 			}
 		}
 	}

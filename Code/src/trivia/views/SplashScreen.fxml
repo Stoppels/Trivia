@@ -38,7 +38,7 @@
                 </Label>
                 <AnchorPane maxWidth="-Infinity" prefWidth="395.0" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                     <children>
-                        <Label contentDisplay="RIGHT" layoutY="32.0" text="Hoofdmenu opent over" textFill="#522e90" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                        <Label contentDisplay="RIGHT" focusTraversable="false" layoutY="32.0" text="Hoofdmenu opent over" textFill="#522e90" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                             <font>
                                 <Font size="24.0" />
                             </font>
@@ -50,7 +50,7 @@
                                 </Label>
                             </graphic>
                         </Label>
-                        <Label fx:id="secondsLabel" alignment="CENTER_RIGHT" layoutX="278.0" layoutY="32.0" minHeight="0.0" text="seconde(n)" textFill="#522e90" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <Label fx:id="secondsLabel" alignment="CENTER_RIGHT" focusTraversable="false" layoutX="278.0" layoutY="32.0" minHeight="0.0" text="seconde(n)" textFill="#522e90" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <font>
                                 <Font size="24.0" />
                             </font>
