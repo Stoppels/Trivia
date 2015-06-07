@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.4.6.1
+-- version 4.4.7
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jun 04, 2015 at 07:36 PM
--- Server version: 5.6.25
--- PHP Version: 5.3.29-pl0-gentoo
+-- Generation Time: Jun 07, 2015 at 11:56 PM
+-- Server version: 5.6.24
+-- PHP Version: 5.6.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -28,7 +28,7 @@ USE `Trivia`;
 --
 -- Table structure for table `highscore`
 --
--- Creation: Jun 04, 2015 at 05:35 PM
+-- Creation: Jun 07, 2015 at 09:54 PM
 --
 
 CREATE TABLE IF NOT EXISTS `highscore` (
@@ -37,12 +37,16 @@ CREATE TABLE IF NOT EXISTS `highscore` (
   `Date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- RELATIONS FOR TABLE `highscore`:
+--
+
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `question`
 --
--- Creation: Jun 04, 2015 at 05:15 PM
+-- Creation: Jun 07, 2015 at 09:54 PM
 --
 
 CREATE TABLE IF NOT EXISTS `question` (
@@ -50,7 +54,11 @@ CREATE TABLE IF NOT EXISTS `question` (
   `Question` varchar(255) DEFAULT NULL,
   `GameType` varchar(255) NOT NULL,
   `Difficulty` varchar(255) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=171 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=224 DEFAULT CHARSET=utf8;
+
+--
+-- RELATIONS FOR TABLE `question`:
+--
 
 --
 -- Dumping data for table `question`
@@ -93,7 +101,7 @@ INSERT INTO `question` (`QuestionId`, `Question`, `GameType`, `Difficulty`) VALU
 (34, 'Waar staat de afkorting van supermarkt AH voor?', 'MultipleChoice', 'Easy'),
 (35, 'Hoe groot is de Atlantische oceaan? ', 'MultipleChoice', 'Hard'),
 (36, 'Wat is het diepste punt in de Atlantische Oceaan?', 'MultipleChoice', 'Hard'),
-(37, 'Wat is het oppervlakte van Antarctica(de Zuidpool)?', 'MultipleChoice', 'Hard'),
+(37, 'Wat is het oppervlakte van Antarctica (de Zuidpool)?', 'MultipleChoice', 'Hard'),
 (38, 'Wat is het Nederlandse alarmnummer?', 'MultipleChoice', 'Easy'),
 (39, 'Met welk bestek eet men normaliter soep?', 'MultipleChoice', 'Easy'),
 (40, 'Wat is de helderste stad op aarde vanuit de ruimte?', 'MultipleChoice', 'Easy'),
@@ -224,23 +232,82 @@ INSERT INTO `question` (`QuestionId`, `Question`, `GameType`, `Difficulty`) VALU
 (165, 'Van welk telefoonmerk was het razendpopulaire model 3310 ?', 'MultipleChoice', 'Easy'),
 (166, 'Uit welk land komt Nokia?', 'MultipleChoice', 'Hard'),
 (167, 'Wat is water in de scheikunde?', 'MultipleChoice', 'Easy'),
-(168, 'Hoeveel minuten muziek konden er per kant op maximaal op een 12″ LP?', 'MultipleChoice', 'Easy'),
+(168, 'Hoeveel minuten muziek konden er per kant op maximaal op een 12"" LP?', 'MultipleChoice', 'Easy'),
 (169, 'Uit welke stad komt de Nederlandse zanger Jan Smit?', 'MultipleChoice', 'Easy'),
-(170, 'Hoe zouden de afscheidsconcerten van Michael Jackson heten?', 'MultipleChoice', 'Easy');
+(170, 'Hoe zouden de afscheidsconcerten van Michael Jackson heten?', 'MultipleChoice', 'Easy'),
+(171, 'Heeft de Europese vlag 25 sterren? ', 'TrueFalse', 'Easy'),
+(172, 'Verandert iemands lichaamsgeur als hij stopt met roken?', 'TrueFalse', 'Hard'),
+(173, 'Zitten er in één byte 8 bits?', 'TrueFalse', 'Easy'),
+(174, 'Heeft Jean-Paul Sartre ooit de Nobelprijs afgewezen?', 'TrueFalse', 'Easy'),
+(175, 'Is een krokodil groter dan een alligator?', 'TrueFalse', 'Easy'),
+(176, 'Heeft een leeuwin manen?', 'TrueFalse', 'Hard'),
+(177, 'Is een zeekomkommer een vis?', 'TrueFalse', 'Easy'),
+(178, 'Heeft Guus Geluk altijd geluk?', 'TrueFalse', 'Hard'),
+(179, 'Is een infectie een besmetting?', 'TrueFalse', 'Easy'),
+(180, 'Is een rabbijn een soort diamant?', 'TrueFalse', 'Hard'),
+(181, 'Is Amsterdam de hoofdstad van Noord-Holland?', 'TrueFalse', 'Easy'),
+(182, 'Is Madrid de hoofdstad van Portugal?', 'TrueFalse', 'Easy'),
+(183, 'Heeft de aarde 12 uur nodig om om haar as te draaien?', 'TrueFalse', 'Hard'),
+(184, 'Heeft de maan kraters?', 'TrueFalse', 'Easy'),
+(185, 'Is de raket door de Amerikanen uitgevonden?', 'TrueFalse', 'Easy'),
+(186, 'Is Bert rood en Ernie geel?', 'TrueFalse', 'Easy'),
+(187, 'Is krab een sterrenbeeld?', 'TrueFalse', 'Easy'),
+(188, 'Is een panda een wasbeer?', 'TrueFalse', 'Easy'),
+(189, 'Is een tarantula een wervelstorm?', 'TrueFalse', 'Easy'),
+(190, 'Is een carnivoor een planteneter?', 'TrueFalse', 'Hard'),
+(191, 'Is een zeekat een inktvis?', 'TrueFalse', 'Easy'),
+(192, 'Is blauw de kleur van kobalt?', 'TrueFalse', 'Easy'),
+(193, 'Is een rechte hoek 90 graden?', 'TrueFalse', 'Easy'),
+(194, 'Is D het Romeinse cijfer voor 500?', 'TrueFalse', 'Hard'),
+(195, 'Is de Sahara de grootste woestijn op de wereld?', 'TrueFalse', 'Easy'),
+(196, 'Kijkt men met een microscoop naar de sterren?', 'TrueFalse', 'Easy'),
+(197, 'Draagt Sinterklaas witte handschoenen?', 'TrueFalse', 'Easy'),
+(198, 'Spreekt men in Zuid-Afrika Nederlands?', 'TrueFalse', 'Easy'),
+(199, 'Moet je bij een ligfiets een bel hebben als je aan het verkeer deelneemt?', 'TrueFalse', 'Easy'),
+(200, 'Is de pond meer waard dan de euro?', 'TrueFalse', 'Easy'),
+(201, 'Betekent flexibel hetzelfde als buigzaam?', 'TrueFalse', 'Easy'),
+(202, 'Staat de Mona Lisa in het Louvre?', 'TrueFalse', 'Easy'),
+(203, 'Staat het Louvre museum in Parijs?', 'TrueFalse', 'Easy'),
+(204, 'Is Picasso afkomstig uit Italië?', 'TrueFalse', 'Easy'),
+(205, 'Ontstond de Renaissance in Italië?', 'TrueFalse', 'Easy'),
+(206, 'Heeft kammen nog nut als je kaal bent?', 'TrueFalse', 'Easy'),
+(207, 'Is de uitkomst van 15 kwadraat 225?', 'TrueFalse', 'Easy'),
+(208, 'Kan een mens 1,5 liter speeksel per dag aanmaken?', 'TrueFalse', 'Easy'),
+(209, 'Was de originele kleur van Coca-Cola groen?', 'TrueFalse', 'Easy'),
+(210, 'Trok Napoleon zich terug uit Moskou in 1812?', 'TrueFalse', 'Easy'),
+(211, 'Is de Nijl langer dan 5000 kilometer?', 'TrueFalse', 'Easy'),
+(212, 'Is Antwerpen de oudste stad in België?', 'TrueFalse', 'Hard'),
+(213, 'Worden er tot 400 meter bij het hardlopen startblokken gebruikt?', 'TrueFalse', 'Easy'),
+(214, 'Behoort een spin tot de insecten?', 'TrueFalse', 'Easy'),
+(215, 'Is Toronto de hoofdstad van Canada?', 'TrueFalse', 'Hard'),
+(216, 'Is Warschau de hoofdstad van Tsjechië?', 'TrueFalse', 'Easy'),
+(217, 'Is Vilnius de hoofdstad van Litouwen?', 'TrueFalse', 'Easy'),
+(218, 'Is Peking de hoofdstad van China?', 'TrueFalse', 'Easy'),
+(219, 'Wordt er in Zweden met de euro betaalt?', 'TrueFalse', 'Easy'),
+(220, 'Is de Lilangeni een munteenheid?', 'TrueFalse', 'Easy'),
+(221, 'Is kip een munteenheid?', 'TrueFalse', 'Hard'),
+(222, 'Is big een munteenheid?', 'TrueFalse', 'Hard'),
+(223, 'Wordt er in Zwitserland betaalt met de euro?', 'TrueFalse', 'Easy');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `rightanswer`
 --
--- Creation: Jun 04, 2015 at 05:15 PM
+-- Creation: Jun 07, 2015 at 09:54 PM
 --
 
 CREATE TABLE IF NOT EXISTS `rightanswer` (
+  `QuestionId` int(25) NOT NULL,
   `RightAnswerId` int(25) NOT NULL DEFAULT '0',
-  `RightAnswer` varchar(255) DEFAULT NULL,
-  `QuestionId` int(25) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=171 DEFAULT CHARSET=utf8;
+  `RightAnswer` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=224 DEFAULT CHARSET=utf8;
+
+--
+-- RELATIONS FOR TABLE `rightanswer`:
+--   `QuestionId`
+--       `question` -> `QuestionId`
+--
 
 --
 -- Dumping data for table `rightanswer`
@@ -416,14 +483,67 @@ INSERT INTO `rightanswer` (`QuestionId`, `RightAnswerId`, `RightAnswer`) VALUES
 (167, 167, 'H2O'),
 (168, 168, '30 minuten'),
 (169, 169, 'Volendam'),
-(170, 170, 'This is it');
+(170, 170, 'This is it'),
+(171, 171, 'Nee'),
+(172, 172, 'Ja'),
+(173, 173, 'Ja'),
+(174, 174, 'Ja'),
+(175, 175, 'Nee'),
+(176, 176, 'Nee'),
+(177, 177, 'Nee'),
+(178, 178, 'Nee'),
+(179, 179, 'Ja'),
+(180, 180, 'Nee'),
+(181, 181, 'Nee'),
+(182, 182, 'Nee'),
+(183, 183, 'Nee'),
+(184, 184, 'Ja'),
+(185, 185, 'Nee'),
+(186, 186, 'Nee'),
+(187, 187, 'Nee'),
+(188, 188, 'Ja'),
+(189, 189, 'Nee'),
+(190, 190, 'Nee'),
+(191, 191, 'Ja'),
+(192, 192, 'Ja'),
+(193, 193, 'Ja'),
+(194, 194, 'Ja'),
+(195, 195, 'Ja'),
+(196, 196, 'Nee'),
+(197, 197, 'Ja'),
+(198, 198, 'Ja'),
+(199, 199, 'Ja'),
+(200, 200, 'Ja'),
+(201, 201, 'Ja'),
+(202, 202, 'Ja'),
+(203, 203, 'Ja'),
+(204, 204, 'Nee'),
+(205, 205, 'Ja'),
+(206, 206, 'Ja'),
+(207, 207, 'Ja'),
+(208, 208, 'Ja'),
+(209, 209, 'Ja'),
+(210, 210, 'Ja'),
+(211, 211, 'Ja'),
+(212, 212, 'Nee'),
+(213, 213, 'Ja'),
+(214, 214, 'Nee'),
+(215, 215, 'Nee'),
+(216, 216, 'Nee'),
+(217, 217, 'Ja'),
+(218, 218, 'Ja'),
+(219, 219, 'Nee'),
+(220, 220, 'Ja'),
+(221, 221, 'Ja'),
+(222, 222, 'Nee'),
+(223, 223, 'Nee');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `wronganswer`
 --
--- Creation: Jun 04, 2015 at 05:27 PM
+-- Creation: Jun 07, 2015 at 09:54 PM
 --
 
 CREATE TABLE IF NOT EXISTS `wronganswer` (
@@ -431,6 +551,12 @@ CREATE TABLE IF NOT EXISTS `wronganswer` (
   `WrongAnswerId` int(25) NOT NULL DEFAULT '0',
   `WrongAnswer` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- RELATIONS FOR TABLE `wronganswer`:
+--   `QuestionId`
+--       `question` -> `QuestionId`
+--
 
 --
 -- Dumping data for table `wronganswer`
@@ -946,7 +1072,166 @@ INSERT INTO `wronganswer` (`QuestionId`, `WrongAnswerId`, `WrongAnswer`) VALUES
 (169, 3, 'Bloemendaal'),
 (170, 1, 'Final concerts'),
 (170, 2, 'The final tour'),
-(170, 3, 'The last moonwalk');
+(170, 3, 'The last moonwalk'),
+(171, 1, 'Ja'),
+(171, 2, ''),
+(171, 3, ''),
+(172, 1, 'Nee'),
+(172, 2, ''),
+(172, 3, ''),
+(173, 1, 'Nee'),
+(173, 2, ''),
+(173, 3, ''),
+(174, 1, 'Nee'),
+(174, 2, ''),
+(174, 3, ''),
+(175, 1, 'Ja'),
+(175, 2, ''),
+(175, 3, ''),
+(176, 1, 'Ja'),
+(176, 2, ''),
+(176, 3, ''),
+(177, 1, 'Ja'),
+(177, 2, ''),
+(177, 3, ''),
+(178, 1, 'Ja'),
+(178, 2, ''),
+(178, 3, ''),
+(179, 1, 'Nee'),
+(179, 2, ''),
+(179, 3, ''),
+(180, 1, 'Ja'),
+(180, 2, ''),
+(180, 3, ''),
+(181, 1, 'Ja'),
+(181, 2, ''),
+(181, 3, ''),
+(182, 1, 'Ja'),
+(182, 2, ''),
+(182, 3, ''),
+(183, 1, 'Ja'),
+(183, 2, ''),
+(183, 3, ''),
+(184, 1, 'Nee'),
+(184, 2, ''),
+(184, 3, ''),
+(185, 1, 'Ja'),
+(185, 2, ''),
+(185, 3, ''),
+(186, 1, 'Ja'),
+(186, 2, ''),
+(186, 3, ''),
+(187, 1, 'Ja'),
+(187, 2, ''),
+(187, 3, ''),
+(188, 1, 'Nee'),
+(188, 2, ''),
+(188, 3, ''),
+(189, 1, 'Ja'),
+(189, 2, ''),
+(189, 3, ''),
+(190, 1, 'Ja'),
+(190, 2, ''),
+(190, 3, ''),
+(191, 1, 'Nee'),
+(191, 2, ''),
+(191, 3, ''),
+(192, 1, 'Nee'),
+(192, 2, ''),
+(192, 3, ''),
+(193, 1, 'Nee'),
+(193, 2, ''),
+(193, 3, ''),
+(194, 1, 'Nee'),
+(194, 2, ''),
+(194, 3, ''),
+(195, 1, 'Nee'),
+(195, 2, ''),
+(195, 3, ''),
+(196, 1, 'Ja'),
+(196, 2, ''),
+(196, 3, ''),
+(197, 1, 'Nee'),
+(197, 2, ''),
+(197, 3, ''),
+(198, 1, 'Nee'),
+(198, 2, ''),
+(198, 3, ''),
+(199, 1, 'Nee'),
+(199, 2, ''),
+(199, 3, ''),
+(200, 1, 'Nee'),
+(200, 2, ''),
+(200, 3, ''),
+(201, 1, 'Nee'),
+(201, 2, ''),
+(201, 3, ''),
+(202, 1, 'Nee'),
+(202, 2, ''),
+(202, 3, ''),
+(203, 1, 'Nee'),
+(203, 2, ''),
+(203, 3, ''),
+(204, 1, 'Ja'),
+(204, 2, ''),
+(204, 3, ''),
+(205, 1, 'Nee'),
+(205, 2, ''),
+(205, 3, ''),
+(206, 1, 'Nee'),
+(206, 2, ''),
+(206, 3, ''),
+(207, 1, 'Nee'),
+(207, 2, ''),
+(207, 3, ''),
+(208, 1, 'Nee'),
+(208, 2, ''),
+(208, 3, ''),
+(209, 1, 'Nee'),
+(209, 2, ''),
+(209, 3, ''),
+(210, 1, 'Nee'),
+(210, 2, ''),
+(210, 3, ''),
+(211, 1, 'Nee'),
+(211, 2, ''),
+(211, 3, ''),
+(212, 1, 'Ja'),
+(212, 2, ''),
+(212, 3, ''),
+(213, 1, 'Nee'),
+(213, 2, ''),
+(213, 3, ''),
+(214, 1, 'Ja'),
+(214, 2, ''),
+(214, 3, ''),
+(215, 1, 'Ja'),
+(215, 2, ''),
+(215, 3, ''),
+(216, 1, 'Ja'),
+(216, 2, ''),
+(216, 3, ''),
+(217, 1, 'Nee'),
+(217, 2, ''),
+(217, 3, ''),
+(218, 1, 'Nee'),
+(218, 2, ''),
+(218, 3, ''),
+(219, 1, 'Ja'),
+(219, 2, ''),
+(219, 3, ''),
+(220, 1, 'Nee'),
+(220, 2, ''),
+(220, 3, ''),
+(221, 1, 'Nee'),
+(221, 2, ''),
+(221, 3, ''),
+(222, 1, 'Ja'),
+(222, 2, ''),
+(222, 3, ''),
+(223, 1, 'Ja'),
+(223, 2, ''),
+(223, 3, '');
 
 --
 -- Indexes for dumped tables
@@ -987,12 +1272,12 @@ ALTER TABLE `wronganswer`
 -- AUTO_INCREMENT for table `question`
 --
 ALTER TABLE `question`
-  MODIFY `QuestionId` int(25) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=171;
+  MODIFY `QuestionId` int(25) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=224;
 --
 -- AUTO_INCREMENT for table `rightanswer`
 --
 ALTER TABLE `rightanswer`
-  MODIFY `QuestionId` int(25) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=171;
+  MODIFY `QuestionId` int(25) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=224;
 --
 -- Constraints for dumped tables
 --
