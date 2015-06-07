@@ -181,6 +181,7 @@ public class Trivia extends Application {
 				viewName = "Question";
 				break;
 			case "nextQuestionButton":
+			case "viewScore":
 				viewName = "GameOverview";
 				break;
 			case "highScore":

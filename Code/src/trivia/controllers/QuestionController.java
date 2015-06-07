@@ -123,6 +123,9 @@ public class QuestionController extends Trivia implements Initializable {
 	@FXML
 	private Button mainMenu;
 
+	@FXML
+	private Button viewScore;
+
 	// Object to call connection
 	private final DbManager dbm = new DbManager();
 
@@ -132,17 +135,17 @@ public class QuestionController extends Trivia implements Initializable {
 	private int questionNumber = 1;
 
 	public static ArrayList<Integer> remainingTimerDuration = new ArrayList<Integer>();
+	public static List<Integer> correctlyAnsweredQuestions = new ArrayList<Integer>();
+	public static Integer correctAnswersTotal = 0;
+	public static Integer skippedQuestionsTotal = 0;
 
 	private List<ToggleButton> answerButtons;
 	private List<Hyperlink> answerLabels;
 	private String[][] loadedStrings = new String[gameLength][8];
 	public String[][] chosenAnswers = new String[gameLength][2];
 	public String[][] correctAnswers = new String[gameLength][2];
-	public static List<Integer> correctlyAnsweredQuestions = new ArrayList<Integer>();
 	private Boolean gameIsFinished = false;
 	private Boolean reviewedAnswers = false;
-	public static Integer correctAnswersTotal = 0;
-	public static Integer skippedQuestionsTotal = 0;
 
 	private final Color BLACK = Color.web("#000"); // Black
 	private final Color GREEN = Color.web("#008000"); // Green
@@ -180,6 +183,13 @@ public class QuestionController extends Trivia implements Initializable {
 		nextQuestionButton.setOnAction((event) -> this.nextQuestion(event, true));
 		previousQuestionButton.setOnAction((event) -> this.nextQuestion(event, false));
 		mainMenu.setOnAction(this::stopQuiz);
+		viewScore.setOnAction((event) -> {
+			if (alertDialog(AlertType.CONFIRMATION, "Score bekijken", null,
+					"Als u doorgaat ziet u uw score en kunt u de vragen "
+					+ "niet meer bekijken.", StageStyle.UNDECORATED)) {
+				this.loadView(event);
+			}
+		});
 
 		// Update question progress label, start at 1 and therefore disable previousQuestionButton.
 		questionProgress.setText(questionNumber + " / " + gameLength);
@@ -494,6 +504,7 @@ public class QuestionController extends Trivia implements Initializable {
 								+ chosenAnswers[i][1]);
 					}
 					gameIsFinished = true; // Only supposed to reach this once, use return.
+					viewScore.setVisible(true);
 					nextQuestionButton.setText("Volgende");
 					nextQuestion(event, true);
 				}

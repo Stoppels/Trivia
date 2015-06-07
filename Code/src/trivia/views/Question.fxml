@@ -36,14 +36,14 @@
                 <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
             </rowConstraints>
             <children>
-                <Label fx:id="questionProgress" text="0 / 0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.rowSpan="2" GridPane.valignment="CENTER">
+                <Label fx:id="questionProgress" focusTraversable="false" text="0 / 0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.rowSpan="2" GridPane.valignment="CENTER">
                     <font>
-                        <Font size="24.0" />
+                        <Font size="30.0" />
                     </font>
                 </Label>
                 <Label fx:id="question" focusTraversable="false" text="Vraag" wrapText="true" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.rowSpan="2" GridPane.vgrow="ALWAYS">
                     <font>
-                        <Font name="Bookman Old Style Bold" size="24.0" />
+                        <Font size="30.0" />
                     </font>
                 </Label>
             <Label fx:id="checkMarkA" focusTraversable="false" textFill="GREEN" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
@@ -109,7 +109,7 @@
                         <Font size="24.0" />
                     </font>
                 </Hyperlink>
-                <Label fx:id="timer" alignment="TOP_CENTER" layoutX="126" layoutY="120" text="00:00" textFill="#f8a533" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="TOP">
+                <Label fx:id="timer" alignment="TOP_CENTER" focusTraversable="false" layoutX="126" layoutY="120" text="00:00" textFill="#f8a533" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="TOP">
                     <font>
                         <Font name="System Bold" size="36.0" />
                     </font>
@@ -176,6 +176,14 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Button>
+            <Button fx:id="viewScore" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" style="-fx-background-radius: 80px;" text="Bekijk vragen" visible="false" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Button>
             </children>
         </GridPane>
     </children>
