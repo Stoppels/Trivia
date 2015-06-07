@@ -268,11 +268,11 @@ public class GameSetUpController extends Trivia implements Initializable {
 			typeIsTf = false;
 			typeIsMixed = true;
 		} else if (typeTfButton.isSelected()) {
-			System.out.println("True/false");
+			System.out.println("True/False");
 			typeIsTf = true;
 			typeIsMixed = false;
 		} else if (typeMcButton.isSelected()) {
-			System.out.println("Four choices");
+			System.out.println("Multiple Choice");
 			typeIsTf = false;
 			typeIsMixed = false;
 		}

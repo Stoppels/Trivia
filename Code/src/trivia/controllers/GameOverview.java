@@ -77,9 +77,15 @@ public class GameOverview extends trivia.Trivia implements Initializable {
 	}
 
 	private void computeScore() {
-		int score = 0;
+		double score = 0;
 
-		score += (correctAnswersTotal * 10); // 10 points for every correct answer.
+		if (GameSetUpController.difficultyIsEasy) {
+			score += (correctAnswersTotal * 8); // 8 points for every correct answer.
+		} else if (GameSetUpController.difficultyIsMixed) {
+			score += (correctAnswersTotal * 10); // 10 points for every correct answer.			
+		} else {
+			score += (correctAnswersTotal * 12); // 12 points for every correct answer.
+		}
 		score *= 0.9; // Subtract 10% of score.
 		if (timerSetting) {
 			for (Integer i : correctlyAnsweredQuestions) {
@@ -88,7 +94,7 @@ public class GameOverview extends trivia.Trivia implements Initializable {
 			}
 			score += (remainingTime * 0.2);
 			remainingTimeLabel.setText(String.valueOf(remainingTime));
-			scoreLabel.setText(String.valueOf(score));
+			scoreLabel.setText(String.valueOf((int) score));
 		} else {
 			remainingTimeLabel.setVisible(false);
 		}

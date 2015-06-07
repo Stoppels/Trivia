@@ -260,13 +260,13 @@ public class AddQuestionController extends Trivia implements Initializable {
 
 			statement = dbm.connection.prepareStatement(
 					"INSERT INTO rightanswer VALUES(?, ?, ?);");
-			updateParameters = Arrays.asList(questionId, addStrings.get(1), questionId);
+			updateParameters = Arrays.asList(questionId, questionId, addStrings.get(1));
 			dbm.executeUpdate(statement, updateParameters);
 
 			statement = dbm.connection.prepareStatement(
-					"INSERT INTO wronganswer VALUES(1, ?, ?), (2, ?, ?), (3, ?, ?);");
-			updateParameters = Arrays.asList(addStrings.get(2), questionId,
-					addStrings.get(3), questionId, addStrings.get(4), questionId);
+					"INSERT INTO wronganswer VALUES(?, 1, ?), (?, 2, ?), (?, 3, ?);");
+			updateParameters = Arrays.asList(questionId, addStrings.get(2),
+					questionId, addStrings.get(3), questionId, addStrings.get(4));
 			dbm.executeUpdate(statement, updateParameters);
 
 			// If we get to here, everything is stored in the database; clear fields.

@@ -502,6 +502,10 @@ public class QuestionController extends Trivia implements Initializable {
 					for (int i = 0; i < chosenAnswers.length; i++) { // Print chosen answers.
 						System.out.println("Answer to question " + (i + 1) + ": "
 								+ chosenAnswers[i][1]);
+						if (chosenAnswers[i][1].equals("E")) {
+							// Player skipped question.
+							skippedQuestionsTotal++;
+						}
 					}
 					gameIsFinished = true; // Only supposed to reach this once, use return.
 					viewScore.setVisible(true);
@@ -623,8 +627,7 @@ public class QuestionController extends Trivia implements Initializable {
 					checkMarkC.setText("");
 					checkMarkD.setText("X");
 					break;
-				default: // Player skipped question.
-					skippedQuestionsTotal++;
+				default:
 					checkMarkA.setText("");
 					checkMarkB.setText("");
 					checkMarkC.setText("");
