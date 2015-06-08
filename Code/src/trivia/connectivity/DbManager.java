@@ -27,6 +27,8 @@ package trivia.connectivity;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import java.sql.*;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.control.Alert;
 import javafx.stage.StageStyle;
 import static trivia.AppConfig.DEFAULT_PASS;
@@ -64,6 +66,9 @@ public class DbManager {
 			Class.forName("com.mysql.jdbc.Driver");
 
 			// User set default database.
+			prefs.put(dbUrl, DEFAULT_URL);
+			prefs.put(dbUser, DEFAULT_USER);
+			prefs.put(dbPass, DEFAULT_PASS);
 			url = prefs.get(dbUrl, DEFAULT_URL);
 			user = prefs.get(dbUser, DEFAULT_USER);
 			pass = prefs.get(dbPass, DEFAULT_PASS);
@@ -146,8 +151,17 @@ public class DbManager {
 			Trivia.duplicateError = true;
 		} catch (SQLException e) {
 			System.err.println(SQL_EXCEPTION + e.getLocalizedMessage());
+			e.printStackTrace();
 		} catch (Throwable e) {
 			System.err.println("Throwable exception: " + e.getLocalizedMessage());
+		}
+	}
+	
+	public void executeUpdate(PreparedStatement statement) {
+		try {
+			statement.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 	}
 

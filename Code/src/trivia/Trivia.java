@@ -185,7 +185,8 @@ public class Trivia extends Application {
 				viewName = "GameOverview";
 				break;
 			case "highScore":
-				viewName = "HighScore";
+//				viewName = "HighScore"; <——————————————— Boys, afmaken?
+				viewName = "MainMenu";
 				break;
 			case "gameSetUp":
 				viewName = "GameSetUp";
@@ -198,6 +199,9 @@ public class Trivia extends Application {
 				break;
 			case "manageQuestions":
 				viewName = "ManageQuestions";
+				break;
+			case "advancedSettings":
+				viewName = "AdvancedSettings";
 				break;
 			default:
 				System.err.println("View " + viewName + " not found.");

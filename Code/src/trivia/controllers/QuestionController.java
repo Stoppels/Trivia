@@ -88,7 +88,7 @@ public class QuestionController extends Trivia implements Initializable {
 	private ProgressBar progressBar;
 
 	@FXML
-	private Label question;
+	private Label questionLabel;
 
 	@FXML
 	private Hyperlink labelA;
@@ -550,7 +550,7 @@ public class QuestionController extends Trivia implements Initializable {
 	 */
 	private void setLabels(int storedDataRow) {
 		int storedDataNumber = 0;
-		question.setText(loadedStrings[storedDataRow][storedDataNumber]);
+		questionLabel.setText(loadedStrings[storedDataRow][storedDataNumber]);
 		for (Hyperlink h : answerLabels) {
 			storedDataNumber++;
 			h.setText(loadedStrings[storedDataRow][storedDataNumber]);

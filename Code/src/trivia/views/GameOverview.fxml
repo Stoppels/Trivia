@@ -13,9 +13,13 @@
         <GridPane minHeight="600.0" minWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="200.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="200.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="250.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="60.0" minWidth="30.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="250.0" minWidth="200.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="280.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="60.0" minWidth="30.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="250.0" minWidth="200.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" />
             </columnConstraints>
             <rowConstraints>
@@ -24,7 +28,6 @@
             <RowConstraints minHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="80.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="80.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="80.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="80.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="30.0" vgrow="SOMETIMES" />
@@ -36,49 +39,11 @@
                         <Font name="System Bold" size="48.0" />
                     </font>
                 </Label>
-                <Label fx:id="questionsGood" focusTraversable="false" text="Vragen goed beantwoord:" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="3">
-                    <font>
-                        <Font size="24.0" />
-                    </font>
-                </Label>
-                <Label fx:id="timeDone" focusTraversable="false" text="Resterende tijd:" textAlignment="JUSTIFY" GridPane.columnIndex="1" GridPane.rowIndex="5">
-                    <font>
-                        <Font size="24.0" />
-                    </font>
-                </Label>
-            <Label fx:id="playerScore" focusTraversable="false" text="Eindscore:" textAlignment="JUSTIFY" GridPane.columnIndex="1" GridPane.rowIndex="6">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-                <Button fx:id="highScore" minHeight="60.0" minWidth="200.0" mnemonicParsing="false" style="-fx-background-radius: 80;" text="Volgende" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="8">
+                <Label focusTraversable="false" text="Vragen goed" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="3">
                     <font>
                         <Font name="System Bold" size="24.0" />
                     </font>
-                    <cursor>
-                        <Cursor fx:constant="HAND" />
-                    </cursor>
-                </Button>
-            <Label fx:id="questionsGood1" focusTraversable="false" layoutX="72.0" layoutY="240.0" text="Vragen overgeslagen:" GridPane.columnIndex="1" GridPane.rowIndex="4">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-            <Label fx:id="skippedQuestionsLabel" layoutX="472.0" layoutY="169.0" GridPane.columnIndex="3" GridPane.rowIndex="4">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-            <Label fx:id="remainingTimeLabel" GridPane.columnIndex="3" GridPane.rowIndex="5">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-            <Label fx:id="scoreLabel" GridPane.columnIndex="3" GridPane.rowIndex="6">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
+                </Label>
             <AnchorPane GridPane.columnIndex="3" GridPane.rowIndex="3">
                <children>
                   <Label focusTraversable="false" text="van de" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -107,6 +72,54 @@
                   </Label>
                </children>
             </AnchorPane>
+            <Label focusTraversable="false" layoutX="72.0" layoutY="240.0" text="Vragen overgeslagen" GridPane.columnIndex="5" GridPane.rowIndex="3">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="skippedQuestionsLabel" layoutX="472.0" layoutY="169.0" GridPane.columnIndex="7" GridPane.rowIndex="3">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+                <Label fx:id="remainingTimeTextLabel" focusTraversable="false" text="Resterende tijd" textAlignment="JUSTIFY" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                    <font>
+                        <Font name="System Bold" size="24.0" />
+                    </font>
+                </Label>
+            <Label fx:id="remainingTimeLabel" GridPane.columnIndex="3" GridPane.rowIndex="4">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="fastestQuestionTextLabel" focusTraversable="false" text="Snelst beantwoord" GridPane.columnIndex="5" GridPane.rowIndex="4">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="fastestQuestionLabel" GridPane.columnIndex="7" GridPane.rowIndex="4">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label focusTraversable="false" text="Eindscore" textAlignment="JUSTIFY" textFill="#522e90" GridPane.columnIndex="3" GridPane.rowIndex="5">
+               <font>
+                  <Font name="System Bold" size="30.0" />
+               </font>
+            </Label>
+            <Label fx:id="scoreLabel" textFill="#522e90" GridPane.columnIndex="5" GridPane.rowIndex="5">
+               <font>
+                  <Font name="System Bold" size="30.0" />
+               </font>
+            </Label>
+                <Button fx:id="highScore" minHeight="60.0" minWidth="200.0" mnemonicParsing="false" style="-fx-background-radius: 80;" text="Volgende" textAlignment="CENTER" GridPane.columnIndex="7" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
+                    <font>
+                        <Font name="System Bold" size="24.0" />
+                    </font>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </Button>
             </children>
         </GridPane>
     </children>

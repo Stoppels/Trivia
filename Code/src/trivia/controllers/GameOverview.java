@@ -43,6 +43,12 @@ import static trivia.controllers.QuestionController.skippedQuestionsTotal;
 public class GameOverview extends trivia.Trivia implements Initializable {
 
 	@FXML
+	private Label remainingTimeTextLabel;
+
+	@FXML
+	private Label fastestQuestionTextLabel;
+
+	@FXML
 	private Label correctlyAnsweredLabel;
 
 	@FXML
@@ -50,6 +56,9 @@ public class GameOverview extends trivia.Trivia implements Initializable {
 
 	@FXML
 	private Label skippedQuestionsLabel;
+
+	@FXML
+	private Label fastestQuestionLabel;
 
 	@FXML
 	private Label remainingTimeLabel;
@@ -61,6 +70,7 @@ public class GameOverview extends trivia.Trivia implements Initializable {
 	private Button highScore;
 
 	private int remainingTime = 0;
+	private int fastestAnswer = 0;
 
 	/**
 	 * Initializes the controller class.
@@ -92,11 +102,20 @@ public class GameOverview extends trivia.Trivia implements Initializable {
 				remainingTime += remainingTimerDuration.get(i);
 				System.out.println("Added remaining time for question: " + (i + 1));
 			}
+			for (int i = 0; i < gameLength; i++) {
+				System.out.println("Time remaining for question " + (i + 1) + ": "
+						+ remainingTimerDuration.get(i).toString());
+			}
+
 			score += (remainingTime * 0.2);
 			remainingTimeLabel.setText(String.valueOf(remainingTime));
-			scoreLabel.setText(String.valueOf((int) score));
+			fastestQuestionLabel.setText("");
 		} else {
-			remainingTimeLabel.setVisible(false);
+			remainingTimeTextLabel.setVisible(timerSetting);
+			remainingTimeLabel.setVisible(timerSetting);
+			fastestQuestionTextLabel.setVisible(timerSetting);
+			fastestQuestionLabel.setVisible(timerSetting);
 		}
+		scoreLabel.setText(String.valueOf((int) score));
 	}
 }

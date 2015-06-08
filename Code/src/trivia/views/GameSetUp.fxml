@@ -12,7 +12,7 @@
         <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columnConstraints>
                 <ColumnConstraints hgrow="ALWAYS" minWidth="30.0" />
-                <ColumnConstraints hgrow="SOMETIMES" prefWidth="286.0" />
+                <ColumnConstraints hgrow="SOMETIMES" prefWidth="306.0" />
                 <ColumnConstraints hgrow="ALWAYS" minWidth="30.0" />
                 <ColumnConstraints hgrow="ALWAYS" minWidth="150.0" />
                 <ColumnConstraints hgrow="ALWAYS" minWidth="150.0" />
@@ -40,7 +40,7 @@
                 </Label>
                 <Label focusTraversable="false" text="Kies moeilijkheidsgraad" GridPane.columnIndex="1" GridPane.rowIndex="3">
                     <font>
-                        <Font size="24.0" />
+                        <Font name="System Bold" size="24.0" />
                     </font>
                     <GridPane.margin>
                         <Insets />
@@ -69,7 +69,7 @@
                 </ToggleButton>
                 <Label focusTraversable="false" text="Kies aantal antwoorden" GridPane.columnIndex="1" GridPane.rowIndex="4">
                     <font>
-                        <Font size="24.0" />
+                        <Font name="System Bold" size="24.0" />
                     </font>
                 </Label>
                 <ToggleButton fx:id="typeMixedButton" mnemonicParsing="false" prefWidth="140.0" text="Gemengd" GridPane.columnIndex="3" GridPane.columnSpan="5" GridPane.rowIndex="4">
@@ -92,7 +92,7 @@
                 </ToggleButton>
                 <Label focusTraversable="false" text="Kies het aantal vragen" GridPane.columnIndex="1" GridPane.rowIndex="5">
                     <font>
-                        <Font size="24.0" />
+                        <Font name="System Bold" size="24.0" />
                     </font>
                 </Label>
                 <ToggleButton fx:id="shortLengthButton" mnemonicParsing="false" prefWidth="140.0" text="15" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="5">
@@ -116,9 +116,9 @@
                         <Font size="24.0" />
                     </font>
                 </ToggleButton>
-                <Label focusTraversable="false" minWidth="286.0" text="Wilt u de timer gebruiken?" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                <Label focusTraversable="false" minWidth="306.0" text="Wilt u de timer gebruiken?" GridPane.columnIndex="1" GridPane.rowIndex="6">
                     <font>
-                        <Font size="24.0" />
+                        <Font name="System Bold" size="24.0" />
                     </font>
                     <GridPane.margin>
                         <Insets />
@@ -132,7 +132,7 @@
                         <ToggleGroup fx:id="timerGroup" />
                     </toggleGroup>
                 </ToggleButton>
-                <ToggleButton fx:id="timerToggleNo" layoutX="394.0" layoutY="382.0" mnemonicParsing="false" prefWidth="140.0" text="Nee" toggleGroup="$timerGroup" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+                <ToggleButton fx:id="timerToggleNo" layoutX="394.0" layoutY="382.0" mnemonicParsing="false" prefWidth="140.0" text="Nee" toggleGroup="$timerGroup" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
                     <font>
                         <Font size="24.0" />
                     </font>
@@ -147,6 +147,11 @@
                         <Font name="System Bold" size="24.0" />
                     </font>
                 </Button>
+            <Label fx:id="timerLabel" focusTraversable="false" text="30" textFill="#522e90" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+               <font>
+                  <Font name="System Bold" size="36.0" />
+               </font>
+            </Label>
             </children>
         </GridPane>
     </children>

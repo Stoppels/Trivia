@@ -44,6 +44,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
@@ -66,22 +67,22 @@ import static trivia.controllers.AddQuestionController.duplicateError;
 public class ManageQuestionsController extends Trivia implements Initializable {
 
 	@FXML
-	ComboBox selectQuestion;
+	private ComboBox selectQuestion;
 
 	@FXML
-	TextField editQuestionText;
+	private TextField editQuestionText;
 
 	@FXML
-	TextField editCorrectAnswer;
+	private TextField editCorrectAnswer;
 
 	@FXML
-	TextField editIncorrectAnswer1;
+	private TextField editIncorrectAnswer1;
 
 	@FXML
-	TextField editIncorrectAnswer2;
+	private TextField editIncorrectAnswer2;
 
 	@FXML
-	TextField editIncorrectAnswer3;
+	private TextField editIncorrectAnswer3;
 
 	@FXML
 	private ToggleGroup typeGroup;
@@ -93,22 +94,25 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 	private ToggleButton typeMultipleChoiceButton;
 
 	@FXML
-	ToggleGroup difficultyGroup;
+	private ToggleGroup difficultyGroup;
 
 	@FXML
-	ToggleButton difficultyEasy;
+	private ToggleButton difficultyEasy;
 
 	@FXML
-	ToggleButton difficultyHard;
+	private ToggleButton difficultyHard;
 
 	@FXML
-	Button adminMenu;
+	private Label messageLabel;
 
 	@FXML
-	Button deleteQuestionButton;
+	private Button adminMenu;
 
 	@FXML
-	Button editQuestionButton;
+	private Button deleteQuestionButton;
+
+	@FXML
+	private Button editQuestionButton;
 
 	private final DbManager dbm = new DbManager();
 	private String typeSetter = "", difficultySetter = "",
@@ -143,6 +147,7 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 		// When something is selected in the ComboBox (= an event) -> print out the selection.
 		selectQuestion.setOnAction(this::fillFields);
 		deleteQuestionButton.setOnAction(this::confirmDeleteQuestion);
+		setMessageLabel();
 
 		typeGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
 			@Override
@@ -202,6 +207,19 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 				}
 			});
 		}
+		deleteQuestionButton.setDisable(true);
+		selectQuestion.getSelectionModel().selectedItemProperty().addListener(
+				new ChangeListener<String>() {
+					@Override
+					public void changed(ObservableValue<? extends String> observable,
+							String OldValue, String newValue) {
+						if (newValue == null) {
+							deleteQuestionButton.setDisable(true);
+						} else {
+							deleteQuestionButton.setDisable(false);
+						}
+					}
+				});
 	}
 
 	/**
@@ -233,16 +251,23 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 	 */
 	private void confirmAlertEditQuestion(ActionEvent event) {
 		try {
-			if (editMcFields.get(0).getText().isEmpty() || editMcFields.get(1).getText().isEmpty()
+			if ((typeTrueFalseButton.isSelected() && (editMcFields.get(0).getText().isEmpty()
+					|| editMcFields.get(1).getText().isEmpty()
+					|| editMcFields.get(2).getText().isEmpty())) || (typeMultipleChoiceButton.isSelected()
+					&& (editMcFields.get(0).getText().isEmpty()
+					|| editMcFields.get(1).getText().isEmpty()
 					|| editMcFields.get(2).getText().isEmpty()
 					|| editMcFields.get(3).getText().isEmpty()
-					|| editMcFields.get(4).getText().isEmpty()
-					|| (!typeTrueFalseButton.isSelected() && !typeMultipleChoiceButton.isSelected())
-					|| (!difficultyEasy.isSelected() && !difficultyHard.isSelected())) {
+					|| editMcFields.get(4).getText().isEmpty()))) {
 				alertDialog(Alert.AlertType.ERROR, "Tekstveld leeg", null, "Elk tekstveld moet"
 						+ " zijn ingevuld en een moeilijkheidsgraad moet zijn gekozen.",
 						StageStyle.UNDECORATED);
-			} else if (editMcFields.get(0).getText().equals(editMcFields.get(1).getText())
+			} else if ((typeTrueFalseButton.isSelected()
+					&& (editMcFields.get(0).getText().equals(editMcFields.get(1).getText())
+					|| editMcFields.get(0).getText().equals(editMcFields.get(2).getText())
+					|| editMcFields.get(1).getText().equals(editMcFields.get(2).getText())))
+					|| (typeMultipleChoiceButton.isSelected()
+					&& (editMcFields.get(0).getText().equals(editMcFields.get(1).getText())
 					|| editMcFields.get(0).getText().equals(editMcFields.get(2).getText())
 					|| editMcFields.get(0).getText().equals(editMcFields.get(3).getText())
 					|| editMcFields.get(0).getText().equals(editMcFields.get(4).getText())
@@ -251,17 +276,28 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 					|| editMcFields.get(1).getText().equals(editMcFields.get(4).getText())
 					|| editMcFields.get(2).getText().equals(editMcFields.get(3).getText())
 					|| editMcFields.get(2).getText().equals(editMcFields.get(4).getText())
-					|| editMcFields.get(3).getText().equals(editMcFields.get(4).getText())) {
+					|| editMcFields.get(3).getText().equals(editMcFields.get(4).getText())))) {
 				alertDialog(Alert.AlertType.ERROR, "Dubbele waarde", null, "Elk tekstveld moet "
 						+ "een unieke invoer bevatten.", StageStyle.UNDECORATED);
-			} else if (alertDialog(Alert.AlertType.CONFIRMATION, "Vraag wijzigen",
-					"Weet u zeker dat u de wijzigingen wilt opslaan?",
-					"De vraag: " + editMcFields.get(0).getText()
-					+ "\nMet het juiste antwoord: " + editMcFields.get(1).getText()
-					+ "\nEn de onjuiste antwoorden:\n– " + editMcFields.get(2).getText()
-					+ "\n– " + editMcFields.get(3).getText() + "\n– "
-					+ editMcFields.get(4).getText(), StageStyle.UNDECORATED)) {
-				editQuestion();
+			} else if (typeMultipleChoiceButton.isSelected()) {
+				if (alertDialog(Alert.AlertType.CONFIRMATION, "Vraag toevoegen",
+						"Weet u zeker dat u deze vraag wilt toevoegen?",
+						"De vraag: " + editMcFields.get(0).getText() + "\n"
+						+ "\nMet het juiste antwoord: " + editMcFields.get(1).getText()
+						+ "\nEn de onjuiste antwoorden:\n– " + editMcFields.get(2).getText()
+						+ "\n– " + editMcFields.get(3).getText() + "\n– "
+						+ editMcFields.get(4).getText(), StageStyle.UNDECORATED)) {
+					editQuestion();
+				}
+			} else if (typeTrueFalseButton.isSelected()) {
+				if (alertDialog(Alert.AlertType.CONFIRMATION, "Vraag toevoegen",
+						"Weet u zeker dat u deze vraag wilt toevoegen?",
+						"De vraag: " + editMcFields.get(0).getText() + "\n"
+						+ "\nMet het juiste antwoord: " + editMcFields.get(1).getText()
+						+ "\n\nEn het onjuiste antwoord: " + editMcFields.get(2).getText(),
+						StageStyle.UNDECORATED)) {
+					editQuestion();
+				}
 			}
 		} catch (NoSuchElementException e) {
 			// No need to handle exception. Alert already does.
@@ -332,6 +368,7 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 
 		// If we get to here, the question entry and its answers have been deleted.
 		clearFields();
+		setMessageLabel();
 	}
 
 	private void disableEditButton() {
@@ -521,10 +558,10 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 				}
 			}
 			// Test the list by showcasing it.
-			System.out.println("List of questions: " + list + "\n"
-					+ "Highest questionId: " + questionsTotal);
+//			System.out.println("List of questions: " + list + "\n"
+//					+ "Highest questionId: " + questionsTotal);
 
-			// Cast arraylist to observable list from
+			// Cast ArrayList to ObservableList from
 			// stackoverflow.com/questions/22191954/javafx-casting-arraylist-to-observablelist
 			Collections.sort(list);
 			ObservableList questions = FXCollections.observableArrayList(list);
@@ -538,6 +575,23 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 			rs = null;
 			statement = null;
 			updateParameters = null;
+		}
+	}
+
+	private void setMessageLabel() {
+		try {
+			dbm.openConnection();
+			statement = dbm.connection
+					.prepareStatement("SELECT COUNT(*) FROM question;");
+			rs = dbm.getResultSet(statement);
+			rs.next();
+			messageLabel.setText("Aantal vragen: " + rs.getString(1));
+		} catch (SQLException e) {
+			System.err.println("Error: " + e.getLocalizedMessage());
+		} finally {
+			dbm.closeConnection();
+			rs = null;
+			statement = null;
 		}
 	}
 

@@ -36,6 +36,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
+import javafx.scene.control.Label;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
@@ -98,6 +99,9 @@ public class GameSetUpController extends Trivia implements Initializable {
 	private ToggleButton timerToggleNo;
 
 	@FXML
+	private Label timerLabel;
+
+	@FXML
 	private Button mainMenu;
 
 	@FXML
@@ -131,7 +135,17 @@ public class GameSetUpController extends Trivia implements Initializable {
 				}
 			});
 		}
-
+		timerGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+			@Override
+			public void changed(ObservableValue<? extends Toggle> ov,
+					Toggle toggle, Toggle new_toggle) {
+				if (new_toggle == timerToggleNo) {
+					timerLabel.setOpacity(0.4);
+				} else {
+					timerLabel.setOpacity(1.0);
+				}
+			}
+		});
 		getSettings();
 	}
 
@@ -182,9 +196,10 @@ public class GameSetUpController extends Trivia implements Initializable {
 					longLengthButton.setSelected(true);
 					longLengthButton.setText(String.valueOf(gameLength = LONG_LENGTH));
 					break;
-				default: // Nothing is selected.
+				default: // Nothing is selected or it's a number.
 					if (parseInt(s) >= 10 && parseInt(s) <= 60) {
 						System.out.println("Default timer duration: " + s + " seconds.");
+						timerLabel.setText(s + " sec.");
 					} else {
 						System.err.println("Something is wrong with the (default) var prefs. Suspect: " + s);
 					}
@@ -228,21 +243,6 @@ public class GameSetUpController extends Trivia implements Initializable {
 					break;
 			}
 			i++;
-		}
-	}
-
-	private void handleLengthSelection(ActionEvent event) {
-		String selectedButton = ((Control) event.getSource()).getId();
-		switch (selectedButton) {
-			case "shortLengthButton":
-				shortLengthButton.setSelected(true);
-				break;
-			case "mediumLengthButton":
-				mediumLengthButton.setSelected(true);
-				break;
-			case "longLengthButton":
-				longLengthButton.setSelected(true);
-				break;
 		}
 	}
 

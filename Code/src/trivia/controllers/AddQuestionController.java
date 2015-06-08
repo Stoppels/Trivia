@@ -37,6 +37,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
@@ -88,6 +89,9 @@ public class AddQuestionController extends Trivia implements Initializable {
 	private ToggleButton difficultyHard;
 
 	@FXML
+	private Label messageLabel;
+
+	@FXML
 	private Button adminMenu;
 
 	@FXML
@@ -117,6 +121,7 @@ public class AddQuestionController extends Trivia implements Initializable {
 
 		adminMenu.setOnAction(this::loadView);
 		addQuestionButton.setOnAction(this::confirmAlertAddQuestion);
+		setMessageLabel();
 
 		typeGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
 			@Override
@@ -274,6 +279,7 @@ public class AddQuestionController extends Trivia implements Initializable {
 
 			alertDialog(Alert.AlertType.INFORMATION, "Vraag toevoegen", null,
 					"De vraag is succesvol toegevoegd!", StageStyle.UNDECORATED);
+			setMessageLabel();
 		} catch (SQLException e) {
 			System.err.println("Error: " + e.getLocalizedMessage());
 		} finally {
@@ -338,7 +344,7 @@ public class AddQuestionController extends Trivia implements Initializable {
 			} else if (typeMultipleChoiceButton.isSelected()) {
 				if (alertDialog(Alert.AlertType.CONFIRMATION, "Vraag toevoegen",
 						"Weet u zeker dat u deze vraag wilt toevoegen?",
-						"De vraag: " + addMcFields.get(0).getText()
+						"De vraag: " + addMcFields.get(0).getText() + "\n"
 						+ "\nMet het juiste antwoord: " + addMcFields.get(1).getText()
 						+ "\nEn de onjuiste antwoorden:\n– " + addMcFields.get(2).getText()
 						+ "\n– " + addMcFields.get(3).getText() + "\n– "
@@ -348,7 +354,7 @@ public class AddQuestionController extends Trivia implements Initializable {
 			} else if (typeTrueFalseButton.isSelected()) {
 				if (alertDialog(Alert.AlertType.CONFIRMATION, "Vraag toevoegen",
 						"Weet u zeker dat u deze vraag wilt toevoegen?",
-						"De vraag: " + addMcFields.get(0).getText()
+						"De vraag: " + addMcFields.get(0).getText() + "\n"
 						+ "\nMet het juiste antwoord: " + addMcFields.get(1).getText()
 						+ "\n\nEn het onjuiste antwoord: " + addMcFields.get(2).getText(),
 						StageStyle.UNDECORATED)) {
@@ -377,4 +383,20 @@ public class AddQuestionController extends Trivia implements Initializable {
 		}
 	}
 
+	private void setMessageLabel() {
+		try {
+			dbm.openConnection();
+			statement = dbm.connection
+					.prepareStatement("SELECT COUNT(*) FROM question;");
+			rs = dbm.getResultSet(statement);
+			rs.next();
+			messageLabel.setText("Aantal vragen: " + rs.getString(1));
+		} catch (SQLException e) {
+			System.err.println("Error: " + e.getLocalizedMessage());
+		} finally {
+			dbm.closeConnection();
+			rs = null;
+			statement = null;
+		}
+	}
 }

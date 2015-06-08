@@ -123,12 +123,16 @@ public class DefaultSettingsController extends Trivia implements Initializable {
 	private Button adminMenu;
 
 	@FXML
+	private Button advancedSettings;
+	
+	@FXML
 	private Button saveSettings;
 
 	// Object to call connection
 	private final DbManager dbm = new DbManager();
 	static boolean difficultyIsMixed = true, difficultyIsEasy = true;
 	private List<ToggleGroup> groupsList;
+	private List<CheckBox> modifiersList;
 	private List<String> currentSettings = Arrays.asList("", "", "", "", "", "", "", "", "");
 
 	/**
@@ -140,6 +144,7 @@ public class DefaultSettingsController extends Trivia implements Initializable {
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		adminMenu.setOnAction(this::loadView);
+		advancedSettings.setOnAction(this::loadView);
 		saveSettings.setOnAction(this::setSettings);
 		getSettings();
 
@@ -173,7 +178,8 @@ public class DefaultSettingsController extends Trivia implements Initializable {
 		timerLabel.setText(Math.round(timerSlider.getValue()) + "");
 		timerSlider.valueProperty().addListener(new ChangeListener<Number>() {
 			@Override
-			public void changed(ObservableValue<? extends Number> observableValue, Number oldValue, Number newValue) {
+			public void changed(ObservableValue<? extends Number> observableValue,
+					Number oldValue, Number newValue) {
 				if (newValue == null) {
 					timerLabel.setText("");
 					return;
@@ -182,6 +188,17 @@ public class DefaultSettingsController extends Trivia implements Initializable {
 				disableSaveButton();
 			}
 		});
+		modifiersList = Arrays.asList(difficultyModifiability, lengthModifiability,
+				typeModifiability, timerModifiability);
+		for (CheckBox cb : modifiersList) {
+			cb.selectedProperty().addListener(new ChangeListener<Boolean>() {
+				@Override
+				public void changed(ObservableValue<? extends Boolean> ov,
+						Boolean old_val, Boolean new_val) {
+					disableSaveButton();
+				}
+			});
+		}
 	}
 
 	/**

@@ -90,6 +90,6 @@ public class AppConfig {
 	/**
 	 * Default database user password.
 	 */
-	public static final String DEFAULT_PASS = "";
+	public static final String DEFAULT_PASS = "root";
 
 }

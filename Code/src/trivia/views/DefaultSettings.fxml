@@ -12,7 +12,7 @@
         <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columnConstraints>
                 <ColumnConstraints hgrow="ALWAYS" minWidth="30.0" />
-                <ColumnConstraints hgrow="SOMETIMES" prefWidth="258.0" />
+                <ColumnConstraints hgrow="SOMETIMES" prefWidth="279.0" />
                 <ColumnConstraints hgrow="ALWAYS" minWidth="30.0" />
                 <ColumnConstraints hgrow="ALWAYS" minWidth="150.0" />
                 <ColumnConstraints hgrow="ALWAYS" minWidth="150.0" />
@@ -44,9 +44,9 @@
                         <Font size="18.0" />
                     </font>
                 </Label>
-                <Label focusTraversable="false" minWidth="258.0" text="Kies moeilijkheidsgraad" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                <Label focusTraversable="false" minWidth="279.0" text="Kies moeilijkheidsgraad" GridPane.columnIndex="1" GridPane.rowIndex="3">
                     <font>
-                        <Font size="24.0" />
+                        <Font name="System Bold" size="24.0" />
                     </font>
                     <GridPane.margin>
                         <Insets />
@@ -80,7 +80,7 @@
                 </CheckBox>
                 <Label focusTraversable="false" text="Kies aantal antwoorden" GridPane.columnIndex="1" GridPane.rowIndex="4">
                     <font>
-                        <Font size="24.0" />
+                        <Font name="System Bold" size="24.0" />
                     </font>
                 </Label>
                 <ToggleButton fx:id="typeMixedButton" mnemonicParsing="false" prefWidth="140.0" text="Gemengd" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="4">
@@ -108,7 +108,7 @@
                 </CheckBox>
                 <Label focusTraversable="false" text="Kies het aantal vragen" GridPane.columnIndex="1" GridPane.rowIndex="5">
                     <font>
-                        <Font size="24.0" />
+                        <Font name="System Bold" size="24.0" />
                     </font>
                 </Label>
                 <ToggleButton fx:id="shortLengthButton" mnemonicParsing="false" prefWidth="140.0" text="15" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="5">
@@ -139,7 +139,7 @@
                 </CheckBox>
                 <Label focusTraversable="false" text="Kies de timerinstelling" GridPane.columnIndex="1" GridPane.rowIndex="6">
                     <font>
-                        <Font size="24.0" />
+                        <Font name="System Bold" size="24.0" />
                     </font>
                     <GridPane.margin>
                         <Insets />
@@ -165,7 +165,7 @@
                 </CheckBox>
                 <Label focusTraversable="false" layoutX="40.0" layoutY="327.0" text="Kies de timerduur" GridPane.columnIndex="1" GridPane.rowIndex="7">
                     <font>
-                        <Font size="24.0" />
+                        <Font name="System Bold" size="24.0" />
                     </font>
                 </Label>
             <Label fx:id="timerLabel" focusTraversable="false" text="30" textFill="#522e90" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="6">
@@ -184,12 +184,17 @@
                   <Insets />
                </GridPane.margin>
                 </Slider>
-                <Button fx:id="adminMenu" alignment="CENTER" focusTraversable="false" minHeight="60.0" minWidth="200.0" mnemonicParsing="false" style="-fx-background-radius: 80px;" text="Adminmenu" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="9" GridPane.valignment="CENTER">
+                <Button fx:id="adminMenu" alignment="CENTER" minHeight="60.0" minWidth="200.0" mnemonicParsing="false" style="-fx-background-radius: 80px;" text="Adminmenu" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="9" GridPane.valignment="CENTER">
                     <font>
                         <Font name="System Bold" size="24.0" />
                     </font>
                 </Button>
-                <Button fx:id="saveSettings" focusTraversable="false" minHeight="60.0" minWidth="200.0" mnemonicParsing="false" style="-fx-background-radius: 80px;" text="Bewaar" GridPane.columnIndex="4" GridPane.columnSpan="3" GridPane.halignment="RIGHT" GridPane.rowIndex="9" GridPane.valignment="CENTER">
+            <Button fx:id="advancedSettings" alignment="CENTER" minHeight="60.0" minWidth="200.0" mnemonicParsing="false" style="-fx-background-radius: 80px;" text="Geavanceerd" textAlignment="CENTER" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="9">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Button>
+                <Button fx:id="saveSettings" alignment="CENTER" minHeight="60.0" minWidth="200.0" mnemonicParsing="false" style="-fx-background-radius: 80px;" text="Bewaar" GridPane.columnIndex="4" GridPane.columnSpan="3" GridPane.halignment="RIGHT" GridPane.rowIndex="9" GridPane.valignment="CENTER">
                     <font>
                         <Font name="System Bold" size="24.0" />
                     </font>

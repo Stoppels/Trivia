@@ -142,6 +142,11 @@
                   <Font size="18.0" />
                </font>
             </ToggleButton>
+            <Label fx:id="messageLabel" focusTraversable="false" textFill="#522e90" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="11">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
             </children>
         </GridPane>
     </children>

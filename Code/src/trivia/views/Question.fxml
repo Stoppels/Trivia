@@ -38,12 +38,12 @@
             <children>
                 <Label fx:id="questionProgress" focusTraversable="false" text="0 / 0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.rowSpan="2" GridPane.valignment="CENTER">
                     <font>
-                        <Font size="30.0" />
+                        <Font name="System Bold" size="30.0" />
                     </font>
                 </Label>
-                <Label fx:id="question" focusTraversable="false" text="Vraag" wrapText="true" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.rowSpan="2" GridPane.vgrow="ALWAYS">
+                <Label fx:id="questionLabel" focusTraversable="false" text="Vraag" textFill="#522e90" wrapText="true" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.rowSpan="2" GridPane.vgrow="ALWAYS">
                     <font>
-                        <Font size="30.0" />
+                        <Font name="System Bold" size="30.0" />
                     </font>
                 </Label>
             <Label fx:id="checkMarkA" focusTraversable="false" textFill="GREEN" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
@@ -176,7 +176,7 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Button>
-            <Button fx:id="viewScore" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" style="-fx-background-radius: 80px;" text="Bekijk vragen" visible="false" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+            <Button fx:id="viewScore" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" style="-fx-background-radius: 80px;" text="Bekijk score" visible="false" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>

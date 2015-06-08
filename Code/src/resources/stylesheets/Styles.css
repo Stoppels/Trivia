@@ -112,6 +112,7 @@ THE SOFTWARE.
     -fx-padding:                    10px 0px 10px 0px;
 }
 .slider .thumb {
-    -fx-padding:                    20px;
+    -fx-background-color:           #522E90;
     -fx-background-radius:          80px;
+    -fx-padding:                    20px;
 }
