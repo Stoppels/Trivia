@@ -27,10 +27,7 @@ package trivia.connectivity;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import java.sql.*;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.scene.control.Alert;
-import javafx.stage.StageStyle;
 import static trivia.AppConfig.DEFAULT_PASS;
 import static trivia.AppConfig.DEFAULT_URL;
 import static trivia.AppConfig.DEFAULT_USER;
@@ -66,22 +63,16 @@ public class DbManager {
 			Class.forName("com.mysql.jdbc.Driver");
 
 			// User set default database.
-			prefs.put(dbUrl, DEFAULT_URL);
-			prefs.put(dbUser, DEFAULT_USER);
-			prefs.put(dbPass, DEFAULT_PASS);
 			url = prefs.get(dbUrl, DEFAULT_URL);
 			user = prefs.get(dbUser, DEFAULT_USER);
 			pass = prefs.get(dbPass, DEFAULT_PASS);
-			
-			// TSC test server 1
-//			url = "jdbc:mysql://oege.ie.hva.nl:3306/zshayann001";
-//			user = "shayann001";
-//			pass = "hT5vz8pZ8W+mCP";
+
 			System.out.println("Initiating connection with database.");
 
 			// Open connection
 			connection = DriverManager.getConnection(url, user, pass);
 			error = false;
+			Trivia.serverOffline = false;
 		} catch (ClassNotFoundException e) {
 			System.err.println(JDBC_EXCEPTION + e.getLocalizedMessage());
 			error = true;
@@ -90,21 +81,23 @@ public class DbManager {
 			error = true;
 		} finally {
 			if (error) { // Switch to local database if remote database fails.
+				Trivia.serverOffline = true;
 				try {
 					url = DEFAULT_URL;
 					user = DEFAULT_USER;
 					pass = DEFAULT_PASS;
 					connection = DriverManager.getConnection(url, user, pass);
 					error = false;
+					Trivia.localhostOffline = false;
 				} catch (SQLException e) {
 					System.err.println(SQL_EXCEPTION + e.getLocalizedMessage());
 					error = true;
 				} finally {
 					if (error) {
+						Trivia.localhostOffline = true;
 						alertDialog(Alert.AlertType.ERROR, "Verbinding mislukt", null,
 								"De database kan niet worden bereikt. Probeer het "
-								+ "later opnieuw", StageStyle.UNDECORATED);
-						
+								+ "later opnieuw");
 					} else {
 						System.out.println("Database connection established with local: " + url);
 					}
@@ -146,7 +139,7 @@ public class DbManager {
 			System.out.println("Error: " + e.getLocalizedMessage());
 
 			alertDialog(Alert.AlertType.ERROR, "Vraag toevoegen", null,
-					"Deze vraag bestaat al!", StageStyle.UNDECORATED);
+					"Deze vraag bestaat al!");
 
 			Trivia.duplicateError = true;
 		} catch (SQLException e) {
@@ -154,14 +147,6 @@ public class DbManager {
 			e.printStackTrace();
 		} catch (Throwable e) {
 			System.err.println("Throwable exception: " + e.getLocalizedMessage());
-		}
-	}
-	
-	public void executeUpdate(PreparedStatement statement) {
-		try {
-			statement.execute();
-		} catch (SQLException e) {
-			e.printStackTrace();
 		}
 	}
 
@@ -200,6 +185,17 @@ public class DbManager {
 			System.err.println(SQL_EXCEPTION + e.getLocalizedMessage());
 		}
 		return result;
+	}
+
+	public void insertHighScore(PreparedStatement statement, List parameters) {
+		try {
+			statement.setInt(1, (int) parameters.get(0));
+			statement.setString(2, parameters.get(1).toString());
+			statement.setTimestamp(3, (Timestamp) parameters.get(2));
+			statement.execute();
+		} catch (SQLException e) {
+			System.err.println(SQL_EXCEPTION + e.getLocalizedMessage());
+		}
 	}
 
 }

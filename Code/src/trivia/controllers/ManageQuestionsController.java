@@ -253,15 +253,15 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 		try {
 			if ((typeTrueFalseButton.isSelected() && (editMcFields.get(0).getText().isEmpty()
 					|| editMcFields.get(1).getText().isEmpty()
-					|| editMcFields.get(2).getText().isEmpty())) || (typeMultipleChoiceButton.isSelected()
+					|| editMcFields.get(2).getText().isEmpty()))
+					|| (typeMultipleChoiceButton.isSelected()
 					&& (editMcFields.get(0).getText().isEmpty()
 					|| editMcFields.get(1).getText().isEmpty()
 					|| editMcFields.get(2).getText().isEmpty()
 					|| editMcFields.get(3).getText().isEmpty()
 					|| editMcFields.get(4).getText().isEmpty()))) {
 				alertDialog(Alert.AlertType.ERROR, "Tekstveld leeg", null, "Elk tekstveld moet"
-						+ " zijn ingevuld en een moeilijkheidsgraad moet zijn gekozen.",
-						StageStyle.UNDECORATED);
+						+ " zijn ingevuld en een moeilijkheidsgraad moet zijn gekozen.");
 			} else if ((typeTrueFalseButton.isSelected()
 					&& (editMcFields.get(0).getText().equals(editMcFields.get(1).getText())
 					|| editMcFields.get(0).getText().equals(editMcFields.get(2).getText())
@@ -278,7 +278,7 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 					|| editMcFields.get(2).getText().equals(editMcFields.get(4).getText())
 					|| editMcFields.get(3).getText().equals(editMcFields.get(4).getText())))) {
 				alertDialog(Alert.AlertType.ERROR, "Dubbele waarde", null, "Elk tekstveld moet "
-						+ "een unieke invoer bevatten.", StageStyle.UNDECORATED);
+						+ "een unieke invoer bevatten.");
 			} else if (typeMultipleChoiceButton.isSelected()) {
 				if (alertDialog(Alert.AlertType.CONFIRMATION, "Vraag toevoegen",
 						"Weet u zeker dat u deze vraag wilt toevoegen?",
@@ -286,7 +286,7 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 						+ "\nMet het juiste antwoord: " + editMcFields.get(1).getText()
 						+ "\nEn de onjuiste antwoorden:\n– " + editMcFields.get(2).getText()
 						+ "\n– " + editMcFields.get(3).getText() + "\n– "
-						+ editMcFields.get(4).getText(), StageStyle.UNDECORATED)) {
+						+ editMcFields.get(4).getText())) {
 					editQuestion();
 				}
 			} else if (typeTrueFalseButton.isSelected()) {
@@ -294,8 +294,7 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 						"Weet u zeker dat u deze vraag wilt toevoegen?",
 						"De vraag: " + editMcFields.get(0).getText() + "\n"
 						+ "\nMet het juiste antwoord: " + editMcFields.get(1).getText()
-						+ "\n\nEn het onjuiste antwoord: " + editMcFields.get(2).getText(),
-						StageStyle.UNDECORATED)) {
+						+ "\n\nEn het onjuiste antwoord: " + editMcFields.get(2).getText())) {
 					editQuestion();
 				}
 			}
@@ -315,10 +314,9 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 			alertDialog(Alert.AlertType.ERROR, "Vraag verwijderen",
 					"Verwijdering gestopt",
 					"Er is geen vraag geselecteerd om te verwijderen."
-					+ "\nSelecteer een vraag om deze te verwijderen.", StageStyle.UNDECORATED);
+					+ "\nSelecteer een vraag om deze te verwijderen.");
 		} else if (alertDialog(AlertType.CONFIRMATION, "Vraag verwijderen", "Weet u zeker dat u"
-				+ " deze vraag wilt verwijderen?", "De vraag: " + selectQuestion.getValue(),
-				StageStyle.UNDECORATED)) {
+				+ " deze vraag wilt verwijderen?", "De vraag: " + selectQuestion.getValue())) {
 			deleteQuestion();
 		}
 		// Else -> Player selected a question, but decided to cancel deletion.
@@ -353,7 +351,7 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 			if ((priorToUpdate - 1) == rs.getInt(1)) {
 				System.out.println("Deleted question: " + selectQuestion.getValue());
 				alertDialog(Alert.AlertType.INFORMATION, "Vraag verwijderen", null,
-						"De vraag is succesvol verwijderd!", StageStyle.UNDECORATED);
+						"De vraag is succesvol verwijderd!");
 			}
 		} catch (SQLException e) {
 			e.getLocalizedMessage();
@@ -463,7 +461,7 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 		// If we get to here, the question entry and its answers have been updated.
 		clearFields();
 		alertDialog(Alert.AlertType.INFORMATION, "Vraag bewerken", null,
-				"De vraag is succesvol aangepast!", StageStyle.UNDECORATED);
+				"De vraag is succesvol aangepast!");
 	}
 
 	/**

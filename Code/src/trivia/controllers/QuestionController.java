@@ -141,7 +141,7 @@ public class QuestionController extends Trivia implements Initializable {
 
 	private List<ToggleButton> answerButtons;
 	private List<Hyperlink> answerLabels;
-	private String[][] loadedStrings = new String[gameLength][8];
+	public static String[][] loadedStrings = new String[gameLength][8];
 	public String[][] chosenAnswers = new String[gameLength][2];
 	public String[][] correctAnswers = new String[gameLength][2];
 	private Boolean gameIsFinished = false;
@@ -186,7 +186,7 @@ public class QuestionController extends Trivia implements Initializable {
 		viewScore.setOnAction((event) -> {
 			if (alertDialog(AlertType.CONFIRMATION, "Score bekijken", null,
 					"Als u doorgaat ziet u uw score en kunt u de vragen "
-					+ "niet meer bekijken.", StageStyle.UNDECORATED)) {
+					+ "niet meer bekijken.")) {
 				this.loadView(event);
 			}
 		});
@@ -371,7 +371,7 @@ public class QuestionController extends Trivia implements Initializable {
 					}
 				}
 			}
-		} catch (SQLException e) {
+		} catch (SQLException | NullPointerException e) {
 			System.err.println("Error: " + e.getLocalizedMessage());
 		} finally {
 			dbm.closeConnection();
@@ -482,7 +482,7 @@ public class QuestionController extends Trivia implements Initializable {
 				if (gameIsFinished && reviewedAnswers) {
 					if (alertDialog(AlertType.CONFIRMATION, "Score bekijken", null,
 							"Als u doorgaat ziet u uw score en kunt u de vragen "
-							+ "niet meer bekijken.", StageStyle.UNDECORATED)) {
+							+ "niet meer bekijken.")) {
 						loadView(event); // --> go to ScoreOverview.
 						return; // End of method.
 					}
@@ -498,7 +498,7 @@ public class QuestionController extends Trivia implements Initializable {
 				}
 				if (alertDialog(AlertType.CONFIRMATION, "Quiz beëindigen", null,
 						"Als u doorgaat wordt het spel beëindigd en kunt u de"
-						+ " juiste antwoorden inzien.", StageStyle.UNDECORATED)) {
+						+ " juiste antwoorden inzien.")) {
 					for (int i = 0; i < chosenAnswers.length; i++) { // Print chosen answers.
 						System.out.println("Answer to question " + (i + 1) + ": "
 								+ chosenAnswers[i][1]);
@@ -558,9 +558,14 @@ public class QuestionController extends Trivia implements Initializable {
 	}
 
 	private void showAnswers() {
+		for (int i = 0; i < gameLength; i++) {
+			if (chosenAnswers[i][0].equals(
+					correctAnswers[i][0])) {
+				correctAnswersTotal++;
+				correctlyAnsweredQuestions.add(i);
+			}
+		}
 		if (chosenAnswers[questionNumber - 1][0].equals(correctAnswers[questionNumber - 1][0])) {
-			correctAnswersTotal++;
-			correctlyAnsweredQuestions.add(questionNumber - 1);
 			switch (chosenAnswers[questionNumber - 1][1]) {
 				case "A":
 					checkMarkA.setStyle("-fx-text-fill: #00F72C");
@@ -697,7 +702,7 @@ public class QuestionController extends Trivia implements Initializable {
 		}
 		if (alertDialog(AlertType.CONFIRMATION, "Stop quiz", "Weet u zeker dat u"
 				+ " de quiz wilt stoppen?", "De antwoorden worden niet opgeslagen."
-				+ "\nDit brengt u terug naar het hoofdmenu.", StageStyle.UNDECORATED)) {
+				+ "\nDit brengt u terug naar het hoofdmenu.")) {
 			// TO DO: WIPE SAVED ANSWERS
 			loadView(event);
 		} else { // Player cancels the method, if timer's enabled, continue countdown.

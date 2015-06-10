@@ -184,7 +184,7 @@
                   <Insets />
                </GridPane.margin>
                 </Slider>
-                <Button fx:id="adminMenu" alignment="CENTER" minHeight="60.0" minWidth="200.0" mnemonicParsing="false" style="-fx-background-radius: 80px;" text="Adminmenu" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="9" GridPane.valignment="CENTER">
+                <Button fx:id="adminMenu" alignment="CENTER" minHeight="60.0" minWidth="200.0" mnemonicParsing="false" style="-fx-background-radius: 80px;" text="Terug" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="9" GridPane.valignment="CENTER">
                     <font>
                         <Font name="System Bold" size="24.0" />
                     </font>

@@ -64,6 +64,5 @@ public class AdminMenuController extends Trivia implements Initializable {
 		defaultSettings.setOnAction(this::loadView);
 		mainMenu.setOnAction(this::loadView);
 		loadSettings();
-//		defaultSettings.setVisible(false);
 	}
 }

@@ -164,6 +164,8 @@ public class AddQuestionController extends Trivia implements Initializable {
 					toggle.setSelected(true);
 					disableAddButton();
 				} else if (reset && new_toggle == null) {
+					difficultyEasy.setDisable(true);
+					difficultyHard.setDisable(true);
 					disableAddButton();
 				} else if (new_toggle != null) {
 					disableAddButton();
@@ -278,7 +280,7 @@ public class AddQuestionController extends Trivia implements Initializable {
 			clearFields();
 
 			alertDialog(Alert.AlertType.INFORMATION, "Vraag toevoegen", null,
-					"De vraag is succesvol toegevoegd!", StageStyle.UNDECORATED);
+					"De vraag is succesvol toegevoegd!");
 			setMessageLabel();
 		} catch (SQLException e) {
 			System.err.println("Error: " + e.getLocalizedMessage());
@@ -323,7 +325,7 @@ public class AddQuestionController extends Trivia implements Initializable {
 					|| addMcFields.get(4).getText().isEmpty()))) {
 				alertDialog(Alert.AlertType.ERROR, "Invoerveld leeg", null, "Elk "
 						+ "tekstveld moet zijn ingevuld en een moeilijkheidsgraad"
-						+ " gekozen.", StageStyle.UNDECORATED);
+						+ " gekozen.");
 			} else if ((typeTrueFalseButton.isSelected()
 					&& (addMcFields.get(0).getText().equals(addMcFields.get(1).getText())
 					|| addMcFields.get(0).getText().equals(addMcFields.get(2).getText())
@@ -340,7 +342,7 @@ public class AddQuestionController extends Trivia implements Initializable {
 					|| addMcFields.get(2).getText().equals(addMcFields.get(4).getText())
 					|| addMcFields.get(3).getText().equals(addMcFields.get(4).getText())))) {
 				alertDialog(Alert.AlertType.ERROR, "Dubbele waarde", null, "Elk tekstveld"
-						+ " moet een unieke invoer bevatten.", StageStyle.UNDECORATED);
+						+ " moet een unieke invoer bevatten.");
 			} else if (typeMultipleChoiceButton.isSelected()) {
 				if (alertDialog(Alert.AlertType.CONFIRMATION, "Vraag toevoegen",
 						"Weet u zeker dat u deze vraag wilt toevoegen?",
@@ -348,7 +350,7 @@ public class AddQuestionController extends Trivia implements Initializable {
 						+ "\nMet het juiste antwoord: " + addMcFields.get(1).getText()
 						+ "\nEn de onjuiste antwoorden:\n– " + addMcFields.get(2).getText()
 						+ "\n– " + addMcFields.get(3).getText() + "\n– "
-						+ addMcFields.get(4).getText(), StageStyle.UNDECORATED)) {
+						+ addMcFields.get(4).getText())) {
 					addQuestion();
 				}
 			} else if (typeTrueFalseButton.isSelected()) {
@@ -356,8 +358,7 @@ public class AddQuestionController extends Trivia implements Initializable {
 						"Weet u zeker dat u deze vraag wilt toevoegen?",
 						"De vraag: " + addMcFields.get(0).getText() + "\n"
 						+ "\nMet het juiste antwoord: " + addMcFields.get(1).getText()
-						+ "\n\nEn het onjuiste antwoord: " + addMcFields.get(2).getText(),
-						StageStyle.UNDECORATED)) {
+						+ "\n\nEn het onjuiste antwoord: " + addMcFields.get(2).getText())) {
 					addQuestion();
 				}
 			}

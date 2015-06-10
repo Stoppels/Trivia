@@ -11,22 +11,22 @@
     <children>
         <GridPane layoutX="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columnConstraints>
-                <ColumnConstraints hgrow="ALWAYS" minWidth="30.0" percentWidth="15.0" />
-                <ColumnConstraints hgrow="ALWAYS" minWidth="500.0" percentWidth="70.0" />
-                <ColumnConstraints hgrow="ALWAYS" minWidth="30.0" percentWidth="15.0" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="30.0" percentWidth="10.0" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="500.0" percentWidth="80.0" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="30.0" percentWidth="10.0" />
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="ALWAYS" />
                 <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="80.0" vgrow="ALWAYS" />
                 <RowConstraints maxHeight="60.0" minHeight="30.0" vgrow="ALWAYS" />
+                <RowConstraints minHeight="46.0" vgrow="ALWAYS" />
+            <RowConstraints minHeight="46.0" vgrow="ALWAYS" />
+                <RowConstraints minHeight="46.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="40.0" vgrow="ALWAYS" />
-            <RowConstraints minHeight="40.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="40.0" vgrow="ALWAYS" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                <RowConstraints minHeight="40.0" vgrow="ALWAYS" />
+                <RowConstraints minHeight="40.0" vgrow="ALWAYS" />
+                <RowConstraints minHeight="40.0" vgrow="ALWAYS" />
                 <RowConstraints maxHeight="60.0" minHeight="30.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="80.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
@@ -37,7 +37,7 @@
                         <Font name="System Bold" size="48.0" />
                     </font>
                 </Label>
-                <ComboBox fx:id="selectQuestion" maxWidth="1.7976931348623157E308" minWidth="500.0" promptText="Selecteer een vraag om te bewerken…" style="-fx-font-size: 18;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                <ComboBox fx:id="selectQuestion" maxWidth="1.7976931348623157E308" minWidth="500.0" promptText="Selecteer een vraag om te bewerken…" style="-fx-font-size: 24;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                     <GridPane.margin>
                         <Insets />
                     </GridPane.margin>
@@ -84,7 +84,7 @@
                 </TextField>
                 <Label focusTraversable="false" text="Moeilijkheidsgraad" GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                     <font>
-                        <Font size="18.0" />
+                        <Font name="System Bold" size="24.0" />
                     </font>
                     <GridPane.margin>
                         <Insets left="12.0" />
@@ -92,7 +92,7 @@
                 </Label>
                 <ToggleButton fx:id="difficultyEasy" disable="true" mnemonicParsing="false" prefWidth="140.0" text="Makkelijk" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                     <font>
-                        <Font size="18.0" />
+                        <Font size="24.0" />
                     </font>
                     <toggleGroup>
                         <ToggleGroup fx:id="difficultyGroup" />
@@ -103,18 +103,18 @@
                         <Insets />
                     </GridPane.margin>
                     <font>
-                        <Font size="18.0" />
+                        <Font size="24.0" />
                     </font>
                 </ToggleButton>
             <Label focusTraversable="false" text="Aantal antwoorden" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <font>
-                  <Font size="18.0" />
+                  <Font name="System Bold" size="24.0" />
                </font>
                <GridPane.margin>
                   <Insets left="12.0" />
                </GridPane.margin>
             </Label>
-                <Button fx:id="adminMenu" alignment="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" style="-fx-background-radius: 80px;" text="Adminmenu" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="12" GridPane.valignment="CENTER">
+                <Button fx:id="adminMenu" alignment="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" style="-fx-background-radius: 80px;" text="Terug" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="12" GridPane.valignment="CENTER">
                     <font>
                         <Font name="System Bold" size="24.0" />
                     </font>
@@ -131,7 +131,7 @@
                 </Button>
             <ToggleButton fx:id="typeTrueFalseButton" disable="true" mnemonicParsing="false" prefWidth="140.0" text="2 keuzes" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                <font>
-                  <Font size="18.0" />
+                  <Font size="24.0" />
                </font>
                <toggleGroup>
                   <ToggleGroup fx:id="typeGroup" />
@@ -139,7 +139,7 @@
             </ToggleButton>
             <ToggleButton fx:id="typeMultipleChoiceButton" disable="true" mnemonicParsing="false" prefWidth="140.0" text="4 keuzes" toggleGroup="$typeGroup" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                <font>
-                  <Font size="18.0" />
+                  <Font size="24.0" />
                </font>
             </ToggleButton>
             <Label fx:id="messageLabel" focusTraversable="false" textFill="#522e90" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="11">

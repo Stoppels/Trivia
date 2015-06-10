@@ -81,6 +81,8 @@ public class Trivia extends Application {
 	public static PreparedStatement statement;
 	public static List<String> updateParameters;
 	public static Boolean duplicateError = false;
+	public static Boolean serverOffline = false;
+	public static Boolean localhostOffline = false;
 	public static Stage stage = null;
 	public static Scene scene = null;
 	public static Rectangle2D screenBounds;
@@ -124,16 +126,15 @@ public class Trivia extends Application {
 	 * @param title
 	 * @param header
 	 * @param content
-	 * @param style
 	 * @return boolean value
 	 */
 	public static boolean alertDialog(AlertType type, String title,
-			String header, String content, StageStyle style) {
+			String header, String content) {
 		Alert alert = new Alert(type);
 		alert.setTitle(title);
 		alert.setHeaderText(header);
 		alert.setContentText(content);
-		alert.initStyle(style);
+		alert.initStyle(StageStyle.UNDECORATED);
 
 		// Does user choose button OK or not?
 		Optional<ButtonType> result = alert.showAndWait();
@@ -185,8 +186,7 @@ public class Trivia extends Application {
 				viewName = "GameOverview";
 				break;
 			case "highScore":
-//				viewName = "HighScore"; <——————————————— Boys, afmaken?
-				viewName = "MainMenu";
+				viewName = "HighScore";
 				break;
 			case "gameSetUp":
 				viewName = "GameSetUp";

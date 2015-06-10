@@ -94,7 +94,7 @@ public class MainMenuController extends Trivia implements Initializable {
 	private void exit() {
 		if (alertDialog(Alert.AlertType.CONFIRMATION, "Afsluiten",
 				"Weet u zeker dat u wilt afsluiten?",
-				"Hiermee wordt het programma afgesloten.", StageStyle.UNDECORATED)) {
+				"Hiermee wordt het programma afgesloten.")) {
 			System.exit(0);
 		}
 	}

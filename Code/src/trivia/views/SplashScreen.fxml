@@ -18,6 +18,7 @@
             <rowConstraints>
                 <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="ALWAYS" />
                 <RowConstraints maxHeight="-Infinity" minHeight="80.0" vgrow="ALWAYS" />
+            <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="100.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="100.0" vgrow="ALWAYS" />
@@ -36,7 +37,7 @@
                         </ImageView>
                     </graphic>
                 </Label>
-                <AnchorPane maxWidth="-Infinity" prefWidth="395.0" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                <AnchorPane maxWidth="-Infinity" prefWidth="395.0" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                     <children>
                         <Label contentDisplay="RIGHT" focusTraversable="false" layoutY="32.0" text="Hoofdmenu opent over" textFill="#522e90" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                             <font>
@@ -57,7 +58,7 @@
                         </Label>
                     </children>
                 </AnchorPane>
-                <Button fx:id="mainMenu" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="80.0" prefWidth="240.0" style="-fx-background-radius: 80px;" styleClass="splashButtons" text="Hoofdmenu" textAlignment="CENTER" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                <Button fx:id="mainMenu" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="80.0" prefWidth="240.0" style="-fx-background-radius: 80px;" styleClass="splashButtons" text="Hoofdmenu" textAlignment="CENTER" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                     <font>
                         <Font name="System Bold" size="24.0" />
                     </font>
@@ -65,7 +66,7 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Button>
-                <Button fx:id="adminMenu" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="80.0" prefWidth="240.0" style="-fx-background-radius: 80px;" styleClass="splashButtons" text="Adminmenu" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                <Button fx:id="adminMenu" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="80.0" prefWidth="240.0" style="-fx-background-radius: 80px;" styleClass="splashButtons" text="Adminmenu" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                     <font>
                         <Font name="System Bold" size="24.0" />
                     </font>
@@ -73,7 +74,12 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Button>
-            <Label fx:id="copyrightLabel" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" textFill="#522e90" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
+            <Label fx:id="copyrightLabel" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" textFill="#522e90" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
+            <Label text="De quiz voor jong en oud!" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+               <font>
+                  <Font name="System Italic" size="18.0" />
+               </font>
+            </Label>
             </children>
         </GridPane>
     </children>

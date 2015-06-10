@@ -8,56 +8,40 @@
 
 <AnchorPane minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="trivia.controllers.AdvancedSettingsController">
    <children>
-      <GridPane layoutX="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="0.0">
+      <GridPane layoutX="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label alignment="CENTER" styleClass="viewTitle" text="Geavanceerde instellingen" textAlignment="CENTER" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                <font>
                   <Font name="System Bold" size="48.0" />
                </font>
             </Label>
-            <Label focusTraversable="false" text="Stel uw eigen MySQL server in of laat leeg voor localhost." GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3">
+            <Label focusTraversable="false" text="Stel uw eigen MySQL server in of laat leeg voor localhost." textAlignment="JUSTIFY" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4">
                <font>
-                  <Font size="24.0" />
+                  <Font name="System Bold" size="24.0" />
                </font>
             </Label>
-            <TextField fx:id="databaseHost" minWidth="400.0" promptText="Typ hier de database host…" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+            <TextField fx:id="databaseHost" minWidth="400.0" promptText="Typ hier de database host (naam.nl of naam.nl:poort)…" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                <font>
                   <Font size="18.0" />
                </font>
                <GridPane.margin>
-                  <Insets right="200.0" />
+                  <Insets right="160.0" />
                </GridPane.margin>
             </TextField>
-            <Label focusTraversable="false" text="/" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
-               <font>
-                  <Font size="18.0" />
-               </font>
+            <Label text="/" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
                <GridPane.margin>
-                  <Insets right="191.0" />
-               </GridPane.margin>
-            </Label>
-            <TextField fx:id="databasePort" alignment="CENTER" layoutX="722.0" layoutY="228.0" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="75.0" promptText="port" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
-               <font>
-                  <Font size="18.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets right="115.0" />
-               </GridPane.margin>
-            </TextField>
-            <Label text=":" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
-               <GridPane.margin>
-                  <Insets right="109.0" />
+                  <Insets right="151.0" />
                </GridPane.margin>
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="databaseName" alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="110.0" promptText="database" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+            <TextField fx:id="databaseName" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" promptText="Database…" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
                <font>
                   <Font size="18.0" />
                </font>
             </TextField>
-            <TextField fx:id="databaseUserName" promptText="Typ hier de gebruikersnaam…" GridPane.columnIndex="1" GridPane.rowIndex="5">
+            <TextField fx:id="databaseUserName" promptText="Typ hier de gebruikersnaam…" GridPane.columnIndex="1" GridPane.rowIndex="6">
                <font>
                   <Font size="18.0" />
                </font>
@@ -65,7 +49,7 @@
                   <Insets right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField fx:id="databasePassword" promptText="Typ hier het wachtwoord…" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+            <TextField fx:id="databasePassword" promptText="Typ hier het wachtwoord…" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
                <font>
                   <Font size="18.0" />
                </font>
@@ -73,32 +57,79 @@
                   <Insets left="5.0" />
                </GridPane.margin>
             </TextField>
-            <Button fx:id="defaultSettings" alignment="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" style="-fx-background-radius: 80px;" text="Instellingen" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="9" GridPane.valignment="CENTER">
+            <Label text="Databasebeheer" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Button fx:id="exportDatabase" mnemonicParsing="false" prefWidth="140.0" text="Back-up" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Button>
+            <Button fx:id="importDatabase" layoutX="390.0" layoutY="412.0" mnemonicParsing="false" prefWidth="140.0" text="Herstel" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Button>
+            <Label focusTraversable="false" text="Huidige URL: " textFill="#522e90" GridPane.columnIndex="1" GridPane.rowIndex="7">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="currentDatabaseLabel" focusTraversable="false" layoutX="145.0" layoutY="415.0" text="…" textFill="#522e90" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="7">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="160.0" />
+               </GridPane.margin>
+            </Label>
+            <Label focusTraversable="false" layoutX="100.0" layoutY="415.0" text="Controle: " textFill="#522e90" GridPane.columnIndex="1" GridPane.rowIndex="8">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="messageLabel" focusTraversable="false" textFill="#522e90" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="8">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="115.0" />
+               </GridPane.margin>
+            </Label>
+            <Button fx:id="defaultSettings" alignment="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" style="-fx-background-radius: 80px;" text="Terug" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="10" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Button>
-            <Button fx:id="saveSettings" alignment="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" style="-fx-background-radius: 80px;" text="Bewaar" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="9" GridPane.valignment="CENTER">
+            <Button fx:id="saveSettings" alignment="CENTER" disable="true" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" style="-fx-background-radius: 80px;" text="Bewaar" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="10" GridPane.valignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Button>
+            <Button fx:id="resetButton" alignment="CENTER" focusTraversable="false" layoutX="100.0" layoutY="501.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" style="-fx-background-radius: 80px;" text="Reset" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="10">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Button>
          </children>
          <columnConstraints>
-            <ColumnConstraints hgrow="ALWAYS" minWidth="30.0" percentWidth="15.0" />
+            <ColumnConstraints hgrow="ALWAYS" minWidth="30.0" percentWidth="10.0" />
             <ColumnConstraints hgrow="ALWAYS" minWidth="500.0" percentWidth="40.0" />
             <ColumnConstraints hgrow="ALWAYS" minWidth="500.0" percentWidth="40.0" />
-            <ColumnConstraints hgrow="ALWAYS" minWidth="30.0" percentWidth="15.0" />
+            <ColumnConstraints hgrow="ALWAYS" minWidth="30.0" percentWidth="10.0" />
          </columnConstraints>
          <rowConstraints>
             <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="ALWAYS" />
             <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="80.0" vgrow="ALWAYS" />
             <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
             <RowConstraints minHeight="40.0" vgrow="ALWAYS" />
+            <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
             <RowConstraints minHeight="40.0" vgrow="ALWAYS" />
             <RowConstraints minHeight="40.0" vgrow="ALWAYS" />
             <RowConstraints minHeight="40.0" vgrow="ALWAYS" />
-            <RowConstraints minHeight="40.0" vgrow="ALWAYS" />
+            <RowConstraints maxHeight="60.0" minHeight="30.0" vgrow="ALWAYS" />
             <RowConstraints maxHeight="60.0" minHeight="30.0" vgrow="ALWAYS" />
             <RowConstraints minHeight="80.0" vgrow="ALWAYS" />
             <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
