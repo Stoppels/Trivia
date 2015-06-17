@@ -40,23 +40,23 @@
                     <font>
                         <Font name="System Bold" size="30.0" />
                     </font>
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
+                    <GridPane.margin>
+                        <Insets />
+                    </GridPane.margin>
                 </Label>
                 <Label fx:id="questionLabel" focusTraversable="false" text="Vraag…" textFill="#522e90" wrapText="true" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.rowSpan="2" GridPane.vgrow="ALWAYS">
                     <font>
                         <Font name="System Bold" size="30.0" />
                     </font>
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
+                    <GridPane.margin>
+                        <Insets />
+                    </GridPane.margin>
                 </Label>
-            <Label fx:id="checkMarkA" focusTraversable="false" textFill="GREEN" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
-               <font>
-                  <Font name="System Bold" size="48.0" />
-               </font>
-            </Label>
+                <Label fx:id="checkMarkA" focusTraversable="false" textFill="GREEN" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+                    <font>
+                        <Font name="System Bold" size="48.0" />
+                    </font>
+                </Label>
                 <ToggleButton fx:id="buttonA" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="100.0" style="-fx-background-radius: 80px;" styleClass="answerButton" text="A" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                     <toggleGroup>
                         <ToggleGroup fx:id="answersGroup" />
@@ -70,11 +70,11 @@
                         <Font size="24.0" />
                     </font>
                 </Hyperlink>
-            <Label fx:id="checkMarkB" focusTraversable="false" textFill="GREEN" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
-               <font>
-                  <Font name="System Bold" size="48.0" />
-               </font>
-            </Label>
+                <Label fx:id="checkMarkB" focusTraversable="false" textFill="GREEN" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+                    <font>
+                        <Font name="System Bold" size="48.0" />
+                    </font>
+                </Label>
                 <ToggleButton fx:id="buttonB" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="100.0" style="-fx-background-radius: 80px;" styleClass="answerButton" text="B" toggleGroup="$answersGroup" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                     <font>
                         <Font name="System Bold" size="24.0" />
@@ -85,11 +85,11 @@
                         <Font size="24.0" />
                     </font>
                 </Hyperlink>
-            <Label fx:id="checkMarkC" focusTraversable="false" textFill="GREEN" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
-               <font>
-                  <Font name="System Bold" size="48.0" />
-               </font>
-            </Label>
+                <Label fx:id="checkMarkC" focusTraversable="false" textFill="GREEN" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
+                    <font>
+                        <Font name="System Bold" size="48.0" />
+                    </font>
+                </Label>
                 <ToggleButton fx:id="buttonC" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="100.0" style="-fx-background-radius: 80px;" styleClass="answerButton" text="C" toggleGroup="$answersGroup" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                     <font>
                         <Font name="System Bold" size="24.0" />
@@ -100,11 +100,11 @@
                         <Font size="24.0" />
                     </font>
                 </Hyperlink>
-            <Label fx:id="checkMarkD" focusTraversable="false" textFill="GREEN" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
-               <font>
-                  <Font name="System Bold" size="48.0" />
-               </font>
-            </Label>
+                <Label fx:id="checkMarkD" focusTraversable="false" textFill="GREEN" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
+                    <font>
+                        <Font name="System Bold" size="48.0" />
+                    </font>
+                </Label>
                 <ToggleButton fx:id="buttonD" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="100.0" style="-fx-background-radius: 80px;" styleClass="answerButton" text="D" toggleGroup="$answersGroup" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
                     <font>
                         <Font name="System Bold" size="24.0" />
@@ -182,14 +182,14 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Button>
-            <Button fx:id="viewScore" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" style="-fx-background-radius: 80px;" text="Bekijk score" visible="false" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <font>
-                  <Font name="System Bold" size="24.0" />
-               </font>
-            </Button>
+                <Button fx:id="viewScore" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" style="-fx-background-radius: 80px;" text="Bekijk score" visible="false" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                    <font>
+                        <Font name="System Bold" size="24.0" />
+                    </font>
+                </Button>
             </children>
         </GridPane>
     </children>

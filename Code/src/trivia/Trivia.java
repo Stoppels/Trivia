@@ -50,9 +50,10 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import static trivia.AppConfig.*;
+import trivia.connectivity.DbManager;
 
 /**
- * Application main class
+ * Application main class.
  *
  * @author Team Silent Coders
  * @version 1.0
@@ -86,6 +87,8 @@ public class Trivia extends Application {
 	public static Stage stage = null;
 	public static Scene scene = null;
 	public static Rectangle2D screenBounds;
+
+	DbManager dbm = new DbManager();
 
 	@Override
 	public void start(Stage startStage) {
@@ -180,6 +183,8 @@ public class Trivia extends Application {
 				break;
 			case "startGame":
 				viewName = "Question";
+				error = dbm.testConnection(); // Checks if there's a working connection.
+				System.out.println("error is " + error);
 				break;
 			case "nextQuestionButton":
 			case "viewScore":
@@ -250,9 +255,19 @@ public class Trivia extends Application {
 	}
 
 	/**
+	 * This method is not necessary for JavaFX applications.
+	 *
 	 * @param args the command line arguments
 	 */
 	public static void main(String[] args) {
 		launch(args);
+
+		// The main() method is not required for JavaFX applications when the JAR
+		// file for the application is created with the JavaFX Packager tool,
+		// which embeds the JavaFX Launcher in the JAR file. However, it is useful
+		// to include the main() method so you can run JAR files that were created
+		// without the JavaFX Launcher, such as when using an IDE in which the
+		// JavaFX tools are not fully integrated. Also, Swing applications that
+		// embed JavaFX code require the main() method.
 	}
 }

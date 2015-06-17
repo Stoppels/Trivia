@@ -39,6 +39,7 @@ import static trivia.Trivia.dbUser;
 import static trivia.Trivia.prefs;
 
 /**
+ * This class handles interactions with the database.
  *
  * @author Team Silent Coders
  * @version 1.0
@@ -49,12 +50,14 @@ public class DbManager {
 	public static final String SQL_EXCEPTION = "SQL Exception: ";
 
 	public Connection connection;
-	public ResultSet result;
+	private ResultSet result;
+	private Boolean terminalError = false;
 
-//	public PreparedStatement pStatement;
-//	public ResultSet rs = getResultSet(pStatement, stmParameters);
 	/**
-	 * Opens database connection.
+	 * Opens database connection. If the remote connection fails, a fallback
+	 * local connection will be initiated. If the local connection also fails,
+	 * variable terminalError is set to true and an error message is shown.
+	 * Catches any errors and logs them.
 	 */
 	public void openConnection() {
 		String url = "", user = "", pass = "";
@@ -73,11 +76,12 @@ public class DbManager {
 			connection = DriverManager.getConnection(url, user, pass);
 			error = false;
 			Trivia.serverOffline = false;
+			terminalError = false;
 		} catch (ClassNotFoundException e) {
-			System.err.println(JDBC_EXCEPTION + e.getLocalizedMessage());
+			System.err.println("Remote " + JDBC_EXCEPTION + e.getLocalizedMessage());
 			error = true;
 		} catch (SQLException e) {
-			System.err.println(SQL_EXCEPTION + e.getLocalizedMessage());
+			System.err.println("Remote " + SQL_EXCEPTION + e.getLocalizedMessage());
 			error = true;
 		} finally {
 			if (error) { // Switch to local database if remote database fails.
@@ -89,12 +93,14 @@ public class DbManager {
 					connection = DriverManager.getConnection(url, user, pass);
 					error = false;
 					Trivia.localhostOffline = false;
+					terminalError = false;
 				} catch (SQLException e) {
-					System.err.println(SQL_EXCEPTION + e.getLocalizedMessage());
+					System.err.println("Local " + SQL_EXCEPTION + e.getLocalizedMessage());
 					error = true;
 				} finally {
 					if (error) {
 						Trivia.localhostOffline = true;
+						terminalError = true;
 						alertDialog(Alert.AlertType.ERROR, "Verbinding mislukt", null,
 								"De database kan niet worden bereikt. Probeer het "
 								+ "later opnieuw");
@@ -109,24 +115,26 @@ public class DbManager {
 	}
 
 	/**
-	 * Closes database connection.
+	 * Tries closing a database connection. Catches any errors (such as if there
+	 * is no open connection) and logs them.
 	 */
 	public void closeConnection() {
 		try {
 			connection.close();
 			System.out.println("Database connection terminated.");
 		} catch (Exception e) {
-			System.err.println("Exception: " + e.getLocalizedMessage());
-		} catch (Throwable e) {
+			System.err.println("Closing connection exception: " + e.getLocalizedMessage());
+		} catch (Throwable e) { // We log any Errors (and its subclasses) here.
 			System.err.println("Throwable exception: " + e.getLocalizedMessage());
 		}
 	}
 
 	/**
-	 * Executes a SQL-injection proof query with result.
+	 * Executes an SQL-injection proof query without result. May be used for
+	 * INSERT statements. Does contain a single or multiple parameters.
 	 *
-	 * @param statement
-	 * @param parameters
+	 * @param statement to be executed.
+	 * @param parameters to be inserted in the statement.
 	 */
 	public void executeUpdate(PreparedStatement statement, List<String> parameters) {
 		try {
@@ -136,7 +144,7 @@ public class DbManager {
 			}
 			statement.executeUpdate();
 		} catch (MySQLIntegrityConstraintViolationException e) {
-			System.out.println("Error: " + e.getLocalizedMessage());
+			System.err.println("Error: " + e.getLocalizedMessage());
 
 			alertDialog(Alert.AlertType.ERROR, "Vraag toevoegen", null,
 					"Deze vraag bestaat al!");
@@ -144,17 +152,17 @@ public class DbManager {
 			Trivia.duplicateError = true;
 		} catch (SQLException e) {
 			System.err.println(SQL_EXCEPTION + e.getLocalizedMessage());
-			e.printStackTrace();
 		} catch (Throwable e) {
 			System.err.println("Throwable exception: " + e.getLocalizedMessage());
 		}
 	}
 
 	/**
-	 * Executes a SQL-injection proof query with result.
+	 * Executes a SQL-injection proof query with result. May be used for SELECT
+	 * statements that return a value. Does not contain any parameters.
 	 *
-	 * @param statement
-	 * @return ResultSet
+	 * @param statement to be executed.
+	 * @return ResultSet of queried statement.
 	 */
 	public ResultSet getResultSet(PreparedStatement statement) {
 		result = null;
@@ -167,11 +175,13 @@ public class DbManager {
 	}
 
 	/**
-	 * Executes a SQL-injection proof query with result.
+	 * Executes an SQL-injection proof query with result. May be used for SELECT
+	 * statements that return a value. Does contain a single or multiple
+	 * parameters.
 	 *
-	 * @param statement
-	 * @param parameters
-	 * @return ResultSet
+	 * @param statement to be executed.
+	 * @param parameters to be inserted in the statement.
+	 * @return ResultSet of queried statement.
 	 */
 	public ResultSet getResultSet(PreparedStatement statement, List<String> parameters) {
 		result = null;
@@ -182,11 +192,21 @@ public class DbManager {
 			}
 			result = statement.executeQuery();
 		} catch (SQLException e) {
-			System.err.println(SQL_EXCEPTION + e.getLocalizedMessage());
+			System.err.println("getResultSet " + SQL_EXCEPTION + e.getLocalizedMessage());
 		}
 		return result;
 	}
 
+	/**
+	 * Method for inserting a new high score in the database. The first
+	 * parameter consists of the Double value score that the player earned,
+	 * casted to int. The second value is the player's name, which can be left
+	 * empty for anonymous players. The third value is the time the score was
+	 * reached.
+	 *
+	 * @param statement to be executed.
+	 * @param parameters to be inserted in the statement.
+	 */
 	public void insertHighScore(PreparedStatement statement, List parameters) {
 		try {
 			statement.setInt(1, (int) parameters.get(0));
@@ -194,8 +214,25 @@ public class DbManager {
 			statement.setTimestamp(3, (Timestamp) parameters.get(2));
 			statement.execute();
 		} catch (SQLException e) {
-			System.err.println(SQL_EXCEPTION + e.getLocalizedMessage());
+			System.err.println("insertHighscore " + SQL_EXCEPTION + e.getLocalizedMessage());
 		}
+	}
+
+	/**
+	 * Method tries opening a connection and returns a boolean value indicating
+	 * whether it succeeded or not. Uses a try-finally block, because it cannot
+	 * handle exceptions that are handled locally in the respective open and
+	 * close methods.
+	 *
+	 * @return whether openConnection() succeeded or not.
+	 */
+	public Boolean testConnection() {
+		try {
+			openConnection();
+			return terminalError; // True = error.
+		} finally { // Can't handle an exception here, we do that in openConnection().
+			closeConnection();
+		} // Close the connection if there was no error, otherwise handle in closeConnection().
 	}
 
 }

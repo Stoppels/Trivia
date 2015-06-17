@@ -20,7 +20,7 @@
                 <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="80.0" vgrow="ALWAYS" />
                 <RowConstraints maxHeight="60.0" minHeight="30.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="46.0" vgrow="ALWAYS" />
-            <RowConstraints minHeight="46.0" vgrow="ALWAYS" />
+                <RowConstraints minHeight="46.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="46.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="40.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="40.0" vgrow="ALWAYS" />
@@ -106,14 +106,14 @@
                         <Font size="24.0" />
                     </font>
                 </ToggleButton>
-            <Label focusTraversable="false" text="Aantal antwoorden" GridPane.columnIndex="1" GridPane.rowIndex="4">
-               <font>
-                  <Font name="System Bold" size="24.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets left="12.0" />
-               </GridPane.margin>
-            </Label>
+                <Label focusTraversable="false" text="Aantal antwoorden" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                    <font>
+                        <Font name="System Bold" size="24.0" />
+                    </font>
+                    <GridPane.margin>
+                        <Insets left="12.0" />
+                    </GridPane.margin>
+                </Label>
                 <Button fx:id="adminMenu" alignment="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" style="-fx-background-radius: 80px;" text="Terug" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="12" GridPane.valignment="CENTER">
                     <font>
                         <Font name="System Bold" size="24.0" />
@@ -129,24 +129,24 @@
                         <Font name="System Bold" size="24.0" />
                     </font>
                 </Button>
-            <ToggleButton fx:id="typeTrueFalseButton" disable="true" mnemonicParsing="false" prefWidth="140.0" text="2 keuzes" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
-               <font>
-                  <Font size="24.0" />
-               </font>
-               <toggleGroup>
-                  <ToggleGroup fx:id="typeGroup" />
-               </toggleGroup>
-            </ToggleButton>
-            <ToggleButton fx:id="typeMultipleChoiceButton" disable="true" mnemonicParsing="false" prefWidth="140.0" text="4 keuzes" toggleGroup="$typeGroup" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="CENTER">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </ToggleButton>
-            <Label fx:id="messageLabel" focusTraversable="false" textFill="#522e90" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="11">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
+                <ToggleButton fx:id="typeTrueFalseButton" disable="true" mnemonicParsing="false" prefWidth="140.0" text="2 keuzes" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                    <toggleGroup>
+                        <ToggleGroup fx:id="typeGroup" />
+                    </toggleGroup>
+                </ToggleButton>
+                <ToggleButton fx:id="typeMultipleChoiceButton" disable="true" mnemonicParsing="false" prefWidth="140.0" text="4 keuzes" toggleGroup="$typeGroup" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                </ToggleButton>
+                <Label fx:id="messageLabel" focusTraversable="false" textFill="#522e90" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="11">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                </Label>
             </children>
         </GridPane>
     </children>

@@ -41,7 +41,7 @@ import static trivia.AppConfig.APPLICATION_COPYRIGHT;
 import trivia.Trivia;
 
 /**
- * FXML Controller class
+ * This class handles the splash screen for the application.
  *
  * @author Team Silent Coders
  * @version 1.0
@@ -85,7 +85,7 @@ public class SplashScreenController extends Trivia implements Initializable {
 	}
 
 	@FXML
-	public void autoPlay() {
+	private void autoPlay() {
 		// Bind the timerLabel text property to the timeSeconds property
 		timerLabel.textProperty().bind(timeSeconds.asString());
 

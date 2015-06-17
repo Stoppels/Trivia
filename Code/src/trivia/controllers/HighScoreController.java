@@ -38,7 +38,7 @@ import static trivia.Trivia.statement;
 import trivia.connectivity.DbManager;
 
 /**
- * FXML Controller class
+ * This class handles the high score view.
  *
  * @author Team Silent Coders
  * @version 1.0
@@ -140,7 +140,7 @@ public class HighScoreController extends Trivia implements Initializable {
 
 	@FXML
 	public static Label playerScoreLabel;
-	
+
 	@FXML
 	private Button mainMenu;
 
@@ -166,6 +166,7 @@ public class HighScoreController extends Trivia implements Initializable {
 				dateLabel5, dateLabel6, dateLabel7, dateLabel8, dateLabel9, dateLabel10);
 		loadHighScore();
 
+		// Disabled because we want scores to be recorded, but anonymously.
 //		if (skippedNameEntry) {
 //			playerStringLabel.setVisible(false);
 //			playerScoreLabel.setVisible(false);
@@ -178,7 +179,7 @@ public class HighScoreController extends Trivia implements Initializable {
 
 			statement = dbm.connection.prepareStatement("SELECT HighScore, UserName, Date "
 					+ "FROM highscore ORDER BY HighScore DESC LIMIT 10;");
-			rs = dbm.getResultSet(statement);
+			rs = dbm.getResultSet(statement); // Executes query statement.
 
 			int i = 0;
 			while (rs.next()) { // Save everything.

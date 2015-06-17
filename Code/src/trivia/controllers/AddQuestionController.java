@@ -42,13 +42,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
-import javafx.stage.StageStyle;
 import trivia.Trivia;
 import static trivia.Trivia.alertDialog;
 import trivia.connectivity.DbManager;
 
 /**
- * FXML Controller class
+ * This class handles the view for adding questions.
  *
  * @author Team Silent Coders
  * @version 1.0
@@ -123,13 +122,14 @@ public class AddQuestionController extends Trivia implements Initializable {
 		addQuestionButton.setOnAction(this::confirmAlertAddQuestion);
 		setMessageLabel();
 
+		// This ChangeListener detects any changes (such as clicks) on the game type toggles.
 		typeGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
 			@Override
 			public void changed(ObservableValue<? extends Toggle> ov,
 					Toggle toggle, Toggle new_toggle) {
 				if (!reset && new_toggle == null) {
 					// Can't unselect entire ToggleGroup: keep one selected at all times.
-					toggle.setSelected(true);
+					toggle.setSelected(true); // Prevents deselection of toggle
 					disableAddButton();
 				} else if (reset && new_toggle == null) {
 					disableAddButton();
@@ -155,13 +155,14 @@ public class AddQuestionController extends Trivia implements Initializable {
 				}
 			}
 		});
+		// This ChangeListener detects any changes (such as clicks) on the difficulty toggles.
 		difficultyGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
 			@Override
 			public void changed(ObservableValue<? extends Toggle> ov,
 					Toggle toggle, Toggle new_toggle) {
 				if (!reset && new_toggle == null) {
 					// Can't unselect entire ToggleGroup: keep one selected at all times.
-					toggle.setSelected(true);
+					toggle.setSelected(true); // Prevents deselection of toggle
 					disableAddButton();
 				} else if (reset && new_toggle == null) {
 					difficultyEasy.setDisable(true);
@@ -224,7 +225,7 @@ public class AddQuestionController extends Trivia implements Initializable {
 			}
 		}
 
-		try {
+		try { // Insert the question into the database.
 			dbm.openConnection();
 			statement = dbm.connection
 					.prepareStatement("INSERT INTO question VALUES(NULL, ?, ?, ?);");
@@ -256,7 +257,7 @@ public class AddQuestionController extends Trivia implements Initializable {
 				+ "Setting question difficulty: " + difficultySetter);
 
 		try {
-			//Get the QuestionId from the ResultSet.
+			// Get the QuestionId from the ResultSet so we can insert the answers.
 			statement = dbm.connection.prepareStatement(
 					"SELECT QuestionId FROM question WHERE Question = ?;");
 			updateParameters = Arrays.asList(addStrings.get(0));
@@ -265,11 +266,13 @@ public class AddQuestionController extends Trivia implements Initializable {
 			String questionId;
 			System.out.println(questionId = rs.getString("QuestionId"));
 
+			// Insert the right answer of the question in the database.
 			statement = dbm.connection.prepareStatement(
 					"INSERT INTO rightanswer VALUES(?, ?, ?);");
 			updateParameters = Arrays.asList(questionId, questionId, addStrings.get(1));
 			dbm.executeUpdate(statement, updateParameters);
 
+			// Insert the wrong answers of the question in the database.
 			statement = dbm.connection.prepareStatement(
 					"INSERT INTO wronganswer VALUES(?, 1, ?), (?, 2, ?), (?, 3, ?);");
 			updateParameters = Arrays.asList(questionId, addStrings.get(2),
@@ -292,6 +295,12 @@ public class AddQuestionController extends Trivia implements Initializable {
 		}
 	}
 
+	/**
+	 * This method clears all fields and deselects all toggles. The reset
+	 * boolean indicates to the ChangeListeners that the toggles may be set to
+	 * null (deselected). The boolean is set to false afterwards in order to
+	 * prevent the deselection of toggles by the user.
+	 */
 	private void clearFields() {
 		reset = true;
 		for (TextField tf : addMcFields) {
@@ -309,7 +318,8 @@ public class AddQuestionController extends Trivia implements Initializable {
 
 	/**
 	 * This method shows an alert dialog asking for confirmation for adding the
-	 * entered question and its answers.
+	 * entered question and its answers. It first checks for empty fields and
+	 * duplicate values.
 	 *
 	 * @param event
 	 */
@@ -370,7 +380,8 @@ public class AddQuestionController extends Trivia implements Initializable {
 
 	/**
 	 * Method that disables the addQuestionButton if any of the necessary fields
-	 * is empty.
+	 * is empty or enables the addQuestionButton if all of the necessary fields
+	 * are filled.
 	 */
 	private void disableAddButton() {
 		if ((typeTrueFalseButton.isSelected() && (addMcFields.get(0).getText().isEmpty()
@@ -384,12 +395,16 @@ public class AddQuestionController extends Trivia implements Initializable {
 		}
 	}
 
+	/**
+	 * This method fetches the total amount of questions in the database and
+	 * displays the number in the message label to inform the user.
+	 */
 	private void setMessageLabel() {
 		try {
 			dbm.openConnection();
 			statement = dbm.connection
 					.prepareStatement("SELECT COUNT(*) FROM question;");
-			rs = dbm.getResultSet(statement);
+			rs = dbm.getResultSet(statement); // Executes query statement.
 			rs.next();
 			messageLabel.setText("Aantal vragen: " + rs.getString(1));
 		} catch (SQLException e) {

@@ -32,7 +32,7 @@ import javafx.scene.control.Button;
 import trivia.Trivia;
 
 /**
- * FXML Controller class
+ * This class handles the administrator menu.
  *
  * @author Team Silent Coders
  * @version 1.0

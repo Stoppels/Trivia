@@ -25,7 +25,7 @@
 package trivia;
 
 /**
- * Application configuration. Contains the default settings.
+ * Application configuration class. Contains the default settings.
  *
  * @author Team Silent Coders
  * @version 1.0

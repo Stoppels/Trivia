@@ -18,7 +18,7 @@
             <rowConstraints>
                 <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="ALWAYS" />
                 <RowConstraints maxHeight="-Infinity" minHeight="80.0" vgrow="ALWAYS" />
-            <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="ALWAYS" />
+                <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="30.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="100.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="100.0" vgrow="ALWAYS" />
@@ -74,12 +74,12 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Button>
-            <Label fx:id="copyrightLabel" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" textFill="#522e90" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
-            <Label text="De quiz voor jong en oud!" GridPane.halignment="CENTER" GridPane.rowIndex="2">
-               <font>
-                  <Font name="System Italic" size="18.0" />
-               </font>
-            </Label>
+                <Label fx:id="copyrightLabel" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" textFill="#522e90" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
+                <Label text="De quiz voor jong en oud!" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                    <font>
+                        <Font name="System Italic" size="18.0" />
+                    </font>
+                </Label>
             </children>
         </GridPane>
     </children>

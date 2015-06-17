@@ -49,7 +49,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
-import javafx.stage.StageStyle;
 import trivia.Trivia;
 import static trivia.Trivia.alertDialog;
 import static trivia.Trivia.rs;
@@ -59,7 +58,7 @@ import trivia.connectivity.DbManager;
 import static trivia.controllers.AddQuestionController.duplicateError;
 
 /**
- * FXML Controller class
+ * This class handles the question management view.
  *
  * @author Team Silent Coders
  * @version 1.0
@@ -149,13 +148,14 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 		deleteQuestionButton.setOnAction(this::confirmDeleteQuestion);
 		setMessageLabel();
 
+		// This ChangeListener detects any changes (such as clicks) on the game type toggles.
 		typeGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
 			@Override
 			public void changed(ObservableValue<? extends Toggle> ov,
 					Toggle toggle, Toggle new_toggle) {
 				if (!reset && new_toggle == null) {
 					// Can't unselect entire ToggleGroup: keep one selected at all times.
-					toggle.setSelected(true);
+					toggle.setSelected(true); // Prevents deselection of toggle.
 					disableEditButton();
 				} else if (reset && new_toggle == null) {
 					disableEditButton();
@@ -181,14 +181,14 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 				}
 			}
 		});
-		// Can't unselect entire ToggleGroup: keep one selected at all times.
+		// This ChangeListener detects any changes (such as clicks) on the difficulty toggles.
 		difficultyGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
 			@Override
 			public void changed(ObservableValue<? extends Toggle> ov,
 					Toggle toggle, Toggle new_toggle) {
 				if (!reset && new_toggle == null) {
 					// Can't unselect entire ToggleGroup: keep one selected at all times.
-					toggle.setSelected(true);
+					toggle.setSelected(true); // Prevents deselection of toggle
 					disableEditButton();
 				} else if (reset && new_toggle == null) {
 					disableEditButton();
@@ -198,6 +198,7 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 			}
 		});
 		editQuestionButton.setDisable(true);
+		// This ChangeListener detects any changes (such as typing) in the TextFields.
 		for (TextField tf : editMcFields) {
 			tf.textProperty().addListener(new ChangeListener<String>() {
 				@Override
@@ -208,6 +209,7 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 			});
 		}
 		deleteQuestionButton.setDisable(true);
+		// This ChangeListener detects any changes (such as selecting) on the ComboBox.
 		selectQuestion.getSelectionModel().selectedItemProperty().addListener(
 				new ChangeListener<String>() {
 					@Override
@@ -223,7 +225,10 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 	}
 
 	/**
-	 * Clears all the fields and deselects all toggles.
+	 * This method clears all fields and deselects all toggles. The reset
+	 * boolean indicates to the ChangeListeners that the toggles may be set to
+	 * null (deselected). The boolean is set to false afterwards in order to
+	 * prevent the deselection of toggles by the user.
 	 */
 	private void clearFields() {
 		reset = true;
@@ -245,7 +250,8 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 
 	/**
 	 * This method shows an alert dialog asking for confirmation for saving the
-	 * edited question and its answers.
+	 * edited question and its answers. It first checks for empty fields and
+	 * duplicate values.
 	 *
 	 * @param event
 	 */
@@ -540,7 +546,7 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 			dbm.openConnection();
 			statement = dbm.connection.prepareStatement(
 					"SELECT QuestionId FROM question ORDER by QuestionId DESC LIMIT 1;");
-			rs = dbm.getResultSet(statement);
+			rs = dbm.getResultSet(statement); // Executes query statement.
 			while (rs.next()) {
 				questionsTotal = rs.getInt(1);
 			}
@@ -555,7 +561,7 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 					list.add(rs.getString(1));
 				}
 			}
-			// Test the list by showcasing it.
+			// Test the list by showcasing it. Currently disabled, included for debug purposes.
 //			System.out.println("List of questions: " + list + "\n"
 //					+ "Highest questionId: " + questionsTotal);
 
@@ -576,12 +582,16 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 		}
 	}
 
+	/**
+	 * This method fetches the total amount of questions in the database and
+	 * displays the number in the message label to inform the user.
+	 */
 	private void setMessageLabel() {
 		try {
 			dbm.openConnection();
 			statement = dbm.connection
 					.prepareStatement("SELECT COUNT(*) FROM question;");
-			rs = dbm.getResultSet(statement);
+			rs = dbm.getResultSet(statement); // Executes query statement.
 			rs.next();
 			messageLabel.setText("Aantal vragen: " + rs.getString(1));
 		} catch (SQLException e) {
@@ -616,7 +626,7 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 				editStrings.set(i, tf.getText());
 			}
 		}
-		if (selectedFields == editTfFields) { // Also store the §§correct strings if empty.
+		if (selectedFields == editTfFields) { // Also store the correct strings if empty.
 			editStrings.set(3, "");
 			editStrings.set(4, "");
 		}
@@ -626,7 +636,9 @@ public class ManageQuestionsController extends Trivia implements Initializable {
 	}
 
 	/**
-	 * If no question is selected in ComboBox, disable all fields & vice versa.
+	 * If no question is selected in the ComboBox, disable all fields and
+	 * toggles & if a question is selected in the ComboBox, enable all fields
+	 * and toggles.
 	 *
 	 * @param b
 	 */

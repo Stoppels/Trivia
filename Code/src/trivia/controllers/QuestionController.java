@@ -50,13 +50,15 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import static trivia.AppConfig.LONG_LENGTH;
+import static trivia.AppConfig.MEDIUM_LENGTH;
+import static trivia.AppConfig.SHORT_LENGTH;
 import trivia.Trivia;
 import static trivia.Trivia.alertDialog;
 
 /**
- * FXML Controller class
+ * This class handles the quiz-section (question view) of the application.
  *
  * @author Team Silent Coders
  * @version 1.0
@@ -253,6 +255,12 @@ public class QuestionController extends Trivia implements Initializable {
 		});
 	}
 
+	private void clearStrings() {
+		loadedStrings = new String[gameLength][8];
+		chosenAnswers = new String[gameLength][2];
+		correctAnswers = new String[gameLength][2];
+	}
+
 	/**
 	 * Selects the answer player chose earlier for current question, if any.
 	 *
@@ -332,6 +340,7 @@ public class QuestionController extends Trivia implements Initializable {
 	 * This method loads the game settings for the new game.
 	 */
 	public void loadGameSettings() {
+		clearStrings();
 		int questionsIndex = -1;
 
 		String type = " AND GameType = '", difficulty = " AND Difficulty = '";
@@ -373,6 +382,7 @@ public class QuestionController extends Trivia implements Initializable {
 			}
 		} catch (SQLException | NullPointerException e) {
 			System.err.println("Error: " + e.getLocalizedMessage());
+			return;
 		} finally {
 			dbm.closeConnection();
 			rs = null;
@@ -445,6 +455,7 @@ public class QuestionController extends Trivia implements Initializable {
 		System.out.println(temp + "QuestionButton was fired.");
 		if (timerSetting && !gameIsFinished) { // Updates timer for each question.
 			remainingTimerDuration.set(questionNumber - 1, parseInt(timer.getText()));
+			// Print a detailed overview.
 //			for (int i = 0; i < gameLength; i++) {
 //				System.out.println("Time remaining for question " + (i + 1) + ": "
 //						+ remainingTimerDuration.get(i).toString());
@@ -541,6 +552,68 @@ public class QuestionController extends Trivia implements Initializable {
 		if (gameIsFinished) {
 			showAnswers();
 		}
+	}
+
+	/**
+	 * This method restores the default settings on game ending.
+	 */
+	public static void resetGameSettings() {
+		loadSettings();
+		for (String s : varHolder) {
+			switch (s) {
+				case "difficultyMixed":
+					System.out.println("Reset difficulty setting: mixed.");
+					GameSetUpController.difficultyIsMixed = true;
+					break;
+				case "difficultyEasy":
+					System.out.println("Reset difficulty setting: easy.");
+					GameSetUpController.difficultyIsEasy = true;
+					GameSetUpController.difficultyIsMixed = false;
+					break;
+				case "difficultyHard":
+					System.out.println("Reset difficulty setting: hard.");
+					GameSetUpController.difficultyIsEasy = false;
+					GameSetUpController.difficultyIsMixed = false;
+					break;
+				case "typeMixed":
+					System.out.println("Reset type setting: mixed.");
+					GameSetUpController.typeIsMixed = true;
+					break;
+				case "typeTf":
+					System.out.println("Reset type setting: true or false.");
+					GameSetUpController.typeIsTf = true;
+					GameSetUpController.typeIsMixed = false;
+					break;
+				case "typeMc":
+					System.out.println("Reset type setting: multiple choice.");
+					GameSetUpController.typeIsTf = false;
+					GameSetUpController.typeIsMixed = false;
+					break;
+				case "shortLength":
+					System.out.println("Reset length setting: short.");
+					gameLength = SHORT_LENGTH;
+					break;
+				case "mediumLength":
+					System.out.println("Reset length setting: medium.");
+					gameLength = MEDIUM_LENGTH;
+					break;
+				case "longLength":
+					System.out.println("Reset length setting: long.");
+					gameLength = LONG_LENGTH;
+					break;
+				default: // Nothing is selected or it's a number.
+					if (parseInt(s) >= 10 && parseInt(s) <= 60) {
+						System.out.println("Reset timer duration: " + s + " seconds.");
+					} else {
+						System.err.println("Something is wrong with the (default) "
+								+ "var prefs. Suspect: " + s);
+					}
+					break;
+			}
+		}
+
+		timerSetting = boolHolder[0];
+		System.out.println("Reset timer setting: " + (timerSetting ? "on." : "off."));
 	}
 
 	/**
@@ -703,7 +776,7 @@ public class QuestionController extends Trivia implements Initializable {
 		if (alertDialog(AlertType.CONFIRMATION, "Stop quiz", "Weet u zeker dat u"
 				+ " de quiz wilt stoppen?", "De antwoorden worden niet opgeslagen."
 				+ "\nDit brengt u terug naar het hoofdmenu.")) {
-			// TO DO: WIPE SAVED ANSWERS
+			resetGameSettings();
 			loadView(event);
 		} else { // Player cancels the method, if timer's enabled, continue countdown.
 			if (timerSetting && !gameIsFinished) {

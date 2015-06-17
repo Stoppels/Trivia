@@ -168,32 +168,32 @@
                         <Font name="System Bold" size="24.0" />
                     </font>
                 </Label>
-            <Label fx:id="timerLabel" focusTraversable="false" text="30" textFill="#522e90" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="6">
-               <font>
-                  <Font name="System Bold" size="36.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
-            </Label>
+                <Label fx:id="timerLabel" focusTraversable="false" text="30" textFill="#522e90" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+                    <font>
+                        <Font name="System Bold" size="36.0" />
+                    </font>
+                    <GridPane.margin>
+                        <Insets />
+                    </GridPane.margin>
+                </Label>
                 <Slider fx:id="timerSlider" blockIncrement="5.0" majorTickUnit="10.0" max="60.0" min="10.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" value="30.0" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="7" GridPane.valignment="CENTER">
-               <padding>
-                  <Insets left="-5.0" top="20.0" />
-               </padding>
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
+                    <padding>
+                        <Insets left="-5.0" top="20.0" />
+                    </padding>
+                    <GridPane.margin>
+                        <Insets />
+                    </GridPane.margin>
                 </Slider>
                 <Button fx:id="adminMenu" alignment="CENTER" minHeight="60.0" minWidth="200.0" mnemonicParsing="false" style="-fx-background-radius: 80px;" text="Terug" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="9" GridPane.valignment="CENTER">
                     <font>
                         <Font name="System Bold" size="24.0" />
                     </font>
                 </Button>
-            <Button fx:id="advancedSettings" alignment="CENTER" minHeight="60.0" minWidth="200.0" mnemonicParsing="false" style="-fx-background-radius: 80px;" text="Geavanceerd" textAlignment="CENTER" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="9">
-               <font>
-                  <Font name="System Bold" size="24.0" />
-               </font>
-            </Button>
+                <Button fx:id="advancedSettings" alignment="CENTER" minHeight="60.0" minWidth="200.0" mnemonicParsing="false" style="-fx-background-radius: 80px;" text="Geavanceerd" textAlignment="CENTER" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="9">
+                    <font>
+                        <Font name="System Bold" size="24.0" />
+                    </font>
+                </Button>
                 <Button fx:id="saveSettings" alignment="CENTER" minHeight="60.0" minWidth="200.0" mnemonicParsing="false" style="-fx-background-radius: 80px;" text="Bewaar" GridPane.columnIndex="4" GridPane.columnSpan="3" GridPane.halignment="RIGHT" GridPane.rowIndex="9" GridPane.valignment="CENTER">
                     <font>
                         <Font name="System Bold" size="24.0" />

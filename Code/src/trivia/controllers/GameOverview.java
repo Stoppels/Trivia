@@ -48,7 +48,7 @@ import static trivia.controllers.QuestionController.remainingTimerDuration;
 import static trivia.controllers.QuestionController.skippedQuestionsTotal;
 
 /**
- * FXML Controller class
+ * This class handles the post-game overview view.
  *
  * @author Team Silent Coders
  * @version 1.0
@@ -111,6 +111,7 @@ public class GameOverview extends trivia.Trivia implements Initializable {
 				String.valueOf(gameLength - correctAnswersTotal - skippedQuestionsTotal));
 		skippedQuestionsLabel.setText(skippedQuestionsTotal.toString());
 		computeScore();
+//		QuestionController.resetGameSettings();
 	}
 
 	private void computeScore() {
@@ -159,6 +160,9 @@ public class GameOverview extends trivia.Trivia implements Initializable {
 			fastestQuestionTextLabel.setVisible(timerSetting);
 			fastestQuestionLabel.setVisible(timerSetting);
 		}
+		if (score < 0.0) {
+			score = 0.0; // If aliens adjust math, defy their fooling around.
+		}
 		scoreLabel.setText(String.valueOf(score.intValue()));
 	}
 
@@ -166,7 +170,7 @@ public class GameOverview extends trivia.Trivia implements Initializable {
 		TextInputDialog dialog = new TextInputDialog("");
 		dialog.setTitle("Voer naam in");
 		dialog.setHeaderText(null);
-		dialog.setContentText("Vul hier uw naam in of sla deze stap over.");
+		dialog.setContentText("Vul hier uw naam in of laat het veld leeg.");
 		dialog.initStyle(StageStyle.UNDECORATED);
 
 		try {

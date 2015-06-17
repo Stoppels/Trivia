@@ -33,11 +33,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.stage.StageStyle;
 import trivia.Trivia;
 
 /**
- * FXML Controller class
+ * This class handles the player's main menu.
  *
  * @author Team Silent Coders
  * @version 1.0
@@ -51,16 +50,16 @@ public class MainMenuController extends Trivia implements Initializable {
 	private Button gameSetUp;
 
 	@FXML
-	private Label uitlegA;
+	private Label explanationA;
 
 	@FXML
-	private Label uitlegB;
+	private Label explanationB;
 
 	@FXML
-	private Label uitlegC;
+	private Label explanationC;
 
 	@FXML
-	private Label uitlegD;
+	private Label explanationD;
 
 	List<Label> helpItems;
 
@@ -72,7 +71,7 @@ public class MainMenuController extends Trivia implements Initializable {
 	 */
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		helpItems = Arrays.asList(uitlegA, uitlegB, uitlegC, uitlegD);
+		helpItems = Arrays.asList(explanationA, explanationB, explanationC, explanationD);
 		startGame.setOnAction(this::loadView);
 		gameSetUp.setOnAction(this::loadView);
 	}

@@ -50,3 +50,5 @@ Temporary Items
 
 # Get rid of .gitignore
 .gitignore
+/Code/build/
+/Code/dist/

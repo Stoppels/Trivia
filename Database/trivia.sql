@@ -209,7 +209,7 @@ INSERT INTO `question` (`QuestionId`, `Question`, `GameType`, `Difficulty`) VALU
 (142, 'Hoe wordt motorrijtuigenbelasting vaak genoemd?', 'MultipleChoice', 'Easy'),
 (143, 'Wat is ''s werelds bekendste kalmeringsmiddel?', 'MultipleChoice', 'Hard'),
 (144, 'Wat is 83 x 3 + 21 ?', 'MultipleChoice', 'Hard'),
-(145, 'Wat is het vijfde basisgebod van de islam, naast geloof in Allah en Mohammed, aalmoezen, een Mekkabedevaart en vijfmaal per dag bidden?', 'MultipleChoice', 'Hard'),
+(145, 'Wat is het vijfde basisgebod van de islam?', 'MultipleChoice', 'Hard'),
 (146, 'Hoeveel motoren heeft een Boeing 737?', 'MultipleChoice', 'Hard'),
 (147, 'Voor welk getaal staat het Romeinse ''cijfer'' X ? ', 'MultipleChoice', 'Easy'),
 (148, 'Waar staat de afkorting SMS voor?', 'MultipleChoice', 'Hard'),

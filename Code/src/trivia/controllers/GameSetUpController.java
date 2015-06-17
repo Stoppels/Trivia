@@ -45,7 +45,7 @@ import static trivia.AppConfig.SHORT_LENGTH;
 import trivia.Trivia;
 
 /**
- * FXML Controller class
+ * This class handles the game setup view.
  *
  * @author Team Silent Coders
  * @version 1.0
@@ -151,7 +151,7 @@ public class GameSetUpController extends Trivia implements Initializable {
 	/**
 	 * This precious makes sure the last saved settings are loaded.
 	 */
-	private void getSettings() {
+	public void getSettings() {
 		loadSettings();
 
 		for (String s : varHolder) {

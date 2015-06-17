@@ -49,7 +49,7 @@ import trivia.Trivia;
 import trivia.connectivity.DbManager;
 
 /**
- * FXML Controller class
+ * This class handles the default settings view.
  *
  * @author Team Silent Coders
  * @version 1.0
@@ -124,7 +124,7 @@ public class DefaultSettingsController extends Trivia implements Initializable {
 
 	@FXML
 	private Button advancedSettings;
-	
+
 	@FXML
 	private Button saveSettings;
 

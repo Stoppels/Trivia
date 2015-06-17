@@ -42,7 +42,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
-import javafx.stage.StageStyle;
 import static trivia.AppConfig.*;
 import trivia.Trivia;
 import static trivia.Trivia.alertDialog;
@@ -53,8 +52,9 @@ import static trivia.Trivia.prefs;
 import trivia.connectivity.DbManager;
 
 /**
+ * This class handles the advanced settings view.
  *
- * @author Nick Shayan
+ * @author Team Silent Coders
  * @version 1.0
  */
 public class AdvancedSettingsController extends Trivia implements Initializable {
@@ -221,7 +221,11 @@ public class AdvancedSettingsController extends Trivia implements Initializable 
 		disableSaveButton();
 	}
 
-	private void getSettings() {
+	/**
+	 * This method fetches the stored preferences. If any setting is missing,
+	 * the default setting is set.
+	 */
+	public void getSettings() {
 		databaseUrl = prefs.get(dbUrl, DEFAULT_URL);
 		databaseUser = prefs.get(dbUser, DEFAULT_USER);
 		databasePass = prefs.get(dbPass, DEFAULT_PASS);
@@ -255,6 +259,12 @@ public class AdvancedSettingsController extends Trivia implements Initializable 
 		}
 	}
 
+	/**
+	 * This method resets the remote database settings to the default database
+	 * settings. Afterwards the reloadSettings() method is called.
+	 *
+	 * @param event
+	 */
 	private void resetDatabase(ActionEvent event) {
 		prefs.put(dbUrl, DEFAULT_URL);
 		prefs.put(dbUser, DEFAULT_USER);
@@ -262,12 +272,24 @@ public class AdvancedSettingsController extends Trivia implements Initializable 
 		reloadSettings();
 	}
 
+	/**
+	 * This method reloads the settings by calling multiple other methods. The
+	 * method reloads by fetching the stored preferences, filling the fields and
+	 * setting the text label.
+	 */
 	private void reloadSettings() {
 		getSettings();
 		fillFields();
 		setMessageLabel();
 	}
 
+	/**
+	 * This method saves the connectivity settings given by the user for a
+	 * remote database. It first checks the TextFields' content to make sure the
+	 * given URL is valid.
+	 *
+	 * @param event
+	 */
 	private void saveSettings(ActionEvent event) {
 		Boolean empty = false, breaker = false;
 		while (!empty && !breaker) {
@@ -294,6 +316,12 @@ public class AdvancedSettingsController extends Trivia implements Initializable 
 		}
 	}
 
+	/**
+	 * Updates the text Label with the connectivity status of the remote
+	 * database. If the remote database denies the connection or the database is
+	 * otherwise unreachable, it will also reflect the connectivity status of
+	 * the back-up local database (localhost).
+	 */
 	private void setMessageLabel() {
 		currentDatabaseLabel.setText(databaseUrl);
 		dbm.openConnection();

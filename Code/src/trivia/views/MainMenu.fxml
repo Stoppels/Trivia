@@ -12,7 +12,7 @@
 
 <AnchorPane minHeight="600.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="trivia.controllers.MainMenuController">
     <children>
-        <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <GridPane layoutX="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="0.0">
             <columnConstraints>
                 <ColumnConstraints hgrow="ALWAYS" minWidth="-Infinity" prefWidth="200.0" />
                 <ColumnConstraints hgrow="ALWAYS" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="30.0" />
@@ -81,22 +81,22 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Button>
-                <Label fx:id="uitlegA" alignment="BASELINE_LEFT" contentDisplay="CENTER" text="Start het spel" textAlignment="CENTER" textFill="#522e90" visible="false" GridPane.columnIndex="4" GridPane.rowIndex="3">
+                <Label fx:id="explanationA" alignment="BASELINE_LEFT" contentDisplay="CENTER" text="Start het spel" textAlignment="CENTER" textFill="#522e90" visible="false" GridPane.columnIndex="4" GridPane.rowIndex="3">
                     <font>
                         <Font size="24.0" />
                     </font>
                 </Label>
-                <Label fx:id="uitlegB" alignment="BASELINE_LEFT" contentDisplay="CENTER" text="Wijzig spelinstellingen" textAlignment="CENTER" textFill="#522e90" visible="false" GridPane.columnIndex="4" GridPane.rowIndex="4">
+                <Label fx:id="explanationB" alignment="BASELINE_LEFT" contentDisplay="CENTER" text="Wijzig spelinstellingen" textAlignment="CENTER" textFill="#522e90" visible="false" GridPane.columnIndex="4" GridPane.rowIndex="4">
                     <font>
                         <Font size="24.0" />
                     </font>
                 </Label>
-                <Label fx:id="uitlegC" alignment="BASELINE_LEFT" contentDisplay="CENTER" text="Verberg deze uitleg" textAlignment="CENTER" textFill="#522e90" visible="false" GridPane.columnIndex="4" GridPane.rowIndex="5">
+                <Label fx:id="explanationC" alignment="BASELINE_LEFT" contentDisplay="CENTER" text="Verberg deze uitleg" textAlignment="CENTER" textFill="#522e90" visible="false" GridPane.columnIndex="4" GridPane.rowIndex="5">
                     <font>
                         <Font size="24.0" />
                     </font>
                 </Label>
-                <Label fx:id="uitlegD" alignment="BASELINE_LEFT" contentDisplay="CENTER" text="Spel afsluiten" textAlignment="CENTER" textFill="#522e90" visible="false" GridPane.columnIndex="4" GridPane.rowIndex="6">
+                <Label fx:id="explanationD" alignment="BASELINE_LEFT" contentDisplay="CENTER" text="Spel afsluiten" textAlignment="CENTER" textFill="#522e90" visible="false" GridPane.columnIndex="4" GridPane.rowIndex="6">
                     <font>
                         <Font size="24.0" />
                     </font>
